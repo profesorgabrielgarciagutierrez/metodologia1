@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metodología de la Investigación — Clase 1</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2332;
+    --border: rgba(255,255,255,0.08);
+    --text: #eceef5;
+    --muted: #7a8099;
+    --blue: #4a9eff;
+    --blue-dim: rgba(74,158,255,0.12);
+    --teal: #2dd4b0;
+    --teal-dim: rgba(45,212,176,0.12);
+    --amber: #f5a623;
+    --amber-dim: rgba(245,166,35,0.12);
+    --coral: #ff6b6b;
+    --coral-dim: rgba(255,107,107,0.12);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.12);
+    --green: #6ee7a0;
+    --green-dim: rgba(110,231,160,0.12);
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+  }
+
+  /* SLIDE SYSTEM */
+  .slide {
+    display: none;
+    width: 100vw; height: 100vh;
+    padding: 48px 64px;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  /* Background grid texture */
+  .slide::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  /* SLIDE 0 — PORTADA */
+  .slide-portada {
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(74,158,255,0.08) 0%, transparent 70%);
+  }
+  .portada-eyebrow {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--blue); font-weight: 500;
+    border: 1px solid rgba(74,158,255,0.3);
+    padding: 5px 16px; border-radius: 20px;
+    margin-bottom: 28px;
+    display: inline-block;
+  }
+  .portada-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 64px; line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 16px;
+    max-width: 800px;
+  }
+  .portada-title em { color: var(--blue); font-style: italic; }
+  .portada-sub {
+    font-size: 18px; color: var(--muted); font-weight: 300;
+    max-width: 560px; line-height: 1.6;
+    margin-bottom: 48px;
+  }
+  .portada-meta {
+    display: flex; gap: 32px;
+    font-size: 13px; color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+  .portada-meta span { display: flex; align-items: center; gap: 6px; }
+  .portada-meta strong { color: var(--text); }
+
+  /* SLIDE — PREGUNTA */
+  .slide-pregunta {
+    align-items: center; text-align: center;
+    background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(245,166,35,0.06) 0%, transparent 70%);
+  }
+  .pregunta-label {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--amber); font-weight: 500; margin-bottom: 32px;
+  }
+  .pregunta-main {
+    font-family: 'DM Serif Display', serif;
+    font-size: 72px; line-height: 1.1;
+    color: var(--text); max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .pregunta-main em { color: var(--amber); font-style: italic; }
+  .pregunta-hint {
+    font-size: 16px; color: var(--muted);
+    max-width: 500px; line-height: 1.7;
+  }
+
+  /* SLIDE — HISTORIA */
+  .historia-icon {
+    font-size: 80px; margin-bottom: 24px;
+    filter: grayscale(20%);
+  }
+  .historia-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px; line-height: 1.3;
+    color: var(--text); max-width: 760px; text-align: center;
+    margin-bottom: 32px;
+  }
+  .historia-text em { color: var(--coral); font-style: italic; }
+  .historia-pregunta {
+    font-size: 28px; color: var(--muted); font-weight: 300;
+    border-top: 1px solid var(--border); padding-top: 24px;
+    max-width: 600px; text-align: center;
+  }
+  .historia-pregunta strong { color: var(--blue); font-weight: 500; }
+
+  /* SLIDE — CONCEPTO DOS COLUMNAS */
+  .slide-doble { flex-direction: column; }
+  .slide-titulo {
+    font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); font-weight: 500; margin-bottom: 8px;
+  }
+  .slide-h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 40px; color: var(--text);
+    margin-bottom: 36px; line-height: 1.15;
+  }
+  .slide-h2 em { font-style: italic; }
+  .cols { display: grid; gap: 20px; flex: 1; }
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    display: flex; flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(255,255,255,0.15); }
+  .card-accent { width: 3px; height: 28px; border-radius: 2px; margin-bottom: 4px; }
+  .card h3 { font-size: 17px; font-weight: 500; color: var(--text); }
+  .card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+  .card .tag {
+    display: inline-block; font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 500;
+    padding: 3px 10px; border-radius: 20px; margin-bottom: 4px;
+  }
+
+  .blue-card .card-accent { background: var(--blue); }
+  .blue-card .tag { background: var(--blue-dim); color: var(--blue); }
+  .teal-card .card-accent { background: var(--teal); }
+  .teal-card .tag { background: var(--teal-dim); color: var(--teal); }
+  .amber-card .card-accent { background: var(--amber); }
+  .amber-card .tag { background: var(--amber-dim); color: var(--amber); }
+  .coral-card .card-accent { background: var(--coral); }
+  .coral-card .tag { background: var(--coral-dim); color: var(--coral); }
+  .purple-card .card-accent { background: var(--purple); }
+  .purple-card .tag { background: var(--purple-dim); color: var(--purple); }
+  .green-card .card-accent { background: var(--green); }
+  .green-card .tag { background: var(--green-dim); color: var(--green); }
+
+  /* SLIDE — MÉTODO (pasos) */
+  .metodo-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    flex: 1;
+    align-items: stretch;
+  }
+  .metodo-paso {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 16px;
+    display: flex; flex-direction: column;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .metodo-paso::after {
+    content: attr(data-n);
+    position: absolute; right: 12px; bottom: 12px;
+    font-size: 48px; font-weight: 600;
+    opacity: 0.04; line-height: 1;
+    font-family: 'DM Serif Display', serif;
+  }
+  .metodo-num {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 4px;
+  }
+  .metodo-paso h3 { font-size: 15px; font-weight: 500; color: var(--text); }
+  .metodo-paso .vida { font-size: 12px; color: var(--muted); line-height: 1.55; margin-top: 4px; }
+  .metodo-paso .audit { font-size: 12px; line-height: 1.55; margin-top: 4px; padding: 8px 10px; border-radius: 8px; }
+
+  /* SLIDE — PARALELO (tabla comparativa) */
+  .paralelo-table {
+    width: 100%; border-collapse: collapse; flex: 1;
+  }
+  .paralelo-table th {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); font-weight: 500;
+    padding: 0 0 12px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .paralelo-table td {
+    padding: 14px 0; vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px; line-height: 1.55;
+  }
+  .paralelo-table td:first-child {
+    width: 18%; color: var(--blue); font-weight: 500; font-size: 13px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    padding-right: 20px;
+  }
+  .paralelo-table td:nth-child(2) { color: var(--text); padding-right: 32px; width: 40%; }
+  .paralelo-table td:nth-child(3) { color: var(--teal); width: 40%; }
+
+  /* SLIDE — CIERRE */
+  .slide-cierre {
+    align-items: center; text-align: center;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(110,231,160,0.06) 0%, transparent 70%);
+  }
+  .cierre-reveal {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px; width: 100%; margin-bottom: 40px;
+  }
+  .reveal-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 16px;
+    text-align: left;
+  }
+  .reveal-item .antes { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .reveal-item .antes span { text-decoration: line-through; }
+  .reveal-item .despues { font-size: 15px; font-weight: 500; }
+  .cierre-arrow { font-size: 20px; color: var(--muted); margin: 0 auto 12px; }
+
+  /* NAVEGACIÓN */
+  .nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    background: linear-gradient(transparent, rgba(15,17,23,0.95));
+    z-index: 100;
+  }
+  .nav-info {
+    font-size: 12px; color: var(--muted); letter-spacing: 0.05em;
+  }
+  .nav-dots { display: flex; gap: 6px; }
+  .nav-dot {
+    width: 6px; height: 6px; border-radius: 3px;
+    background: var(--border); cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-dot.active { width: 20px; background: var(--blue); }
+  .nav-btns { display: flex; gap: 10px; }
+  .nav-btn {
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 13px; padding: 8px 20px; border-radius: 8px;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .nav-btn:hover { background: var(--surface2); border-color: rgba(255,255,255,0.15); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+  /* BLOQUE LABEL */
+  .bloque-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .bloque-dot { width: 6px; height: 6px; border-radius: 3px; }
+
+  /* EJEMPLO BOX */
+  .ejemplo {
+    background: var(--amber-dim);
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 12px; padding: 16px 20px;
+    margin-top: 16px;
+  }
+  .ejemplo-lbl { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); font-weight: 600; margin-bottom: 6px; }
+  .ejemplo p { font-size: 14px; color: rgba(245,166,35,0.9); line-height: 1.65; }
+
+  /* PREGUNTA REFLEXIÓN */
+  .reflexion {
+    background: var(--blue-dim);
+    border: 1px solid rgba(74,158,255,0.2);
+    border-radius: 12px; padding: 20px 24px;
+    margin-top: 20px; text-align: center;
+  }
+  .reflexion-lbl { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 10px; }
+  .reflexion p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: var(--text); line-height: 1.4; font-style: italic;
+  }
+
+  /* PUENTE */
+  .puente {
+    background: var(--purple-dim);
+    border: 1px solid rgba(167,139,250,0.25);
+    border-radius: 14px; padding: 24px 28px;
+    margin-top: 24px;
+  }
+  .puente-lbl { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple); font-weight: 600; margin-bottom: 10px; }
+  .puente p { font-size: 15px; color: rgba(167,139,250,0.9); line-height: 1.7; }
+  .puente strong { color: var(--purple); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- ─── SLIDE 0: PORTADA ─── -->
+<div class="slide slide-portada active" id="slide-0">
+  <span class="portada-eyebrow">Universidad de Guayaquil · Contabilidad y Auditoría · II Semestre</span>
+  <h1 class="portada-title">Metodología de la<br><em>Investigación</em></h1>
+  <p class="portada-sub">Primera sesión — Hacia el conocimiento científico: del instinto al método</p>
+  <div class="portada-meta">
+    <span><strong>Duración</strong> 180 minutos</span>
+    <span><strong>Modalidad</strong> Presencial</span>
+    <span><strong>Tema central</strong> Conocimiento empírico, método científico y sus fundamentos</span>
+  </div>
+</div>
+
+<!-- ─── SLIDE 1: LA PREGUNTA ─── -->
+<div class="slide slide-pregunta" id="slide-1">
+  <p class="pregunta-label">Para empezar — reflexión abierta</p>
+  <h2 class="pregunta-main">¿Cómo sabes que<br>lo que ves<br>es <em>verdad</em>?</h2>
+  <p class="pregunta-hint">Tres respuestas espontáneas. Anotar las palabras clave en la pizarra. Guardarlas — volverán al final.</p>
+</div>
+
+<!-- ─── SLIDE 2: EL EMPANADO ─── -->
+<div class="slide" id="slide-2" style="align-items:center; text-align:center; justify-content:center;">
+  <div class="historia-icon">🫙</div>
+  <h2 class="historia-text">Llegaste a casa.<br>Abriste el refrigerador.<br>El empanado <em>no estaba</em>.</h2>
+  <p class="historia-pregunta">¿Qué haces? — y más importante — <strong>¿acabas de hacer ciencia?</strong></p>
+</div>
+
+<!-- ─── SLIDE 3: CONOCIMIENTO EMPÍRICO vs CIENTÍFICO ─── -->
+<div class="slide slide-doble" id="slide-3">
+  <p class="bloque-badge"><span class="bloque-dot" style="background:var(--teal)"></span>Tema 1</p>
+  <h2 class="slide-h2">Conocimiento empírico<br><em>y</em> conocimiento científico</h2>
+  <div class="cols cols-2">
+    <div class="card teal-card">
+      <span class="tag">Empírico</span>
+      <div class="card-accent"></div>
+      <h3>Basado en la experiencia</h3>
+      <p>Surge de los sentidos, la vivencia y la costumbre. No requiere demostración sistemática. Poderoso — y limitado.</p>
+      <p style="margin-top:8px; font-size:13px;">"Sé que si no anoto el gasto, se me olvida."<br>Eso lo aprendiste viviendo, no estudiándolo.</p>
+    </div>
+    <div class="card blue-card">
+      <span class="tag">Científico</span>
+      <div class="card-accent"></div>
+      <h3>Sistemático y verificable</h3>
+      <p>Metódico, objetivo, comunicable y acumulativo. No reemplaza la experiencia — la ordena, la pone a prueba.</p>
+      <p style="margin-top:8px; font-size:13px;">Las NIIF no surgieron de la intuición: se construyeron con investigación, evidencia y revisión de pares durante décadas.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SLIDE 4: OBJETIVIDAD vs SUBJETIVIDAD ─── -->
+<div class="slide slide-doble" id="slide-4">
+  <p class="bloque-badge"><span class="bloque-dot" style="background:var(--teal)"></span>Tema 1 · continuación</p>
+  <h2 class="slide-h2">Objetividad<br><em>y</em> subjetividad</h2>
+  <div class="cols cols-2">
+    <div class="card coral-card">
+      <span class="tag">Subjetivo</span>
+      <div class="card-accent"></div>
+      <h3>Filtrado por quien observa</h3>
+      <p>"Parece que la empresa va bien." — ¿Por qué? ¿Qué datos lo respaldan? Sin evidencia, es una impresión.</p>
+      <p style="margin-top:8px; font-size:13px; color:var(--coral);">El gerente es amigo de la familia → queremos que los números le salgan bien. Eso contamina el análisis.</p>
+    </div>
+    <div class="card blue-card">
+      <span class="tag">Objetivo</span>
+      <div class="card-accent"></div>
+      <h3>Independiente del observador</h3>
+      <p>"Los ratios de liquidez cayeron un 18 % en tres trimestres consecutivos." — Dos auditores distintos, mismos documentos, misma conclusión.</p>
+      <p style="margin-top:8px; font-size:13px; color:var(--blue);">La evidencia manda. No el ego, no la amistad, no lo que queremos que sea verdad.</p>
+    </div>
+  </div>
+  <div class="ejemplo">
+    <div class="ejemplo-lbl">Ejemplo cotidiano</div>
+    <p>El padre que "sabe" que la plata no alcanza (empírico, subjetivo) versus el padre que registra cada gasto y descubre que el 34 % se va en comida fuera de casa (científico, objetivo). La auditoría del hogar.</p>
+  </div>
+</div>
+
+<!-- ─── SLIDE 5: CIENCIAS FORMALES vs EMPÍRICAS ─── -->
+<div class="slide slide-doble" id="slide-5">
+  <p class="bloque-badge"><span class="bloque-dot" style="background:var(--amber)"></span>Tema 2</p>
+  <h2 class="slide-h2">Ciencias formales<br><em>y</em> empíricas</h2>
+  <div class="cols cols-2">
+    <div class="card amber-card">
+      <span class="tag">Formales</span>
+      <div class="card-accent"></div>
+      <h3>Verdad sin el mundo real</h3>
+      <p>Matemáticas, lógica, estadística pura. Sus verdades son necesarias: 2 + 2 = 4 aunque no exista ningún objeto en el universo.</p>
+      <p style="margin-top:8px; font-size:13px;">Activo = Pasivo + Patrimonio es un axioma con estructura de ciencia formal. Si lo rompes, el sistema colapsa.</p>
+    </div>
+    <div class="card teal-card">
+      <span class="tag">Empíricas</span>
+      <div class="card-accent"></div>
+      <h3>Necesitan el mundo real</h3>
+      <p>Contabilidad, auditoría forense, medicina, sociología. Sus verdades dependen de que la realidad las confirme o las refute.</p>
+      <p style="margin-top:8px; font-size:13px;">La auditoría forense investiga hechos que ocurrieron en el mundo real. Deben probarse con evidencia.</p>
+    </div>
+  </div>
+  <div class="ejemplo">
+    <div class="ejemplo-lbl">Fuera de la empresa</div>
+    <p>La madre que planifica meriendas escolares usa ciencias formales (5 días × $1,50 = $7,50) y empíricas al mismo tiempo (el miércoles no hay clase, el viernes el precio subió). La contabilidad y la auditoría viven en esa misma tensión.</p>
+  </div>
+</div>
+
+<!-- ─── SLIDE 6: MÉTODO CIENTÍFICO — LOS 6 PASOS ─── -->
+<div class="slide slide-doble" id="slide-6">
+  <p class="bloque-badge"><span class="bloque-dot" style="background:var(--coral)"></span>Tema 3</p>
+  <h2 class="slide-h2">El método científico — <em>6 pasos</em></h2>
+  <div class="metodo-grid">
+    <div class="metodo-paso" data-n="1" style="border-top:3px solid var(--blue)">
+      <span class="metodo-num" style="color:var(--blue)">Paso 1</span>
+      <h3>Observación</h3>
+      <div class="vida">El empanado no está. Algo cambió.</div>
+      <div class="audit" style="background:var(--blue-dim); color:var(--blue)">El saldo del banco no cuadra con el libro mayor.</div>
+    </div>
+    <div class="metodo-paso" data-n="2" style="border-top:3px solid var(--teal)">
+      <span class="metodo-num" style="color:var(--teal)">Paso 2</span>
+      <h3>Problema</h3>
+      <div class="vida">¿Quién se comió mi empanado?</div>
+      <div class="audit" style="background:var(--teal-dim); color:var(--teal)">¿Por qué hay una diferencia de $3.400?</div>
+    </div>
+    <div class="metodo-paso" data-n="3" style="border-top:3px solid var(--amber)">
+      <span class="metodo-num" style="color:var(--amber)">Paso 3</span>
+      <h3>Hipótesis</h3>
+      <div class="vida">Fue mi hermano. Llegó tarde anoche.</div>
+      <div class="audit" style="background:var(--amber-dim); color:var(--amber)">Puede ser registro duplicado o pago no autorizado.</div>
+    </div>
+    <div class="metodo-paso" data-n="4" style="border-top:3px solid var(--coral)">
+      <span class="metodo-num" style="color:var(--coral)">Paso 4</span>
+      <h3>Datos</h3>
+      <div class="vida">Revisar horario, preguntar, buscar evidencia.</div>
+      <div class="audit" style="background:var(--coral-dim); color:var(--coral)">Revisar comprobantes, extractos, entrevistar al cajero.</div>
+    </div>
+    <div class="metodo-paso" data-n="5" style="border-top:3px solid var(--purple)">
+      <span class="metodo-num" style="color:var(--purple)">Paso 5</span>
+      <h3>Análisis</h3>
+      <div class="vida">¿La evidencia apunta a mi hermano?</div>
+      <div class="audit" style="background:var(--purple-dim); color:var(--purple)">La firma no corresponde a un funcionario autorizado.</div>
+    </div>
+    <div class="metodo-paso" data-n="6" style="border-top:3px solid var(--green)">
+      <span class="metodo-num" style="color:var(--green)">Paso 6</span>
+      <h3>Conclusión</h3>
+      <div class="vida">Sí fue él. Y lo había hecho antes.</div>
+      <div class="audit" style="background:var(--green-dim); color:var(--green)">Pago sin autorización. Se abre investigación formal.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SLIDE 7: EL VAR ─── -->
+<div class="slide" id="slide-7" style="align-items:center; text-align:center; justify-content:center; flex-direction:column; background:radial-gradient(ellipse 70% 50% at 50% 50%, rgba(255,107,107,0.06) 0%, transparent 70%);">
+  <p style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--coral); font-weight:500; margin-bottom:28px;">Ejemplo que cambia la perspectiva</p>
+  <h2 style="font-family:'DM Serif Display',serif; font-size:52px; line-height:1.15; color:var(--text); max-width:800px; margin-bottom:28px;">El VAR en el fútbol<br>es una <span style="color:var(--coral)">auditoría</span>.</h2>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:760px; text-align:left; margin-bottom:28px;">
+    <div class="card coral-card">
+      <h3>El árbitro principal</h3>
+      <p>En 3 segundos: observa, formula hipótesis sobre la intención, busca evidencia visual, decide y comunica. Método científico instantáneo.</p>
+    </div>
+    <div class="card teal-card">
+      <h3>El VAR</h3>
+      <p>Revisión sistemática, múltiples ángulos, evidencia adicional, para confirmar o desestimar el hallazgo inicial. Eso es auditoría forense.</p>
+    </div>
+  </div>
+  <p style="font-size:18px; color:var(--muted); max-width:600px; line-height:1.7; font-style:italic;">"La auditoría no vive solo en los estados financieros. La auditoría es una forma de pensar."</p>
+</div>
+
+<!-- ─── SLIDE 8: CONCEPTOS, TEORÍAS, AXIOMAS, LEYES ─── -->
+<div class="slide slide-doble" id="slide-8">
+  <p class="bloque-badge"><span class="bloque-dot" style="background:var(--purple)"></span>Tema 4</p>
+  <h2 class="slide-h2">Los <em>pilares</em> del conocimiento científico</h2>
+  <div class="cols cols-4">
+    <div class="card blue-card">
+      <span class="tag">Concepto</span>
+      <div class="card-accent"></div>
+      <h3>Representación mental compartida</h3>
+      <p>"Gasto" no es solo una palabra — es una realidad económica que todos entendemos igual. Sin conceptos precisos, no hay ciencia ni contabilidad posible.</p>
+    </div>
+    <div class="card purple-card">
+      <span class="tag">Teoría</span>
+      <div class="card-accent"></div>
+      <h3>Sistema explicativo con evidencia</h3>
+      <p><strong style="color:var(--purple)">Teoría de la Agencia:</strong> el gerente puede tener intereses distintos al dueño. Por eso existe la auditoría. Una teoría no es una opinión.</p>
+    </div>
+    <div class="card amber-card">
+      <span class="tag">Axioma</span>
+      <div class="card-accent"></div>
+      <h3>Base aceptada sin demostración</h3>
+      <p><strong style="color:var(--amber)">Partida doble:</strong> toda transacción tiene doble efecto. No se prueba filosóficamente — se valida porque el sistema funciona. 500 años de evidencia.</p>
+    </div>
+    <div class="card green-card">
+      <span class="tag">Ley científica</span>
+      <div class="card-accent"></div>
+      <h3>Relación constante y verificada</h3>
+      <p><strong style="color:var(--green)">A mayor impunidad percibida, mayor probabilidad de fraude interno.</strong> No es un dicho. Está sustentado en décadas de investigación forense.</p>
+    </div>
+  </div>
+  <div class="reflexion">
+    <div class="reflexion-lbl">Pregunta de reflexión</div>
+    <p>"Si los axiomas no se pueden probar, ¿cómo sabemos que son confiables?"</p>
+  </div>
+</div>
+
+<!-- ─── SLIDE 9: EL MÉDICO Y EL AUDITOR ─── -->
+<div class="slide slide-doble" id="slide-9">
+  <p class="bloque-badge"><span class="bloque-dot" style="background:var(--purple)"></span>Tema 4 · síntesis</p>
+  <h2 class="slide-h2">Un médico<br><em>y</em> un auditor forense</h2>
+  <table class="paralelo-table">
+    <thead>
+      <tr>
+        <th>Herramienta</th>
+        <th style="color:var(--blue)">El médico</th>
+        <th style="color:var(--teal)">El auditor forense</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Concepto</td>
+        <td>Fiebre, inflamación, taquicardia</td>
+        <td>Fraude, malversación, apropiación indebida</td>
+      </tr>
+      <tr>
+        <td>Teoría</td>
+        <td>El germen patógeno causa la enfermedad</td>
+        <td>Triángulo del fraude de Cressey: oportunidad, presión, racionalización</td>
+      </tr>
+      <tr>
+        <td>Axioma</td>
+        <td>El organismo tiende al equilibrio</td>
+        <td>Toda transacción económica deja rastro</td>
+      </tr>
+      <tr>
+        <td>Ley</td>
+        <td>A mayor concentración de antibiótico, mayor efecto bactericida</td>
+        <td>Quien controla el efectivo sin supervisión tiene mayor probabilidad de desvío</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:14px; color:var(--muted); margin-top:16px; text-align:center; font-style:italic;">Ambos diagnostican. Ambos buscan la causa de un daño. Ambos necesitan evidencia para concluir.</p>
+</div>
+
+<!-- ─── SLIDE 10: CIERRE — EL REGRESO ─── -->
+<div class="slide slide-cierre" id="slide-10">
+  <p style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--green); font-weight:500; margin-bottom:32px;">Cierre de la sesión — el círculo completo</p>
+  <h2 style="font-family:'DM Serif Display',serif; font-size:38px; color:var(--text); margin-bottom:36px; max-width:700px; line-height:1.2;">Lo que dijeron al inicio,<br>con su nombre ahora</h2>
+  <div class="cierre-reveal">
+    <div class="reveal-item">
+      <div class="antes">"Los sentidos, la experiencia"</div>
+      <div class="despues" style="color:var(--teal)">→ Conocimiento empírico</div>
+    </div>
+    <div class="reveal-item">
+      <div class="antes">"La lógica"</div>
+      <div class="despues" style="color:var(--amber)">→ Ciencias formales</div>
+    </div>
+    <div class="reveal-item">
+      <div class="antes">"Lo que siento"</div>
+      <div class="despues" style="color:var(--coral)">→ Subjetividad (que el método controla)</div>
+    </div>
+    <div class="reveal-item">
+      <div class="antes">"Verificando"</div>
+      <div class="despues" style="color:var(--blue)">→ Método científico</div>
+    </div>
+  </div>
+  <p style="font-family:'DM Serif Display',serif; font-size:28px; color:var(--text); text-align:center; max-width:700px; line-height:1.4; font-style:italic;">Sí. Cuando investigaste el empanado,<br>hiciste ciencia.</p>
+</div>
+
+<!-- ─── SLIDE 11: PUENTE A LA PRÓXIMA CLASE ─── -->
+<div class="slide" id="slide-11" style="justify-content:center; background:radial-gradient(ellipse 70% 50% at 50% 50%, rgba(167,139,250,0.06) 0%, transparent 70%);">
+  <p class="bloque-badge"><span class="bloque-dot" style="background:var(--purple)"></span>Próxima sesión</p>
+  <h2 style="font-family:'DM Serif Display',serif; font-size:44px; color:var(--text); margin-bottom:28px; line-height:1.2; max-width:720px;">¿Y si el empanado<br><em style="color:var(--purple)">sí estaba</em>... pero en otro cajón?</h2>
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:24px;">
+    <div class="card purple-card">
+      <span class="tag">Paradigmas</span>
+      <div class="card-accent"></div>
+      <h3>No todos investigan igual</h3>
+      <p>Positivismo, interpretativismo, paradigma crítico. La forma de investigar depende de cómo cada uno concibe la realidad.</p>
+    </div>
+    <div class="card coral-card">
+      <span class="tag">Sesgos</span>
+      <div class="card-accent"></div>
+      <h3>Las trampas invisibles</h3>
+      <p>Sesgo de confirmación: buscaste el empanado solo en el cajón donde siempre lo pones. ¿Error del método, o error tuyo?</p>
+    </div>
+    <div class="card blue-card">
+      <span class="tag">Tipos de estudio</span>
+      <div class="card-accent"></div>
+      <h3>Explorar, describir, correlacionar, explicar</h3>
+      <p>Cada pregunta de investigación exige un tipo de estudio diferente. Las preguntas de hoy los guiarán.</p>
+    </div>
+  </div>
+  <div class="puente">
+    <div class="puente-lbl">Tarea para esta semana</div>
+    <p>Observen algo en su vida cotidiana que no entiendan del todo. Apliquen los 6 pasos del método. <strong>La próxima clase, cuéntenme qué encontraron.</strong></p>
+  </div>
+</div>
+
+<!-- NAVEGACIÓN -->
+<nav class="nav">
+  <span class="nav-info" id="nav-info">1 / 12</span>
+  <div class="nav-dots" id="nav-dots"></div>
+  <div class="nav-btns">
+    <button class="nav-btn" id="btn-prev" onclick="changeSlide(-1)">← Anterior</button>
+    <button class="nav-btn" id="btn-next" onclick="changeSlide(1)">Siguiente →</button>
+  </div>
+</nav>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+
+  function renderDots() {
+    const container = document.getElementById('nav-dots');
+    container.innerHTML = '';
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'nav-dot' + (i === current ? ' active' : '');
+      d.onclick = () => goTo(i);
+      container.appendChild(d);
+    });
+  }
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, slides.length - 1));
+    slides[current].classList.add('active');
+    document.getElementById('nav-info').textContent = (current + 1) + ' / ' + slides.length;
+    document.getElementById('btn-prev').disabled = current === 0;
+    document.getElementById('btn-next').disabled = current === slides.length - 1;
+    renderDots();
+  }
+
+  function changeSlide(dir) { goTo(current + dir); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') changeSlide(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+  });
+
+  goTo(0);
+</script>
+</body>
+</html>
