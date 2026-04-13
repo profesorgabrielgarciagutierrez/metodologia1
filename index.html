@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metodología de la Investigación — Recursos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0c0e14;
+  --surface: #13151f;
+  --surface2: #1a1d2a;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --text: #e8eaf2;
+  --muted: #6b7090;
+  --p1: #5b8dee;
+  --p2: #2ec4a0;
+  --p3: #f0a04b;
+  --p1d: rgba(91,141,238,0.13);
+  --p2d: rgba(46,196,160,0.13);
+  --p3d: rgba(240,160,75,0.13);
+}
+html, body { min-height: 100vh; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex; flex-direction: column;
+  align-items: center;
+  padding: 48px 16px 64px;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(91,141,238,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 35% at 80% 80%, rgba(46,196,160,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+.wrap { position: relative; z-index: 1; max-width: 680px; width: 100%; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--p1); font-weight: 600;
+  background: var(--p1d);
+  border: 1px solid rgba(91,141,238,0.25);
+  padding: 5px 14px; border-radius: 20px;
+  margin-bottom: 20px;
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 400; line-height: 1.15;
+  margin-bottom: 10px;
+}
+h1 em { font-style: italic; color: var(--p1); }
+.sub {
+  font-size: 15px; color: var(--muted);
+  line-height: 1.7; margin-bottom: 48px;
+}
+
+.cards { display: flex; flex-direction: column; gap: 16px; }
+
+.card {
+  display: flex; align-items: center; gap: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px 24px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  cursor: pointer;
+}
+.card:hover {
+  border-color: var(--border2);
+  background: var(--surface2);
+  transform: translateY(-2px);
+}
+
+.card-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
+}
+.card-body { flex: 1; }
+.card-semana {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 600; margin-bottom: 5px;
+}
+.card-titulo {
+  font-size: 16px; font-weight: 500; color: var(--text);
+  line-height: 1.3; margin-bottom: 5px;
+}
+.card-desc {
+  font-size: 13px; color: var(--muted); line-height: 1.6;
+}
+.card-arrow {
+  font-size: 18px; color: var(--muted);
+  transition: transform 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.card:hover .card-arrow { transform: translateX(4px); color: var(--text); }
+
+.c1 .card-icon { background: var(--p1d); }
+.c1 .card-semana { color: var(--p1); }
+.c1:hover { border-color: rgba(91,141,238,0.3); }
+
+.c2 .card-icon { background: var(--p2d); }
+.c2 .card-semana { color: var(--p2); }
+.c2:hover { border-color: rgba(46,196,160,0.3); }
+
+.c3 .card-icon { background: var(--p3d); }
+.c3 .card-semana { color: var(--p3); }
+.c3:hover { border-color: rgba(240,160,75,0.3); }
+
+.footer {
+  margin-top: 48px; text-align: center;
+  font-size: 12px; color: var(--muted);
+  line-height: 1.8;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Universidad de Guayaquil · Contabilidad y Auditoría · II Semestre</div>
+  <h1>Metodología de la<br><em>Investigación</em></h1>
+  <p class="sub">Recursos digitales de la asignatura. Haz clic en el recurso que necesitas.</p>
+
+  <div class="cards">
+
+    <a class="card c1" href="Semana 01 y 02 - esquema_clase_proyectable.html">
+      <div class="card-icon">🗂️</div>
+      <div class="card-body">
+        <div class="card-semana">Semanas 01 y 02</div>
+        <div class="card-titulo">Esquema de clase proyectable</div>
+        <div class="card-desc">Diapositivas navegables para la primera sesión. Conocimiento empírico, método científico y sus fundamentos.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card c2" href="Semana 01 y 02 fichas_conceptos_imprimibles.html">
+      <div class="card-icon">📋</div>
+      <div class="card-body">
+        <div class="card-semana">Semanas 01 y 02</div>
+        <div class="card-titulo">Fichas de conceptos imprimibles</div>
+        <div class="card-desc">13 fichas con definiciones, ejemplos cotidianos y comparativas. Para imprimir o revisar en pantalla.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card c3" href="Semana 03 - Lunes - cuestionario_autodescubrimiento.html">
+      <div class="card-icon">🔍</div>
+      <div class="card-body">
+        <div class="card-semana">Semana 03 · Lunes</div>
+        <div class="card-titulo">Cuestionario de autodescubrimiento</div>
+        <div class="card-desc">17 preguntas para encontrar los conceptos de metodología en tu propia experiencia de vida.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+  </div>
+
+  <div class="footer">
+    Carrera de Contabilidad y Auditoría<br>
+    Facultad de Ciencias Administrativas · Universidad de Guayaquil
+  </div>
+</div>
+
+<script>
+// Detectar nombres exactos de archivos en caso de variación
+// Los enlaces ya apuntan a los nombres visibles en GitHub
+</script>
+</body>
+</html>
