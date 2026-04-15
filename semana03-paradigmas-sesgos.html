@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 03 — Metodología de la Investigación · UG</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c1:#003f7f;--c2:#0068b3;--c3:#00a8cc;--c4:#00c9e4;--c5:#e0f7fb;
+  --c6:#f0fbff;--c7:#cceef8;--c8:#007ea7;--white:#ffffff;
+  --text:#1a2535;--text2:#2d4057;--muted:#5a7a96;
+  --border:#c8e6f5;--border2:#9dd4ed;
+  --good:#00875a;--good-bg:#e3f9f0;
+  --bad:#b91c1c;--bad-bg:#fef2f2;
+  --warn:#b45309;--warn-bg:#fffbeb;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* STRIPE */
+.stripe{height:5px;background:linear-gradient(90deg,var(--c1) 0%,var(--c3) 55%,var(--c4) 100%)}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 50%,#004d8c 100%);padding:32px 20px 28px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 85% 40%,rgba(0,201,228,0.2) 0%,transparent 65%);pointer-events:none}
+.hdr-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.hdr-badge{background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.2);border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;width:60px;height:60px;font-size:28px}
+.hdr-text{flex:1;min-width:200px}
+.hdr-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,201,228,.9);font-weight:600;margin-bottom:6px}
+.hdr h1{font-family:'Playfair Display',serif;font-size:clamp(19px,4vw,30px);font-weight:400;color:#fff;line-height:1.2;margin-bottom:4px}
+.hdr h1 em{font-style:italic;color:var(--c4)}
+.hdr-meta{font-size:11px;color:rgba(255,255,255,.55);display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+
+/* TABS WRAPPER */
+.tw{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:2px solid var(--border)}
+.ti{max-width:900px;margin:0 auto;padding:0 16px}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:8px 0}
+.tabs::-webkit-scrollbar{display:none}
+.tb{display:flex;align-items:center;gap:6px;background:transparent;border:1px solid transparent;border-radius:8px;color:var(--muted);font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;padding:6px 11px;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0}
+.tb:hover{color:var(--c1);background:var(--c6)}
+.tb.active{color:var(--c1);background:var(--c5);border-color:var(--border2);font-weight:600}
+.tb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:0 16px 90px}
+
+/* SECTIONS */
+.sec{display:none;padding-top:32px}
+.sec.active{display:block;animation:fu .3s ease}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* SEC HEADER */
+.sh{display:flex;align-items:flex-start;gap:14px;margin-bottom:24px;padding-bottom:18px;border-bottom:2px solid var(--border)}
+.sn{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--c1),var(--c3));color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;font-weight:400;flex-shrink:0}
+.sm{flex:1}
+.sl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--c3);font-weight:700;margin-bottom:3px}
+.st{font-family:'Playfair Display',serif;font-size:clamp(17px,3vw,23px);font-weight:400;color:var(--c1);line-height:1.25}
+.st em{font-style:italic;color:var(--c3)}
+
+/* PROSE */
+.prose p{font-family:'Source Serif 4',serif;font-size:clamp(14.5px,2vw,16.5px);line-height:1.88;color:var(--text2);margin-bottom:16px}
+.prose p:last-child{margin-bottom:0}
+.prose strong{color:var(--c1);font-weight:600}
+
+/* REPASO CARD */
+.repaso{background:var(--c5);border:1px solid var(--border2);border-left:4px solid var(--c3);border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:16px}
+.repaso-lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--c3);font-weight:700;margin-bottom:6px}
+.repaso p{font-family:'Source Serif 4',serif;font-size:14px;color:var(--c1);line-height:1.7;margin:0}
+.repaso strong{font-weight:600}
+
+/* INFO BOX */
+.info{background:var(--c6);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin:16px 0}
+.info-lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--c8);font-weight:700;margin-bottom:7px}
+.info p{font-size:14px;color:var(--text2);line-height:1.7;margin:0;font-family:'Source Serif 4',serif}
+
+/* HIGHLIGHT */
+.hl{background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 100%);border-radius:14px;padding:20px 24px;margin:18px 0;text-align:center}
+.hl p{font-family:'Playfair Display',serif;font-size:clamp(15px,2.5vw,19px);font-style:italic;color:#fff;line-height:1.55;margin:0}
+.hl cite{display:block;font-size:11px;color:rgba(0,201,228,.85);margin-top:8px;font-style:normal;letter-spacing:.05em}
+
+/* GRID */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0}
+@media(max-width:600px){.grid2,.grid3{grid-template-columns:1fr}}
+.card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:16px 18px;border-top:3px solid var(--c3)}
+.card.navy{border-top-color:var(--c1)}
+.card.teal{border-top-color:var(--c4)}
+.card.mid{border-top-color:var(--c2)}
+.card h4{font-size:13px;font-weight:600;color:var(--c1);margin-bottom:6px}
+.card p{font-size:12.5px;color:var(--text2);line-height:1.65;margin:0;font-family:'Source Serif 4',serif}
+
+/* ALERTA */
+.alerta{background:#fffbeb;border:1px solid #fcd34d;border-left:4px solid #d97706;border-radius:0 12px 12px 0;padding:13px 18px;margin:16px 0}
+.alerta p{font-size:13.5px;color:#78350f;line-height:1.7;margin:0;font-family:'Source Serif 4',serif}
+.alerta strong{color:#451a03}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--c1);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:11px;letter-spacing:.05em}
+td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+tr:nth-child(even) td{background:var(--c6)}
+td:first-child{font-weight:500;color:var(--c1)}
+
+/* ALCANCES */
+.alcance{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:18px 20px;margin-bottom:12px;transition:border-color .2s}
+.alcance:hover{border-color:var(--border2)}
+.alcance-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.alcance-num{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;flex-shrink:0;color:#fff}
+.a1 .alcance-num{background:var(--c3)}
+.a2 .alcance-num{background:var(--c2)}
+.a3 .alcance-num{background:var(--c1)}
+.a4 .alcance-num{background:#00567d}
+.alcance h4{font-size:14px;font-weight:600;color:var(--c1)}
+.alcance p{font-size:13px;color:var(--text2);line-height:1.68;font-family:'Source Serif 4',serif}
+.alcance-tag{display:inline-block;font-size:9px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;padding:2px 8px;border-radius:20px;margin-bottom:6px}
+.a1 .alcance-tag{background:rgba(0,168,204,.12);color:var(--c3)}
+.a2 .alcance-tag{background:rgba(0,104,179,.12);color:var(--c2)}
+.a3 .alcance-tag{background:rgba(0,63,127,.12);color:var(--c1)}
+.a4 .alcance-tag{background:rgba(0,86,125,.12);color:#00567d}
+
+/* SESGO CARD */
+.sesgo{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start}
+.sesgo-icon{width:40px;height:40px;border-radius:10px;background:var(--c5);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sesgo-body h4{font-size:13px;font-weight:600;color:var(--c1);margin-bottom:5px}
+.sesgo-body p{font-size:12.5px;color:var(--text2);line-height:1.65;margin:0;font-family:'Source Serif 4',serif}
+
+/* EPISTEMOLOGIA */
+.epis{background:var(--c6);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:12px}
+.epis-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.epis-dot{width:8px;height:8px;border-radius:50%;background:var(--c3)}
+.epis h4{font-size:13px;font-weight:600;color:var(--c1)}
+.epis p{font-size:13px;color:var(--text2);line-height:1.68;font-family:'Source Serif 4',serif;margin:0}
+
+/* ETICA */
+.principio{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--c1);border-radius:0 12px 12px 0;padding:13px 16px;margin-bottom:10px}
+.principio h4{font-size:12.5px;font-weight:600;color:var(--c1);margin-bottom:4px}
+.principio p{font-size:12.5px;color:var(--text2);line-height:1.65;margin:0;font-family:'Source Serif 4',serif}
+
+/* QUIZ */
+.quiz-intro{background:var(--c5);border:1px solid var(--border2);border-radius:14px;padding:18px 20px;margin-bottom:20px}
+.quiz-intro p{font-size:14px;color:var(--c1);line-height:1.7;font-family:'Source Serif 4',serif;margin:0}
+.pregunta{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px;transition:border-color .2s}
+.pregunta.respondida{border-color:var(--border2)}
+.p-num{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px}
+.p-tipo{display:inline-block;font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:2px 8px;border-radius:20px;margin-bottom:8px;margin-left:8px}
+.tipo-teoria{background:rgba(0,104,179,.1);color:var(--c2)}
+.tipo-analisis{background:rgba(0,86,125,.15);color:#00567d}
+.p-texto{font-family:'Source Serif 4',serif;font-size:clamp(13.5px,2vw,15.5px);font-weight:400;color:var(--text);line-height:1.65;margin-bottom:14px}
+.opciones{display:flex;flex-direction:column;gap:8px}
+.opcion{display:flex;align-items:flex-start;gap:10px;background:var(--c6);border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;cursor:pointer;transition:all .15s;font-size:13px;color:var(--text2);line-height:1.55;text-align:left;width:100%;font-family:'Source Serif 4',serif}
+.opcion:hover:not(:disabled){background:var(--c5);border-color:var(--border2)}
+.opcion:disabled{cursor:default}
+.opcion.correcta{background:var(--good-bg);border-color:var(--good);color:#003d2a}
+.opcion.incorrecta{background:var(--bad-bg);border-color:var(--bad);color:#7f1d1d}
+.opcion.omitida{background:#f9fafb;border-color:#d1d5db;color:#9ca3af}
+.opcion-letra{width:22px;height:22px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;color:var(--c1);transition:all .15s}
+.opcion.correcta .opcion-letra{background:var(--good);color:#fff}
+.opcion.incorrecta .opcion-letra{background:var(--bad);color:#fff}
+.feedback{margin-top:12px;padding:12px 16px;border-radius:10px;font-size:13px;line-height:1.7;display:none;font-family:'Source Serif 4',serif}
+.feedback.show{display:block}
+.feedback.ok{background:var(--good-bg);border:1px solid var(--good);color:#003d2a}
+.feedback.nok{background:var(--bad-bg);border:1px solid var(--bad);color:#7f1d1d}
+.feedback strong{font-weight:600}
+.quiz-result{background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 100%);border-radius:16px;padding:24px;text-align:center;margin-top:20px;display:none}
+.quiz-result.show{display:block}
+.qr-score{font-family:'Playfair Display',serif;font-size:48px;font-weight:400;color:#fff;margin-bottom:8px}
+.qr-label{font-size:14px;color:rgba(255,255,255,.8);margin-bottom:16px}
+.qr-msg{font-size:14px;color:rgba(255,255,255,.9);line-height:1.7;max-width:500px;margin:0 auto 16px;font-family:'Source Serif 4',serif}
+.btn-retry{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;padding:9px 22px;border-radius:9px;cursor:pointer;transition:all .15s}
+.btn-retry:hover{background:rgba(255,255,255,.25)}
+.btn-check{background:var(--c1);border:none;color:#fff;font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;padding:8px 18px;border-radius:8px;cursor:pointer;margin-top:10px;transition:all .15s;display:none}
+.btn-check.show{display:inline-block}
+.btn-check:hover{background:var(--c2)}
+
+/* BIBLIO */
+.biblio-item{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.biblio-item p{font-size:13px;color:var(--text2);line-height:1.7;margin:0;font-family:'Source Serif 4',serif}
+.biblio-item a{color:var(--c2);text-decoration:none}
+.biblio-item a:hover{text-decoration:underline}
+
+/* PROGRESS BAR */
+.pb{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-top:1px solid var(--border);padding:9px 16px;display:flex;align-items:center;gap:10px;z-index:100;box-shadow:0 -2px 10px rgba(0,63,127,.07)}
+.pb-inner{max-width:900px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
+.pb-txt{font-size:10.5px;color:var(--muted);white-space:nowrap;min-width:64px}
+.pb-track{flex:1;height:4px;background:var(--c5);border-radius:2px;overflow:hidden}
+.pb-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--c1),var(--c3));transition:width .4s ease}
+.nav-btns{display:flex;gap:7px}
+.nb{background:var(--c6);border:1px solid var(--border2);color:var(--c1);font-family:'Outfit',sans-serif;font-size:11.5px;font-weight:500;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.nb:hover{background:var(--c5)}
+.nb:disabled{opacity:.3;cursor:default}
+.nb.p{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;border-color:transparent}
+.nb.p:hover{opacity:.88}
+.div{height:1px;background:var(--border);margin:20px 0}
+@media(max-width:500px){.pb-txt{display:none}.hdr-inner{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-badge">🔬</div>
+    <div class="hdr-text">
+      <div class="hdr-eyebrow">Universidad de Guayaquil · Contabilidad y Auditoría · II Semestre · Ciclo 1 · 2026</div>
+      <h1>Semana 03 — <em>Metodología de la Investigación</em></h1>
+      <div class="hdr-meta">
+        <span>Paradigmas · Alcances · Sesgos · Epistemología · Ética</span>
+        <span>·</span>
+        <span>Incluye cuestionario de autoevaluación con retroalimentación</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tw"><div class="ti">
+<div class="tabs" id="tabs">
+  <button class="tb active" onclick="goTo(0)"><span class="tb-dot" style="background:var(--c3)"></span>Repaso</button>
+  <button class="tb" onclick="goTo(1)"><span class="tb-dot" style="background:var(--c2)"></span>Paradigmas</button>
+  <button class="tb" onclick="goTo(2)"><span class="tb-dot" style="background:var(--c1)"></span>Elementos</button>
+  <button class="tb" onclick="goTo(3)"><span class="tb-dot" style="background:#00567d)"></span>Alcances</button>
+  <button class="tb" onclick="goTo(4)"><span class="tb-dot" style="background:var(--c4)"></span>Sesgos</button>
+  <button class="tb" onclick="goTo(5)"><span class="tb-dot" style="background:var(--c8)"></span>Características</button>
+  <button class="tb" onclick="goTo(6)"><span class="tb-dot" style="background:var(--c1)"></span>Epistemología</button>
+  <button class="tb" onclick="goTo(7)"><span class="tb-dot" style="background:var(--c2)"></span>Ética</button>
+  <button class="tb" onclick="goTo(8)"><span class="tb-dot" style="background:var(--c3)"></span>Cuestionario</button>
+  <button class="tb" onclick="goTo(9)"><span class="tb-dot" style="background:var(--muted)"></span>Bibliografía</button>
+</div>
+</div></div>
+
+<div class="main">
+
+<!-- ══ SECCIÓN 0: REPASO ══ -->
+<div class="sec active" id="sec-0">
+  <div class="sh"><div class="sn">↩</div><div class="sm">
+    <div class="sl">Repaso de la clase anterior</div>
+    <div class="st">Lo que vimos juntos:<br><em>el punto de partida de esta semana</em></div>
+  </div></div>
+  <div class="prose"><p>Esta sección recoge los conceptos trabajados en las semanas anteriores. No es un resumen para omitir: es el puente que conecta lo que ya sabes con lo que aprenderás hoy. Lee cada punto y verifica que lo tienes claro. Si algo no te resulta familiar, es señal de que conviene reforzarlo antes de continuar.</p></div>
+
+  <div class="repaso"><div class="repaso-lbl">Conocimiento empírico vs. científico</div>
+  <p>El <strong>conocimiento empírico</strong> surge de la experiencia directa y la costumbre: lo aprendemos viviendo. Es útil pero puede estar equivocado sin que lo sepamos. El <strong>conocimiento científico</strong> es sistemático, verificable, objetivo y comunicable: no basta con creer algo — hay que poder demostrarlo y comunicarlo de modo que otros puedan revisarlo.</p></div>
+
+  <div class="repaso"><div class="repaso-lbl">Objetividad y subjetividad</div>
+  <p>Una conclusión es <strong>objetiva</strong> cuando cualquier persona con los mismos datos llega al mismo resultado. La <strong>subjetividad</strong> es la influencia de nuestra perspectiva personal sobre lo que vemos. No es un defecto — es una condición humana — pero se convierte en problema cuando pasa por objetividad sin que lo notemos. El método científico existe en parte para proteger la objetividad.</p></div>
+
+  <div class="repaso"><div class="repaso-lbl">Ciencias formales y empíricas</div>
+  <p>Las <strong>ciencias formales</strong> (matemáticas, lógica) construyen su verdad sin necesitar que el mundo real las confirme: se demuestran por lógica interna. Las <strong>ciencias empíricas</strong> (contabilidad, auditoría, medicina) necesitan que la realidad confirme o refute sus conclusiones. La Contabilidad y Auditoría operan en la intersección de ambas familias.</p></div>
+
+  <div class="repaso"><div class="repaso-lbl">El método científico — 6 pasos</div>
+  <p>Todo proceso de investigación sigue una secuencia: <strong>Observación</strong> (notar que algo no cuadra) → <strong>Problema</strong> (formular una pregunta concreta) → <strong>Hipótesis</strong> (respuesta provisional basada en lo conocido) → <strong>Recolección de datos</strong> (buscar evidencia sistemáticamente) → <strong>Análisis</strong> (confrontar datos con la hipótesis) → <strong>Conclusión y comunicación</strong> (documentar hallazgos verificables). Este proceso no es lineal rígido: puede regresar a etapas anteriores cuando la evidencia lo exige.</p></div>
+
+  <div class="repaso"><div class="repaso-lbl">Concepto, teoría, axioma y ley</div>
+  <p>Un <strong>concepto</strong> es la representación mental compartida de una realidad. Una <strong>teoría</strong> es un sistema explicativo sustentado en evidencia — no es una opinión. Un <strong>axioma</strong> es una verdad base que el sistema acepta sin demostración porque sobre ella se construye todo lo demás (la partida doble es el axioma central de la contabilidad). Una <strong>ley científica</strong> describe una relación constante y verificada entre fenómenos.</p></div>
+
+  <div class="hl"><p>"Aprender a investigar no significa aprender a usar fórmulas. Significa aprender a hacer las preguntas correctas y a buscar las respuestas con honestidad y rigor."</p><cite>Hernández Sampieri, R., Fernández Collado, C. y Baptista Lucio, P. (2014). Metodología de la investigación (6.ª ed.). McGraw-Hill.</cite></div>
+</div>
+
+<!-- ══ SECCIÓN 1: PARADIGMAS ══ -->
+<div class="sec" id="sec-1">
+  <div class="sh"><div class="sn">1</div><div class="sm">
+    <div class="sl">Tema 1</div>
+    <div class="st">La investigación y sus paradigmas:<br><em>¿cómo concebimos la realidad?</em></div>
+  </div></div>
+
+  <div class="prose"><p>Antes de hablar de técnicas o métodos, existe algo más profundo que los determina: la manera en que cada persona — y cada comunidad científica — concibe la realidad y el conocimiento. Eso se llama <strong>paradigma</strong>.</p>
+  <p>La palabra paradigma viene del griego <em>paradeigma</em>, que significa modelo o ejemplo. En ciencia, fue popularizada por el filósofo e historiador Thomas Kuhn en su obra de 1962 <em>La estructura de las revoluciones científicas</em>. Para Kuhn, un paradigma es el conjunto de supuestos, valores, métodos y visión del mundo que una comunidad científica comparte y que le permite formular problemas y soluciones (Kuhn, 1971, p. 34). En términos simples: el paradigma es el lente a través del cual un investigador mira la realidad.</p></div>
+
+  <div class="info"><div class="info-lbl">¿Por qué importa conocer los paradigmas?</div>
+  <p>Porque el paradigma que elige un investigador determina qué preguntas se hace, qué datos considera válidos, cómo los interpreta y qué conclusiones puede extraer. Dos investigadores estudiando el mismo fenómeno — por ejemplo, la evasión tributaria en Ecuador — desde paradigmas distintos obtendrán resultados distintos, y ambos pueden ser igualmente válidos dentro de su propio marco.</p></div>
+
+  <div class="prose"><p>Todo paradigma de investigación se compone de tres dimensiones que responden a preguntas fundamentales (Guba, 1981; González-Morales, 2003):</p></div>
+
+  <div class="grid3">
+    <div class="card navy"><h4>Dimensión ontológica</h4><p>Responde a: ¿Cuál es la naturaleza de la realidad que investigo? ¿Existe de manera objetiva e independiente de quien la observa, o es construida por las personas que la viven?</p></div>
+    <div class="card mid"><h4>Dimensión epistemológica</h4><p>Responde a: ¿Cómo se relaciona el investigador con lo que investiga? ¿Puede mantenerse neutral y separado, o su presencia inevitablemente influye en lo que conoce?</p></div>
+    <div class="card teal"><h4>Dimensión metodológica</h4><p>Responde a: ¿Cómo obtenemos el conocimiento de esa realidad? ¿Qué procedimientos, instrumentos y técnicas son los más apropiados?</p></div>
+  </div>
+
+  <div class="div"></div>
+  <div class="prose"><p>Con base en estas tres dimensiones, los paradigmas de investigación se clasifican principalmente en tres grandes corrientes:</p></div>
+
+  <div class="alcance a1">
+    <div class="alcance-head"><div class="alcance-num">I</div><div><span class="alcance-tag">Cuantitativo</span><h4>Paradigma positivista (también llamado cuantitativo)</h4></div></div>
+    <p>Surgió en el siglo XIX con el positivismo filosófico. Su premisa central es que la realidad existe de manera objetiva, independiente del observador, y puede medirse y cuantificarse. La investigación válida, para este paradigma, produce datos numéricos, estadísticas y leyes generalizables que permiten predecir y controlar los fenómenos (Hernández Sampieri et al., 2014). Su lógica es <strong>deductiva</strong>: parte de una teoría o hipótesis general y busca confirmarla o refutarla en datos concretos. El investigador se mantiene distante del objeto de estudio para no contaminarlo.</p>
+    <div class="info" style="margin-top:10px"><div class="info-lbl">Ejemplo aplicado a contabilidad y auditoría</div>
+    <p>Un estudio que mide la tasa de errores en los estados financieros de empresas medianas del Ecuador durante 2024, expresada en porcentajes y analizada con pruebas estadísticas para determinar si existe relación significativa con el tamaño del equipo contable, responde al paradigma positivista.</p></div>
+  </div>
+
+  <div class="alcance a2">
+    <div class="alcance-head"><div class="alcance-num">II</div><div><span class="alcance-tag">Cualitativo</span><h4>Paradigma interpretativo (también llamado cualitativo o fenomenológico)</h4></div></div>
+    <p>Para este paradigma, la realidad social no existe de manera fija e independiente: es construida por las personas a través de sus experiencias, significados e interpretaciones. El investigador no puede ni debe separarse completamente del fenómeno que estudia — su papel es comprender el significado que los participantes le otorgan a su propia realidad. La lógica es <strong>inductiva</strong>: se parte de la observación de situaciones particulares para construir comprensiones más amplias (Krause, 1995). Los datos son principalmente palabras, relatos y observaciones, no números.</p>
+    <div class="info" style="margin-top:10px"><div class="info-lbl">Ejemplo aplicado a contabilidad y auditoría</div>
+    <p>Un estudio que investiga por qué los contadores de pequeñas empresas familiares de Guayaquil tienden a mezclar las finanzas personales con las empresariales, a través de entrevistas en profundidad y observación directa, responde al paradigma interpretativo.</p></div>
+  </div>
+
+  <div class="alcance a3">
+    <div class="alcance-head"><div class="alcance-num">III</div><div><span class="alcance-tag">Crítico</span><h4>Paradigma socio-crítico (también llamado crítico o transformador)</h4></div></div>
+    <p>Este paradigma no solo busca describir o explicar la realidad: busca transformarla. Parte del supuesto de que la realidad social está atravesada por relaciones de poder, ideología e intereses que condicionan tanto los fenómenos que se estudian como la manera en que se producen los conocimientos sobre ellos. El investigador no es neutral: asume un compromiso con el cambio social y la superación de las condiciones que generan injusticia o desigualdad (Sánchez-Santamaría, 2013).</p>
+    <div class="info" style="margin-top:10px"><div class="info-lbl">Ejemplo aplicado a contabilidad y auditoría</div>
+    <p>Un estudio que investiga de qué manera los sistemas de auditoría interna en empresas del Estado ecuatoriano reproducen o encubren prácticas de corrupción sistémica, proponiendo cambios estructurales en los mecanismos de control, responde al paradigma socio-crítico.</p></div>
+  </div>
+
+  <div class="div"></div>
+  <div class="prose"><p>Existe además un cuarto enfoque que combina los dos primeros:</p></div>
+  <div class="alcance a4">
+    <div class="alcance-head"><div class="alcance-num">IV</div><div><span class="alcance-tag">Mixto</span><h4>Método mixto — cuando una sola perspectiva no alcanza</h4></div></div>
+    <p>El método mixto combina de manera deliberada elementos del paradigma positivista y del interpretativo en un mismo estudio. No es simplemente usar técnicas de los dos: implica integrarlos de forma coherente para responder preguntas que ninguno de los dos podría responder bien por separado (Hernández Sampieri et al., 2014). Se usa cuando el fenómeno es lo suficientemente complejo como para necesitar tanto datos numéricos como interpretaciones en profundidad.</p>
+    <div class="info" style="margin-top:10px"><div class="info-lbl">Ejemplo aplicado a contabilidad y auditoría</div>
+    <p>Un estudio sobre fraude financiero en organizaciones sin fines de lucro que combina el análisis estadístico de los montos y frecuencias de irregularidades (cuantitativo) con entrevistas a los responsables para comprender los mecanismos culturales y las justificaciones internas que lo permitieron (cualitativo), responde al método mixto.</p></div>
+  </div>
+
+  <div class="div"></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Dimensión</th><th>Positivista (cuantitativo)</th><th>Interpretativo (cualitativo)</th><th>Mixto</th></tr></thead>
+      <tbody>
+        <tr><td>Naturaleza de la realidad</td><td>Objetiva, única, medible</td><td>Subjetiva, múltiple, construida</td><td>Pragmática: usa ambas visiones</td></tr>
+        <tr><td>Relación investigador-objeto</td><td>Independiente, neutral</td><td>Interactiva, implicada</td><td>Varía según la etapa</td></tr>
+        <tr><td>Lógica predominante</td><td>Deductiva (de teoría a datos)</td><td>Inductiva (de datos a teoría)</td><td>Deductiva e inductiva</td></tr>
+        <tr><td>Tipo de datos</td><td>Numéricos, estadísticos</td><td>Palabras, relatos, observaciones</td><td>Ambos tipos integrados</td></tr>
+        <tr><td>Objetivo principal</td><td>Explicar, predecir, controlar</td><td>Comprender, interpretar, describir</td><td>Responder preguntas complejas</td></tr>
+        <tr><td>Muestra</td><td>Grande, aleatoria, representativa</td><td>Pequeña, intencional, teórica</td><td>Combinada según diseño</td></tr>
+        <tr><td>¿Cuándo usarlo?</td><td>Cuando el fenómeno se puede medir</td><td>Cuando importa el significado</td><td>Cuando se necesitan ambas visiones</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ SECCIÓN 2: ELEMENTOS ══ -->
+<div class="sec" id="sec-2">
+  <div class="sh"><div class="sn">2</div><div class="sm">
+    <div class="sl">Tema 2</div>
+    <div class="st">Elementos de la investigación:<br><em>las piezas que la componen</em></div>
+  </div></div>
+
+  <div class="prose"><p>Toda investigación científica, independientemente del paradigma que la guíe, se estructura a partir de elementos fundamentales que le dan coherencia y dirección. Conocerlos no es un formalismo académico: es la diferencia entre una investigación que sabe adónde va y una que avanza sin rumbo. En tu carrera, estos elementos aparecerán cada vez que debas elaborar un informe, una tesis, un dictamen o cualquier análisis formal.</p></div>
+
+  <div class="grid2">
+    <div class="card navy"><h4>1. El problema de investigación</h4><p>Es la pregunta central que justifica toda la investigación. Debe ser concreta, acotada y expresada de manera que deje claro qué se quiere saber. Un problema mal formulado genera una investigación mal enfocada. Ejemplo correcto: "¿Cuáles son los factores que explican la subutilización del sistema de control interno en las cooperativas de ahorro y crédito del segmento 1 en Ecuador durante el período 2023-2024?" Un problema mal formulado sería: "¿Por qué hay problemas en las cooperativas?"</p></div>
+    <div class="card mid"><h4>2. El objeto de estudio</h4><p>Es el fenómeno, proceso, realidad o grupo de personas sobre el que recae la investigación. El objeto de estudio responde a la pregunta: ¿sobre qué o sobre quiénes investigo? En el ejemplo anterior, el objeto de estudio es el sistema de control interno de las cooperativas de ahorro y crédito.</p></div>
+    <div class="card teal"><h4>3. El campo de la investigación</h4><p>Es el aspecto específico del objeto de estudio que se aborda. Delimita la investigación dentro del objeto: ¿qué aspecto concreto de ese objeto estoy estudiando? En el ejemplo: el campo sería la subutilización del sistema de control interno — no todos los aspectos del sistema, sino específicamente su uso deficiente y las causas de ese uso deficiente.</p></div>
+    <div class="card navy"><h4>4. Los objetivos</h4><p>Expresan con precisión qué se quiere lograr. El <strong>objetivo general</strong> coincide con la respuesta esperada al problema. Los <strong>objetivos específicos</strong> desglosan el camino para llegar a ese objetivo general. Se redactan con verbos en infinitivo que indiquen una acción verificable: analizar, identificar, comparar, evaluar, determinar. Nunca con verbos vagos como "comprender" o "ver".</p></div>
+    <div class="card mid"><h4>5. La hipótesis</h4><p>Es una respuesta provisional al problema, formulada antes de recolectar los datos. No es una afirmación definitiva ni una suposición al azar: es la mejor explicación posible con base en lo que ya se conoce. No toda investigación requiere hipótesis explícita: los estudios exploratorios y algunos descriptivos pueden prescindir de ella, pero los estudios correlacionales y explicativos casi siempre la requieren.</p></div>
+    <div class="card teal"><h4>6. Las variables</h4><p>Son las características o propiedades del fenómeno que el investigador mide, observa o manipula. La <strong>variable independiente</strong> es la que se supone causa o explica algo. La <strong>variable dependiente</strong> es la que se supone afectada o explicada. Ejemplo: si se investiga si el nivel de capacitación del equipo contable influye en la tasa de errores, la capacitación es la variable independiente y la tasa de errores es la variable dependiente.</p></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card"><h4>7. El marco teórico</h4><p>Es el conjunto de teorías, conceptos, investigaciones previas y fundamentos que dan soporte al estudio. No es un resumen de libros: es la presentación organizada del conocimiento existente que es directamente relevante para el problema que se investiga. Sin marco teórico, el investigador no sabe qué ya se conoce ni en qué punto del conocimiento científico se ubica su trabajo.</p></div>
+    <div class="card"><h4>8. La metodología</h4><p>Describe cómo se va a realizar la investigación: qué paradigma guía el estudio, qué tipo de estudio es (exploratorio, descriptivo, correlacional o explicativo), qué población se estudia, cómo se selecciona la muestra, qué instrumentos se usan para recolectar los datos y cómo se analizarán. La metodología debe ser coherente con el problema, los objetivos y el paradigma elegido.</p></div>
+  </div>
+
+  <div class="alerta"><p><strong>Coherencia interna:</strong> Estos elementos no son compartimentos separados. Deben ser coherentes entre sí: el problema debe derivar en objetivos alcanzables, los objetivos deben ser respondibles con la metodología elegida, la metodología debe ser consistente con el paradigma, y los resultados deben responder al problema original. Cuando uno de estos elementos no encaja con los demás, toda la investigación pierde solidez.</p></div>
+</div>
+
+<!-- ══ SECCIÓN 3: ALCANCES ══ -->
+<div class="sec" id="sec-3">
+  <div class="sh"><div class="sn">3</div><div class="sm">
+    <div class="sl">Tema 3</div>
+    <div class="st">Clasificación de los tipos de estudio:<br><em>los alcances investigativos</em></div>
+  </div></div>
+
+  <div class="prose"><p>Toda investigación tiene un alcance: el nivel de profundidad y el tipo de respuesta que puede ofrecer sobre el fenómeno que estudia. Este alcance no se elige arbitrariamente — lo determina el estado actual del conocimiento sobre el tema y el tipo de pregunta que el investigador se hace. Hernández Sampieri y sus colegas (2014) proponen cuatro alcances que se presentan aquí en orden de complejidad creciente.</p></div>
+
+  <div class="info"><div class="info-lbl">Importante: no hay alcances superiores ni inferiores</div>
+  <p>Un error frecuente es pensar que el alcance explicativo es "mejor" que el exploratorio. No es así. El alcance adecuado es el que corresponde a la pregunta de investigación y al estado del conocimiento disponible. Iniciar un estudio explicativo sobre un fenómeno que nadie ha estudiado antes es metodológicamente incorrecto porque aún no hay base suficiente para proponer relaciones causales.</p></div>
+
+  <div class="alcance a1">
+    <div class="alcance-head"><div class="alcance-num">E</div><div><span class="alcance-tag">Primer nivel</span><h4>Estudio exploratorio</h4></div></div>
+    <p>Se utiliza cuando el tema de investigación es novedoso, poco estudiado o cuando existen dudas sobre cómo abordarlo. Su objetivo no es dar respuestas definitivas: es familiarizarse con el fenómeno, identificar conceptos relevantes y generar preguntas e hipótesis para investigaciones futuras más rigurosas.</p>
+    <div class="grid2" style="margin-top:10px">
+      <div class="card"><h4>¿Cuándo usarlo?</h4><p>Cuando hay muy poca o ninguna investigación previa sobre el tema. Cuando se quiere sondear la viabilidad de un estudio más profundo. Cuando el fenómeno es tan nuevo o complejo que aún no hay conceptos claros para estudiarlo.</p></div>
+      <div class="card navy"><h4>Ejemplo en auditoría</h4><p>Una primera exploración sobre el uso de herramientas de inteligencia artificial para detectar inconsistencias contables en microempresas ecuatorianas, un tema sobre el que no existen estudios previos en el país.</p></div>
+    </div>
+  </div>
+
+  <div class="alcance a2">
+    <div class="alcance-head"><div class="alcance-num">D</div><div><span class="alcance-tag">Segundo nivel</span><h4>Estudio descriptivo</h4></div></div>
+    <p>Busca caracterizar con detalle un fenómeno, grupo, proceso o situación. Describe cómo es, cómo se manifiesta, cuáles son sus componentes. No establece relaciones causales entre variables ni busca explicar por qué las cosas son como son: se limita a describir con precisión lo que existe.</p>
+    <div class="grid2" style="margin-top:10px">
+      <div class="card"><h4>¿Cuándo usarlo?</h4><p>Cuando ya existe conocimiento básico sobre el fenómeno y se quiere construir un perfil detallado. Cuando el objetivo es documentar o caracterizar una realidad observable.</p></div>
+      <div class="card navy"><h4>Ejemplo en auditoría</h4><p>Un estudio que describe las principales irregularidades detectadas en los estados financieros de empresas importadoras de Guayaquil durante 2024: tipos de error, frecuencia, montos involucrados y áreas más afectadas.</p></div>
+    </div>
+  </div>
+
+  <div class="alcance a3">
+    <div class="alcance-head"><div class="alcance-num">C</div><div><span class="alcance-tag">Tercer nivel</span><h4>Estudio correlacional</h4></div></div>
+    <p>Busca establecer relaciones entre dos o más variables: determinar si cuando una varía, la otra también varía, y en qué dirección. Es importante entender que una correlación no es una relación causal. El hecho de que dos variables estén relacionadas no significa que una cause a la otra: puede haber una tercera variable que explique la relación, o puede ser una coincidencia.</p>
+    <div class="grid2" style="margin-top:10px">
+      <div class="card"><h4>¿Cuándo usarlo?</h4><p>Cuando ya se conocen las variables del fenómeno (del estudio descriptivo previo) y se quiere saber si existe una relación estadística entre ellas. Proporciona información valiosa para investigaciones explicativas posteriores.</p></div>
+      <div class="card navy"><h4>Ejemplo en auditoría</h4><p>Un estudio que determina si existe relación estadística entre la antigüedad del auditor interno en una empresa y la cantidad de irregularidades no detectadas en sus informes. Podría encontrar correlación, pero no establece por qué existe esa relación.</p></div>
+    </div>
+  </div>
+
+  <div class="alcance a4">
+    <div class="alcance-head"><div class="alcance-num">X</div><div><span class="alcance-tag">Cuarto nivel</span><h4>Estudio explicativo (o causal)</h4></div></div>
+    <p>El alcance más profundo. No solo describe ni relaciona: busca explicar por qué ocurre un fenómeno, identificando sus causas y mecanismos. Para poder afirmar que una variable causa a otra, se requieren condiciones metodológicas muy estrictas, especialmente en los diseños experimentales. Es el alcance más exigente y el que produce el conocimiento más sólido cuando se ejecuta con rigor.</p>
+    <div class="grid2" style="margin-top:10px">
+      <div class="card"><h4>¿Cuándo usarlo?</h4><p>Cuando ya existe un cuerpo de conocimiento descriptivo y correlacional sobre el fenómeno, y la pregunta central es: ¿por qué ocurre esto? Requiere diseños más complejos y mayor control de variables.</p></div>
+      <div class="card navy"><h4>Ejemplo en auditoría</h4><p>Un estudio experimental que evalúa si la implementación de un sistema de rotación obligatoria de auditores internos causa una reducción significativa en la tasa de irregularidades no detectadas, controlando otras variables como el tamaño de la empresa.</p></div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Alcance</th><th>Pregunta que responde</th><th>Resultado esperado</th><th>Requiere hipótesis</th></tr></thead>
+      <tbody>
+        <tr><td>Exploratorio</td><td>¿Qué sabemos de este tema?</td><td>Preguntas e hipótesis para estudios futuros</td><td>No necesariamente</td></tr>
+        <tr><td>Descriptivo</td><td>¿Cómo es este fenómeno?</td><td>Caracterización detallada</td><td>No necesariamente</td></tr>
+        <tr><td>Correlacional</td><td>¿Se relacionan estas variables?</td><td>Coeficientes de correlación y patrones</td><td>Generalmente sí</td></tr>
+        <tr><td>Explicativo</td><td>¿Por qué ocurre este fenómeno?</td><td>Relaciones causales verificadas</td><td>Siempre</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ SECCIÓN 4: SESGOS ══ -->
+<div class="sec" id="sec-4">
+  <div class="sh"><div class="sn">4</div><div class="sm">
+    <div class="sl">Tema 4</div>
+    <div class="st">Sesgos, precisión y validez:<br><em>las trampas que el método intenta prevenir</em></div>
+  </div></div>
+
+  <div class="prose"><p>Incluso cuando se sigue el método científico con cuidado, existen factores que pueden distorsionar los resultados de una investigación. Se llaman <strong>sesgos</strong> y son especialmente peligrosos porque, con frecuencia, son invisibles para quien los comete. Conocerlos no es paranoia metodológica: es la primera línea de defensa de cualquier investigador — y de cualquier auditor — que quiere que sus conclusiones sean confiables.</p></div>
+
+  <div class="sesgo"><div class="sesgo-icon">🔍</div><div class="sesgo-body">
+    <h4>Sesgo de confirmación</h4>
+    <p>La tendencia a buscar, recordar e interpretar la información de manera que confirme lo que ya creemos, ignorando o minimizando la información que lo contradice. Es el sesgo más común y el más dañino porque opera de manera casi automática e inconsciente. Un auditor que ya "sabe" que hay fraude y organiza su búsqueda de evidencia para confirmarlo — en lugar de mantener una mente abierta a todas las posibilidades — está cometiendo un error metodológico y ético grave.</p>
+  </div></div>
+
+  <div class="sesgo"><div class="sesgo-icon">👤</div><div class="sesgo-body">
+    <h4>Sesgo del investigador (o del observador)</h4>
+    <p>Ocurre cuando las expectativas, creencias, intereses o preferencias del investigador influyen — sin que lo note — en cómo recolecta los datos, cómo los interpreta o cómo comunica los resultados. Puede manifestarse de formas sutiles: en la manera de redactar las preguntas de una encuesta, en qué fragmentos de una entrevista se eligen para citar, o en qué resultados estadísticos se consideran relevantes y cuáles se descartan.</p>
+  </div></div>
+
+  <div class="sesgo"><div class="sesgo-icon">📊</div><div class="sesgo-body">
+    <h4>Sesgo de selección</h4>
+    <p>Se produce cuando la muestra elegida para el estudio no representa adecuadamente a la población que se quiere estudiar. Si un auditor revisa únicamente las transacciones de montos altos creyendo que ahí están los errores más importantes, puede perder irregularidades sistemáticas en montos pequeños que, acumuladas, representan un impacto mayor.</p>
+  </div></div>
+
+  <div class="sesgo"><div class="sesgo-icon">💬</div><div class="sesgo-body">
+    <h4>Sesgo de respuesta (o de deseabilidad social)</h4>
+    <p>Ocurre cuando los participantes de una investigación responden lo que creen que el investigador quiere escuchar, o lo que consideran socialmente aceptable, en lugar de lo que realmente piensan o hacen. En auditorías: un empleado que sabe que está siendo evaluado puede reportar prácticas distintas a las que realmente realiza.</p>
+  </div></div>
+
+  <div class="div"></div>
+  <div class="prose"><p>Los sesgos pueden reducirse — nunca eliminarse completamente — con herramientas metodológicas bien diseñadas. Las dos más importantes son la <strong>precisión</strong> y la <strong>validez</strong>.</p></div>
+
+  <div class="grid2">
+    <div class="card navy">
+      <h4>Precisión (también llamada confiabilidad o fiabilidad)</h4>
+      <p>Un instrumento o procedimiento es preciso cuando produce resultados consistentes al aplicarse en condiciones similares. Si un mismo cuestionario aplicado dos veces al mismo grupo en condiciones similares produce resultados muy distintos, el instrumento no es preciso y sus resultados no son confiables.</p>
+      <p style="margin-top:8px">En auditoría: si dos auditores aplican el mismo procedimiento de revisión a los mismos documentos y llegan a resultados muy distintos, el procedimiento tiene un problema de precisión.</p>
+    </div>
+    <div class="card mid">
+      <h4>Validez</h4>
+      <p>Un instrumento es válido cuando mide realmente lo que dice medir. Un instrumento puede ser muy preciso — producir resultados consistentes — y al mismo tiempo no ser válido, porque en realidad está midiendo otra cosa distinta a la que se propone evaluar.</p>
+      <p style="margin-top:8px">En auditoría: un indicador de "productividad contable" medido por el número de transacciones procesadas por hora puede ser preciso pero no válido como medida de calidad del trabajo contable — la velocidad y la calidad no son lo mismo.</p>
+    </div>
+  </div>
+
+  <div class="alerta"><p><strong>Precisión sin validez produce resultados exactamente incorrectos.</strong> Un termómetro muy bien calibrado que mide la temperatura ambiente en lugar de la temperatura corporal dará resultados muy precisos — siempre marcará lo mismo en las mismas condiciones — pero completamente inválidos para diagnosticar una fiebre. En investigación científica y en auditoría, este error tiene consecuencias graves.</p></div>
+
+  <div class="info"><div class="info-lbl">Triangulación: la estrategia más poderosa contra los sesgos</div>
+  <p>La triangulación consiste en combinar múltiples fuentes de datos, múltiples métodos o múltiples investigadores para estudiar el mismo fenómeno. Cuando distintos caminos metodológicos convergen en la misma conclusión, esa conclusión es significativamente más confiable que si proviene de una sola fuente. Un auditor que confirma el mismo hallazgo a través de tres procedimientos distintos — revisión documental, entrevista y prueba de conciliación — está triangulando su evidencia.</p></div>
+</div>
+
+<!-- ══ SECCIÓN 5: CARACTERÍSTICAS ══ -->
+<div class="sec" id="sec-5">
+  <div class="sh"><div class="sn">5</div><div class="sm">
+    <div class="sl">Tema 5</div>
+    <div class="st">Características de la investigación científica:<br><em>qué la define y qué la distingue</em></div>
+  </div></div>
+
+  <div class="prose"><p>La investigación científica no es simplemente buscar información. Es un proceso con características específicas que la distinguen de cualquier otra forma de indagación — incluyendo el periodismo, la consultoría o la opinión experta. Conocer estas características te permite evaluar si una investigación merece ser tomada en serio, y también te ayuda a construir las tuyas con rigor.</p></div>
+
+  <div class="grid3">
+    <div class="card navy"><h4>Sistemática</h4><p>No improvisa. Sigue un plan ordenado y coherente que conecta el problema con los objetivos, la metodología y los resultados. Cada decisión metodológica tiene una justificación.</p></div>
+    <div class="card mid"><h4>Metódica</h4><p>Aplica procedimientos rigurosos y replicables. Otro investigador, siguiendo el mismo método con los mismos datos, debe poder llegar a resultados comparables.</p></div>
+    <div class="card teal"><h4>Objetiva</h4><p>Aspira a separar los hallazgos de las preferencias del investigador. Esto no significa que los investigadores no tengan prejuicios — los tienen — sino que el diseño metodológico incorpora mecanismos para controlarlos.</p></div>
+    <div class="card navy"><h4>Verificable</h4><p>Sus resultados pueden ser comprobados por otros investigadores. La verificabilidad no implica que siempre se llegue al mismo resultado: implica que el proceso pueda revisarse y cuestionarse.</p></div>
+    <div class="card mid"><h4>Falible y autocorrectiva</h4><p>La ciencia no es infalible: reconoce que puede equivocarse y tiene mecanismos para detectar y corregir sus errores. Una investigación que no puede ser refutada no es ciencia: es dogma.</p></div>
+    <div class="card teal"><h4>Comunicable</h4><p>Sus resultados se publican y se someten al escrutinio de la comunidad científica. El conocimiento privado no es conocimiento científico. La comunicabilidad obliga al investigador a ser claro, preciso y honesto.</p></div>
+    <div class="card navy"><h4>Acumulativa</h4><p>Se construye sobre el conocimiento previo. Toda investigación parte del punto donde llegó la anterior. Por eso el marco teórico es obligatorio: para no redescubrir lo que ya se sabe.</p></div>
+    <div class="card mid"><h4>Crítica</h4><p>Somete sus propios supuestos y resultados al cuestionamiento. Un investigador que no está dispuesto a que sus conclusiones sean cuestionadas no está haciendo ciencia.</p></div>
+    <div class="card teal"><h4>Con objeto y campo definidos</h4><p>Toda investigación científica tiene un objeto de estudio claramente delimitado y un campo específico dentro de ese objeto. La delimitación no es una limitación: es una condición de rigor.</p></div>
+  </div>
+
+  <div class="div"></div>
+  <div class="prose"><p>El <strong>objeto de la investigación científica</strong> es el fenómeno, proceso o realidad sobre el que se produce conocimiento. El <strong>campo</strong> es el aspecto específico de ese objeto que la investigación aborda. Esta delimitación es fundamental: una investigación que intenta estudiarlo todo sobre un fenómeno termina por no estudiar nada con suficiente profundidad.</p></div>
+
+  <div class="info"><div class="info-lbl">Ejemplo de delimitación objeto-campo</div>
+  <p>Objeto de estudio: el sistema de auditoría interna en las cooperativas de ahorro y crédito del Ecuador.<br>Campo de la investigación: los factores organizacionales que limitan la independencia funcional del auditor interno en cooperativas de ahorro y crédito del segmento 1 durante el período 2024-2025.<br>El campo acota el objeto: no se estudia todo sobre el sistema de auditoría, sino específicamente los factores que comprometen la independencia, en un segmento definido, en un período definido.</p></div>
+</div>
+
+<!-- ══ SECCIÓN 6: EPISTEMOLOGÍA ══ -->
+<div class="sec" id="sec-6">
+  <div class="sh"><div class="sn">6</div><div class="sm">
+    <div class="sl">Tema 6</div>
+    <div class="st">Epistemología:<br><em>la pregunta detrás de todas las preguntas</em></div>
+  </div></div>
+
+  <div class="prose"><p>Existe una disciplina que estudia todos los conceptos que hemos trabajado desde su raíz más profunda: la <strong>epistemología</strong>. Su nombre proviene del griego <em>episteme</em> (conocimiento) y <em>logos</em> (estudio, tratado), y puede definirse como la rama de la filosofía que estudia el origen, la naturaleza, los alcances y los límites del conocimiento humano.</p>
+  <p>La epistemología no pregunta <em>qué</em> sabemos: pregunta <em>cómo</em> sabemos lo que sabemos, <em>si</em> lo que creemos saber es realmente verdad, y <em>hasta dónde</em> puede llegar nuestro conocimiento. En palabras del filósofo argentino Mario Bunge, es "la rama de la filosofía que estudia la investigación científica y su producto, el conocimiento científico" (Bunge, 1977).</p></div>
+
+  <div class="hl"><p>"La epistemología es la ciencia de la ciencia: el intento de conocer cómo conocemos. Sin este nivel de reflexión, la ciencia puede convertirse en un conjunto de rutinas mecánicas sin comprensión de sus propios fundamentos."</p><cite>Bunge, M. (1977). La ciencia: su método y su filosofía. Buenos Aires: Ediciones Siglo Veinte.</cite></div>
+
+  <div class="prose"><p>Comprender la epistemología es especialmente importante para las ciencias sociales — que incluyen a la contabilidad y la auditoría como disciplinas que estudian el comportamiento económico humano — porque nos obliga a ser conscientes de los supuestos desde los que investigamos. ¿Es posible conocer objetivamente la realidad económica de una organización? ¿O esa realidad siempre está mediada por interpretaciones, relaciones de poder y contextos culturales que los números no capturan?</p></div>
+
+  <div class="div"></div>
+  <div class="prose"><p><strong>Clases o categorías de epistemología:</strong> La epistemología no es una sola perspectiva: contiene diversas corrientes que responden de manera diferente a las preguntas fundamentales sobre el conocimiento. Las más relevantes para la investigación en ciencias sociales son:</p></div>
+
+  <div class="epis"><div class="epis-head"><div class="epis-dot"></div><h4>Epistemología positivista (o empirista)</h4></div>
+  <p>Sostiene que el conocimiento válido es aquel que se obtiene a través de la observación empírica y la verificación experimental. Solo lo que puede ser observado, medido y verificado cuenta como conocimiento científico. Todo lo demás — creencias, valores, interpretaciones — queda fuera del ámbito científico. Esta postura es el fundamento filosófico del paradigma cuantitativo.</p></div>
+
+  <div class="epis"><div class="epis-head"><div class="epis-dot"></div><h4>Epistemología interpretativa (o hermenéutica)</h4></div>
+  <p>Sostiene que la realidad social no puede conocerse solo desde afuera y con números: debe ser interpretada desde adentro, comprendiendo el significado que los propios actores le otorgan. El conocimiento social siempre involucra interpretación, y el investigador no puede separarse completamente del fenómeno que estudia. Esta postura es el fundamento filosófico del paradigma cualitativo. La hermenéutica es el arte y la ciencia de la interpretación.</p></div>
+
+  <div class="epis"><div class="epis-head"><div class="epis-dot"></div><h4>Epistemología constructivista</h4></div>
+  <p>Sostiene que el conocimiento no se descubre en una realidad externa que ya existe lista para ser observada: se construye activamente en la interacción entre el sujeto que conoce y el objeto que es conocido. El conocimiento es siempre una construcción provisional y contextual. No existe una realidad independiente del observador: lo que llamamos "la realidad" es una construcción colectiva mediada por el lenguaje, la cultura y las relaciones de poder.</p></div>
+
+  <div class="epis"><div class="epis-head"><div class="epis-dot"></div><h4>Epistemología crítica</h4></div>
+  <p>Sostiene que el conocimiento científico nunca es neutral: siempre está condicionado por los intereses, la ideología y las estructuras de poder de quienes lo producen. La epistemología crítica no solo estudia cómo se conoce: denuncia las condiciones sociales que determinan qué se puede conocer, quién puede producir conocimiento y en beneficio de quién se utiliza ese conocimiento. Es el fundamento del paradigma socio-crítico.</p></div>
+
+  <div class="epis"><div class="epis-head"><div class="epis-dot"></div><h4>Epistemología pragmatista</h4></div>
+  <p>Para el pragmatismo, el criterio de verdad de un conocimiento es su utilidad práctica: un conocimiento es verdadero en la medida en que funciona, en que produce resultados que resuelven problemas. No se preocupa por establecer si existe una realidad objetiva independiente del observador: se enfoca en qué conocimientos son útiles para alcanzar los objetivos del investigador. Esta postura fundamenta el método mixto.</p></div>
+
+  <div class="div"></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Epistemología</th><th>¿Qué es el conocimiento válido?</th><th>Paradigma asociado</th></tr></thead>
+      <tbody>
+        <tr><td>Positivista</td><td>Lo que se puede observar, medir y verificar empíricamente</td><td>Cuantitativo</td></tr>
+        <tr><td>Interpretativa</td><td>Lo que se comprende desde adentro, interpretando significados</td><td>Cualitativo</td></tr>
+        <tr><td>Constructivista</td><td>Lo que se construye en la interacción sujeto-objeto</td><td>Cualitativo / Mixto</td></tr>
+        <tr><td>Crítica</td><td>Lo que transforma las condiciones de injusticia social</td><td>Socio-crítico</td></tr>
+        <tr><td>Pragmatista</td><td>Lo que funciona y resuelve problemas prácticos</td><td>Mixto</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ SECCIÓN 7: ÉTICA ══ -->
+<div class="sec" id="sec-7">
+  <div class="sh"><div class="sn">7</div><div class="sm">
+    <div class="sl">Tema 7</div>
+    <div class="st">Ética en la ciencia:<br><em>investigar bien no basta si no se investiga con honestidad</em></div>
+  </div></div>
+
+  <div class="prose"><p>La ética científica es el último tema de esta semana — pero no el menos importante. Todo lo que hemos aprendido: el método, los paradigmas, los alcances, los instrumentos para controlar sesgos — pierde completamente su sentido si quien investiga no actúa con honestidad. Un investigador brillante que manipula sus datos causa más daño que uno mediocre que los reporta honestamente, porque sus conclusiones erróneas viajan con la autoridad del rigor aparente.</p>
+  <p>La ética en la investigación científica no es un conjunto de reglas externas que se imponen desde afuera: es la disposición interior de quien busca la verdad y está dispuesto a comunicarla aunque no sea la que esperaba encontrar, aunque contradiga sus propias hipótesis, aunque perjudique sus intereses.</p></div>
+
+  <div class="hl"><p>"La honestidad intelectual no es una virtud opcional del investigador: es la condición sin la cual no existe investigación científica — solo hay apariencia de ciencia."</p><cite>Adaptado de Bunge, M. (2013). La investigación científica: su estrategia y su filosofía. México: Siglo XXI.</cite></div>
+
+  <div class="div"></div>
+  <div class="prose"><p>Los principales <strong>principios éticos</strong> que deben guiar toda investigación científica son:</p></div>
+
+  <div class="principio"><h4>Honestidad en la recolección y reporte de datos</h4><p>Los datos deben reportarse tal como son, no como el investigador quisiera que fueran. Falsificar datos, omitir resultados que contradicen la hipótesis o alterar los análisis estadísticos son formas de fraude científico con consecuencias legales, profesionales y sociales graves. En auditoría, este principio se traduce en el deber de reportar todos los hallazgos relevantes, incluso cuando son inconvenientes para el cliente.</p></div>
+
+  <div class="principio"><h4>Transparencia metodológica</h4><p>El investigador debe describir con precisión cómo realizó su investigación: qué instrumentos usó, cómo seleccionó la muestra, qué limitaciones tuvo su estudio. Ocultar las debilidades metodológicas para que la investigación parezca más sólida de lo que es es una forma de deshonestidad científica. Reconocer las limitaciones no debilita una investigación: demuestra madurez metodológica.</p></div>
+
+  <div class="principio"><h4>Respeto a los participantes</h4><p>Toda persona que participa en una investigación tiene derechos que el investigador debe respetar: el derecho a ser informada de los objetivos del estudio, a participar voluntariamente, a retirarse en cualquier momento, a que su información sea tratada con confidencialidad y a no ser perjudicada por su participación. En auditoría: los testimonios y la información de los funcionarios entrevistados deben ser tratados con el respeto y la confidencialidad que la profesión exige.</p></div>
+
+  <div class="principio"><h4>Reconocimiento de fuentes y autoría</h4><p>Citar correctamente las fuentes que se utilizan no es un formalismo burocrático: es un acto de honestidad intelectual. El plagio — presentar como propio el trabajo ajeno — es una de las faltas éticas más graves en la academia y en la investigación científica, con consecuencias que van desde la anulación de un trabajo hasta la inhabilitación profesional.</p></div>
+
+  <div class="principio"><h4>Independencia frente a conflictos de interés</h4><p>Un investigador que tiene intereses económicos, personales o ideológicos en los resultados de su investigación enfrenta un conflicto de interés que debe declarar y, cuando sea posible, gestionar. En auditoría, este principio es la base de la independencia del auditor: quien tiene interés en que las cuentas estén bien no puede auditar objetivamente si están bien.</p></div>
+
+  <div class="alerta"><p><strong>Consecuencia práctica para tu carrera:</strong> Los contadores y auditores producen información que otros utilizan para tomar decisiones que afectan a personas reales: empleados cuyos puestos dependen de la salud financiera de la empresa, inversionistas que confían en los estados financieros, entidades del Estado que necesitan datos verídicos para aplicar la ley. Un error metodológico puede ser involuntario. Una manipulación de resultados nunca lo es. La diferencia entre los dos define la integridad profesional.</p></div>
+</div>
+
+<!-- ══ SECCIÓN 8: CUESTIONARIO ══ -->
+<div class="sec" id="sec-8">
+  <div class="sh"><div class="sn">✓</div><div class="sm">
+    <div class="sl">Autoevaluación — Semana 03</div>
+    <div class="st">Cuestionario interactivo:<br><em>¿qué tan claros están los conceptos?</em></div>
+  </div></div>
+
+  <div class="quiz-intro"><p>Este cuestionario combina preguntas de <strong>conocimiento teórico</strong> y de <strong>análisis aplicado</strong>. Cada pregunta tiene una sola respuesta correcta. Después de seleccionar tu opción recibirás retroalimentación inmediata explicando por qué tu respuesta es correcta o incorrecta. El objetivo no es obtener una nota: es identificar qué conceptos tienes claros y cuáles necesitas reforzar.</p></div>
+
+  <div id="quiz-form">
+
+    <!-- P1 -->
+    <div class="pregunta" id="p1">
+      <div style="display:flex;align-items:center"><div class="p-num">Pregunta 1 de 12</div><span class="p-tipo tipo-teoria">Teoría</span></div>
+      <div class="p-texto">Un investigador estudia la tasa de evasión tributaria en empresas del sector comercial de Guayaquil, analiza 500 declaraciones fiscales, aplica pruebas estadísticas y busca leyes generalizables sobre el comportamiento tributario. ¿Qué paradigma guía su investigación?</div>
+      <div class="opciones">
+        <button class="opcion" onclick="responder('p1',this,'b')"><span class="opcion-letra">A</span> Paradigma interpretativo, porque estudia el comportamiento humano de los contribuyentes.</button>
+        <button class="opcion" onclick="responder('p1',this,'b')"><span class="opcion-letra">B</span> Paradigma socio-crítico, porque investiga prácticas que afectan a la sociedad.</button>
+        <button class="opcion" onclick="responder('p1',this,'a')"><span class="opcion-letra">C</span> Paradigma positivista, porque usa datos numéricos, verificación empírica y busca generalizaciones.</button>
+        <button class="opcion" onclick="responder('p1',this,'b')"><span class="opcion-letra">D</span> Método mixto, porque combina declaraciones fiscales (documentos) con análisis estadístico.</button>
+      </div>
+      <div class="feedback" id="fb-p1"></div>
+    </div>
+
+    <!-- P2 -->
+    <div class="pregunta" id="p2">
+      <div style="display:flex;align-items:center"><div class="p-num">Pregunta 2 de 12</div><span class="p-tipo tipo-analisis">Análisis</span></div>
+      <div class="p-texto">Una auditora aplica el mismo cuestionario de control interno a diez empresas similares y obtiene resultados muy distintos en cada una, aunque las condiciones objetivas de las empresas sean parecidas. ¿Cuál es el problema metodológico más probable?</div>
+      <div class="opciones">
+        <button class="opcion" onclick="responder('p2',this,'b')"><span class="opcion-letra">A</span> Problema de validez: el cuestionario mide otra cosa distinta al control interno.</button>
+        <button class="opcion" onclick="responder('p2',this,'a')"><span class="opcion-letra">B</span> Problema de precisión: el cuestionario no produce resultados consistentes en condiciones similares.</button>
+        <button class="opcion" onclick="responder('p2',this,'b')"><span class="opcion-letra">C</span> Sesgo de confirmación: la auditora interpreta los resultados de acuerdo con sus expectativas previas.</button>
+        <button class="opcion" onclick="responder('p2',this,'b')"><span class="opcion-letra">D</span> Sesgo de selección: las empresas elegidas no representan adecuadamente al sector.</button>
+      </div>
+      <div class="feedback" id="fb-p2"></div>
+    </div>
+
+    <!-- P3 -->
+    <div class="pregunta" id="p3">
+      <div style="display:flex;align-items:center"><div class="p-num">Pregunta 3 de 12</div><span class="p-tipo tipo-teoria">Teoría</span></div>
+      <div class="p-texto">¿Cuál de las siguientes afirmaciones describe correctamente la relación entre precisión y validez?</div>
+      <div class="opciones">
+        <button class="opcion" onclick="responder('p3',this,'b')"><span class="opcion-letra">A</span> Un instrumento válido es siempre preciso, porque si mide bien lo que dice medir, también será consistente.</button>
+        <button class="opcion" onclick="responder('p3',this,'b')"><span class="opcion-letra">B</span> La precisión garantiza la validez: si los resultados son consistentes, entonces el instrumento está midiendo lo correcto.</button>
+        <button class="opcion" onclick="responder('p3',this,'a')"><span class="opcion-letra">C</span> Un instrumento puede ser preciso pero no válido: puede producir resultados consistentes midiendo algo diferente a lo que se propone medir.</button>
+        <button class="opcion" onclick="responder('p3',this,'b')"><span class="opcion-letra">D</span> La validez y la precisión son conceptos equivalentes que se pueden usar de manera intercambiable.</button>
+      </div>
+      <div class="feedback" id="fb-p3"></div>
+    </div>
+
+    <!-- P4 -->
+    <div class="pregunta" id="p4">
+      <div style="display:flex;align-items:center"><div class="p-num">Pregunta 4 de 12</div><span class="p-tipo tipo-analisis">Análisis</span></div>
+      <div class="p-texto">Una investigadora quiere entender por qué los empleados de contabilidad de ciertas empresas familiares de Guayaquil tienden a registrar gastos personales del dueño como gastos de la empresa, sin que ningún control lo detecte. No existen estudios previos sobre este fenómeno en el contexto ecuatoriano. ¿Cuál es el alcance investigativo más adecuado para comenzar?</div>
+      <div class="opciones">
+        <button class="opcion" onclick="responder('p4',this,'b')"><span class="opcion-letra">A</span> Explicativo, porque el objetivo es identificar las causas de ese comportamiento contable.</button>
+        <button class="opcion" onclick="responder('p4',this,'b')"><span class="opcion-letra">B</span> Correlacional, porque se quiere relacionar las características de las empresas con la frecuencia del problema.</button>
+        <button class="opcion" onclick="responder('p4',this,'b')"><span class="opcion-letra">C</span> Descriptivo, porque se quiere caracterizar con detalle cómo se produce ese comportamiento.</button>
+        <button class="opcion" onclick="responder('p4',this,'a')"><span class="opcion-letra">D</span> Exploratorio, porque el tema no ha sido estudiado previamente en ese contexto y se necesita familiarizarse con el fenómeno.</button>
+      </div>
+      <div class="feedback" id="fb-p4"></div>
+    </div>
+
+    <!-- P5 -->
+    <div class="pregunta" id="p5">
+      <div style="display:flex;align-items:center"><div class="p-num">Pregunta 5 de 12</div><span class="p-tipo tipo-teoria">Teoría</span></div>
+      <div class="p-texto">La epistemología interpretativa (también llamada hermenéutica) se distingue de la positivista principalmente porque:</div>
+      <div class="opciones">
+        <button class="opcion" onclick="responder('p5',this,'b')"><span class="opcion-letra">A</span> Rechaza completamente el uso de datos numéricos en la investigación social.</button>
+        <button class="opcion" onclick="responder('p5',this,'a')"><span class="opcion-letra">B</span> Sostiene que la realidad social debe comprenderse desde adentro, interpretando el significado que los actores le otorgan, sin poder separarse completamente del fenómeno.</button>
+        <button class="opcion" onclick="responder('p5',this,'b')"><span class="opcion-letra">C</span> Considera que todo conocimiento es relativo y que ninguna investigación puede ser más confiable que otra.</button>
+        <button class="opcion" onclick="responder('p5',this,'b')"><span class="opcion-letra">D</span> Asume que la realidad social es objetiva y que puede medirse con instrumentos adecuados.</button>
+      </div>
+      <div class="feedback" id="fb-p5"></div>
+    </div>
+
+    <!-- P6 -->
+    <div class="pregunta" id="p6">
+      <div style="display:flex;align-items:center"><div class="p-num">Pregunta 6 de 12</div><span class="p-tipo tipo-analisis">Análisis</span></div>
+      <div class="p-texto">Un auditor forense lleva tres semanas investigando un presunto fraude en una empresa. Desde el inicio, está convencido de que el responsable es el contador general. Al revisar los documentos, registra con detalle las evidencias que señalan al contador, pero pasa rápidamente sobre los documentos que podrían indicar la participación de otro funcionario. ¿Qué sesgo está cometiendo?</div>
+      <div class="opciones">
+        <button class="opcion" onclick="responder('p6',this,'a')"><span class="opcion-letra">A</span> Sesgo de confirmación, porque está buscando e interpretando la información de manera que confirme su hipótesis inicial, ignorando evidencia que podría contradecirla.</button>
+        <button class="opcion" onclick="responder('p6',this,'b')"><span class="opcion-letra">B</span> Sesgo de selección, porque no eligió una muestra representativa de los documentos.</button>
+        <button class="opcion" onclick="responder('p6',this,'b')"><span class="opcion-letra">C</span> Sesgo del investigador, porque su presencia en la empresa contamina la evidencia disponible.</button>
+        <button class="opcion" onclick="responder('p6',this,'b')"><span class="opcion-letra">D</span> Sesgo de respuesta, porque el contador general está respondiendo de manera socialmente deseable.</button>
+      </div>
+      <div class="feedback" id="fb-p6"></div>
+    </div>
+
+    <!-- P7 -->
+    <div class="pregunta" id="p7">
+      <div style="display:flex;align-items:center"><div class="p-num">Pregunta 7 de 12</div><span class="p-tipo tipo-teoria">Teoría</span></div>
+      <div class="p-texto">En una investigación, el "campo" se diferencia del "objeto de estudio" en que:</div>
+      <div class="opciones">
+        <button class="opcion" onclick="responder('p7',this,'b')"><span class="opcion-letra">A</span> El campo es el fenómeno general que se investiga, mientras que el objeto es el aspecto específico que se aborda.</button>
+        <button class="opcion" onclick="responder('p7',this,'b')"><span class="opcion-letra">B</span> El campo se refiere a la ubicación geográfica del estudio y el objeto a los participantes.</button>
+        <button class="opcion" onclick="responder('p7',this,'a')"><span class="opcion-letra">C</span> El objeto es el fenómeno general sobre el que recae la investigación y el campo es el aspecto específico dentro de ese objeto que se aborda en el estudio.</button>
+        <button class="opcion" onclick="responder('p7',this,'b')"><span class="opcion-letra">D</span> Son términos equivalentes que describen lo mismo con distintas palabras según el autor.</button>
+      </div>
+      <div class="feedback" id="fb-p7"></div>
+    </div>
+
+    <!-- P8 -->
+    <div class="pregunta" id="p8">
+      <div style="display:flex;align-items:center"><div class="p-num">Pregunta 8 de 12</div><span class="p-tipo tipo-analisis">Análisis</span></div>
+      <div class="p-texto">Un estudio determina que existe una correlación estadística positiva fuerte entre el número de horas de capacitación que recibe un equipo de contabilidad y la reducción de errores en sus registros. Un directivo concluye: "Entonces queda demostrado que la capacitación causa la reducción de errores." ¿Es correcta esa conclusión?</div>
+      <div class="opciones">
+        <button class="opcion" onclick="responder('p8',this,'b')"><span class="opcion-letra">A</span> Sí, porque la correlación fuerte y positiva es evidencia suficiente de causalidad cuando la muestra es representativa.</button>
+        <button class="opcion" onclick="responder('p8',this,'b')"><span class="opcion-letra">B</span> Sí, porque el estudio es sistemático y usa análisis estadístico, lo que garantiza que la correlación implica causalidad.</button>
+        <button class="opcion" onclick="responder('p8',this,'b')"><span class="opcion-letra">C</span> No, pero solo si el tamaño de la muestra fue pequeño; con una muestra grande, la correlación sí implica causalidad.</button>
+        <button class="opcion" onclick="responder('p8',this,'a')"><span class="opcion-letra">D</span> No, porque la correlación no establece causalidad: puede haber otras variables que expliquen la relación, y se necesita un diseño explicativo con mayor control para afirmar causalidad.</button>
+      </div>
+      <div class="feedback" id="fb-p8"></div>
+    </div>
+
+    <!-- P9 -->
+    <div class="pregunta" id="p9">
+      <div style="display:flex;align-items:center"><div class="p-num">Pregunta 9 de 12</div><span class="p-tipo tipo-teoria">Teoría</span></div>
+      <div class="p-texto">¿Cuál de las siguientes situaciones representa un conflicto de interés que compromete la ética de una investigación o auditoría?</div>
+      <div class="opciones">
+        <button class="opcion" onclick="responder('p9',this,'b')"><span class="opcion-letra">A</span> Un investigador que utiliza el paradigma cuantitativo para estudiar un fenómeno que otros han abordado cualitativamente.</button>
+        <button class="opcion" onclick="responder('p9',this,'a')"><span class="opcion-letra">B</span> Un auditor que evalúa los estados financieros de una empresa en la que posee acciones y cuyos resultados positivos aumentarían el valor de su inversión.</button>
+        <button class="opcion" onclick="responder('p9',this,'b')"><span class="opcion-letra">C</span> Un investigador que reconoce las limitaciones de su estudio en el informe final.</button>
+        <button class="opcion" onclick="responder('p9',this,'b')"><span class="opcion-letra">D</span> Un equipo de auditoría que aplica procedimientos de triangulación para verificar sus hallazgos.</button>
+      </div>
+      <div class="feedback" id="fb-p9"></div>
+    </div>
+
+    <!-- P10 -->
+    <div class="pregunta" id="p10">
+      <div style="display:flex;align-items:center"><div class="p-num">Pregunta 10 de 12</div><span class="p-tipo tipo-analisis">Análisis</span></div>
+      <div class="p-texto">El método mixto se justifica cuando:</div>
+      <div class="opciones">
+        <button class="opcion" onclick="responder('p10',this,'b')"><span class="opcion-letra">A</span> El investigador no está seguro de qué paradigma prefiere utilizar y decide combinarlos para cubrirse.</button>
+        <button class="opcion" onclick="responder('p10',this,'b')"><span class="opcion-letra">B</span> El investigador quiere que su estudio parezca más completo al incluir tanto datos numéricos como entrevistas.</button>
+        <button class="opcion" onclick="responder('p10',this,'a')"><span class="opcion-letra">C</span> El fenómeno es suficientemente complejo como para que ninguno de los dos paradigmas por separado pueda responder adecuadamente las preguntas de investigación, y la combinación de ambos produce una comprensión más completa.</button>
+        <button class="opcion" onclick="responder('p10',this,'b')"><span class="opcion-letra">D</span> La revista o institución a la que se enviará el estudio exige que se incluyan datos cuantitativos y cualitativos.</button>
+      </div>
+      <div class="feedback" id="fb-p10"></div>
+    </div>
+
+    <!-- P11 -->
+    <div class="pregunta" id="p11">
+      <div style="display:flex;align-items:center"><div class="p-num">Pregunta 11 de 12</div><span class="p-tipo tipo-teoria">Teoría</span></div>
+      <div class="p-texto">La epistemología constructivista se diferencia de la positivista en que:</div>
+      <div class="opciones">
+        <button class="opcion" onclick="responder('p11',this,'b')"><span class="opcion-letra">A</span> El constructivismo rechaza completamente la existencia de la realidad, mientras que el positivismo afirma que es totalmente accesible a través de los sentidos.</button>
+        <button class="opcion" onclick="responder('p11',this,'a')"><span class="opcion-letra">B</span> El constructivismo sostiene que el conocimiento es una construcción activa del sujeto en interacción con el objeto — no un simple descubrimiento de una realidad ya dada — mientras que el positivismo asume que la realidad existe de manera objetiva e independiente del observador.</button>
+        <button class="opcion" onclick="responder('p11',this,'b')"><span class="opcion-letra">C</span> El constructivismo solo aplica a las ciencias naturales, mientras que el positivismo es exclusivo de las ciencias sociales.</button>
+        <button class="opcion" onclick="responder('p11',this,'b')"><span class="opcion-letra">D</span> El positivismo es más moderno que el constructivismo y por tanto más válido para la investigación contemporánea.</button>
+      </div>
+      <div class="feedback" id="fb-p11"></div>
+    </div>
+
+    <!-- P12 -->
+    <div class="pregunta" id="p12">
+      <div style="display:flex;align-items:center"><div class="p-num">Pregunta 12 de 12</div><span class="p-tipo tipo-analisis">Análisis</span></div>
+      <div class="p-texto">Una investigación sobre la efectividad de los sistemas de auditoría interna en Ecuador produce resultados que contradicen las hipótesis del investigador y muestran que los sistemas actuales son menos efectivos de lo que se esperaba. El investigador decide no publicar estos resultados porque podrían afectar negativamente la reputación del gremio de auditores. ¿Cómo se califica éticamente esta decisión?</div>
+      <div class="opciones">
+        <button class="opcion" onclick="responder('p12',this,'b')"><span class="opcion-letra">A</span> Es éticamente aceptable porque el investigador tiene la obligación de proteger la imagen de su profesión.</button>
+        <button class="opcion" onclick="responder('p12',this,'b')"><span class="opcion-letra">B</span> Es cuestionable, pero comprensible: publicar resultados negativos podría perjudicar la credibilidad de futuras investigaciones del mismo autor.</button>
+        <button class="opcion" onclick="responder('p12',this,'b')"><span class="opcion-letra">C</span> Es aceptable si el investigador añade una nota advirtiendo que los resultados son preliminares y que la investigación continúa.</button>
+        <button class="opcion" onclick="responder('p12',this,'a')"><span class="opcion-letra">D</span> Es una falta ética grave: constituye ocultamiento de resultados y sesgo de publicación, que distorsiona el conocimiento disponible y puede llevar a decisiones equivocadas basadas en información incompleta.</button>
+      </div>
+      <div class="feedback" id="fb-p12"></div>
+    </div>
+
+  </div><!-- fin quiz-form -->
+
+  <div class="quiz-result" id="quiz-result">
+    <div class="qr-score" id="qr-score">0/12</div>
+    <div class="qr-label">Respuestas correctas</div>
+    <div class="qr-msg" id="qr-msg"></div>
+    <button class="btn-retry" onclick="reiniciarQuiz()">↺ Reiniciar cuestionario</button>
+  </div>
+</div>
+
+<!-- ══ SECCIÓN 9: BIBLIOGRAFÍA ══ -->
+<div class="sec" id="sec-9">
+  <div class="sh"><div class="sn">📚</div><div class="sm">
+    <div class="sl">Fuentes verificadas</div>
+    <div class="st">Bibliografía:<br><em>las obras que respaldan este contenido</em></div>
+  </div></div>
+
+  <div class="info" style="margin-bottom:20px"><div class="info-lbl">Nota sobre las fuentes</div>
+  <p>Todas las referencias listadas a continuación han sido verificadas. Corresponden a obras académicas reales cuyos datos de publicación han sido confirmados. Los enlaces llevan a páginas donde la obra puede ser consultada o verificada su existencia. Se recomienda no utilizar como fuente ningún resumen o versión no autorizada: acudir siempre a la obra original.</p></div>
+
+  <div class="biblio-item"><p>Bunge, M. (1977). <em>La ciencia: su método y su filosofía</em>. Buenos Aires: Ediciones Siglo Veinte. [Obra de referencia fundamental en epistemología y filosofía de la ciencia en el mundo hispanohablante. Verificada en: <a href="https://books.google.com/books/about/La_ciencia_su_m%C3%A9todo_y_su_filosof%C3%ADa.html?id=QehcAAAAMAAJ" target="_blank">Google Books</a>]</p></div>
+
+  <div class="biblio-item"><p>Bunge, M. (2013). <em>La investigación científica: su estrategia y su filosofía</em>. México: Grupo Editorial Siglo XXI. [Edición actualizada de la obra clásica de Bunge sobre metodología de la investigación. Verificada en: <a href="https://archive.org/details/BungeMarioLaInvestigacionCientificaSuEstrategiaYSuFilosofia" target="_blank">Internet Archive</a>]</p></div>
+
+  <div class="biblio-item"><p>Hernández Sampieri, R., Fernández Collado, C. y Baptista Lucio, M. del P. (2014). <em>Metodología de la investigación</em> (6.ª ed.). México: McGraw-Hill Interamericana. ISBN: 978-1-4562-2396-0. [La obra de referencia más citada en metodología de la investigación en América Latina. Verificada en: <a href="https://dialnet.unirioja.es/servlet/libro?codigo=775008" target="_blank">Dialnet</a>]</p></div>
+
+  <div class="biblio-item"><p>Kuhn, T. S. (1971). <em>La estructura de las revoluciones científicas</em>. México: Fondo de Cultura Económica. [Obra fundacional sobre el concepto de paradigma científico. Primera edición en inglés: 1962. Verificada en múltiples catálogos académicos.]</p></div>
+
+  <div class="biblio-item"><p>Guba, E. G. (1981). Criteria for assessing the trustworthiness of naturalistic inquiries. <em>Educational Communication and Technology Journal</em>, 29, 75-91. [Artículo de referencia sobre los criterios de validez en la investigación cualitativa y la clasificación de paradigmas.]</p></div>
+
+  <div class="biblio-item"><p>González-Morales, A. (2003). Los paradigmas de investigación en las ciencias sociales. <em>ISLAS</em>, 45(138), 125-135. [Artículo de acceso abierto que analiza los principales paradigmas de investigación en ciencias sociales. Verificado en: <a href="https://goo.gl/67cYNc" target="_blank">Repositorio</a>]</p></div>
+
+  <div class="biblio-item"><p>Krause, M. (1995). La investigación cualitativa: un campo de posibilidades y desafíos. <em>Revista Temas de Educación</em>, (7), 19-36. [Artículo clásico sobre el paradigma interpretativo. Verificado en repositorios académicos latinoamericanos.]</p></div>
+
+  <div class="biblio-item"><p>Sánchez-Santamaría, J. (2013). Paradigmas de la investigación educativa: de las leyes subyacentes a la modernidad reflexiva. <em>Entelequia, Revista Interdisciplinar</em>, 16, 91-99. [Disponible en: <a href="https://revistaentelequia.wordpress.com/2013/10/12/1320/" target="_blank">Revista Entelequia</a>]</p></div>
+
+  <div class="biblio-item"><p>Gurdián-Fernández, A. (2007). <em>El paradigma cualitativo en la investigación socio-educativa</em>. San José, Costa Rica: Coordinación Educativa y Cultural Centroamericana (CECC) y Agencia Española de Cooperación Internacional (AECI). [Obra de referencia sobre paradigma cualitativo. Verificada en repositorios universitarios de América Central.]</p></div>
+
+  <div class="biblio-item"><p>Monje-Álvarez, C. A. (2011). <em>Metodología de la investigación cuantitativa y cualitativa: guía didáctica</em>. Neiva, Colombia: Universidad Surcolombiana. [Guía académica de acceso abierto. Verificada en repositorio institucional de la Universidad Surcolombiana.]</p></div>
+</div>
+
+</div><!-- fin main -->
+
+<div class="pb"><div class="pb-inner">
+  <span class="pb-txt" id="pb-txt">1 de 10</span>
+  <div class="pb-track"><div class="pb-fill" id="pb-fill" style="width:10%"></div></div>
+  <div class="nav-btns">
+    <button class="nb" id="nb-prev" onclick="goTo(cur-1)" disabled>← Anterior</button>
+    <button class="nb p" id="nb-next" onclick="goTo(cur+1)">Siguiente →</button>
+  </div>
+</div></div>
+
+<script>
+const TOTAL=10; let cur=0;
+const feedbacks={
+  'p1':{ok:'Correcto. El paradigma positivista (o cuantitativo) se caracteriza precisamente por el uso de datos numéricos, procedimientos estadísticos y la búsqueda de leyes generalizables que permitan explicar y predecir fenómenos. El hecho de que estudie comportamiento humano no lo convierte en interpretativo: en este estudio, ese comportamiento se mide y cuantifica, no se interpreta desde la perspectiva de los actores.',nok:'Incorrecto. Revisa la definición del paradigma positivista: se caracteriza por el uso de datos numéricos, verificación empírica y búsqueda de leyes generalizables. El uso de 500 declaraciones fiscales y pruebas estadísticas es la señal más clara de que se trata de un enfoque positivista.'},
+  'p2':{ok:'Correcto. La precisión (también llamada confiabilidad o fiabilidad) se refiere a la consistencia de los resultados: un instrumento preciso produce resultados similares en condiciones similares. Si el instrumento produce resultados muy distintos en empresas objetivamente parecidas, el problema es de precisión, no de validez. La validez se refería a si el instrumento mide lo correcto, no a si lo mide de manera consistente.',nok:'Incorrecto. Recuerda: la precisión se refiere a la consistencia de los resultados (¿produce el mismo instrumento resultados similares en condiciones similares?), mientras que la validez se refiere a si el instrumento mide lo que dice medir. Aquí el problema es que los resultados son inconsistentes — eso es un problema de precisión.'},
+  'p3':{ok:'Correcto. Esta es una distinción fundamental: la precisión y la validez son propiedades independientes. Un termómetro muy bien calibrado colocado en el ambiente (no en el cuerpo) dará resultados muy precisos — siempre marcará la temperatura ambiental — pero completamente inválidos para medir la fiebre de un paciente. En investigación, este error produce resultados exactamente incorrectos.',nok:'Incorrecto. La precisión y la validez son propiedades independientes. Un instrumento puede ser muy preciso (consistente) y al mismo tiempo medir otra cosa. La opción correcta es la que indica que precisión no garantiza validez.'},
+  'p4':{ok:'Correcto. Cuando no existen estudios previos sobre un fenómeno en un contexto determinado, el alcance adecuado es el exploratorio. Comenzar directamente con un estudio explicativo sería metodológicamente incorrecto: no hay base suficiente para proponer relaciones causales sobre algo que aún no se conoce. El alcance exploratorio genera las preguntas e hipótesis que orientarán investigaciones posteriores más profundas.',nok:'Incorrecto. Recuerda que el alcance se determina por el estado actual del conocimiento sobre el tema. Si no existen estudios previos, no tenemos base para describir con detalle, correlacionar variables ni establecer causas. Hay que comenzar por explorar. El alcance correcto es el exploratorio.'},
+  'p5':{ok:'Correcto. La diferencia central entre la epistemología interpretativa (hermenéutica) y la positivista está en cómo conciben la relación entre el investigador y la realidad social. Para el interpretativismo, esa realidad debe comprenderse desde adentro — desde los significados de quienes la viven — y el investigador no puede ni debe separarse completamente del fenómeno. Para el positivismo, el investigador debe mantenerse neutral y externo.',nok:'Incorrecto. La epistemología interpretativa no rechaza todos los datos numéricos ni sostiene que todo conocimiento es igualmente válido. Su característica central es que la realidad social debe comprenderse desde los significados de los propios actores sociales, no medirse desde afuera. La opción correcta describe esa distinción.'},
+  'p6':{ok:'Correcto. El sesgo de confirmación es precisamente la tendencia a buscar e interpretar la información de manera que confirme la hipótesis o creencia inicial, ignorando o minimizando la evidencia que podría contradecirla. En este caso, el auditor ya tiene una conclusión formada y organiza su búsqueda de evidencia para confirmarla, en lugar de mantener una mente abierta a todas las posibilidades.',nok:'Incorrecto. El sesgo de confirmación ocurre cuando se busca e interpreta la información de manera que confirme lo que ya se cree, ignorando la evidencia contraria. Ese es exactamente el patrón descrito: el auditor registra con detalle lo que señala al contador, pero pasa por alto lo que podría señalar a otro. Los otros sesgos no describen esta situación.'},
+  'p7':{ok:'Correcto. El objeto de estudio es el fenómeno general sobre el que recae la investigación (por ejemplo, el sistema de control interno de las cooperativas). El campo es el aspecto específico de ese objeto que se aborda en el estudio (por ejemplo, la independencia funcional del auditor interno dentro de ese sistema). El campo delimita el objeto para que la investigación sea manejable y rigurosa.',nok:'Incorrecto. Recuerda: el objeto es el fenómeno general (¿sobre qué investigo?) y el campo es el aspecto específico dentro de ese objeto (¿qué aspecto concreto de ese fenómeno abordo?). No se trata de ubicación geográfica ni de participantes, y no son términos equivalentes.'},
+  'p8':{ok:'Correcto. Este es uno de los errores más frecuentes en el análisis de investigaciones: confundir correlación con causalidad. La correlación estadística solo indica que dos variables varían juntas de manera relacionada. No establece ni puede establecer que una causa a la otra. Para afirmar causalidad se necesita un diseño explicativo con mayor control de variables — generalmente experimental o cuasiexperimental.',nok:'Incorrecto. Una de las reglas fundamentales de la metodología de la investigación es que la correlación no implica causalidad, independientemente del tamaño de la muestra o de la fortaleza de la correlación. Para afirmar que una variable causa a otra se necesita un diseño explicativo con control adecuado de variables externas.'},
+  'p9':{ok:'Correcto. Un conflicto de interés ocurre cuando el investigador o auditor tiene un interés personal — en este caso financiero — en los resultados del trabajo que está realizando. Un auditor con acciones en la empresa que audita no puede mantener la independencia que la ética y la normativa profesional exigen, porque tiene motivación para que los resultados sean favorables a esa empresa.',nok:'Incorrecto. Un conflicto de interés existe cuando el investigador o auditor tiene un interés personal en los resultados. Usar un paradigma diferente al de otros investigadores no es conflicto de interés. Reconocer limitaciones es una práctica ética correcta. Triangular es una buena práctica metodológica. Solo la situación del auditor con acciones en la empresa que audita configura un conflicto de interés real.'},
+  'p10':{ok:'Correcto. El método mixto no se justifica por comodidad ni por apariencia de completitud: se justifica cuando el fenómeno es suficientemente complejo como para que los dos paradigmas por separado sean insuficientes. La combinación debe ser coherente y responder a una necesidad metodológica real derivada de las preguntas de investigación.',nok:'Incorrecto. El método mixto tiene una justificación metodológica precisa: se usa cuando la complejidad del fenómeno exige tanto datos numéricos como comprensión de significados, y ninguno de los dos paradigmas por separado puede responder adecuadamente las preguntas. No es una elección de conveniencia ni de apariencia.'},
+  'p11':{ok:'Correcto. La diferencia central entre constructivismo y positivismo está en cómo conciben la relación entre el sujeto que conoce y la realidad. Para el positivismo, la realidad existe de manera objetiva e independiente del observador. Para el constructivismo, el conocimiento es una construcción activa que resulta de la interacción entre el sujeto y el objeto: no se descubre una realidad ya dada, se construye.',nok:'Incorrecto. El constructivismo no niega la existencia de la realidad ni aplica solo a ciencias naturales. Su distinción central respecto al positivismo está en cómo se produce el conocimiento: para el constructivismo, es una construcción activa del sujeto en interacción con el objeto; para el positivismo, es el descubrimiento de una realidad objetiva ya existente.'},
+  'p12':{ok:'Correcto. Ocultar resultados que contradicen las hipótesis o que son inconvenientes para ciertos grupos de interés es una falta ética grave llamada sesgo de publicación. Distorsiona el conocimiento científico disponible porque solo circulan los resultados favorables, y puede llevar a decisiones equivocadas basadas en información incompleta o parcial. La transparencia en la comunicación de resultados es un principio ético fundamental de la investigación científica.',nok:'Incorrecto. Ocultar resultados de investigación por su inconveniencia es una falta ética grave, independientemente de las razones. El principio de honestidad en la comunicación de resultados obliga a reportar los hallazgos tal como son. La decisión de este investigador constituye ocultamiento de resultados y sesgo de publicación, con consecuencias para el conocimiento disponible y las decisiones que se basen en él.'}
+};
+
+let respuestas={}, correctas=0, respondidas=0;
+const TOTAL_P=12;
+
+function responder(pid, btn, tipo){
+  if(respuestas[pid]) return;
+  respuestas[pid]=tipo;
+  const preg=document.getElementById(pid);
+  const bots=preg.querySelectorAll('.opcion');
+  bots.forEach(b=>{ b.disabled=true; b.classList.add('omitida'); });
+  if(tipo==='a'){ btn.classList.remove('omitida'); btn.classList.add('correcta'); correctas++; }
+  else { btn.classList.remove('omitida'); btn.classList.add('incorrecta'); }
+  const fb=document.getElementById('fb-'+pid);
+  fb.textContent=(tipo==='a'?'✓ ':'✗ ')+(tipo==='a'?feedbacks[pid].ok:feedbacks[pid].nok);
+  fb.className='feedback show '+(tipo==='a'?'ok':'nok');
+  preg.classList.add('respondida');
+  respondidas++;
+  if(respondidas===TOTAL_P){
+    const r=document.getElementById('quiz-result');
+    r.classList.add('show');
+    document.getElementById('qr-score').textContent=correctas+'/'+TOTAL_P;
+    let msg='';
+    if(correctas===TOTAL_P) msg='¡Perfecto! Dominas todos los conceptos de la semana. Estás listo para aplicarlos con rigor en tu carrera.';
+    else if(correctas>=9) msg='Muy bien. Tienes una comprensión sólida de los contenidos. Revisa las preguntas en las que fallaste para cerrar los últimos vacíos.';
+    else if(correctas>=6) msg='Bien encaminado. Tienes la base, pero hay conceptos que necesitas reforzar. Regresa a las secciones correspondientes y vuelve a intentarlo.';
+    else msg='Es momento de releer el material con más calma. Los conceptos que no están claros ahora serán fundamentales para los temas que vienen. Tómate el tiempo necesario.';
+    document.getElementById('qr-msg').textContent=msg;
+  }
+}
+
+function reiniciarQuiz(){
+  respuestas={}; correctas=0; respondidas=0;
+  for(let i=1;i<=TOTAL_P;i++){
+    const preg=document.getElementById('p'+i);
+    preg.classList.remove('respondida');
+    preg.querySelectorAll('.opcion').forEach(b=>{
+      b.disabled=false;
+      b.classList.remove('correcta','incorrecta','omitida');
+    });
+    const fb=document.getElementById('fb-p'+i);
+    fb.className='feedback';
+    fb.textContent='';
+  }
+  document.getElementById('quiz-result').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goTo(n){
+  if(n<0||n>=TOTAL) return;
+  document.getElementById('sec-'+cur).classList.remove('active');
+  document.querySelectorAll('.tb')[cur].classList.remove('active');
+  cur=n;
+  document.getElementById('sec-'+cur).classList.add('active');
+  document.querySelectorAll('.tb')[cur].classList.add('active');
+  document.querySelectorAll('.tb')[cur].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  window.scrollTo({top:0,behavior:'smooth'});
+  const pct=((cur+1)/TOTAL*100).toFixed(1);
+  document.getElementById('pb-fill').style.width=pct+'%';
+  document.getElementById('pb-txt').textContent=(cur+1)+' de '+TOTAL;
+  document.getElementById('nb-prev').disabled=cur===0;
+  const nx=document.getElementById('nb-next');
+  nx.textContent=cur===TOTAL-1?'✓ Completado':'Siguiente →';
+  nx.disabled=cur===TOTAL-1;
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight') goTo(cur+1);
+  if(e.key==='ArrowLeft') goTo(cur-1);
+});
+</script>
+</body>
+</html>
