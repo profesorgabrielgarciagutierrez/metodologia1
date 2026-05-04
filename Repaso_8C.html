@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Repaso Examen | UG — Parte C | Semana 7</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3',sans-serif;font-size:15px;color:#1a1a2e;background:#f0f4f8;min-height:100vh}
+header{background:#003366;color:#fff}
+.ht{display:flex;align-items:center;gap:14px;padding:14px 20px 8px;border-bottom:1px solid rgba(255,255,255,0.15)}
+.logo{width:44px;height:44px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-weight:700;color:#003366;font-size:15px;flex-shrink:0}
+.inst{display:flex;flex-direction:column;gap:2px}
+.univ{font-size:13px;font-weight:700}
+.fac,.carr{font-size:11px;opacity:.8}
+.hb{padding:12px 20px 16px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.badge{background:rgba(255,255,255,0.18);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px}
+.htitle{font-family:'Lora',serif;font-size:21px;font-weight:700;margin-bottom:4px}
+.hsub{font-size:12px;opacity:.8}
+.nav-wrap{background:#87CEEB;overflow-x:auto;white-space:nowrap;border-bottom:2px solid #5ba8cc}
+.nav-inner{display:inline-flex;padding:6px 10px 0;gap:4px;min-width:100%}
+.tbtn{font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;color:#1a1a2e;background:rgba(255,255,255,0.55);border:none;border-radius:8px 8px 0 0;padding:9px 15px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tbtn:hover{background:rgba(255,255,255,0.8)}
+.tbtn.active{background:#fff;color:#003366;font-weight:700;border-bottom:3px solid #003366}
+.tab{display:none;padding:24px 20px 50px;max-width:860px;margin:0 auto;animation:fi .3s ease}
+.tab.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.qh{background:linear-gradient(to right,#003366,#0055a4);color:#fff;border-radius:10px;padding:18px 20px;margin-bottom:20px}
+.qh h2{font-family:'Lora',serif;font-size:20px;color:#fff;border-bottom:2px solid rgba(255,255,255,0.3);padding-bottom:8px;margin-bottom:8px}
+.stats{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;opacity:.85}
+.stats span{font-weight:700;font-size:16px;opacity:1}
+.qb{background:#fff;border-radius:10px;padding:18px 20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.07);border-left:4px solid #ccc;transition:border-color .3s}
+.qb.answered{border-left-color:#003366}
+.qb.correct{border-left-color:#27ae60}
+.qb.incorrect{border-left-color:#e74c3c}
+.qtop{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.qnum{background:#003366;color:#fff;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0}
+.qbadge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:10px;flex-shrink:0}
+.bt{background:#dbeafe;color:#1e40af}
+.ba{background:#d1fae5;color:#065f46}
+.bc{background:#fef3c7;color:#92400e}
+.qtext{font-size:15px;color:#1a1a2e;line-height:1.6;font-weight:600;flex:1;min-width:200px}
+.caso{background:#fffbeb;border:1px solid #fcd34d;border-radius:6px;padding:12px 14px;margin:10px 0;font-size:14px;color:#44403c;line-height:1.6;font-style:italic}
+.caso::before{content:"📋 Caso: ";font-weight:700;font-style:normal;color:#92400e}
+.opts{list-style:none;margin:10px 0 0}
+.opts li{margin-bottom:8px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:2px solid #e2e8f0;border-radius:8px;cursor:pointer;transition:all .2s}
+.opt:hover{border-color:#87CEEB;background:#f0f9ff}
+.opt input{accent-color:#003366;margin-top:2px;flex-shrink:0}
+.ol{font-weight:700;color:#003366;font-size:13px;flex-shrink:0}
+.ot{font-size:14px;color:#333;line-height:1.5}
+.opt.sel{border-color:#003366;background:#e8f0fa}
+.opt.ok{border-color:#27ae60;background:#f0fdf4}
+.opt.ok .ol,.opt.ok .ot{color:#15803d}
+.opt.err{border-color:#e74c3c;background:#fef2f2}
+.opt.err .ol,.opt.err .ot{color:#b91c1c;text-decoration:line-through}
+.fb{background:#f8fafc;border-left:4px solid #003366;border-radius:0 8px 8px 0;padding:12px 14px;margin-top:12px;font-size:13px;color:#334155;line-height:1.7;display:none}
+.fb.show{display:block}
+.fbok{color:#15803d;font-weight:700;margin-bottom:6px}
+.vbtn{display:block;width:100%;background:#003366;color:#fff;font-family:'Source Sans 3',sans-serif;font-size:16px;font-weight:700;padding:14px;border:none;border-radius:10px;cursor:pointer;margin:20px 0 10px}
+.vbtn:hover{background:#0055a4}
+.rbtn{display:none;width:100%;background:#fff;color:#003366;font-family:'Source Sans 3',sans-serif;font-size:15px;font-weight:700;padding:12px;border:2px solid #003366;border-radius:10px;cursor:pointer;margin-top:8px}
+.rp{display:none;background:#fff;border-radius:12px;padding:24px;margin-top:20px;box-shadow:0 4px 16px rgba(0,0,0,0.1);text-align:center}
+.rp.show{display:block}
+.re{font-size:52px;margin-bottom:8px}
+.rs{font-family:'Lora',serif;font-size:36px;font-weight:700;color:#003366}
+.rpct{font-size:18px;color:#666;margin:4px 0 14px}
+.rmsg{font-size:16px;color:#334155;line-height:1.6;margin-bottom:16px}
+.pbw{background:#e2e8f0;border-radius:20px;height:16px;overflow:hidden;margin:10px 0}
+.pb{height:100%;border-radius:20px;background:linear-gradient(to right,#003366,#0055a4);width:0%;transition:width 1s ease}
+.note{background:#e8f4fd;border:1px solid #87CEEB;border-radius:8px;padding:12px 16px;font-size:13px;color:#003366;margin-bottom:20px}
+</style>
+</head>
+<body>
+<header>
+  <div class="ht">
+    <div class="logo">UG</div>
+    <div class="inst">
+      <span class="univ">Universidad de Guayaquil</span>
+      <span class="fac">Facultad de Ciencias Administrativas</span>
+      <span class="carr">Carrera en Contabilidad y Auditoría</span>
+    </div>
+  </div>
+  <div class="hb">
+    <div class="badges">
+      <span class="badge">Metodología de la Investigación</span>
+      <span class="badge">Repaso Examen — Parte C</span>
+      <span class="badge">Semana 7</span>
+    </div>
+    <div class="htitle">🎯 Repaso para Examen — Semana 7</div>
+    <div class="hsub">Variables independientes y dependientes · Manipulación · Control · Validez interna y externa · Diseños experimentales</div>
+  </div>
+</header>
+<div class="nav-wrap"><div class="nav-inner">
+  <button class="tbtn active" onclick="showTab('s7')">📙 Semana 7</button>
+</div></div>
+
+<div id="tab-s7" class="tab active">
+  <div class="qh">
+    <h2>📙 Semana 7 — Variables, Validez y Diseños Experimentales</h2>
+    <div class="stats">Preguntas: <span>15</span> &nbsp; Teóricas: <span>7</span> &nbsp; Aplicación: <span>5</span> &nbsp; Análisis de caso: <span>3</span></div>
+  </div>
+  <div class="note">📂 <strong>Parte C</strong>: Semana 7. Las Semanas 1–4 están en <em>Repaso_8A.html</em>; Semanas 5–6 en <em>Repaso_8B.html</em>; Simulacro Final en <em>Repaso_8D.html</em>.</div>
+
+  <div class="qb" id="s7q1"><div class="qtop"><span class="qnum">S7·P1</span><span class="qbadge bt">Teórica</span><span class="qtext">¿Cuál es la diferencia fundamental entre variable independiente (VI) y variable dependiente (VD)?</span></div><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q1','A')"><input type="radio" name="s7q1"><span class="ol">A</span><span class="ot">La VI es la que el investigador manipula deliberadamente (causa potencial); la VD es la que se mide como resultado de esa manipulación (efecto observado). La VI antecede causalmente a la VD.</span></label></li><li><label class="opt" onclick="pick(this,'s7q1','B')"><input type="radio" name="s7q1"><span class="ol">B</span><span class="ot">La VI varía espontáneamente en la naturaleza; la VD es la que el investigador controla para que permanezca estable durante el experimento.</span></label></li><li><label class="opt" onclick="pick(this,'s7q1','C')"><input type="radio" name="s7q1"><span class="ol">C</span><span class="ot">Son sinónimos en diseños no experimentales; solo se diferencian en experimentos de laboratorio.</span></label></li><li><label class="opt" onclick="pick(this,'s7q1','D')"><input type="radio" name="s7q1"><span class="ol">D</span><span class="ot">La VI siempre es cuantitativa y la VD siempre es cualitativa por definición metodológica.</span></label></li></ul><div class="fb" id="s7q1-fb"><div class="fbok">✅ Correcta: A</div>La VI es la causa que se manipula; la VD el efecto que se mide. En contabilidad: VI = tipo de sistema de control interno; VD = nivel de errores en estados financieros. <em>B</em> invierte los roles. <em>C</em> es falso: la distinción existe también en estudios no experimentales. <em>D</em> aplica tipos de medida erróneos.</div></div>
+
+  <div class="qb" id="s7q2"><div class="qtop"><span class="qnum">S7·P2</span><span class="qbadge bt">Teórica</span><span class="qtext">¿Qué es la validez interna de un experimento y qué la amenaza?</span></div><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q2','A')"><input type="radio" name="s7q2"><span class="ol">A</span><span class="ot">El grado en que los cambios en la VD pueden atribuirse causalmente a la VI y no a factores externos no controlados (historia, maduración, sesgo de selección, mortalidad experimental, instrumentación).</span></label></li><li><label class="opt" onclick="pick(this,'s7q2','B')"><input type="radio" name="s7q2"><span class="ol">B</span><span class="ot">Qué tan bien el instrumento representa el contenido del tema estudiado; la amenazan los ítems mal redactados.</span></label></li><li><label class="opt" onclick="pick(this,'s7q2','C')"><input type="radio" name="s7q2"><span class="ol">C</span><span class="ot">Si los resultados pueden generalizarse a otras poblaciones y contextos distintos al del experimento.</span></label></li><li><label class="opt" onclick="pick(this,'s7q2','D')"><input type="radio" name="s7q2"><span class="ol">D</span><span class="ot">La consistencia del instrumento al producir resultados similares en distintas ocasiones.</span></label></li></ul><div class="fb" id="s7q2-fb"><div class="fbok">✅ Correcta: A</div>Validez interna = ¿es la VI lo que produce el cambio en la VD? <em>B</em> describe validez de contenido. <em>C</em> describe validez externa. <em>D</em> describe confiabilidad.</div></div>
+
+  <div class="qb" id="s7q3"><div class="qtop"><span class="qnum">S7·P3</span><span class="qbadge bt">Teórica</span><span class="qtext">¿Qué es la "maduración" como amenaza a la validez interna de un experimento?</span></div><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q3','A')"><input type="radio" name="s7q3"><span class="ol">A</span><span class="ot">Los cambios naturales en los participantes con el paso del tiempo (aprendizaje espontáneo, fatiga), independientemente de la intervención, que pueden confundirse con el efecto de la VI.</span></label></li><li><label class="opt" onclick="pick(this,'s7q3','B')"><input type="radio" name="s7q3"><span class="ol">B</span><span class="ot">El proceso por el cual los participantes más experimentados obtienen mejores resultados por su mayor inteligencia, no por la intervención.</span></label></li><li><label class="opt" onclick="pick(this,'s7q3','C')"><input type="radio" name="s7q3"><span class="ol">C</span><span class="ot">La tendencia del investigador a interpretar datos de forma más sofisticada a medida que madura profesionalmente.</span></label></li><li><label class="opt" onclick="pick(this,'s7q3','D')"><input type="radio" name="s7q3"><span class="ol">D</span><span class="ot">La mejora en el instrumento de medición que ocurre cuando los investigadores lo perfeccionan entre pretest y postest.</span></label></li></ul><div class="fb" id="s7q3-fb"><div class="fbok">✅ Correcta: A</div>Ejemplo: en un experimento de 12 meses, los participantes aprenden naturalmente por exposición laboral, no solo por el programa experimental. <em>D</em> describe la amenaza de "instrumentación".</div></div>
+
+  <div class="qb" id="s7q4"><div class="qtop"><span class="qnum">S7·P4</span><span class="qbadge bt">Teórica</span><span class="qtext">¿Qué es la validez externa de un experimento?</span></div><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q4','A')"><input type="radio" name="s7q4"><span class="ol">A</span><span class="ot">El grado en que los resultados del experimento pueden generalizarse a otras personas, contextos, momentos y circunstancias distintas a las del estudio original.</span></label></li><li><label class="opt" onclick="pick(this,'s7q4','B')"><input type="radio" name="s7q4"><span class="ol">B</span><span class="ot">La verificación que realiza un auditor externo independiente sobre la correcta ejecución del protocolo experimental.</span></label></li><li><label class="opt" onclick="pick(this,'s7q4','C')"><input type="radio" name="s7q4"><span class="ol">C</span><span class="ot">El grado en que los cambios en la VD se deben realmente a la VI y no a variables extrañas no controladas.</span></label></li><li><label class="opt" onclick="pick(this,'s7q4','D')"><input type="radio" name="s7q4"><span class="ol">D</span><span class="ot">La consistencia de los resultados cuando el mismo equipo replica el experimento en el mismo contexto.</span></label></li></ul><div class="fb" id="s7q4-fb"><div class="fbok">✅ Correcta: A</div>Validez externa = capacidad de generalización más allá del estudio. <em>B</em> confunde con auditoría. <em>C</em> es validez INTERNA. <em>D</em> es confiabilidad.</div></div>
+
+  <div class="qb" id="s7q5"><div class="qtop"><span class="qnum">S7·P5</span><span class="qbadge bt">Teórica</span><span class="qtext">¿Cuál es la tensión clásica entre validez interna y validez externa en el diseño experimental?</span></div><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q5','A')"><input type="radio" name="s7q5"><span class="ol">A</span><span class="ot">Al aumentar el control para mejorar la validez interna (laboratorio estricto, muestra homogénea), se reduce la validez externa porque los resultados son menos generalizables a condiciones reales y poblaciones diversas, y viceversa.</span></label></li><li><label class="opt" onclick="pick(this,'s7q5','B')"><input type="radio" name="s7q5"><span class="ol">B</span><span class="ot">No existe tensión: ambas valideces se refuerzan mutuamente y un experimento con alta validez interna siempre tiene alta validez externa.</span></label></li><li><label class="opt" onclick="pick(this,'s7q5','C')"><input type="radio" name="s7q5"><span class="ol">C</span><span class="ot">La validez externa es más importante que la interna porque los resultados solo valen si pueden aplicarse a otros contextos.</span></label></li><li><label class="opt" onclick="pick(this,'s7q5','D')"><input type="radio" name="s7q5"><span class="ol">D</span><span class="ot">La tensión solo existe en ciencias naturales; en ciencias sociales ambas valideces son igualmente alcanzables sin sacrificio.</span></label></li></ul><div class="fb" id="s7q5-fb"><div class="fbok">✅ Correcta: A</div>Laboratorio controlado = validez interna alta, externa baja. Estudio de campo = mayor realismo pero menos control. Esta es una tensión fundamental del diseño experimental.</div></div>
+
+  <div class="qb" id="s7q6"><div class="qtop"><span class="qnum">S7·P6</span><span class="qbadge bt">Teórica</span><span class="qtext">¿Qué es una "variable extraña" o "variable de confusión" en un experimento?</span></div><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q6','A')"><input type="radio" name="s7q6"><span class="ol">A</span><span class="ot">Una variable no considerada en el diseño que influye sobre la VD, haciendo difícil determinar si los cambios observados se deben a la VI o a esa variable no controlada.</span></label></li><li><label class="opt" onclick="pick(this,'s7q6','B')"><input type="radio" name="s7q6"><span class="ol">B</span><span class="ot">Una variable que el investigador introduce deliberadamente para complicar el análisis y demostrar su dominio metodológico.</span></label></li><li><label class="opt" onclick="pick(this,'s7q6','C')"><input type="radio" name="s7q6"><span class="ol">C</span><span class="ot">Una variable dependiente adicional que se mide simultáneamente para enriquecer el análisis estadístico.</span></label></li><li><label class="opt" onclick="pick(this,'s7q6','D')"><input type="radio" name="s7q6"><span class="ol">D</span><span class="ot">Una variable que solo aparece en estudios cualitativos cuando el investigador no puede controlar el entorno.</span></label></li></ul><div class="fb" id="s7q6-fb"><div class="fbok">✅ Correcta: A</div>Ejemplo: estudias si la capacitación en NIIF mejora los estados financieros, pero las empresas que acceden a capacitación también tienen mejor gerencia — esa "calidad gerencial" es la variable de confusión.</div></div>
+
+  <div class="qb" id="s7q7"><div class="qtop"><span class="qnum">S7·P7</span><span class="qbadge bt">Teórica</span><span class="qtext">¿Qué es el "efecto de historia" como amenaza a la validez interna?</span></div><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q7','A')"><input type="radio" name="s7q7"><span class="ol">A</span><span class="ot">Eventos externos al experimento que ocurren durante el período de estudio y pueden afectar la VD, haciendo que los cambios observados se deban a esos eventos y no a la VI manipulada.</span></label></li><li><label class="opt" onclick="pick(this,'s7q7','B')"><input type="radio" name="s7q7"><span class="ol">B</span><span class="ot">La influencia que tiene el historial académico de los participantes sobre su desempeño en el experimento.</span></label></li><li><label class="opt" onclick="pick(this,'s7q7','C')"><input type="radio" name="s7q7"><span class="ol">C</span><span class="ot">El sesgo que introduce el investigador cuando conoce la historia personal de los participantes.</span></label></li><li><label class="opt" onclick="pick(this,'s7q7','D')"><input type="radio" name="s7q7"><span class="ol">D</span><span class="ot">La tendencia de los resultados experimentales a volverse irrelevantes con el paso del tiempo.</span></label></li></ul><div class="fb" id="s7q7-fb"><div class="fbok">✅ Correcta: A</div>Ejemplo: durante un experimento de capacitación tributaria, el SRI publica nuevas regulaciones que obligan a todos a capacitarse. Ese evento externo contamina los resultados.</div></div>
+
+  <div class="qb" id="s7q8"><div class="qtop"><span class="qnum">S7·P8</span><span class="qbadge ba">Aplicación</span><span class="qtext">En un experimento sobre gamificación en auditoría, el Grupo A usa plataforma gamificada y el Grupo B recibe clases tradicionales. El A obtiene mejores calificaciones. ¿Cuál podría ser una amenaza a la validez interna?</span></div><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q8','A')"><input type="radio" name="s7q8"><span class="ol">A</span><span class="ot">Efecto Hawthorne: el Grupo A podría rendir mejor simplemente porque sabe que está siendo objeto de una intervención especial, no necesariamente porque la gamificación sea más efectiva.</span></label></li><li><label class="opt" onclick="pick(this,'s7q8','B')"><input type="radio" name="s7q8"><span class="ol">B</span><span class="ot">Validez externa baja: los resultados no pueden generalizarse a otras universidades del Ecuador.</span></label></li><li><label class="opt" onclick="pick(this,'s7q8','C')"><input type="radio" name="s7q8"><span class="ol">C</span><span class="ot">Problema de muestreo: la muestra es demasiado pequeña para detectar efectos estadísticamente significativos.</span></label></li><li><label class="opt" onclick="pick(this,'s7q8','D')"><input type="radio" name="s7q8"><span class="ol">D</span><span class="ot">Falta de validez de contenido: las calificaciones no miden realmente el aprendizaje sino la habilidad tecnológica.</span></label></li></ul><div class="fb" id="s7q8-fb"><div class="fbok">✅ Correcta: A</div>El efecto Hawthorne amenaza la validez INTERNA: los participantes cambian comportamiento por saberse observados. <em>B</em> amenaza la validez EXTERNA. <em>C</em> es potencia estadística. <em>D</em> es validez de constructo.</div></div>
+
+  <div class="qb" id="s7q9"><div class="qtop"><span class="qnum">S7·P9</span><span class="qbadge ba">Aplicación</span><span class="qtext">En la investigación: "Efecto del nivel de rotación de personal en la cantidad de errores contables en empresas medianas de Guayaquil." ¿Cuál es la VI y cuál la VD?</span></div><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q9','A')"><input type="radio" name="s7q9"><span class="ol">A</span><span class="ot">VI: nivel de rotación de personal (causa propuesta); VD: cantidad de errores contables (efecto medido). La rotación antecede causalmente a los errores.</span></label></li><li><label class="opt" onclick="pick(this,'s7q9','B')"><input type="radio" name="s7q9"><span class="ol">B</span><span class="ot">VI: errores contables; VD: rotación de personal, porque los errores determinan cuántos empleados renuncian.</span></label></li><li><label class="opt" onclick="pick(this,'s7q9','C')"><input type="radio" name="s7q9"><span class="ol">C</span><span class="ot">Ambas son VI porque el investigador controla tanto la rotación como los errores durante el estudio.</span></label></li><li><label class="opt" onclick="pick(this,'s7q9','D')"><input type="radio" name="s7q9"><span class="ol">D</span><span class="ot">Ambas son VD porque en un diseño no experimental no puede determinarse cuál precede causalmente a la otra.</span></label></li></ul><div class="fb" id="s7q9-fb"><div class="fbok">✅ Correcta: A</div>El título dice "efecto DEL nivel de rotación EN los errores": lo que produce el efecto es la VI; lo que recibe el efecto es la VD. <em>B</em> invierte la relación. <em>D</em> es incorrecto: en no experimentales también se propone dirección causal hipotética.</div></div>
+
+  <div class="qb" id="s7q10"><div class="qtop"><span class="qnum">S7·P10</span><span class="qbadge ba">Aplicación</span><span class="qtext">Un investigador evalúa si un programa de control interno reduce el fraude en 5 empresas voluntarias vs. 5 que no lo quisieron. ¿Cuál es la principal amenaza a la validez?</span></div><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q10','A')"><input type="radio" name="s7q10"><span class="ol">A</span><span class="ot">Sesgo de autoselección: las empresas que voluntariamente adoptaron el programa probablemente ya tenían mejor cultura de control interno, lo que hace imposible atribuir la reducción de fraude exclusivamente al programa.</span></label></li><li><label class="opt" onclick="pick(this,'s7q10','B')"><input type="radio" name="s7q10"><span class="ol">B</span><span class="ot">Efecto de historia: durante el estudio, el gobierno publicó nuevas leyes anticorrupción que afectaron a ambos grupos.</span></label></li><li><label class="opt" onclick="pick(this,'s7q10','C')"><input type="radio" name="s7q10"><span class="ol">C</span><span class="ot">Mortalidad experimental: algunas empresas podrían retirarse antes de finalizar el estudio.</span></label></li><li><label class="opt" onclick="pick(this,'s7q10','D')"><input type="radio" name="s7q10"><span class="ol">D</span><span class="ot">Problema de instrumentación: el instrumento para medir "tasa de fraude" puede no ser suficientemente sensible.</span></label></li></ul><div class="fb" id="s7q10-fb"><div class="fbok">✅ Correcta: A</div>Sin aleatorización, el sesgo de autoselección es la amenaza central: empresas voluntarias no son equivalentes a las que se negaron. <em>B, C y D</em> son amenazas reales pero secundarias al sesgo de autoselección señalado en el diseño.</div></div>
+
+  <div class="qb" id="s7q11"><div class="qtop"><span class="qnum">S7·P11</span><span class="qbadge ba">Aplicación</span><span class="qtext">¿Cuál de los siguientes pasos controla principalmente las variables extrañas en un experimento?</span></div><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q11','A')"><input type="radio" name="s7q11"><span class="ol">A</span><span class="ot">La asignación aleatoria de los participantes a los grupos, porque distribuye las características individuales de forma equiprobable entre los grupos, haciéndolos comparables desde el inicio.</span></label></li><li><label class="opt" onclick="pick(this,'s7q11','B')"><input type="radio" name="s7q11"><span class="ol">B</span><span class="ot">El uso de pruebas estadísticas avanzadas (ANOVA, regresión múltiple) en el análisis final de los datos.</span></label></li><li><label class="opt" onclick="pick(this,'s7q11','C')"><input type="radio" name="s7q11"><span class="ol">C</span><span class="ot">La selección manual de participantes similares según el criterio del investigador para que los grupos sean equivalentes visualmente.</span></label></li><li><label class="opt" onclick="pick(this,'s7q11','D')"><input type="radio" name="s7q11"><span class="ol">D</span><span class="ot">Publicar el protocolo experimental en una revista indexada antes de iniciar la recolección de datos.</span></label></li></ul><div class="fb" id="s7q11-fb"><div class="fbok">✅ Correcta: A</div>La aleatorización neutraliza el efecto diferencial de las variables extrañas distribuyéndolas equiprobablemente entre grupos. <em>B</em> ayuda en el análisis pero no controla variables en el diseño. <em>C</em> introduce sesgo del investigador. <em>D</em> es transparencia académica, no control de variables.</div></div>
+
+  <div class="qb" id="s7q12"><div class="qtop"><span class="qnum">S7·P12</span><span class="qbadge bc">Análisis de caso</span><span class="qtext">Una investigadora asigna aleatoriamente 60 estudiantes: 30 estudian la NIC 36 con tabletas y 30 con material impreso. El grupo tabletas obtiene 14/20 vs. 12/20. Concluye: "Las tabletas CAUSAN mejor aprendizaje." ¿Es válida la conclusión?</span></div><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q12','A')"><input type="radio" name="s7q12"><span class="ol">A</span><span class="ot">Parcialmente: la asignación aleatoria y la manipulación de la VI respaldan una relación causal, pero debe verificarse que la diferencia sea estadísticamente significativa y que no haya amenazas a la validez interna (efecto Hawthorne, tiempo de estudio diferente, etc.).</span></label></li><li><label class="opt" onclick="pick(this,'s7q12','B')"><input type="radio" name="s7q12"><span class="ol">B</span><span class="ot">Totalmente válida: la diferencia de 2 puntos con aleatorización es suficiente para concluir causalidad sin prueba estadística adicional.</span></label></li><li><label class="opt" onclick="pick(this,'s7q12','C')"><input type="radio" name="s7q12"><span class="ol">C</span><span class="ot">No tiene ninguna validez porque los experimentos educativos siempre son inválidos al no poder controlarse todas las variables.</span></label></li><li><label class="opt" onclick="pick(this,'s7q12','D')"><input type="radio" name="s7q12"><span class="ol">D</span><span class="ot">Inválida porque 60 estudiantes son insuficientes para cualquier conclusión causal en ciencias de la educación.</span></label></li></ul><div class="fb" id="s7q12-fb"><div class="fbok">✅ Correcta: A</div>La aleatorización y la manipulación son necesarias pero no suficientes: también se requiere significancia estadística y verificar que no haya amenazas a la validez interna. <em>B</em> 2 puntos sin prueba estadística pueden ser azar. <em>C</em> nihilista e incorrecto. <em>D</em> criterio arbitrario.</div></div>
+
+  <div class="qb" id="s7q13"><div class="qtop"><span class="qnum">S7·P13</span><span class="qbadge bc">Análisis de caso</span></div><div class="caso">Un investigador analiza estados financieros de 200 constructoras ecuatorianas (2019–2023) y encuentra correlación de 0.68 entre nivel de endeudamiento y probabilidad de fraude en licitaciones. No manipuló ninguna variable.</div><span class="qtext">¿Puede concluir que "el endeudamiento CAUSA el fraude"?</span><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q13','A')"><input type="radio" name="s7q13"><span class="ol">A</span><span class="ot">No: el diseño no experimental no permite establecer causalidad. La correlación de 0.68 indica asociación pero no descarta que una tercera variable (mala gestión gerencial) cause tanto el endeudamiento como el fraude.</span></label></li><li><label class="opt" onclick="pick(this,'s7q13','B')"><input type="radio" name="s7q13"><span class="ol">B</span><span class="ot">Sí: una correlación de 0.68 es suficientemente alta para establecer causalidad entre las variables.</span></label></li><li><label class="opt" onclick="pick(this,'s7q13','C')"><input type="radio" name="s7q13"><span class="ol">C</span><span class="ot">Sí: analizar 200 empresas durante 5 años constituye evidencia longitudinal suficiente para afirmar causalidad.</span></label></li><li><label class="opt" onclick="pick(this,'s7q13','D')"><input type="radio" name="s7q13"><span class="ol">D</span><span class="ot">No puede concluir nada porque los datos de la Contraloría son secundarios y no tienen validez científica.</span></label></li></ul><div class="fb" id="s7q13-fb"><div class="fbok">✅ Correcta: A</div>Correlación ≠ causalidad, independientemente de su magnitud. Sin manipulación y aleatorización, siempre existe la posibilidad de una variable de confusión. <em>B</em> confunde magnitud de correlación con evidencia causal. <em>C</em> confunde longitudinalidad con experimento. <em>D</em> los datos oficiales son perfectamente válidos para correlaciones.</div></div>
+
+  <div class="qb" id="s7q14"><div class="qtop"><span class="qnum">S7·P14</span><span class="qbadge bc">Análisis de caso</span></div><div class="caso">Sofía aplicará una encuesta a 200 contadores en enero 2025 sobre su nivel de estrés laboral y productividad simultáneamente. Quiere concluir si el estrés "afecta" la productividad. Su tutor señala una limitación fundamental.</div><span class="qtext">¿Cuál es esa limitación y cómo superarla?</span><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q14','A')"><input type="radio" name="s7q14"><span class="ol">A</span><span class="ot">El diseño transversal no puede establecer causalidad: ambas variables se miden simultáneamente, por lo que no es posible saber si el estrés precede a la baja productividad o viceversa. Podría mejorarse con un diseño longitudinal o experimental.</span></label></li><li><label class="opt" onclick="pick(this,'s7q14','B')"><input type="radio" name="s7q14"><span class="ol">B</span><span class="ot">200 contadores no son suficientes; necesita al menos 1.000 para concluir sobre efectos causales.</span></label></li><li><label class="opt" onclick="pick(this,'s7q14','C')"><input type="radio" name="s7q14"><span class="ol">C</span><span class="ot">Usa encuesta en lugar de entrevistas; solo las entrevistas permiten explorar causalidad con rigor.</span></label></li><li><label class="opt" onclick="pick(this,'s7q14','D')"><input type="radio" name="s7q14"><span class="ol">D</span><span class="ot">No hay ninguna limitación; un diseño transversal con 200 participantes es válido para establecer relaciones causales.</span></label></li></ul><div class="fb" id="s7q14-fb"><div class="fbok">✅ Correcta: A</div>La simultaneidad temporal es el problema: si mides estrés y productividad al mismo tiempo, no puedes determinar cuál vino primero. Un diseño longitudinal (estrés en t1, productividad en t2) o experimental superaría esta limitación.</div></div>
+
+  <div class="qb" id="s7q15"><div class="qtop"><span class="qnum">S7·P15</span><span class="qbadge bc">Análisis de caso</span></div><div class="caso">Un investigador prueba un software de auditoría en 5 tiendas de Guayaquil (vs. 5 con auditoría manual). Detecta 40% más irregularidades. La gerencia decide implementarlo en las 200 tiendas del país.</div><span class="qtext">¿Qué problema metodológico tiene esa decisión?</span><ul class="opts"><li><label class="opt" onclick="pick(this,'s7q15','A')"><input type="radio" name="s7q15"><span class="ol">A</span><span class="ot">Problema de validez externa: los resultados de 5 tiendas en Guayaquil no pueden generalizarse automáticamente a 200 tiendas del país con diferentes regiones, tamaños, volúmenes y culturas organizacionales.</span></label></li><li><label class="opt" onclick="pick(this,'s7q15','B')"><input type="radio" name="s7q15"><span class="ol">B</span><span class="ot">Problema de validez interna: la asignación de auditores no fue aleatoria, por lo que los grupos pueden no ser comparables.</span></label></li><li><label class="opt" onclick="pick(this,'s7q15','C')"><input type="radio" name="s7q15"><span class="ol">C</span><span class="ot">No hay problema: un aumento del 40% en detección es evidencia suficiente para justificar la implementación nacional.</span></label></li><li><label class="opt" onclick="pick(this,'s7q15','D')"><input type="radio" name="s7q15"><span class="ol">D</span><span class="ot">Problema estadístico: con solo 10 tiendas totales, el estudio no tiene potencia estadística suficiente para detectar un efecto del 40%.</span></label></li></ul><div class="fb" id="s7q15-fb"><div class="fbok">✅ Correcta: A</div>La validez externa es la capacidad de generalizar. 5 tiendas en Guayaquil no representan la diversidad de 200 tiendas nacionales. El investigador hace una generalización excesiva. <em>B</em> puede ser adicional pero no es el problema de la recomendación. <em>C</em> ignora el problema de generalización.</div></div>
+
+  <button class="vbtn" onclick="verifyQuiz('s7',15)">✅ Verificar respuestas — Semana 7</button>
+  <div id="s7-result" class="rp"></div>
+  <button class="rbtn" id="s7-reset" onclick="resetQuiz('s7',15)">🔄 Reiniciar Semana 7</button>
+</div>
+
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+function pick(label,qId,opt){
+  const b=document.getElementById(qId);
+  b.querySelectorAll('.opt').forEach(l=>l.classList.remove('sel'));
+  label.classList.add('sel');
+  b.classList.add('answered');
+  b.dataset.answer=opt;
+}
+const KEY={s7q1:'A',s7q2:'A',s7q3:'A',s7q4:'A',s7q5:'A',s7q6:'A',s7q7:'A',s7q8:'A',s7q9:'A',s7q10:'A',s7q11:'A',s7q12:'A',s7q13:'A',s7q14:'A',s7q15:'A'};
+function verifyQuiz(sem,total){
+  let miss=[];
+  for(let i=1;i<=total;i++){const b=document.getElementById(sem+'q'+i);if(b&&!b.dataset.answer)miss.push(i);}
+  if(miss.length>0){alert('⚠️ Faltan '+miss.length+' respuesta(s): P'+miss.join(', P'));return;}
+  let ok=0;
+  for(let i=1;i<=total;i++){
+    const qid=sem+'q'+i;const b=document.getElementById(qid);if(!b)continue;
+    const chosen=b.dataset.answer;const right=KEY[qid];
+    b.querySelectorAll('.opt').forEach(l=>{
+      const lt=l.querySelector('.ol').textContent;
+      if(lt===right)l.classList.add('ok');
+      if(lt===chosen&&chosen!==right)l.classList.add('err');
+      l.style.pointerEvents='none';
+      const r=l.querySelector('input');if(r){r.disabled=true;}
+    });
+    const fb=document.getElementById(qid+'-fb');if(fb)fb.classList.add('show');
+    if(chosen===right){ok++;b.classList.remove('answered');b.classList.add('correct');}
+    else{b.classList.remove('answered');b.classList.add('incorrect');}
+  }
+  const pct=Math.round(ok/total*100);
+  const panel=document.getElementById(sem+'-result');
+  const emoji=pct===100?'🏆':pct>=80?'🎯':pct>=60?'📘':pct>=40?'⚠️':'📖';
+  const msg=pct===100?'¡Dominio perfecto!':pct>=80?'¡Excelente preparación!':pct>=60?'Buen trabajo. Repasa los ítems en rojo.':pct>=40?'Refuerza las áreas marcadas en rojo.':'Vuelve a estudiar el material de esta semana.';
+  panel.innerHTML=`<div class="re">${emoji}</div><div class="rs">${ok}/${total}</div><div class="rpct">${pct}%</div><div class="pbw"><div class="pb" id="${sem}-bar"></div></div><div class="rmsg">${msg}</div>`;
+  panel.classList.add('show');
+  setTimeout(()=>{const bar=document.getElementById(sem+'-bar');if(bar)bar.style.width=pct+'%';},100);
+  document.querySelector(`.vbtn[onclick*="${sem}"]`).style.display='none';
+  document.getElementById(sem+'-reset').style.display='block';
+  panel.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function resetQuiz(sem,total){
+  for(let i=1;i<=total;i++){
+    const b=document.getElementById(sem+'q'+i);if(!b)continue;
+    b.classList.remove('correct','incorrect','answered');delete b.dataset.answer;
+    b.querySelectorAll('.opt').forEach(l=>{l.classList.remove('sel','ok','err');l.style.pointerEvents='';const r=l.querySelector('input');if(r){r.disabled=false;r.checked=false;}});
+    const fb=document.getElementById(sem+'q'+i+'-fb');if(fb)fb.classList.remove('show');
+  }
+  const panel=document.getElementById(sem+'-result');
+  if(panel){panel.classList.remove('show');panel.innerHTML='';}
+  document.querySelector(`.vbtn[onclick*="${sem}"]`).style.display='block';
+  document.getElementById(sem+'-reset').style.display='none';
+}
+</script>
+</body>
+</html>

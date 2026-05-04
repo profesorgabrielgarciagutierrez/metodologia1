@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Repaso Examen | Metodología | UG — Parte B (Semanas 5–6)</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3',sans-serif;font-size:15px;color:#1a1a2e;background:#f0f4f8;min-height:100vh}
+header{background:#003366;color:#fff}
+.header-top{display:flex;align-items:center;gap:14px;padding:14px 20px 8px;border-bottom:1px solid rgba(255,255,255,0.15)}
+.header-logo{width:44px;height:44px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-weight:700;color:#003366;font-size:15px;flex-shrink:0}
+.header-inst{display:flex;flex-direction:column;gap:2px}
+.univ{font-size:13px;font-weight:700;letter-spacing:.5px}
+.fac{font-size:11px;opacity:.85}
+.carr{font-size:11px;opacity:.75}
+.header-body{padding:12px 20px 16px}
+.badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.hbadge{background:rgba(255,255,255,0.18);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px}
+.header-title{font-family:'Lora',serif;font-size:22px;font-weight:700;line-height:1.3;margin-bottom:5px}
+.header-subtitle{font-size:12px;opacity:.8;line-height:1.5}
+.tab-nav-wrapper{background:#87CEEB;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;border-bottom:2px solid #5ba8cc}
+.tab-nav{display:inline-flex;padding:6px 10px 0;gap:4px;min-width:100%}
+.tab-btn{font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;color:#1a1a2e;background:rgba(255,255,255,0.55);border:none;border-radius:8px 8px 0 0;padding:9px 15px;cursor:pointer;white-space:nowrap;transition:all .2s;border-bottom:3px solid transparent}
+.tab-btn:hover{background:rgba(255,255,255,0.8)}
+.tab-btn.active{background:#fff;color:#003366;font-weight:700;border-bottom:3px solid #003366}
+.tab-content{display:none;padding:24px 20px 50px;max-width:860px;margin:0 auto;animation:fadeIn .3s ease}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.quiz-header{background:linear-gradient(to right,#003366,#0055a4);color:#fff;border-radius:10px;padding:18px 20px;margin-bottom:20px}
+.quiz-header h2{font-family:'Lora',serif;font-size:20px;color:#fff;border-bottom:2px solid rgba(255,255,255,0.3);padding-bottom:8px;margin-bottom:8px}
+.quiz-stats{display:flex;gap:20px;flex-wrap:wrap}
+.quiz-stat{font-size:13px;opacity:.85}
+.quiz-stat span{font-weight:700;font-size:16px;opacity:1}
+.question-block{background:#fff;border-radius:10px;padding:18px 20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.07);border-left:4px solid #ccc;transition:border-color .3s}
+.question-block.answered{border-left-color:#003366}
+.question-block.correct{border-left-color:#27ae60}
+.question-block.incorrect{border-left-color:#e74c3c}
+.q-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.q-num{background:#003366;color:#fff;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0}
+.q-badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:10px;flex-shrink:0}
+.badge-teo{background:#dbeafe;color:#1e40af}
+.badge-app{background:#d1fae5;color:#065f46}
+.badge-caso{background:#fef3c7;color:#92400e}
+.q-text{font-size:15px;color:#1a1a2e;line-height:1.6;font-weight:600;flex:1;min-width:200px}
+.caso-box{background:#fffbeb;border:1px solid #fcd34d;border-radius:6px;padding:12px 14px;margin:10px 0;font-size:14px;color:#44403c;line-height:1.6;font-style:italic}
+.caso-box::before{content:"📋 Caso: ";font-weight:700;font-style:normal;color:#92400e}
+.options-list{list-style:none;margin:10px 0 0}
+.options-list li{margin-bottom:8px}
+.option-label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:2px solid #e2e8f0;border-radius:8px;cursor:pointer;transition:all .2s}
+.option-label:hover{border-color:#87CEEB;background:#f0f9ff}
+.option-label input[type="radio"]{accent-color:#003366;margin-top:2px;flex-shrink:0}
+.opt-letter{font-weight:700;color:#003366;font-size:13px;flex-shrink:0}
+.opt-text{font-size:14px;color:#333;line-height:1.5}
+.option-label.selected{border-color:#003366;background:#e8f0fa}
+.option-label.correct-ans{border-color:#27ae60;background:#f0fdf4}
+.option-label.wrong-ans{border-color:#e74c3c;background:#fef2f2}
+.option-label.correct-ans .opt-letter,.option-label.correct-ans .opt-text{color:#15803d}
+.option-label.wrong-ans .opt-letter,.option-label.wrong-ans .opt-text{color:#b91c1c;text-decoration:line-through}
+.feedback-box{background:#f8fafc;border-left:4px solid #003366;border-radius:0 8px 8px 0;padding:12px 14px;margin-top:12px;font-size:13px;color:#334155;line-height:1.7;display:none}
+.feedback-box.show{display:block}
+.fb-correct{color:#15803d;font-weight:700;margin-bottom:6px}
+.verify-btn{display:block;width:100%;background:#003366;color:#fff;font-family:'Source Sans 3',sans-serif;font-size:16px;font-weight:700;padding:14px;border:none;border-radius:10px;cursor:pointer;margin:20px 0 10px;transition:background .2s}
+.verify-btn:hover{background:#0055a4}
+.reset-btn{display:none;width:100%;background:#fff;color:#003366;font-family:'Source Sans 3',sans-serif;font-size:15px;font-weight:700;padding:12px;border:2px solid #003366;border-radius:10px;cursor:pointer;margin-top:8px}
+.reset-btn:hover{background:#e8f0fa}
+.result-panel{display:none;background:#fff;border-radius:12px;padding:24px;margin-top:20px;box-shadow:0 4px 16px rgba(0,0,0,0.1);text-align:center}
+.result-panel.show{display:block}
+.result-emoji{font-size:52px;margin-bottom:8px}
+.result-score{font-family:'Lora',serif;font-size:36px;font-weight:700;color:#003366}
+.result-pct{font-size:18px;color:#666;margin:4px 0 14px}
+.result-msg{font-size:16px;color:#334155;line-height:1.6;margin-bottom:16px}
+.progress-bar-wrap{background:#e2e8f0;border-radius:20px;height:16px;overflow:hidden;margin:10px 0}
+.progress-bar{height:100%;border-radius:20px;background:linear-gradient(to right,#003366,#0055a4);width:0%;transition:width 1s ease}
+.nav-note{background:#e8f4fd;border:1px solid #87CEEB;border-radius:8px;padding:12px 16px;font-size:13px;color:#003366;margin-bottom:20px}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <div class="header-logo">UG</div>
+    <div class="header-inst">
+      <span class="univ">Universidad de Guayaquil</span>
+      <span class="fac">Facultad de Ciencias Administrativas</span>
+      <span class="carr">Carrera en Contabilidad y Auditoría</span>
+    </div>
+  </div>
+  <div class="header-body">
+    <div class="badge-row">
+      <span class="hbadge">Metodología de la Investigación</span>
+      <span class="hbadge">Repaso Examen — Parte B</span>
+      <span class="hbadge">Semanas 5 y 6</span>
+    </div>
+    <div class="header-title">🎯 Repaso para Examen — Parte B</div>
+    <div class="header-subtitle">Enfoques cuantitativo y cualitativo · Métodos mixtos · Diseños experimentales y no experimentales</div>
+  </div>
+</header>
+
+<div class="tab-nav-wrapper">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('s5')">📗 Semana 5</button>
+    <button class="tab-btn" onclick="showTab('s6')">📘 Semana 6</button>
+  </div>
+</div>
+
+<!-- =========== SEMANA 5 =========== -->
+<div id="tab-s5" class="tab-content active">
+  <div class="quiz-header">
+    <h2>📗 Semana 5 — Enfoques Cuantitativo, Cualitativo y Métodos Mixtos</h2>
+    <div class="quiz-stats">
+      <div class="quiz-stat">Preguntas: <span>15</span></div>
+      <div class="quiz-stat">Teóricas: <span>7</span></div>
+      <div class="quiz-stat">Aplicación: <span>5</span></div>
+      <div class="quiz-stat">Análisis de caso: <span>3</span></div>
+    </div>
+  </div>
+  <div class="nav-note">📂 Este archivo es la <strong>Parte B</strong>. Las Semanas 1–4 están en <em>Repaso_8A.html</em>. La Semana 7 y el Simulacro Final están en <em>Repaso_8C.html</em>.</div>
+
+  <!-- P1 -->
+  <div class="question-block" id="s5q1">
+    <div class="q-top"><span class="q-num">S5·P1</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuál es la característica más distintiva del enfoque cuantitativo de investigación?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q1','A')"><input type="radio" name="s5q1"><span class="opt-letter">A</span><span class="opt-text">Busca medir fenómenos mediante datos numéricos, aplica análisis estadístico y pretende formular generalizaciones partiendo de hipótesis previas que se contrastan con la realidad.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q1','B')"><input type="radio" name="s5q1"><span class="opt-letter">B</span><span class="opt-text">Se basa exclusivamente en experimentos de laboratorio con grupos de control, y no puede aplicarse en ciencias sociales.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q1','C')"><input type="radio" name="s5q1"><span class="opt-letter">C</span><span class="opt-text">Rechaza el uso de hipótesis porque estas introducen sesgo previo en el proceso de recolección de datos.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q1','D')"><input type="radio" name="s5q1"><span class="opt-letter">D</span><span class="opt-text">Produce resultados únicamente descriptivos y nunca permite establecer relaciones entre variables.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q1-fb"><div class="fb-correct">✅ Correcta: A</div>El enfoque cuantitativo parte de hipótesis, mide variables con instrumentos estandarizados, analiza estadísticamente y busca generalizar. No se limita a laboratorios ni rechaza hipótesis. <em>B</em> lo reduce al experimento. <em>C</em> contradice su esencia: el cuantitativo es el que más usa hipótesis. <em>D</em> es falso: también puede ser correlacional y explicativo.</div>
+  </div>
+
+  <!-- P2 -->
+  <div class="question-block" id="s5q2">
+    <div class="q-top"><span class="q-num">S5·P2</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuál es la característica central del enfoque cualitativo que lo diferencia fundamentalmente del cuantitativo?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q2','A')"><input type="radio" name="s5q2"><span class="opt-letter">A</span><span class="opt-text">Busca comprender los significados, interpretaciones y experiencias de los actores sociales desde su propia perspectiva; el diseño es flexible y puede emerger y modificarse durante el proceso.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q2','B')"><input type="radio" name="s5q2"><span class="opt-letter">B</span><span class="opt-text">Es un enfoque menos riguroso que el cuantitativo porque no usa estadística ni sigue un proceso sistemático verificable.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q2','C')"><input type="radio" name="s5q2"><span class="opt-letter">C</span><span class="opt-text">Solo puede usarse con muestras menores a diez personas para garantizar la profundidad requerida por el análisis.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q2','D')"><input type="radio" name="s5q2"><span class="opt-letter">D</span><span class="opt-text">Siempre formula hipótesis numéricas previas que orienta con entrevistas abiertas al inicio del estudio.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q2-fb"><div class="fb-correct">✅ Correcta: A</div>El cualitativo busca comprensión, no medición. El investigador es el instrumento; los datos son textuales. <em>B</em> confunde "sin estadística" con "menos riguroso": tiene sus propios criterios (credibilidad, transferibilidad). <em>C</em> es arbitrario; el cualitativo no tiene ese límite fijo. <em>D</em> describe erróneamente el cuantitativo.</div>
+  </div>
+
+  <!-- P3 -->
+  <div class="question-block" id="s5q3">
+    <div class="q-top"><span class="q-num">S5·P3</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿En qué se parecen los enfoques cuantitativo y cualitativo a pesar de sus diferencias?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q3','A')"><input type="radio" name="s5q3"><span class="opt-letter">A</span><span class="opt-text">Ambos son formas de investigación científica que buscan ampliar el conocimiento mediante observación sistemática y sus conclusiones deben sustentarse en evidencia empírica recolectada con rigor.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q3','B')"><input type="radio" name="s5q3"><span class="opt-letter">B</span><span class="opt-text">Ambos usan estadística inferencial para analizar los datos y generalizar los resultados a la población de estudio.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q3','C')"><input type="radio" name="s5q3"><span class="opt-letter">C</span><span class="opt-text">Ambos requieren formular hipótesis numéricas previas antes de iniciar la recolección de datos.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q3','D')"><input type="radio" name="s5q3"><span class="opt-letter">D</span><span class="opt-text">Ambos producen el mismo tipo de datos (numéricos o textuales) y usan los mismos instrumentos de recolección.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q3-fb"><div class="fb-correct">✅ Correcta: A</div>Más allá de sus diferencias, comparten el compromiso con la evidencia empírica y la sistematicidad. <em>B</em> falso: el cualitativo no usa estadística inferencial. <em>C</em> falso: el cualitativo generalmente no formula hipótesis previas. <em>D</em> completamente falso.</div>
+  </div>
+
+  <!-- P4 -->
+  <div class="question-block" id="s5q4">
+    <div class="q-top"><span class="q-num">S5·P4</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué son los métodos mixtos en investigación científica?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q4','A')"><input type="radio" name="s5q4"><span class="opt-letter">A</span><span class="opt-text">La integración deliberada de datos, métodos y perspectivas cuantitativas y cualitativas en un mismo estudio para obtener una comprensión más completa del fenómeno que ninguno de los dos enfoques solos podría proporcionar.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q4','B')"><input type="radio" name="s5q4"><span class="opt-letter">B</span><span class="opt-text">La aplicación simultánea de dos o más técnicas estadísticas diferentes al mismo conjunto de datos cuantitativos para validar los resultados.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q4','C')"><input type="radio" name="s5q4"><span class="opt-letter">C</span><span class="opt-text">Una alternativa teórica que reemplaza completamente a los enfoques cuantitativo y cualitativo en la investigación contemporánea.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q4','D')"><input type="radio" name="s5q4"><span class="opt-letter">D</span><span class="opt-text">Una forma de investigación interdisciplinar que combina dos disciplinas distintas usando únicamente el enfoque cuantitativo.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q4-fb"><div class="fb-correct">✅ Correcta: A</div>Los métodos mixtos (Creswell) integran lo cuantitativo y lo cualitativo para producir comprensión más rica. <em>B</em> describe estadística multivariada. <em>C</em> es falso: los mixtos complementan, no reemplazan. <em>D</em> confunde interdisciplinariedad con enfoque metodológico.</div>
+  </div>
+
+  <!-- P5 -->
+  <div class="question-block" id="s5q5">
+    <div class="q-top"><span class="q-num">S5·P5</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuál es la lógica de razonamiento predominante en el enfoque cualitativo?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q5','A')"><input type="radio" name="s5q5"><span class="opt-letter">A</span><span class="opt-text">La lógica inductiva: el investigador recoge datos ricos en detalle y desde ellos construye patrones, categorías y eventualmente teoría, yendo de lo particular a lo general.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q5','B')"><input type="radio" name="s5q5"><span class="opt-letter">B</span><span class="opt-text">La lógica deductiva: parte de una teoría general y formula hipótesis numéricas que luego prueba con datos textuales.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q5','C')"><input type="radio" name="s5q5"><span class="opt-letter">C</span><span class="opt-text">No usa ninguna lógica formal; el cualitativo es puramente intuitivo y no sigue razonamiento estructurado alguno.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q5','D')"><input type="radio" name="s5q5"><span class="opt-letter">D</span><span class="opt-text">La lógica probabilística: calcula la probabilidad de que las interpretaciones del investigador sean correctas.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q5-fb"><div class="fb-correct">✅ Correcta: A</div>El cualitativo es predominantemente inductivo: observa → describe → analiza → construye teoría desde los datos (grounded theory). <em>B</em> describe el cuantitativo. <em>C</em> niega el rigor del cualitativo. <em>D</em> describe razonamiento estadístico-cuantitativo.</div>
+  </div>
+
+  <!-- P6 -->
+  <div class="question-block" id="s5q6">
+    <div class="q-top"><span class="q-num">S5·P6</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuál criterio de rigor del enfoque cualitativo es equivalente a la "confiabilidad" del cuantitativo?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q6','A')"><input type="radio" name="s5q6"><span class="opt-letter">A</span><span class="opt-text">La "dependabilidad" (dependability): la consistencia del proceso que permite a otro investigador seguir la misma cadena de análisis y llegar a conclusiones similares con los mismos datos.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q6','B')"><input type="radio" name="s5q6"><span class="opt-letter">B</span><span class="opt-text">El "alfa de Cronbach": coeficiente estadístico que mide la consistencia interna de los instrumentos cualitativos.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q6','C')"><input type="radio" name="s5q6"><span class="opt-letter">C</span><span class="opt-text">La "representatividad muestral": que la muestra cualitativa sea estadísticamente representativa de la población.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q6','D')"><input type="radio" name="s5q6"><span class="opt-letter">D</span><span class="opt-text">La "replicabilidad exacta": que cualquier otro investigador llegue a exactamente las mismas conclusiones con los mismos participantes.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q6-fb"><div class="fb-correct">✅ Correcta: A</div>Lincoln y Guba propusieron: credibilidad (≈validez interna), transferibilidad (≈validez externa), dependabilidad (≈confiabilidad) y confirmabilidad (≈objetividad). <em>B</em> es estadístico cuantitativo. <em>C</em> aplica criterio cuantitativo al cualitativo. <em>D</em> el cualitativo no busca replicabilidad exacta sino trayectorias de análisis documentadas.</div>
+  </div>
+
+  <!-- P7 -->
+  <div class="question-block" id="s5q7">
+    <div class="q-top"><span class="q-num">S5·P7</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿En qué situaciones es más apropiado elegir el enfoque cualitativo en lugar del cuantitativo?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q7','A')"><input type="radio" name="s5q7"><span class="opt-letter">A</span><span class="opt-text">Cuando el fenómeno es poco conocido, cuando se quiere explorar significados y experiencias de los actores, cuando el contexto es fundamental para entender el fenómeno, o cuando la cuantificación reduciría la riqueza del objeto de estudio.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q7','B')"><input type="radio" name="s5q7"><span class="opt-letter">B</span><span class="opt-text">Siempre que el presupuesto de investigación sea bajo, porque el cualitativo es más económico al no requerir software estadístico costoso.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q7','C')"><input type="radio" name="s5q7"><span class="opt-letter">C</span><span class="opt-text">Cuando el investigador no domina la estadística y necesita una alternativa metodológica más accesible para concluir su tesis.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q7','D')"><input type="radio" name="s5q7"><span class="opt-letter">D</span><span class="opt-text">Solo cuando la muestra disponible es demasiado pequeña para ser estadísticamente representativa de la población.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q7-fb"><div class="fb-correct">✅ Correcta: A</div>La elección del enfoque responde a la naturaleza del problema y los objetivos. <em>B</em> confunde costo con pertinencia metodológica. <em>C</em> sugiere que el cualitativo es un "refugio" para quienes no saben estadística, idea incorrecta y peyorativa. <em>D</em> aplica criterio cuantitativo al cualitativo.</div>
+  </div>
+
+  <!-- P8 APP -->
+  <div class="question-block" id="s5q8">
+    <div class="q-top"><span class="q-num">S5·P8</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">Un investigador quiere saber: "¿Cuántas empresas del sector manufacturero de Guayaquil implementaron sistemas de costeo ABC entre 2020 y 2024?" ¿Qué enfoque es más adecuado?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q8','A')"><input type="radio" name="s5q8"><span class="opt-letter">A</span><span class="opt-text">Cuantitativo descriptivo: la pregunta busca una cantidad medible sobre una población definida, lo que requiere muestra representativa con análisis estadístico.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q8','B')"><input type="radio" name="s5q8"><span class="opt-letter">B</span><span class="opt-text">Cualitativo fenomenológico: es necesario comprender qué significa para los gerentes "implementar" un sistema de costeo.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q8','C')"><input type="radio" name="s5q8"><span class="opt-letter">C</span><span class="opt-text">Mixto: hay que entrevistar a todos los gerentes y también hacer encuestas para obtener datos suficientemente completos.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q8','D')"><input type="radio" name="s5q8"><span class="opt-letter">D</span><span class="opt-text">Cualitativo de teoría fundamentada: la implementación del costeo ABC es un fenómeno desconocido que requiere exploración abierta.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q8-fb"><div class="fb-correct">✅ Correcta: A</div>La pregunta pide "cuántas": una cifra, una frecuencia, un porcentaje. Eso es cuantitativo descriptivo. <em>B</em> cambia la pregunta a significados. <em>C</em> puede ser válido en otro contexto, pero excesivo para esta pregunta específica. <em>D</em> es inadecuado: el costeo ABC no es fenómeno desconocido.</div>
+  </div>
+
+  <!-- P9 APP -->
+  <div class="question-block" id="s5q9">
+    <div class="q-top"><span class="q-num">S5·P9</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">Una auditora quiere entender por qué los empleados de una institución pública omiten reportar irregularidades que detectan. ¿Qué enfoque es más pertinente?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q9','A')"><input type="radio" name="s5q9"><span class="opt-letter">A</span><span class="opt-text">Cualitativo: la pregunta busca comprender motivaciones, miedos y percepciones subjetivas — un territorio de significados que no se capta adecuadamente con encuestas numéricas.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q9','B')"><input type="radio" name="s5q9"><span class="opt-letter">B</span><span class="opt-text">Cuantitativo: se pueden asignar puntajes del 1 al 10 a las razones que los empleados dan para no reportar y calcular promedios estadísticos.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q9','C')"><input type="radio" name="s5q9"><span class="opt-letter">C</span><span class="opt-text">Experimental: crear un grupo de empleados que recibe capacitación y compararlo con un grupo control que no la recibe.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q9','D')"><input type="radio" name="s5q9"><span class="opt-letter">D</span><span class="opt-text">Descriptivo cuantitativo: basta describir cuántos empleados reportan irregularidades y cuántos no lo hacen en el período de estudio.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q9-fb"><div class="fb-correct">✅ Correcta: A</div>El "por qué" de comportamientos complejos (miedo, lealtades informales, cultura) requiere profundidad interpretativa: entrevistas, grupos focales, análisis de narrativas. <em>B</em> cuantifica artificialmente algo que requiere profundidad. <em>C</em> cambia el objetivo de comprender a probar una intervención. <em>D</em> responde al "cuántos", no al "por qué".</div>
+  </div>
+
+  <!-- P10 APP -->
+  <div class="question-block" id="s5q10">
+    <div class="q-top"><span class="q-num">S5·P10</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">¿En cuál de los siguientes estudios sería más apropiado el método mixto?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q10','A')"><input type="radio" name="s5q10"><span class="opt-letter">A</span><span class="opt-text">Estudio que primero cuantifica la prevalencia del fraude en estados financieros ecuatorianos y luego realiza entrevistas en profundidad a contadores para entender cómo ocurre y qué factores lo facilitan.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q10','B')"><input type="radio" name="s5q10"><span class="opt-letter">B</span><span class="opt-text">Estudio que aplica dos tipos de encuestas Likert a la misma muestra para comparar los resultados estadísticos entre instrumentos.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q10','C')"><input type="radio" name="s5q10"><span class="opt-letter">C</span><span class="opt-text">Estudio que combina fuentes bibliográficas antiguas y recientes sobre un mismo tema teórico contable para construir el marco conceptual.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q10','D')"><input type="radio" name="s5q10"><span class="opt-letter">D</span><span class="opt-text">Experimento con grupo control y grupo experimental donde se miden diferencias mediante pruebas estadísticas paramétricas.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q10-fb"><div class="fb-correct">✅ Correcta: A</div>Integra deliberadamente lo cuantitativo (prevalencia/frecuencias) y lo cualitativo (entrevistas/significados) en una secuencia explicativa. Eso es método mixto. <em>B</em> usa dos instrumentos pero ambos cuantitativos. <em>C</em> es revisión bibliográfica, no método mixto. <em>D</em> es puramente cuantitativo-experimental.</div>
+  </div>
+
+  <!-- P11 APP -->
+  <div class="question-block" id="s5q11">
+    <div class="q-top"><span class="q-num">S5·P11</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">Un contador público elabora su tesis sobre la adopción de facturación electrónica en microempresas de Machala. Aplica encuestas a 300 propietarios (parte 1) y luego realiza grupos focales con 12 de ellos para profundizar en sus percepciones (parte 2). ¿Cómo se denomina la secuencia que usa?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q11','A')"><input type="radio" name="s5q11"><span class="opt-letter">A</span><span class="opt-text">Diseño mixto secuencial explicativo: primero recolecta datos cuantitativos y luego usa datos cualitativos para explicar o profundizar en los resultados cuantitativos.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q11','B')"><input type="radio" name="s5q11"><span class="opt-letter">B</span><span class="opt-text">Diseño mixto concurrente triangulado: recolecta simultáneamente datos cuantitativos y cualitativos para comparar y validar resultados.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q11','C')"><input type="radio" name="s5q11"><span class="opt-letter">C</span><span class="opt-text">Diseño cualitativo con elemento descriptivo: los grupos focales son cualitativos y las encuestas solo tienen función descriptiva auxiliar.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q11','D')"><input type="radio" name="s5q11"><span class="opt-letter">D</span><span class="opt-text">Diseño experimental de dos fases: la encuesta es la fase de control y los grupos focales son la fase de intervención.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q11-fb"><div class="fb-correct">✅ Correcta: A</div>El diseño secuencial explicativo (CUAN → cual) es uno de los más usados en Contabilidad: cuantifica primero y luego profundiza cualitativamente en los hallazgos. <em>B</em> implica recolección simultánea, no secuencial. <em>C</em> niega el componente mixto real. <em>D</em> confunde fases metodológicas con fases experimentales.</div>
+  </div>
+
+  <!-- P12 CASO -->
+  <div class="question-block" id="s5q12">
+    <div class="q-top"><span class="q-num">S5·P12</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+    <div class="caso-box">Dos investigadores estudian la evasión tributaria en el sector restaurantero de Quito. El Investigador A aplica una encuesta a 600 restaurantes y calcula el porcentaje que subdeclara sus ingresos. El Investigador B realiza observación participante durante tres meses en cinco restaurantes para comprender las prácticas cotidianas que facilitan la subdeclaración. Ambos publican conclusiones distintas.</div>
+    <span class="q-text">¿La diferencia en sus conclusiones indica que uno está equivocado?</span>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q12','A')"><input type="radio" name="s5q12"><span class="opt-letter">A</span><span class="opt-text">No necesariamente: operan desde enfoques distintos (cuantitativo el A, cualitativo el B), por lo que hacen preguntas diferentes, producen tipos distintos de conocimiento y ambos pueden ser válidos dentro de sus propios marcos de rigor.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q12','B')"><input type="radio" name="s5q12"><span class="opt-letter">B</span><span class="opt-text">Sí: el Investigador A tiene más razón porque usó 600 participantes, lo que garantiza automáticamente mayor rigor científico.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q12','C')"><input type="radio" name="s5q12"><span class="opt-letter">C</span><span class="opt-text">Sí: el Investigador B tiene más razón porque la observación directa siempre es más confiable que los datos de encuesta.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q12','D')"><input type="radio" name="s5q12"><span class="opt-letter">D</span><span class="opt-text">La diferencia se debe a que uno usó un mal instrumento; deberían ponerse de acuerdo en un solo método antes de publicar.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q12-fb"><div class="fb-correct">✅ Correcta: A</div>Estudian el mismo tema pero hacen preguntas distintas: uno cuantifica prevalencia, el otro comprende mecanismos. Son conocimientos complementarios, no contradictorios. <em>B</em> y <em>C</em> establecen jerarquías entre enfoques que no existen en metodología. <em>D</em> propone una falsa necesidad de uniformidad metodológica.</div>
+  </div>
+
+  <!-- P13 CASO -->
+  <div class="question-block" id="s5q13">
+    <div class="q-top"><span class="q-num">S5·P13</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+    <div class="caso-box">La Contraloría General del Estado del Ecuador encarga un estudio sobre la eficiencia en la ejecución del presupuesto de obras públicas en 2023. El equipo investigador debe entregar tanto cifras de ejecución presupuestal (porcentajes, montos, plazos) como una explicación de los factores institucionales que generaron retrasos en ciertos proyectos.</div>
+    <span class="q-text">¿Qué diseño metodológico es más adecuado para este encargo?</span>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q13','A')"><input type="radio" name="s5q13"><span class="opt-letter">A</span><span class="opt-text">Método mixto: el componente cuantitativo produce las cifras de ejecución y el cualitativo (entrevistas a funcionarios, análisis de documentos) explica los factores institucionales que generaron retrasos.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q13','B')"><input type="radio" name="s5q13"><span class="opt-letter">B</span><span class="opt-text">Cuantitativo puro: las cifras de ejecución ya contienen implícitamente la explicación de los retrasos sin necesidad de entrevistas adicionales.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q13','C')"><input type="radio" name="s5q13"><span class="opt-letter">C</span><span class="opt-text">Cualitativo puro: los factores institucionales son tan importantes que las cifras pasan a ser irrelevantes para el objetivo del estudio.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q13','D')"><input type="radio" name="s5q13"><span class="opt-letter">D</span><span class="opt-text">Exploratorio: como es la primera vez que se estudia la eficiencia presupuestal ecuatoriana, primero hay que explorar antes de medir.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q13-fb"><div class="fb-correct">✅ Correcta: A</div>El encargo tiene dos necesidades simultáneas: cifras (cuantitativo) y explicaciones de factores (cualitativo). Los métodos mixtos están diseñados exactamente para esto. <em>B</em> asume que los números se explican solos. <em>C</em> descarta datos sin justificación. <em>D</em> es inadecuado: la eficiencia presupuestal pública tiene amplia literatura previa.</div>
+  </div>
+
+  <!-- P14 CASO -->
+  <div class="question-block" id="s5q14">
+    <div class="q-top"><span class="q-num">S5·P14</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+    <div class="caso-box">Sofía, estudiante de Contabilidad, diseña su tesis sobre el impacto del microcrédito en el crecimiento de microempresas en el norte de Guayaquil. Su tutor le dice: "Con 50 entrevistas tienes suficiente para generalizar a todas las microempresas de Ecuador." Sofía duda de esta afirmación.</div>
+    <span class="q-text">¿Tiene razón Sofía al dudar, y por qué?</span>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q14','A')"><input type="radio" name="s5q14"><span class="opt-letter">A</span><span class="opt-text">Sí tiene razón: si usa enfoque cualitativo, las entrevistas pueden ser suficientes para la profundidad requerida, pero no para generalizar estadísticamente a todas las microempresas del Ecuador; si quiere generalizar, necesita un enfoque cuantitativo con muestra representativa.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q14','B')"><input type="radio" name="s5q14"><span class="opt-letter">B</span><span class="opt-text">No tiene razón: 50 entrevistas siempre son suficientes para generalizar en ciencias sociales según los estándares internacionales de investigación.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q14','C')"><input type="radio" name="s5q14"><span class="opt-letter">C</span><span class="opt-text">No importa el número de entrevistas; lo que determina la posibilidad de generalizar es la duración de cada entrevista, no la cantidad.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q14','D')"><input type="radio" name="s5q14"><span class="opt-letter">D</span><span class="opt-text">Sí tiene razón, pero la solución es hacer 500 entrevistas: con ese número cualquier enfoque permite generalizar estadísticamente.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q14-fb"><div class="fb-correct">✅ Correcta: A</div>La generalización estadística requiere muestreo probabilístico representativo (cuantitativo). El cualitativo aspira a "transferibilidad" (que otros contextos similares reconozcan los hallazgos), no a generalización estadística. <em>B</em> y <em>D</em> aplican criterios de cantidad que no corresponden al enfoque cualitativo. <em>C</em> introduce un criterio (duración) irrelevante para la generalización.</div>
+  </div>
+
+  <!-- P15 CASO -->
+  <div class="question-block" id="s5q15">
+    <div class="q-top"><span class="q-num">S5·P15</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+    <div class="caso-box">Un grupo de investigadores de la ESPOL estudia la cultura de innovación en empresas familiares ecuatorianas. Publican un artículo en el que describen "los cinco tipos de empresas familiares según su apertura a la innovación" — una clasificación que surgió inductivamente de 30 entrevistas en profundidad. Un revisor critica el artículo diciendo: "No tienen hipótesis, por tanto no es ciencia."</div>
+    <span class="q-text">¿Es válida la crítica del revisor?</span>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s5q15','A')"><input type="radio" name="s5q15"><span class="opt-letter">A</span><span class="opt-text">No es válida: el enfoque cualitativo inductivo no requiere hipótesis previas. La emergencia de categorías desde los datos es precisamente uno de sus aportes más valiosos (teoría fundamentada). La ausencia de hipótesis no invalida el rigor científico si el proceso es sistemático y transparente.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q15','B')"><input type="radio" name="s5q15"><span class="opt-letter">B</span><span class="opt-text">Es válida: toda investigación científica, sin excepción, debe partir de hipótesis formales formuladas antes de recolectar datos.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q15','C')"><input type="radio" name="s5q15"><span class="opt-letter">C</span><span class="opt-text">Es parcialmente válida: deberían haber tenido al menos una hipótesis de trabajo informal aunque no la hubieran declarado explícitamente en el artículo.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s5q15','D')"><input type="radio" name="s5q15"><span class="opt-letter">D</span><span class="opt-text">Es válida porque 30 entrevistas no son suficientes para publicar resultados en una revista académica reconocida.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s5q15-fb"><div class="fb-correct">✅ Correcta: A</div>La exigencia de hipótesis previas corresponde al enfoque cuantitativo hipotético-deductivo. El cualitativo inductivo construye conocimiento desde los datos; su rigor se evalúa con criterios propios (credibilidad, dependabilidad, etc.). <em>B</em> aplica criterios del cuantitativo al cualitativo. <em>C</em> es una exigencia innecesaria. <em>D</em> aplica criterio cuantitativo de tamaño muestral al cualitativo.</div>
+  </div>
+
+  <button class="verify-btn" onclick="verifyQuiz('s5',15)">✅ Verificar respuestas — Semana 5</button>
+  <div id="s5-result" class="result-panel"></div>
+  <button class="reset-btn" id="s5-reset" onclick="resetQuiz('s5',15)">🔄 Reiniciar Semana 5</button>
+</div>
+
+<!-- =========== SEMANA 6 =========== -->
+<div id="tab-s6" class="tab-content">
+  <div class="quiz-header">
+    <h2>📘 Semana 6 — Diseños Experimentales y No Experimentales</h2>
+    <div class="quiz-stats">
+      <div class="quiz-stat">Preguntas: <span>15</span></div>
+      <div class="quiz-stat">Teóricas: <span>7</span></div>
+      <div class="quiz-stat">Aplicación: <span>5</span></div>
+      <div class="quiz-stat">Análisis de caso: <span>3</span></div>
+    </div>
+  </div>
+
+  <!-- P1 -->
+  <div class="question-block" id="s6q1">
+    <div class="q-top"><span class="q-num">S6·P1</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué distingue a un diseño experimental de un diseño no experimental?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q1','A')"><input type="radio" name="s6q1"><span class="opt-letter">A</span><span class="opt-text">En el experimental el investigador manipula deliberadamente al menos una variable independiente y asigna aleatoriamente a los participantes a las condiciones; en el no experimental, solo observa los fenómenos tal como ocurren sin intervenir.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q1','B')"><input type="radio" name="s6q1"><span class="opt-letter">B</span><span class="opt-text">El experimental siempre usa estadística avanzada; el no experimental solo usa frecuencias y porcentajes simples.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q1','C')"><input type="radio" name="s6q1"><span class="opt-letter">C</span><span class="opt-text">El no experimental es más riguroso porque no interfiere con la realidad; el experimental la distorsiona artificialmente.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q1','D')"><input type="radio" name="s6q1"><span class="opt-letter">D</span><span class="opt-text">La única diferencia es el tamaño de la muestra: los experimentales usan muestras pequeñas de laboratorio y los no experimentales usan muestras grandes de campo.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q1-fb"><div class="fb-correct">✅ Correcta: A</div>La manipulación de la variable independiente y la asignación aleatoria son los dos rasgos definitorios del experimento verdadero. Sin ellos, por más que el diseño sea sofisticado, no es experimental. <em>B</em> confunde diseño con técnica estadística. <em>C</em> establece una jerarquía de rigor falsa. <em>D</em> confunde tamaño de muestra con tipo de diseño.</div>
+  </div>
+
+  <!-- P2 -->
+  <div class="question-block" id="s6q2">
+    <div class="q-top"><span class="q-num">S6·P2</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuáles son los tres requisitos fundamentales para que una investigación sea considerada un experimento verdadero?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q2','A')"><input type="radio" name="s6q2"><span class="opt-letter">A</span><span class="opt-text">Manipulación de la variable independiente, asignación aleatoria de los participantes a los grupos (experimental y control) y control de variables extrañas que podrían contaminar los resultados.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q2','B')"><input type="radio" name="s6q2"><span class="opt-letter">B</span><span class="opt-text">Laboratorio físico, instrumentos de medición calibrados y muestra de al menos 200 participantes para garantizar significancia estadística.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q2','C')"><input type="radio" name="s6q2"><span class="opt-letter">C</span><span class="opt-text">Hipótesis nula y alternativa, nivel de significancia del 0.05 y uso de prueba t de Student como estadístico de contraste.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q2','D')"><input type="radio" name="s6q2"><span class="opt-letter">D</span><span class="opt-text">Aprobación de un comité de ética, publicación en una revista indexada y replicación del estudio por al menos otro equipo independiente.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q2-fb"><div class="fb-correct">✅ Correcta: A</div>Estos tres elementos (manipulación + aleatorización + control) son los pilares del experimento verdadero según Campbell y Stanley. Sin ellos, se habla de cuasi-experimento o diseño pre-experimental. <em>B</em> son condiciones técnicas deseables pero no definitorias. <em>C</em> son procedimientos estadísticos, no requisitos del diseño. <em>D</em> son criterios de validez académica, no de diseño experimental.</div>
+  </div>
+
+  <!-- P3 -->
+  <div class="question-block" id="s6q3">
+    <div class="q-top"><span class="q-num">S6·P3</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Por qué los diseños experimentales son poco frecuentes en ciencias contables y de auditoría?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q3','A')"><input type="radio" name="s6q3"><span class="opt-letter">A</span><span class="opt-text">Porque no es éticamente posible ni prácticamente viable manipular las variables más relevantes (ingresos, impuestos, políticas contables de una empresa real) ni asignar aleatoriamente empresas a condiciones experimentales.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q3','B')"><input type="radio" name="s6q3"><span class="opt-letter">B</span><span class="opt-text">Porque los contadores y auditores no reciben formación en métodos experimentales durante su carrera universitaria.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q3','C')"><input type="radio" name="s6q3"><span class="opt-letter">C</span><span class="opt-text">Porque los experimentos son exclusivos de ciencias naturales y están prohibidos por las normas internacionales de investigación en ciencias sociales.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q3','D')"><input type="radio" name="s6q3"><span class="opt-letter">D</span><span class="opt-text">Porque los diseños no experimentales producen resultados más precisos en contabilidad y por eso se prefieren metodológicamente.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q3-fb"><div class="fb-correct">✅ Correcta: A</div>No se puede "asignar aleatoriamente" a una empresa al grupo que evade y a otra al que no evade. Las restricciones son éticas, legales y prácticas. <em>B</em> puede ser parcialmente cierto pero no es la razón fundamental. <em>C</em> es falso: los experimentos en ciencias sociales son válidos (psicología experimental, economía conductual). <em>D</em> es falso: no se prefieren por producir más precisión sino por las limitaciones señaladas.</div>
+  </div>
+
+  <!-- P4 -->
+  <div class="question-block" id="s6q4">
+    <div class="q-top"><span class="q-num">S6·P4</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué es el "grupo control" en un diseño experimental y cuál es su función?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q4','A')"><input type="radio" name="s6q4"><span class="opt-letter">A</span><span class="opt-text">Es el grupo que NO recibe la manipulación experimental (o recibe placebo), y sirve como punto de comparación para determinar si los cambios observados en el grupo experimental se deben realmente a la variable independiente y no a otros factores.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q4','B')"><input type="radio" name="s6q4"><span class="opt-letter">B</span><span class="opt-text">Es el grupo de investigadores que supervisa y controla que el experimento se realice correctamente según el protocolo establecido.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q4','C')"><input type="radio" name="s6q4"><span class="opt-letter">C</span><span class="opt-text">Es el grupo que recibe la intervención más intensa para generar el mayor efecto posible de la variable independiente.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q4','D')"><input type="radio" name="s6q4"><span class="opt-letter">D</span><span class="opt-text">Es el grupo cuyos datos se descartan del análisis estadístico final para controlar los valores atípicos que distorsionan los resultados.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q4-fb"><div class="fb-correct">✅ Correcta: A</div>Sin grupo control, no puedes saber si los cambios se deben a tu intervención o a otras causas (maduración, historia, efecto placebo). El grupo control hace posible la comparación causal. <em>B</em> confunde "control" en sentido metodológico con "control" en sentido administrativo. <em>C</em> describe al grupo experimental. <em>D</em> no tiene fundamento metodológico.</div>
+  </div>
+
+  <!-- P5 -->
+  <div class="question-block" id="s6q5">
+    <div class="q-top"><span class="q-num">S6·P5</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué es un cuasi-experimento y en qué se diferencia del experimento verdadero?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q5','A')"><input type="radio" name="s6q5"><span class="opt-letter">A</span><span class="opt-text">Un cuasi-experimento manipula la variable independiente pero NO tiene asignación aleatoria de los participantes a los grupos; los grupos ya están formados previamente, lo que limita su capacidad para establecer causalidad con la misma solidez que el experimento verdadero.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q5','B')"><input type="radio" name="s6q5"><span class="opt-letter">B</span><span class="opt-text">Un cuasi-experimento es simplemente un experimento de menor tamaño que usa menos de 50 participantes por grupo.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q5','C')"><input type="radio" name="s6q5"><span class="opt-letter">C</span><span class="opt-text">En el cuasi-experimento no se manipula ninguna variable; solo se observa y se describe el fenómeno tal como ocurre naturalmente.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q5','D')"><input type="radio" name="s6q5"><span class="opt-letter">D</span><span class="opt-text">El cuasi-experimento y el experimento verdadero son términos sinónimos; la diferencia es solo de estilo de escritura académica.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q5-fb"><div class="fb-correct">✅ Correcta: A</div>Ejemplo clásico de cuasi-experimento en educación: comparar el rendimiento de dos aulas donde una recibe metodología nueva y otra la tradicional, pero los estudiantes no fueron asignados aleatoriamente a cada aula. <em>B</em> confunde con tamaño muestral. <em>C</em> describe el diseño no experimental. <em>D</em> son conceptos distintos.</div>
+  </div>
+
+  <!-- P6 -->
+  <div class="question-block" id="s6q6">
+    <div class="q-top"><span class="q-num">S6·P6</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuál es la principal limitación de los diseños no experimentales frente a los experimentales?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q6','A')"><input type="radio" name="s6q6"><span class="opt-letter">A</span><span class="opt-text">No permiten establecer relaciones causales con la misma solidez que los experimentales, porque sin manipulación y aleatorización no es posible descartar que un tercer factor explique la relación observada entre variables.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q6','B')"><input type="radio" name="s6q6"><span class="opt-letter">B</span><span class="opt-text">No permiten generalizar los resultados a otras poblaciones porque la muestra siempre es pequeña en los diseños no experimentales.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q6','C')"><input type="radio" name="s6q6"><span class="opt-letter">C</span><span class="opt-text">No pueden usarse con datos numéricos, lo que los hace incompatibles con la estadística inferencial.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q6','D')"><input type="radio" name="s6q6"><span class="opt-letter">D</span><span class="opt-text">Producen resultados menos confiables porque los participantes saben que están siendo observados y cambian su comportamiento.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q6-fb"><div class="fb-correct">✅ Correcta: A</div>La correlación no es causalidad. Sin experimento no puedes eliminar la "variable extraña" que podría causar tanto X como Y. Esto es la amenaza de las "variables de confusión" o "terceras variables". <em>B</em> los no experimentales pueden tener muestras grandes. <em>C</em> falso: usan estadística inferencial ampliamente. <em>D</em> describe el "efecto Hawthorne", que afecta tanto a experimentales como no experimentales.</div>
+  </div>
+
+  <!-- P7 -->
+  <div class="question-block" id="s6q7">
+    <div class="q-top"><span class="q-num">S6·P7</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuál es la función del "pretest" y el "postest" en un diseño experimental?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q7','A')"><input type="radio" name="s6q7"><span class="opt-letter">A</span><span class="opt-text">El pretest mide la variable dependiente antes de la intervención y el postest la mide después, permitiendo comparar si hubo cambio atribuible a la manipulación experimental y no a diferencias previas entre los grupos.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q7','B')"><input type="radio" name="s6q7"><span class="opt-letter">B</span><span class="opt-text">El pretest evalúa si los participantes están capacitados para participar en el experimento; el postest mide si aprendieron correctamente la intervención recibida.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q7','C')"><input type="radio" name="s6q7"><span class="opt-letter">C</span><span class="opt-text">Son sinónimos del grupo experimental y el grupo control respectivamente, usados en algunos manuales latinoamericanos de metodología.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q7','D')"><input type="radio" name="s6q7"><span class="opt-letter">D</span><span class="opt-text">El pretest y postest se aplican únicamente en diseños cualitativos para explorar el cambio de percepción de los participantes.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q7-fb"><div class="fb-correct">✅ Correcta: A</div>Diseño clásico: O₁ X O₂ (grupo experimental) vs. O₁ — O₂ (grupo control). La diferencia entre postest y pretest indica el efecto de la intervención X, siempre que los grupos sean comparables al inicio. <em>B</em> confunde con pruebas de conocimiento. <em>C</em> es incorrecto: son momentos de medición, no grupos. <em>D</em> es falso: son propios del cuantitativo experimental.</div>
+  </div>
+
+  <!-- P8 APP -->
+  <div class="question-block" id="s6q8">
+    <div class="q-top"><span class="q-num">S6·P8</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">El Ministerio de Finanzas de Ecuador quiere saber si un nuevo programa de capacitación tributaria reduce la tasa de errores en las declaraciones del IVA. Selecciona aleatoriamente a 200 contribuyentes, da capacitación a 100 de ellos y observa las declaraciones de ambos grupos durante 6 meses. ¿Qué tipo de diseño es este?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q8','A')"><input type="radio" name="s6q8"><span class="opt-letter">A</span><span class="opt-text">Experimento verdadero con grupo control: hay manipulación (capacitación), asignación aleatoria de participantes y grupo de comparación, lo que permite establecer causalidad si se observan diferencias.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q8','B')"><input type="radio" name="s6q8"><span class="opt-letter">B</span><span class="opt-text">Cuasi-experimento: aunque hay manipulación, la asignación no fue verdaderamente aleatoria porque los contribuyentes se autoseleccionaron.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q8','C')"><input type="radio" name="s6q8"><span class="opt-letter">C</span><span class="opt-text">Diseño no experimental longitudinal: el Ministerio solo observó el comportamiento de los contribuyentes sin intervenir en ningún momento.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q8','D')"><input type="radio" name="s6q8"><span class="opt-letter">D</span><span class="opt-text">Diseño descriptivo correlacional: el objetivo es correlacionar nivel de capacitación con tasa de errores, no establecer causalidad.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q8-fb"><div class="fb-correct">✅ Correcta: A</div>Cumple los tres requisitos: manipulación (capacitación), asignación aleatoria (selección aleatoria de los 200 y asignación a grupos) y grupo control (los 100 sin capacitación). <em>B</em> es incorrecto porque el enunciado dice "selecciona aleatoriamente". <em>C</em> es falso: el Ministerio sí interviene. <em>D</em> confunde el tipo de análisis con el tipo de diseño.</div>
+  </div>
+
+  <!-- P9 APP -->
+  <div class="question-block" id="s6q9">
+    <div class="q-top"><span class="q-num">S6·P9</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">Un investigador estudia el comportamiento financiero de 500 familias guayaquileñas revisando sus registros bancarios de los últimos 5 años sin ninguna intervención. Su objetivo es identificar patrones de ahorro e inversión. ¿Qué tipo de diseño es este?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q9','A')"><input type="radio" name="s6q9"><span class="opt-letter">A</span><span class="opt-text">Diseño no experimental longitudinal (retrospectivo): el investigador observa datos que ya ocurrieron sin manipular ninguna variable; la dimensión temporal abarca múltiples años.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q9','B')"><input type="radio" name="s6q9"><span class="opt-letter">B</span><span class="opt-text">Experimento natural: los bancos proporcionaron los datos de forma espontánea, lo que constituye una "manipulación natural" de las variables.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q9','C')"><input type="radio" name="s6q9"><span class="opt-letter">C</span><span class="opt-text">Cuasi-experimento retrospectivo: porque compara comportamientos de distintas familias que tomaron decisiones financieras diferentes.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q9','D')"><input type="radio" name="s6q9"><span class="opt-letter">D</span><span class="opt-text">Diseño transversal: porque recolecta los datos en un solo momento, aunque los datos correspondan a cinco años de registros.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q9-fb"><div class="fb-correct">✅ Correcta: A</div>No hay manipulación ni asignación de grupos → no experimental. Los datos abarcan 5 años → longitudinal. Los datos son del pasado → retrospectivo. <em>B</em> "experimento natural" requiere un evento externo que cree grupos comparables, no simplemente datos de archivo. <em>C</em> no hay manipulación real. <em>D</em> confunde la fecha de recolección con la dimensión temporal de los datos.</div>
+  </div>
+
+  <!-- P10 APP -->
+  <div class="question-block" id="s6q10">
+    <div class="q-top"><span class="q-num">S6·P10</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">Una empresa farmacéutica en Ecuador prueba si un nuevo antiséptico reduce infecciones postquirúrgicas. Asigna aleatoriamente a 80 pacientes: 40 reciben el nuevo antiséptico y 40 el antiséptico convencional. Mide infecciones a las 2 semanas. ¿Cuáles son la variable independiente y la variable dependiente?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q10','A')"><input type="radio" name="s6q10"><span class="opt-letter">A</span><span class="opt-text">Variable independiente: tipo de antiséptico (nuevo vs. convencional), que es la que se manipula. Variable dependiente: tasa de infecciones postquirúrgicas a las 2 semanas, que es el efecto que se mide.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q10','B')"><input type="radio" name="s6q10"><span class="opt-letter">B</span><span class="opt-text">Variable independiente: la tasa de infecciones, porque depende del tipo de antiséptico. Variable dependiente: el tipo de antiséptico, porque el médico decide cuál aplicar.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q10','C')"><input type="radio" name="s6q10"><span class="opt-letter">C</span><span class="opt-text">Variable independiente: el número de pacientes (80). Variable dependiente: el tipo de antiséptico seleccionado por el investigador.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q10','D')"><input type="radio" name="s6q10"><span class="opt-letter">D</span><span class="opt-text">Ambas variables son dependientes porque el resultado depende tanto del antiséptico como de la salud previa del paciente.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q10-fb"><div class="fb-correct">✅ Correcta: A</div>La VI es lo que el investigador manipula deliberadamente; la VD es lo que se mide como efecto de esa manipulación. El tipo de antiséptico es la causa potencial; la tasa de infección es el efecto que se observa. <em>B</em> invierte la relación causal. <em>C</em> confunde el tamaño muestral con una variable. <em>D</em> confunde variables extrañas (salud previa) con variables dependientes.</div>
+  </div>
+
+  <!-- P11 APP -->
+  <div class="question-block" id="s6q11">
+    <div class="q-top"><span class="q-num">S6·P11</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">¿Cuál de los siguientes es un ejemplo de diseño no experimental transversal en contabilidad?</span></div>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q11','A')"><input type="radio" name="s6q11"><span class="opt-letter">A</span><span class="opt-text">Encuesta aplicada en noviembre de 2024 a 300 contadores ecuatorianos para describir su nivel de conocimiento sobre las NIIF para Pymes en ese momento.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q11','B')"><input type="radio" name="s6q11"><span class="opt-letter">B</span><span class="opt-text">Seguimiento durante 3 años de las mismas 50 empresas para observar cómo evolucionan sus indicadores financieros tras adoptar NIIF completas.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q11','C')"><input type="radio" name="s6q11"><span class="opt-letter">C</span><span class="opt-text">Experimento donde se capacita a un grupo de contadores en NIIF y se compara con otro grupo sin capacitación después de 6 meses.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q11"><span class="opt-letter">D</span><span class="opt-text">Revisión sistemática de artículos publicados sobre adopción de NIIF en América Latina entre 2010 y 2024.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q11-fb"><div class="fb-correct">✅ Correcta: A</div>Transversal = recolección en un único momento del tiempo. No experimental = sin manipulación de variables. La encuesta describe el estado del conocimiento en noviembre 2024. <em>B</em> es no experimental pero longitudinal (3 años). <em>C</em> es experimental. <em>D</em> es revisión bibliográfica, no diseño de campo.</div>
+  </div>
+
+  <!-- P12 CASO -->
+  <div class="question-block" id="s6q12">
+    <div class="q-top"><span class="q-num">S6·P12</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+    <div class="caso-box">Una investigadora de la UCSG quiere probar que impartir un taller de 8 horas sobre pensamiento crítico mejora la capacidad de los estudiantes de Contabilidad para detectar inconsistencias en estados financieros. Selecciona dos grupos de 30 estudiantes cada uno: al Grupo A le da el taller; el Grupo B no lo recibe. Ambos grupos resuelven el mismo ejercicio de detección de errores antes y después del taller.</div>
+    <span class="q-text">¿Cuál es la amenaza a la validez interna más relevante si los grupos NO fueron asignados aleatoriamente?</span>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q12','A')"><input type="radio" name="s6q12"><span class="opt-letter">A</span><span class="opt-text">Sesgo de selección: los grupos podrían diferir en habilidades previas (por ejemplo, el Grupo A podría estar compuesto por estudiantes de mejor rendimiento), lo que haría imposible atribuir el cambio exclusivamente al taller.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q12','B')"><input type="radio" name="s6q12"><span class="opt-letter">B</span><span class="opt-text">Efecto de instrumentación: el ejercicio de detección de errores podría haber sido demasiado fácil para ambos grupos, reduciendo la diferencia observable.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q12','C')"><input type="radio" name="s6q12"><span class="opt-letter">C</span><span class="opt-text">Mortalidad experimental: algunos estudiantes podrían abandonar el estudio antes de completarlo, reduciendo el tamaño final de la muestra.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q12','D')"><input type="radio" name="s6q12"><span class="opt-letter">D</span><span class="opt-text">Efecto de historia: eventos externos (como un examen parcial) podrían afectar el rendimiento de ambos grupos simultáneamente durante el período del estudio.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q12-fb"><div class="fb-correct">✅ Correcta: A</div>Sin aleatorización, la amenaza principal es el sesgo de selección: los grupos no son comparables desde el inicio, por lo que cualquier diferencia en el postest podría deberse a diferencias previas y no al taller. <em>B, C y D</em> son amenazas reales a la validez interna pero secundarias al sesgo de selección en este contexto específico donde se señala la ausencia de aleatorización como condición del problema.</div>
+  </div>
+
+  <!-- P13 CASO -->
+  <div class="question-block" id="s6q13">
+    <div class="q-top"><span class="q-num">S6·P13</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+    <div class="caso-box">El SRI (Servicio de Rentas Internas) analiza si existe diferencia en el monto promedio de IVA declarado entre empresas que usan software contable certificado y empresas que llevan contabilidad manual. Toma una muestra de 1.000 empresas de su base de datos y compara los promedios de los dos grupos sin intervenir en ninguna de ellas.</div>
+    <span class="q-text">¿Por qué este diseño NO puede concluir que el software contable "causa" una mayor declaración de IVA?</span>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q13','A')"><input type="radio" name="s6q13"><span class="opt-letter">A</span><span class="opt-text">Porque es un diseño no experimental: los grupos no fueron asignados aleatoriamente, por lo que las empresas con software podrían diferir en tamaño, sector o formalización — variables que también explicarían la mayor declaración de IVA, sin que el software sea la causa.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q13','B')"><input type="radio" name="s6q13"><span class="opt-letter">B</span><span class="opt-text">Porque la muestra de 1.000 empresas es insuficiente para establecer relaciones causales en el sector tributario ecuatoriano.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q13','C')"><input type="radio" name="s6q13"><span class="opt-letter">C</span><span class="opt-text">Porque el SRI no es una institución académica y sus datos no tienen validez científica reconocida por las universidades.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q13','D')"><input type="radio" name="s6q13"><span class="opt-letter">D</span><span class="opt-text">Porque para establecer causalidad tributaria se necesita aprobación previa de la Asamblea Nacional del Ecuador.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q13-fb"><div class="fb-correct">✅ Correcta: A</div>La falta de aleatorización deja abierta la puerta a variables de confusión (tamaño de empresa, sector económico, nivel de formalización) que podrían explicar tanto el uso de software como la mayor declaración. Sin manipulación y aleatorización, correlación ≠ causalidad. <em>B</em> el tamaño no es el problema; con 1.000 la correlación puede ser estadísticamente significativa aunque no causal. <em>C</em> es falso: los datos del SRI son de alta calidad. <em>D</em> es absurdo en términos metodológicos.</div>
+  </div>
+
+  <!-- P14 CASO -->
+  <div class="question-block" id="s6q14">
+    <div class="q-top"><span class="q-num">S6·P14</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+    <div class="caso-box">En una ciudad ecuatoriana, el municipio instala semáforos inteligentes en 10 intersecciones y deja otras 10 intersecciones con semáforos convencionales. Un investigador mide los accidentes de tránsito antes y después en las 20 intersecciones durante un año. El municipio eligió las intersecciones según su nivel de tráfico, no aleatoriamente.</div>
+    <span class="q-text">¿Qué tipo de diseño es este y cuál es su principal limitación?</span>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q14','A')"><input type="radio" name="s6q14"><span class="opt-letter">A</span><span class="opt-text">Cuasi-experimento con series de tiempo interrumpidas: hay manipulación (semáforos inteligentes) y medición antes/después, pero sin asignación aleatoria. La limitación es que las intersecciones de alto tráfico (donde se instalaron los semáforos inteligentes) ya diferían de las otras en accidentabilidad basal.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q14','B')"><input type="radio" name="s6q14"><span class="opt-letter">B</span><span class="opt-text">Experimento verdadero: tiene grupo experimental (semáforos inteligentes) y grupo control (semáforos convencionales), por lo que puede establecer causalidad directa.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q14','C')"><input type="radio" name="s6q14"><span class="opt-letter">C</span><span class="opt-text">Diseño no experimental transversal: el investigador solo observa los accidentes en un momento del tiempo sin ninguna intervención.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q14','D')"><input type="radio" name="s6q14"><span class="opt-letter">D</span><span class="opt-text">Diseño exploratorio: como no se sabe si los semáforos inteligentes funcionan en Ecuador, primero hay que explorar el fenómeno sin hipótesis.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q14-fb"><div class="fb-correct">✅ Correcta: A</div>Tiene manipulación (VI: tipo de semáforo) y grupos de comparación, pero sin aleatorización → cuasi-experimento. El sesgo de selección es la amenaza: las intersecciones de mayor tráfico ya tenían más accidentes antes, lo que distorsiona la comparación. <em>B</em> requeriría asignación aleatoria de intersecciones, que no ocurrió. <em>C</em> ignora la intervención real del municipio. <em>D</em> confunde alcance con diseño.</div>
+  </div>
+
+  <!-- P15 CASO -->
+  <div class="question-block" id="s6q15">
+    <div class="q-top"><span class="q-num">S6·P15</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+    <div class="caso-box">Sofía revisa su tesis y tiene la siguiente propuesta: "Quiero estudiar cómo varió la rentabilidad de las 50 empresas más grandes del Ecuador entre 2018 y 2023, comparando los períodos prepandemia (2018-2019), pandemia (2020-2021) y postpandemia (2022-2023)." No manipula ninguna variable; solo analiza datos de la Superintendencia de Compañías.</div>
+    <span class="q-text">¿Qué tipo de diseño describe mejor el estudio de Sofía?</span>
+    <ul class="options-list">
+      <li><label class="option-label" onclick="pick(this,'s6q15','A')"><input type="radio" name="s6q15"><span class="opt-letter">A</span><span class="opt-text">Diseño no experimental longitudinal de panel: sigue a las mismas 50 empresas a lo largo del tiempo (2018-2023) sin manipular ninguna variable; analiza la evolución temporal de la rentabilidad.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q15','B')"><input type="radio" name="s6q15"><span class="opt-letter">B</span><span class="opt-text">Experimento natural: la pandemia fue un "evento externo" que manipuló la variable independiente de forma involuntaria, convirtiéndolo en un experimento.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q15','C')"><input type="radio" name="s6q15"><span class="opt-letter">C</span><span class="opt-text">Diseño transversal descriptivo: aunque abarca 6 años, Sofía recolecta todos los datos en un solo momento (hoy), lo que lo hace transversal.</span></label></li>
+      <li><label class="option-label" onclick="pick(this,'s6q15','D')"><input type="radio" name="s6q15"><span class="opt-letter">D</span><span class="opt-text">Cuasi-experimento: porque compara tres períodos distintos como si fueran tres grupos experimentales diferentes.</span></label></li>
+    </ul>
+    <div class="feedback-box" id="s6q15-fb"><div class="fb-correct">✅ Correcta: A</div>Sin manipulación = no experimental. Mismas unidades (50 empresas) seguidas a lo largo del tiempo = longitudinal de panel. Es uno de los diseños más comunes en investigación contable y financiera. <em>B</em> la "pandemia como experimento natural" es un concepto válido en economía, pero requiere grupos comparables con y sin exposición, no simplemente períodos temporales. <em>C</em> confunde la fecha de recolección de datos con la temporalidad del diseño. <em>D</em> los períodos temporales no son grupos experimentales en sentido metodológico.</div>
+  </div>
+
+  <button class="verify-btn" onclick="verifyQuiz('s6',15)">✅ Verificar respuestas — Semana 6</button>
+  <div id="s6-result" class="result-panel"></div>
+  <button class="reset-btn" id="s6-reset" onclick="resetQuiz('s6',15)">🔄 Reiniciar Semana 6</button>
+</div>
+
+<!-- =========== JAVASCRIPT =========== -->
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function pick(label,qId,opt){
+  const block=document.getElementById(qId);
+  block.querySelectorAll('.option-label').forEach(l=>l.classList.remove('selected'));
+  label.classList.add('selected');
+  block.classList.add('answered');
+  block.dataset.answer=opt;
+}
+
+const KEY={
+  s5q1:'A',s5q2:'A',s5q3:'A',s5q4:'A',s5q5:'A',s5q6:'A',s5q7:'A',
+  s5q8:'A',s5q9:'A',s5q10:'A',s5q11:'A',s5q12:'A',s5q13:'A',s5q14:'A',s5q15:'A',
+  s6q1:'A',s6q2:'A',s6q3:'A',s6q4:'A',s6q5:'A',s6q6:'A',s6q7:'A',
+  s6q8:'A',s6q9:'A',s6q10:'A',s6q11:'A',s6q12:'A',s6q13:'A',s6q14:'A',s6q15:'A'
+};
+
+function verifyQuiz(sem,total){
+  let missing=[];
+  for(let i=1;i<=total;i++){
+    const b=document.getElementById(sem+'q'+i);
+    if(!b.dataset.answer) missing.push(i);
+  }
+  if(missing.length>0){alert('⚠️ Faltan '+missing.length+' respuesta(s): P'+missing.join(', P')+'. Completa todas antes de verificar.');return;}
+  let ok=0;
+  for(let i=1;i<=total;i++){
+    const b=document.getElementById(sem+'q'+i);
+    const chosen=b.dataset.answer;
+    const right=KEY[sem+'q'+i];
+    b.querySelectorAll('.option-label').forEach(l=>{
+      const lt=l.querySelector('.opt-letter').textContent;
+      if(lt===right) l.classList.add('correct-ans');
+      if(lt===chosen&&chosen!==right) l.classList.add('wrong-ans');
+      l.style.pointerEvents='none';
+      const r=l.querySelector('input');if(r){r.disabled=true;}
+    });
+    const fb=document.getElementById(sem+'q'+i+'-fb');
+    if(fb) fb.classList.add('show');
+    if(chosen===right){ok++;b.classList.remove('answered');b.classList.add('correct');}
+    else{b.classList.remove('answered');b.classList.add('incorrect');}
+  }
+  const pct=Math.round(ok/total*100);
+  const panel=document.getElementById(sem+'-result');
+  const emoji=pct===100?'🏆':pct>=80?'🎯':pct>=60?'📘':pct>=40?'⚠️':'📖';
+  const msg=pct===100?'¡Dominio perfecto de la semana!':pct>=80?'¡Excelente preparación!':pct>=60?'Buen trabajo. Repasa los ítems en rojo.':pct>=40?'Refuerza las áreas marcadas en rojo.':'Vuelve a estudiar el material de esta semana.';
+  panel.innerHTML=`<div class="result-emoji">${emoji}</div><div class="result-score">${ok}/${total}</div><div class="result-pct">${pct}%</div><div class="progress-bar-wrap"><div class="progress-bar" id="${sem}-bar"></div></div><div class="result-msg">${msg}</div>`;
+  panel.classList.add('show');
+  setTimeout(()=>{const bar=document.getElementById(sem+'-bar');if(bar)bar.style.width=pct+'%';},100);
+  document.querySelector(`button.verify-btn[onclick*="${sem}"]`).style.display='none';
+  document.getElementById(sem+'-reset').style.display='block';
+  panel.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function resetQuiz(sem,total){
+  for(let i=1;i<=total;i++){
+    const b=document.getElementById(sem+'q'+i);
+    b.classList.remove('correct','incorrect','answered');
+    delete b.dataset.answer;
+    b.querySelectorAll('.option-label').forEach(l=>{
+      l.classList.remove('selected','correct-ans','wrong-ans');
+      l.style.pointerEvents='';
+      const r=l.querySelector('input');if(r){r.disabled=false;r.checked=false;}
+    });
+    const fb=document.getElementById(sem+'q'+i+'-fb');
+    if(fb) fb.classList.remove('show');
+  }
+  const panel=document.getElementById(sem+'-result');
+  panel.classList.remove('show');panel.innerHTML='';
+  document.querySelector(`button.verify-btn[onclick*="${sem}"]`).style.display='block';
+  document.getElementById(sem+'-reset').style.display='none';
+}
+</script>
+</body>
+</html>

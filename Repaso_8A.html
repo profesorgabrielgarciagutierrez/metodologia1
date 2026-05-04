@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Repaso para Examen | Metodología de la Investigación | UG — Parte A</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Source Sans 3', sans-serif; font-size: 15px; color: #1a1a2e; background: #f0f4f8; min-height: 100vh; }
+
+/* ===== HEADER ===== */
+header { background: #003366; color: #fff; padding: 0; }
+.header-top { display: flex; align-items: center; gap: 14px; padding: 14px 20px 8px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+.header-logo { width: 44px; height: 44px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Lora', serif; font-weight: 700; color: #003366; font-size: 15px; flex-shrink: 0; }
+.header-inst { display: flex; flex-direction: column; gap: 2px; }
+.univ { font-size: 13px; font-weight: 700; letter-spacing: .5px; }
+.fac { font-size: 11px; opacity: .85; }
+.carr { font-size: 11px; opacity: .75; }
+.header-body { padding: 12px 20px 16px; }
+.badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.badge { background: rgba(255,255,255,0.18); color: #fff; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px; letter-spacing: .4px; }
+.header-title { font-family: 'Lora', serif; font-size: 22px; font-weight: 700; line-height: 1.3; margin-bottom: 5px; }
+.header-subtitle { font-size: 12px; opacity: .8; line-height: 1.5; }
+
+/* ===== TAB NAV ===== */
+.tab-nav-wrapper { background: #87CEEB; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; border-bottom: 2px solid #5ba8cc; }
+.tab-nav { display: inline-flex; padding: 6px 10px 0; gap: 4px; min-width: 100%; }
+.tab-btn { font-family: 'Source Sans 3', sans-serif; font-size: 13px; font-weight: 600; color: #1a1a2e; background: rgba(255,255,255,0.55); border: none; border-radius: 8px 8px 0 0; padding: 9px 15px; cursor: pointer; white-space: nowrap; transition: all .2s; border-bottom: 3px solid transparent; }
+.tab-btn:hover { background: rgba(255,255,255,0.8); }
+.tab-btn.active { background: #fff; color: #003366; font-weight: 700; border-bottom: 3px solid #003366; }
+
+/* ===== TAB CONTENT ===== */
+.tab-content { display: none; padding: 24px 20px 50px; max-width: 860px; margin: 0 auto; animation: fadeIn .3s ease; }
+.tab-content.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ===== TYPOGRAPHY ===== */
+h2 { font-family: 'Lora', serif; font-size: 22px; color: #003366; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #87CEEB; }
+h3 { font-family: 'Lora', serif; font-size: 17px; color: #003366; margin: 20px 0 10px; }
+h4 { font-family: 'Source Sans 3', sans-serif; font-size: 15px; font-weight: 700; color: #003366; margin: 14px 0 6px; }
+p { line-height: 1.7; margin-bottom: 12px; color: #2c3e50; }
+
+/* ===== PORTADA ELEMENTS ===== */
+.portada-hero { background: linear-gradient(135deg, #003366 60%, #0055a4); color: #fff; border-radius: 12px; padding: 32px 28px; margin-bottom: 24px; }
+.portada-hero h2 { color: #fff; border-bottom: 2px solid rgba(255,255,255,0.3); font-size: 26px; }
+.portada-hero p { color: rgba(255,255,255,0.9); }
+.portada-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 20px 0; }
+.portada-card { background: #fff; border-radius: 10px; padding: 16px; border-top: 4px solid #87CEEB; }
+.portada-card .num { font-family: 'Lora', serif; font-size: 28px; font-weight: 700; color: #003366; }
+.portada-card .label { font-size: 13px; color: #555; margin-top: 4px; }
+.instruccion-box { background: #fff8e1; border-left: 5px solid #f39c12; border-radius: 0 8px 8px 0; padding: 16px 18px; margin: 16px 0; }
+.instruccion-box h4 { color: #b8860b; margin-top: 0; }
+.instruccion-box ul { padding-left: 18px; }
+.instruccion-box li { margin-bottom: 8px; line-height: 1.6; }
+.semana-resumen-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 16px 0; }
+.semana-card { background: #fff; border-radius: 8px; padding: 14px; border-left: 4px solid #003366; box-shadow: 0 2px 6px rgba(0,0,0,0.07); }
+.semana-card .s-num { font-size: 11px; font-weight: 700; color: #87CEEB; letter-spacing: 1px; text-transform: uppercase; background: #003366; display: inline-block; padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; }
+.semana-card .s-tema { font-size: 13px; color: #333; line-height: 1.5; }
+.tip-box { background: #e8f4fd; border: 1px solid #87CEEB; border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; margin: 14px 0; }
+.tip-box .tip-icon { font-size: 22px; flex-shrink: 0; }
+.tip-box p { margin: 0; font-size: 14px; color: #003366; }
+
+/* ===== QUIZ ELEMENTS ===== */
+.quiz-header { background: linear-gradient(to right, #003366, #0055a4); color: #fff; border-radius: 10px; padding: 18px 20px; margin-bottom: 20px; }
+.quiz-header h2 { color: #fff; border-bottom: 2px solid rgba(255,255,255,0.3); margin-bottom: 8px; }
+.quiz-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+.quiz-stat { font-size: 13px; opacity: .85; }
+.quiz-stat span { font-weight: 700; font-size: 16px; opacity: 1; }
+
+.question-block { background: #fff; border-radius: 10px; padding: 18px 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-left: 4px solid #ccc; transition: border-color .3s; }
+.question-block.answered { border-left-color: #003366; }
+.question-block.correct { border-left-color: #27ae60; }
+.question-block.incorrect { border-left-color: #e74c3c; }
+
+.q-top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+.q-num { background: #003366; color: #fff; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; }
+.q-badge { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 10px; flex-shrink: 0; }
+.badge-teo { background: #dbeafe; color: #1e40af; }
+.badge-app { background: #d1fae5; color: #065f46; }
+.badge-caso { background: #fef3c7; color: #92400e; }
+.q-text { font-size: 15px; color: #1a1a2e; line-height: 1.6; font-weight: 600; }
+.caso-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 6px; padding: 12px 14px; margin: 10px 0; font-size: 14px; color: #44403c; line-height: 1.6; font-style: italic; }
+.caso-box::before { content: "📋 Caso: "; font-weight: 700; font-style: normal; color: #92400e; }
+
+.options-list { list-style: none; margin: 10px 0 0; }
+.options-list li { margin-bottom: 8px; }
+.option-label { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: all .2s; }
+.option-label:hover { border-color: #87CEEB; background: #f0f9ff; }
+.option-label input[type="radio"] { accent-color: #003366; margin-top: 2px; flex-shrink: 0; }
+.option-label .opt-letter { font-weight: 700; color: #003366; font-size: 13px; flex-shrink: 0; }
+.option-label .opt-text { font-size: 14px; color: #333; line-height: 1.5; }
+.option-label.selected { border-color: #003366; background: #e8f0fa; }
+.option-label.correct-ans { border-color: #27ae60; background: #f0fdf4; }
+.option-label.wrong-ans { border-color: #e74c3c; background: #fef2f2; }
+.option-label.correct-ans .opt-letter,
+.option-label.correct-ans .opt-text { color: #15803d; }
+.option-label.wrong-ans .opt-letter,
+.option-label.wrong-ans .opt-text { color: #b91c1c; text-decoration: line-through; }
+
+.feedback-box { background: #f8fafc; border-left: 4px solid #003366; border-radius: 0 8px 8px 0; padding: 12px 14px; margin-top: 12px; font-size: 13px; color: #334155; line-height: 1.6; display: none; }
+.feedback-box.show { display: block; }
+.feedback-box .fb-correct { color: #15803d; font-weight: 700; margin-bottom: 6px; }
+.feedback-box .fb-wrong { color: #b91c1c; font-weight: 700; margin-bottom: 6px; }
+
+.verify-btn { display: block; width: 100%; background: #003366; color: #fff; font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 700; padding: 14px; border: none; border-radius: 10px; cursor: pointer; margin: 20px 0 10px; transition: background .2s; }
+.verify-btn:hover { background: #0055a4; }
+.reset-btn { display: none; width: 100%; background: #fff; color: #003366; font-family: 'Source Sans 3', sans-serif; font-size: 15px; font-weight: 700; padding: 12px; border: 2px solid #003366; border-radius: 10px; cursor: pointer; margin-top: 8px; transition: all .2s; }
+.reset-btn:hover { background: #e8f0fa; }
+
+.result-panel { display: none; background: #fff; border-radius: 12px; padding: 24px; margin-top: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); text-align: center; }
+.result-panel.show { display: block; }
+.result-emoji { font-size: 52px; margin-bottom: 8px; }
+.result-score { font-family: 'Lora', serif; font-size: 36px; font-weight: 700; color: #003366; }
+.result-pct { font-size: 18px; color: #666; margin: 4px 0 14px; }
+.result-msg { font-size: 16px; color: #334155; line-height: 1.6; margin-bottom: 16px; }
+.progress-bar-wrap { background: #e2e8f0; border-radius: 20px; height: 16px; overflow: hidden; margin: 10px 0; }
+.progress-bar { height: 100%; border-radius: 20px; background: linear-gradient(to right, #003366, #0055a4); width: 0%; transition: width 1s ease; }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-top">
+    <div class="header-logo">UG</div>
+    <div class="header-inst">
+      <span class="univ">Universidad de Guayaquil</span>
+      <span class="fac">Facultad de Ciencias Administrativas</span>
+      <span class="carr">Carrera en Contabilidad y Auditoría</span>
+    </div>
+  </div>
+  <div class="header-body">
+    <div class="badge-row">
+      <span class="badge">Metodología de la Investigación</span>
+      <span class="badge">Repaso para Examen — Parte A</span>
+      <span class="badge">Semanas 1 a 4</span>
+    </div>
+    <div class="header-title">🎯 Preparación para el Examen Final</div>
+    <div class="header-subtitle">Banco de preguntas con retroalimentación • Pensamiento crítico • Análisis de caso • Unidad I completa</div>
+  </div>
+</header>
+
+<!-- ===== TAB NAV ===== -->
+<div class="tab-nav-wrapper">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('portada')">📋 Portada e Instrucciones</button>
+    <button class="tab-btn" onclick="showTab('s1')">📘 Semana 1</button>
+    <button class="tab-btn" onclick="showTab('s2')">📗 Semana 2</button>
+    <button class="tab-btn" onclick="showTab('s3')">📙 Semana 3</button>
+    <button class="tab-btn" onclick="showTab('s4')">📕 Semana 4</button>
+  </div>
+</div>
+
+<!-- ===== PORTADA ===== -->
+<div id="tab-portada" class="tab-content active">
+  <div class="portada-hero">
+    <h2>🎯 Repaso Integral para el Examen Final</h2>
+    <p>Este widget contiene <strong>preguntas de alto nivel cognitivo</strong> —no basta recordar definiciones. Deberás analizar, relacionar y aplicar lo aprendido. Las opciones incorrectas están diseñadas para representar errores reales; ninguna es absurda ni trampa obvia. ¡Prepárate a pensar!</p>
+  </div>
+
+  <div class="portada-grid">
+    <div class="portada-card">
+      <div class="num">60</div>
+      <div class="label">Preguntas en este archivo<br>(15 por semana × 4)</div>
+    </div>
+    <div class="portada-card">
+      <div class="num">4</div>
+      <div class="label">Semanas de la Unidad I cubiertas</div>
+    </div>
+    <div class="portada-card">
+      <div class="num">3</div>
+      <div class="label">Tipos de preguntas:<br>Teórica · Aplicación · Análisis</div>
+    </div>
+    <div class="portada-card">
+      <div class="num">8B</div>
+      <div class="label">Semanas 5–7 + Simulacro Final en el archivo complementario</div>
+    </div>
+  </div>
+
+  <div class="instruccion-box">
+    <h4>📌 Instrucciones de uso</h4>
+    <ul>
+      <li><strong>Responde TODAS las preguntas de la pestaña</strong> antes de presionar "Verificar respuestas". No se muestran resultados parciales.</li>
+      <li>Cuando presiones Verificar, aparecerá: ✅ verde (correcto) o ❌ rojo (incorrecto) en cada ítem, con explicación de <em>por qué</em> cada opción es correcta o incorrecta.</li>
+      <li>Al final verás tu calificación, porcentaje y un mensaje motivacional.</li>
+      <li>Puedes reiniciar cualquier semana para volver a intentarlo.</li>
+      <li>Las preguntas de <strong>Análisis de caso</strong> presentan una situación concreta; léelas con cuidado antes de responder.</li>
+    </ul>
+  </div>
+
+  <h3>📚 Síntesis de temas por semana</h3>
+  <div class="semana-resumen-grid">
+    <div class="semana-card">
+      <span class="s-num">Semana 1</span>
+      <div class="s-tema"><strong>Conocimiento y Método Científico:</strong> corrientes del conocimiento, diferencia empírico vs. científico, objetividad/subjetividad, ciencias empíricas y formales, método científico y sus tipos, conceptos/teorías/axiomas/leyes.</div>
+    </div>
+    <div class="semana-card">
+      <span class="s-num">Semana 2</span>
+      <div class="s-tema"><strong>Paradigmas, Investigación y Sesgos:</strong> elementos de la investigación, clasificación por alcance (exploratorio, descriptivo, correlacional, explicativo), paradigmas investigativos, sesgos, precisión y validez.</div>
+    </div>
+    <div class="semana-card">
+      <span class="s-num">Semana 3</span>
+      <div class="s-tema"><strong>Ética y Epistemología:</strong> características de la investigación científica, objeto y campo de investigación, ética en la ciencia, epistemología (concepto y categorías), diferencia entre epistemología y gnoseología.</div>
+    </div>
+    <div class="semana-card">
+      <span class="s-num">Semana 4</span>
+      <div class="s-tema"><strong>Complejidad y Epistemologías Regionales:</strong> complejidad e interdisciplinariedad, epistemologías regionales (Contabilidad, Auditoría, Economía, Derecho), problemas clásicos de la epistemología, pensamiento complejo de Morin.</div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-icon">💡</div>
+    <p><strong>Consejo estratégico:</strong> Antes de elegir, descarta la opción más obvia. En este banco, dos opciones suelen ser parcialmente correctas; la clave está en cuál es <em>más precisa, más completa o más pertinente</em> al contexto de la pregunta.</p>
+  </div>
+  <div class="tip-box">
+    <div class="tip-icon">📂</div>
+    <p><strong>Continúa en el archivo <em>Repaso_8B.html</em></strong> para las Semanas 5, 6 y 7, además del Simulacro Final de 30 preguntas con cronómetro y desglose por semana.</p>
+  </div>
+</div>
+
+<!-- ===== SEMANA 1 ===== -->
+<div id="tab-s1" class="tab-content">
+  <div class="quiz-header">
+    <h2>📘 Semana 1 — Conocimiento Científico y Método Científico</h2>
+    <div class="quiz-stats">
+      <div class="quiz-stat">Preguntas: <span>15</span></div>
+      <div class="quiz-stat">Teóricas: <span>7</span></div>
+      <div class="quiz-stat">Aplicación: <span>5</span></div>
+      <div class="quiz-stat">Análisis de caso: <span>3</span></div>
+    </div>
+  </div>
+
+  <div id="s1-questions">
+
+    <!-- P1 -->
+    <div class="question-block" id="s1q1">
+      <div class="q-top">
+        <span class="q-num">S1 · P1</span>
+        <span class="q-badge badge-teo">Teórica</span>
+        <span class="q-text">¿Cuál es la diferencia fundamental entre el conocimiento empírico y el conocimiento científico?</span>
+      </div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q1','A')"><input type="radio" name="s1q1"><span class="opt-letter">A</span><span class="opt-text">El conocimiento empírico se basa en la experiencia sensorial directa y no exige verificación sistemática, mientras que el científico utiliza metodología rigurosa, es verificable y busca explicaciones generalizables.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q1','B')"><input type="radio" name="s1q1"><span class="opt-letter">B</span><span class="opt-text">El conocimiento empírico es siempre incorrecto y el científico es siempre correcto, porque la ciencia no comete errores.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q1','C')"><input type="radio" name="s1q1"><span class="opt-letter">C</span><span class="opt-text">Ambos tipos de conocimiento son equivalentes en rigor; la diferencia está únicamente en el vocabulario técnico que se utiliza.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q1','D')"><input type="radio" name="s1q1"><span class="opt-letter">D</span><span class="opt-text">El conocimiento científico es exclusivamente teórico y nunca puede basarse en observaciones del mundo real.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q1-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El conocimiento <strong>empírico</strong> surge de la experiencia cotidiana sin metodología formal: "El sol sale por el este" lo saben personas sin estudios científicos. El conocimiento <strong>científico</strong> requiere metodología sistemática, replicabilidad y apertura a la refutación. <br><em>Por qué no las otras:</em> B es falsa porque el conocimiento empírico puede ser correcto (y la ciencia también comete errores). C es falsa porque el rigor metodológico sí los diferencia fundamentalmente. D es falsa porque la ciencia empírica se basa precisamente en observaciones del mundo real.
+      </div>
+    </div>
+
+    <!-- P2 -->
+    <div class="question-block" id="s1q2">
+      <div class="q-top">
+        <span class="q-num">S1 · P2</span>
+        <span class="q-badge badge-teo">Teórica</span>
+        <span class="q-text">¿Qué distingue a las ciencias formales de las ciencias empíricas?</span>
+      </div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q2','A')"><input type="radio" name="s1q2"><span class="opt-letter">A</span><span class="opt-text">Las ciencias formales (como la matemática y la lógica) validan sus afirmaciones mediante razonamiento interno y demostraciones, sin necesidad de observación del mundo físico; las empíricas requieren verificación mediante datos de la realidad.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q2','B')"><input type="radio" name="s1q2"><span class="opt-letter">B</span><span class="opt-text">Las ciencias formales son más rigurosas que las empíricas porque se basan en experimentos controlados de laboratorio.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q2','C')"><input type="radio" name="s1q2"><span class="opt-letter">C</span><span class="opt-text">La distinción principal es el número de años de estudio requeridos: las formales demandan mayor preparación académica.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q2','D')"><input type="radio" name="s1q2"><span class="opt-letter">D</span><span class="opt-text">Las ciencias empíricas no usan matemáticas ni lógica, mientras que las formales pueden describir fenómenos físicos directamente.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q2-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        La Matemática demuestra que 2+2=4 sin necesidad de medir nada en el universo físico. La Contabilidad, en cambio, trabaja con hechos económicos reales y necesita datos verificables. <br><em>Por qué no las otras:</em> B confunde el método (la contrastación empírica requiere experimentos, las formales no). C es un criterio completamente ajeno a la clasificación. D es errónea porque las ciencias empíricas usan extensamente la matemática.
+      </div>
+    </div>
+
+    <!-- P3 -->
+    <div class="question-block" id="s1q3">
+      <div class="q-top">
+        <span class="q-num">S1 · P3</span>
+        <span class="q-badge badge-teo">Teórica</span>
+        <span class="q-text">En el contexto del método científico, ¿qué característica distingue a una hipótesis de una teoría científica?</span>
+      </div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q3','A')"><input type="radio" name="s1q3"><span class="opt-letter">A</span><span class="opt-text">La hipótesis es una suposición provisional que aún no ha sido suficientemente probada, mientras que la teoría es una explicación amplia, sistemática y respaldada por múltiple evidencia, aunque sigue siendo revisable.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q3','B')"><input type="radio" name="s1q3"><span class="opt-letter">B</span><span class="opt-text">La teoría es absolutamente cierta e irrefutable, mientras que la hipótesis puede ser falsa.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q3','C')"><input type="radio" name="s1q3"><span class="opt-letter">C</span><span class="opt-text">La hipótesis se usa solo en ciencias naturales; la teoría es exclusiva de las ciencias sociales.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q3"><span class="opt-letter">D</span><span class="opt-text">Ambos términos son sinónimos en el lenguaje científico moderno; la distinción es puramente histórica.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q3-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Una hipótesis es una predicción inicial que se somete a prueba. Si sobrevive múltiples intentos de refutación y explica consistentemente fenómenos, puede elevarse al estatus de teoría. Pero incluso una teoría puede ser revisada (recuerda: Newton fue revisado por Einstein). <br><em>Por qué no las otras:</em> B es incorrecta porque en ciencia nada es absolutamente irrefutable. C es falsa: hipótesis y teorías existen en todas las ciencias. D es incorrecta; son conceptos distintos con estatus epistémico diferente.
+      </div>
+    </div>
+
+    <!-- P4 -->
+    <div class="question-block" id="s1q4">
+      <div class="q-top">
+        <span class="q-num">S1 · P4</span>
+        <span class="q-badge badge-teo">Teórica</span>
+        <span class="q-text">¿Qué se entiende por "objetividad" en la producción de conocimiento científico y por qué es un ideal difícil de alcanzar plenamente?</span>
+      </div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q4','A')"><input type="radio" name="s1q4"><span class="opt-letter">A</span><span class="opt-text">La objetividad implica que el conocimiento debe ser independiente de los valores, creencias y percepciones personales del investigador; pero es difícil de alcanzar porque toda observación está mediada por la perspectiva del observador y el contexto cultural.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q4','B')"><input type="radio" name="s1q4"><span class="opt-letter">B</span><span class="opt-text">La objetividad significa que todos los científicos deben llegar exactamente a las mismas conclusiones ante los mismos datos, sin ninguna excepción posible.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q4','C')"><input type="radio" name="s1q4"><span class="opt-letter">C</span><span class="opt-text">La objetividad es fácilmente alcanzable mediante el uso de instrumentos de medición precisos, que eliminan completamente la subjetividad.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q4','D')"><input type="radio" name="s1q4"><span class="opt-letter">D</span><span class="opt-text">La objetividad es irrelevante en ciencias sociales; solo importa en ciencias naturales como la física y la química.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q4-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        La objetividad es un ideal regulativo: apuntamos a ella a través de métodos rigurosos, revisión por pares y transparencia metodológica, pero nunca la alcanzamos por completo porque el investigador siempre lleva consigo su historia, su cultura y sus preconcepciones. <br><em>Por qué no las otras:</em> B es demasiado absoluta; científicos honestos pueden diferir en interpretaciones. C ignora que incluso los instrumentos son diseñados por personas con supuestos. D es falsa; la objetividad es crucial en todas las ciencias, quizás más difícil pero no irrelevante en las sociales.
+      </div>
+    </div>
+
+    <!-- P5 -->
+    <div class="question-block" id="s1q5">
+      <div class="q-top">
+        <span class="q-num">S1 · P5</span>
+        <span class="q-badge badge-teo">Teórica</span>
+        <span class="q-text">¿Cuál es la diferencia entre un axioma y una ley científica?</span>
+      </div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q5','A')"><input type="radio" name="s1q5"><span class="opt-letter">A</span><span class="opt-text">Un axioma es una proposición que se acepta como verdadera sin necesidad de demostración empírica (punto de partida lógico), mientras que una ley científica describe una regularidad observada en el mundo real que ha sido ampliamente confirmada.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q5','B')"><input type="radio" name="s1q5"><span class="opt-letter">B</span><span class="opt-text">Una ley científica es más importante que un axioma porque fue establecida por un científico famoso, mientras que los axiomas solo los usan matemáticos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q5','C')"><input type="radio" name="s1q5"><span class="opt-letter">C</span><span class="opt-text">Ambos son términos equivalentes que designan verdades absolutas e inmodificables en cualquier contexto científico.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q5','D')"><input type="radio" name="s1q5"><span class="opt-letter">D</span><span class="opt-text">Los axiomas pueden ser refutados mediante experimentos; las leyes no, porque son establecidas por consenso legislativo internacional.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q5-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Ejemplo de axioma: "Entre dos puntos solo pasa una recta" (Euclides). No se demuestra; se acepta como base del sistema. Ejemplo de ley: la Ley de la Gravedad de Newton, que describe el comportamiento observable de los cuerpos con masa. <br><em>Por qué no las otras:</em> B usa un criterio de "importancia" que no existe en epistemología. C es falsa: ni axiomas ni leyes son "absolutos e inmodificables" del mismo modo. D invierte el concepto: los axiomas no se refutan empíricamente (son presuposiciones lógicas).
+      </div>
+    </div>
+
+    <!-- P6 -->
+    <div class="question-block" id="s1q6">
+      <div class="q-top">
+        <span class="q-num">S1 · P6</span>
+        <span class="q-badge badge-teo">Teórica</span>
+        <span class="q-text">El método hipotético-deductivo implica:</span>
+      </div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q6','A')"><input type="radio" name="s1q6"><span class="opt-letter">A</span><span class="opt-text">Partir de una hipótesis general para derivar conclusiones específicas que luego se contrastan con la realidad observable, permitiendo confirmar o refutar la hipótesis inicial.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q6','B')"><input type="radio" name="s1q6"><span class="opt-letter">B</span><span class="opt-text">Acumular casos particulares hasta que la cantidad sea suficiente para convertirlos automáticamente en una ley universal.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q6','C')"><input type="radio" name="s1q6"><span class="opt-letter">C</span><span class="opt-text">Deducir verdades a partir de la intuición del investigador sin necesidad de datos empíricos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q6','D')"><input type="radio" name="s1q6"><span class="opt-letter">D</span><span class="opt-text">Es sinónimo del método inductivo; ambos parten de lo particular para llegar a lo general.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q6-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Karl Popper es el gran defensor del método hipotético-deductivo. Se plantea una hipótesis → se derivan predicciones concretas → se comprueban → si fallan, la hipótesis se refuta. <br><em>Por qué no las otras:</em> B describe el método inductivo, no el hipotético-deductivo. C describe un proceso racionalista extremo que no necesita contraste empírico. D es falsa: hipotético-deductivo e inductivo son métodos opuestos en su punto de partida.
+      </div>
+    </div>
+
+    <!-- P7 -->
+    <div class="question-block" id="s1q7">
+      <div class="q-top">
+        <span class="q-num">S1 · P7</span>
+        <span class="q-badge badge-teo">Teórica</span>
+        <span class="q-text">El empirismo como corriente filosófica sostiene que:</span>
+      </div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q7','A')"><input type="radio" name="s1q7"><span class="opt-letter">A</span><span class="opt-text">Todo conocimiento válido proviene de la experiencia sensorial; las ideas innatas o el razonamiento puro, sin sustento en la observación, no producen conocimiento genuino sobre el mundo.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q7','B')"><input type="radio" name="s1q7"><span class="opt-letter">B</span><span class="opt-text">La razón es la fuente principal del conocimiento y los sentidos son engañosos e irrelevantes para la ciencia.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q7','C')"><input type="radio" name="s1q7"><span class="opt-letter">C</span><span class="opt-text">El conocimiento es una construcción social colectiva que no depende de la observación individual ni de la razón.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q7','D')"><input type="radio" name="s1q7"><span class="opt-letter">D</span><span class="opt-text">Solo el conocimiento matemático es verdadero, porque la observación siempre está contaminada por errores de percepción.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q7-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Filósofos empiristas como Locke, Hume y Berkeley argumentaron que la mente humana comienza como una "tabla rasa" y el conocimiento se construye a partir de la experiencia. <br><em>Por qué no las otras:</em> B describe el racionalismo (Descartes, Leibniz). C se acerca al constructivismo social. D es una postura racionalista extrema que tampoco es el empirismo.
+      </div>
+    </div>
+
+    <!-- P8 — APLICACIÓN -->
+    <div class="question-block" id="s1q8">
+      <div class="q-top">
+        <span class="q-num">S1 · P8</span>
+        <span class="q-badge badge-app">Aplicación</span>
+        <span class="q-text">Un estudiante afirma: "Mi abuelo fumó toda su vida y vivió hasta los 95 años, por lo tanto fumar no es tan malo para la salud." ¿Qué tipo de error metodológico está cometiendo?</span>
+      </div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q8','A')"><input type="radio" name="s1q8"><span class="opt-letter">A</span><span class="opt-text">Está generalizando a partir de un caso único (anécdota), lo cual viola el principio de representatividad muestral y confunde la excepción con la regla.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q8','B')"><input type="radio" name="s1q8"><span class="opt-letter">B</span><span class="opt-text">Está aplicando correctamente el método inductivo, ya que la observación de un caso es suficiente para establecer una conclusión científica.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q8','C')"><input type="radio" name="s1q8"><span class="opt-letter">C</span><span class="opt-text">Está usando el método hipotético-deductivo correctamente porque parte de una observación para refutar una hipótesis.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q8','D')"><input type="radio" name="s1q8"><span class="opt-letter">D</span><span class="opt-text">El error consiste en no haber consultado fuentes bibliográficas antes de hacer la afirmación.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q8-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Este es el clásico error de "<strong>generalización inductiva apresurada</strong>" o "razonamiento anecdótico". Un caso singular no puede refutar décadas de investigación epidemiológica con millones de sujetos. <br><em>Por qué no las otras:</em> B es falsa porque un solo caso jamás es suficiente para una conclusión científica. C confunde el proceso: no hay hipótesis previa ni deducción. D identifica un problema menor (no usar bibliografía) pero no el error fundamental de razonamiento.
+      </div>
+    </div>
+
+    <!-- P9 -->
+    <div class="question-block" id="s1q9">
+      <div class="q-top">
+        <span class="q-num">S1 · P9</span>
+        <span class="q-badge badge-app">Aplicación</span>
+        <span class="q-text">Una firma auditora en Guayaquil revisa los estados financieros de una empresa mediante procedimientos sistemáticos, documentados y replicables. ¿A cuál tipo de conocimiento se aproxima este proceso?</span>
+      </div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q9','A')"><input type="radio" name="s1q9"><span class="opt-letter">A</span><span class="opt-text">Al conocimiento científico, porque aplica metodología sistemática, criterios de verificabilidad y produce conclusiones que otros profesionales pueden revisar e impugnar.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q9','B')"><input type="radio" name="s1q9"><span class="opt-letter">B</span><span class="opt-text">Al conocimiento empírico, porque el auditor observa los documentos con sus propios ojos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q9','C')"><input type="radio" name="s1q9"><span class="opt-letter">C</span><span class="opt-text">Al conocimiento teórico, porque la auditoría no trabaja con datos reales sino con modelos abstractos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q9','D')"><input type="radio" name="s1q9"><span class="opt-letter">D</span><span class="opt-text">Al conocimiento especulativo, porque el auditor no puede verificar con certeza absoluta todos los hechos económicos.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q9-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        La auditoría aplica Normas Internacionales de Auditoría (NIA), procesos documentados, evidencia verificable y emite opiniones revisables: todos son rasgos del conocimiento científico. <br><em>Por qué no las otras:</em> B confunde "usa los sentidos" con "conocimiento empírico informal". La auditoría va mucho más allá de la mera observación directa. C es falsa: la auditoría trabaja con datos reales. D es incorrecta: que no haya certeza absoluta no convierte el proceso en especulación.
+      </div>
+    </div>
+
+    <!-- P10 -->
+    <div class="question-block" id="s1q10">
+      <div class="q-top">
+        <span class="q-num">S1 · P10</span>
+        <span class="q-badge badge-app">Aplicación</span>
+        <span class="q-text">Un contador aplica el principio contable de "empresa en marcha" al preparar los estados financieros, aunque no ha demostrado empíricamente que la empresa sobrevivirá el próximo año. ¿Qué tipo de proposición es este principio?</span>
+      </div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q10','A')"><input type="radio" name="s1q10"><span class="opt-letter">A</span><span class="opt-text">Es un axioma o supuesto básico que se acepta como punto de partida para estructurar la contabilidad, sin requerir demostración empírica directa en cada caso.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q10','B')"><input type="radio" name="s1q10"><span class="opt-letter">B</span><span class="opt-text">Es una ley científica porque ha sido verificada en miles de empresas alrededor del mundo.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q10','C')"><input type="radio" name="s1q10"><span class="opt-letter">C</span><span class="opt-text">Es una hipótesis de investigación que todavía necesita ser probada antes de poder usarse en la práctica contable.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q10','D')"><input type="radio" name="s1q10"><span class="opt-letter">D</span><span class="opt-text">Es una teoría contable porque fue propuesta por académicos y es ampliamente aceptada en la disciplina.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q10-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Los principios contables como "empresa en marcha", "devengo" o "uniformidad" funcionan como axiomas del sistema contable: se asumen como verdaderos para que el sistema funcione, aunque en casos específicos puedan verse cuestionados (una empresa en proceso de quiebra, por ejemplo). <br><em>Por qué no las otras:</em> B requeriría verificación empírica universal que no existe. C confundiría un supuesto operativo con una pregunta de investigación abierta. D confundiría "axioma" con "teoría", que sí tiene contenido explicativo basado en evidencia.
+      </div>
+    </div>
+
+    <!-- P11 -->
+    <div class="question-block" id="s1q11">
+      <div class="q-top">
+        <span class="q-num">S1 · P11</span>
+        <span class="q-badge badge-app">Aplicación</span>
+        <span class="q-text">¿Cuál de las siguientes afirmaciones sobre el método inductivo es correcta?</span>
+      </div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q11','A')"><input type="radio" name="s1q11"><span class="opt-letter">A</span><span class="opt-text">El método inductivo parte de observaciones particulares para construir enunciados generales, pero sus conclusiones nunca son absolutamente ciertas porque siempre existe la posibilidad de encontrar un caso que las contradiga.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q11','B')"><input type="radio" name="s1q11"><span class="opt-letter">B</span><span class="opt-text">El método inductivo garantiza conclusiones verdaderas si el número de casos observados supera los mil.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q11','C')"><input type="radio" name="s1q11"><span class="opt-letter">C</span><span class="opt-text">El método inductivo es superior al deductivo porque produce conclusiones con mayor certeza lógica.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q11','D')"><input type="radio" name="s1q11"><span class="opt-letter">D</span><span class="opt-text">El método inductivo parte de leyes generales para predecir hechos particulares en contextos específicos.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q11-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Este es el clásico "problema de la inducción" señalado por Hume: por muchos cisnes blancos que hayas visto, no puedes concluir que "todos los cisnes son blancos" con certeza lógica absoluta —hasta que aparece un cisne negro en Australia. <br><em>Por qué no las otras:</em> B es falsa: no existe un número mágico. C es incorrecta: el deductivo tiene mayor certeza lógica formal. D describe el método deductivo, no el inductivo.
+      </div>
+    </div>
+
+    <!-- P12 -->
+    <div class="question-block" id="s1q12">
+      <div class="q-top">
+        <span class="q-num">S1 · P12</span>
+        <span class="q-badge badge-app">Aplicación</span>
+        <span class="q-text">Cuando el Servicio de Rentas Internas (SRI) de Ecuador detecta un patrón de evasión fiscal en las declaraciones de 500 pequeñas empresas del sector comercial y concluye que "existe una tendencia sistemática de subdeclaración de ingresos en el sector", ¿qué método está aplicando predominantemente?</span>
+      </div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q12','A')"><input type="radio" name="s1q12"><span class="opt-letter">A</span><span class="opt-text">El método inductivo, porque parte de múltiples casos particulares observados para construir una conclusión general sobre el comportamiento del sector.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q12','B')"><input type="radio" name="s1q12"><span class="opt-letter">B</span><span class="opt-text">El método deductivo, porque parte de la ley tributaria general para revisar cada caso individual.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q12"><span class="opt-letter">C</span><span class="opt-text">El método analógico, porque compara las empresas del sector comercial con empresas de otros sectores.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q12','D')"><input type="radio" name="s1q12"><span class="opt-letter">D</span><span class="opt-text">El método hipotético-deductivo, porque el SRI primero formula una hipótesis y luego revisa los casos para confirmarla.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q12-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        La secuencia es: observa 500 casos → detecta patrón → formula conclusión general. Eso es inducción. <br><em>Por qué no las otras:</em> B sería válida si el SRI partiera de la ley para revisar; aquí el proceso va en sentido contrario. C (método analógico) implica comparar con otro sector, lo cual no está en el enunciado. D requeriría una hipótesis explícita antes de la revisión de casos, lo cual tampoco describe este proceso.
+      </div>
+    </div>
+
+    <!-- P13 — ANÁLISIS -->
+    <div class="question-block" id="s1q13">
+      <div class="q-top">
+        <span class="q-num">S1 · P13</span>
+        <span class="q-badge badge-caso">Análisis de caso</span>
+      </div>
+      <div class="caso-box">Una empresa constructora en Quito afirma en su publicidad: "Nuestros materiales son los más resistentes del mercado. Lo probamos en condiciones extremas." La empresa realizó pruebas internas en su propio laboratorio, con sus propios técnicos, sin que ninguna entidad independiente haya verificado los resultados. El gerente de ventas asegura que "la ciencia respalda" sus afirmaciones.</div>
+      <span class="q-text">¿Cuál es la principal deficiencia científica de la afirmación de la empresa?</span>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q13','A')"><input type="radio" name="s1q13"><span class="opt-letter">A</span><span class="opt-text">Los resultados no han sido sometidos a revisión independiente ni replicación por terceros, lo que viola el principio de verificabilidad intersubjetiva esencial en la producción de conocimiento científico.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q13','B')"><input type="radio" name="s1q13"><span class="opt-letter">B</span><span class="opt-text">El problema es que usaron un laboratorio propio en lugar de uno universitario, ya que solo las universidades producen conocimiento científico válido.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q13','C')"><input type="radio" name="s1q13"><span class="opt-letter">C</span><span class="opt-text">La afirmación no tiene deficiencias reales porque cualquier prueba realizada sistemáticamente constituye ciencia válida, independientemente de quién la haga.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q13','D')"><input type="radio" name="s1q13"><span class="opt-letter">D</span><span class="opt-text">El error está en que el gerente de ventas no es científico; solo los doctores en ciencias pueden validar resultados experimentales.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q13-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El conocimiento científico exige <strong>verificabilidad intersubjetiva</strong>: que otros investigadores independientes puedan replicar el experimento y obtener resultados similares. Sin esa validación externa, los resultados son potencialmente sesgados por el interés comercial de la empresa. <br><em>Por qué no las otras:</em> B es incorrecta porque el tipo de laboratorio no es el criterio; la independencia y replicabilidad sí lo son. C ignora el sesgo del investigador con intereses creados. D mezcla "credencial académica" con "rigor metodológico": lo que importa es el método, no el título.
+      </div>
+    </div>
+
+    <!-- P14 -->
+    <div class="question-block" id="s1q14">
+      <div class="q-top">
+        <span class="q-num">S1 · P14</span>
+        <span class="q-badge badge-caso">Análisis de caso</span>
+      </div>
+      <div class="caso-box">Daniela, estudiante de Contabilidad en Guayaquil, lee en Instagram que "el aguacate cura la diabetes si se toma en ayunas". La publicación tiene 50.000 "me gusta" y varios testimonios de personas que dicen haberse curado. Daniela decide recomendárselo a su abuela diabética en lugar del tratamiento médico prescrito.</div>
+      <span class="q-text">Desde la perspectiva del método científico, ¿cuál es el error central en la decisión de Daniela?</span>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q14','A')"><input type="radio" name="s1q14"><span class="opt-letter">A</span><span class="opt-text">Daniela confunde popularidad y testimonios anecdóticos con evidencia científica válida. Los "me gusta" y los testimonios no constituyen estudios controlados que permitan establecer causalidad.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q14','B')"><input type="radio" name="s1q14"><span class="opt-letter">B</span><span class="opt-text">El error de Daniela es no haber consultado a un influencer especializado en salud antes de tomar la decisión.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q14','C')"><input type="radio" name="s1q14"><span class="opt-letter">C</span><span class="opt-text">El aguacate efectivamente tiene propiedades beneficiosas para la salud, por lo que la decisión de Daniela está parcialmente justificada desde el punto de vista nutricional.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q14','D')"><input type="radio" name="s1q14"><span class="opt-letter">D</span><span class="opt-text">El problema está en que Daniela usó Instagram en lugar de una plataforma de salud certificada, pero el razonamiento es correcto.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q14-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        50.000 "me gusta" no son 50.000 ensayos clínicos. Los testimonios son datos anecdóticos: no están controlados, no comparan con grupos de control, no eliminan el efecto placebo ni otras variables. El método científico exige mucho más antes de afirmar que algo "cura" una enfermedad crónica. <br><em>Por qué no las otras:</em> B introduce una categoría ("influencer especializado") que no existe en ciencia. C cambia el tema: que el aguacate sea nutritivo no prueba que cure diabetes. D asume que la plataforma es el problema, no el tipo de evidencia.
+      </div>
+    </div>
+
+    <!-- P15 -->
+    <div class="question-block" id="s1q15">
+      <div class="q-top">
+        <span class="q-num">S1 · P15</span>
+        <span class="q-badge badge-caso">Análisis de caso</span>
+      </div>
+      <div class="caso-box">Un investigador de la Universidad Central del Ecuador estudia el comportamiento de los precios del mercado inmobiliario en Quito durante los últimos 10 años. Tiene acceso a toda la información histórica de precios, pero NO puede modificar ninguna variable ni asignar compradores a distintos barrios al azar. Su objetivo es identificar qué factores explican las variaciones en los precios.</div>
+      <span class="q-text">¿Qué tipo de ciencia y qué tipo de método es más compatible con esta investigación?</span>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s1q15','A')"><input type="radio" name="s1q15"><span class="opt-letter">A</span><span class="opt-text">Es una ciencia empírica y utilizará predominantemente el método inductivo o hipotético-deductivo con datos observacionales, ya que no puede manipular variables ni asignar aleatoriamente sujetos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q15','B')"><input type="radio" name="s1q15"><span class="opt-letter">B</span><span class="opt-text">Es una ciencia formal porque trabaja con números y estadísticas, y aplicará el método deductivo puro.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q15','C')"><input type="radio" name="s1q15"><span class="opt-letter">C</span><span class="opt-text">Es una ciencia empírica experimental porque el investigador puede manipular los precios de forma retrospectiva.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s1q15','D')"><input type="radio" name="s1q15"><span class="opt-letter">D</span><span class="opt-text">No puede clasificarse como investigación científica porque el investigador no tiene control sobre las variables.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s1q15-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Estudia fenómenos reales (mercado inmobiliario → ciencia empírica). No manipula variables ni asigna grupos al azar, por lo que no es experimental. Trabajará con datos históricos (diseño longitudinal retrospectivo) aplicando inducción o contraste de hipótesis. <br><em>Por qué no las otras:</em> B confunde "usar números" con "ciencia formal": la economía usa matemáticas pero es ciencia empírica. C es falsa: no puede manipular los precios del pasado retrospectivamente. D es incorrecta: la observación sin manipulación es perfectamente legítima en ciencia (astronomía, epidemiología, economía).
+      </div>
+    </div>
+
+  </div><!-- fin s1-questions -->
+
+  <button class="verify-btn" onclick="verifyQuiz('s1', 15)">✅ Verificar respuestas</button>
+  <div id="s1-result" class="result-panel"></div>
+  <button class="reset-btn" id="s1-reset" onclick="resetQuiz('s1', 15)">🔄 Reiniciar Semana 1</button>
+</div>
+
+<!-- ===== SEMANA 2 ===== -->
+<div id="tab-s2" class="tab-content">
+  <div class="quiz-header">
+    <h2>📗 Semana 2 — Paradigmas, Investigación y Sesgos</h2>
+    <div class="quiz-stats">
+      <div class="quiz-stat">Preguntas: <span>15</span></div>
+      <div class="quiz-stat">Teóricas: <span>7</span></div>
+      <div class="quiz-stat">Aplicación: <span>5</span></div>
+      <div class="quiz-stat">Análisis de caso: <span>3</span></div>
+    </div>
+  </div>
+  <div id="s2-questions">
+
+    <!-- S2 P1 -->
+    <div class="question-block" id="s2q1">
+      <div class="q-top"><span class="q-num">S2 · P1</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">En metodología de la investigación, ¿qué es un paradigma?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q1','A')"><input type="radio" name="s2q1"><span class="opt-letter">A</span><span class="opt-text">Un conjunto de supuestos, creencias y valores compartidos por una comunidad científica que determinan cómo se define un problema de investigación, qué preguntas se hacen y qué métodos se consideran válidos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q1','B')"><input type="radio" name="s2q1"><span class="opt-letter">B</span><span class="opt-text">Un tipo específico de metodología cuantitativa usada exclusivamente en ciencias naturales.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q1','C')"><input type="radio" name="s2q1"><span class="opt-letter">C</span><span class="opt-text">Una regla operativa que determina el tamaño mínimo de la muestra en una investigación.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q1','D')"><input type="radio" name="s2q1"><span class="opt-letter">D</span><span class="opt-text">Un modelo matemático para analizar datos estadísticos en ciencias sociales.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q1-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Thomas Kuhn, en "La Estructura de las Revoluciones Científicas" (1962), definió el paradigma como una matriz disciplinar: supuestos ontológicos, epistemológicos y metodológicos que una comunidad científica da por sentados. Incluye qué preguntas son legítimas y qué evidencia es relevante. <br><em>Por qué no las otras:</em> B lo confunde con un enfoque metodológico específico. C lo confunde con criterios técnicos de muestreo. D lo confunde con una herramienta estadística.
+      </div>
+    </div>
+
+    <!-- S2 P2 -->
+    <div class="question-block" id="s2q2">
+      <div class="q-top"><span class="q-num">S2 · P2</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuál es la diferencia clave entre los alcances exploratorio y descriptivo de la investigación?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q2','A')"><input type="radio" name="s2q2"><span class="opt-letter">A</span><span class="opt-text">El exploratorio se usa cuando el fenómeno es poco conocido y busca generar ideas o hipótesis preliminares; el descriptivo, cuando ya se sabe qué estudiar y se busca caracterizarlo con precisión (quién, qué, cuánto, dónde).</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q2','B')"><input type="radio" name="s2q2"><span class="opt-letter">B</span><span class="opt-text">El exploratorio produce resultados más confiables porque no tiene hipótesis que puedan sesgar la investigación.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q2','C')"><input type="radio" name="s2q2"><span class="opt-letter">C</span><span class="opt-text">Ambos alcances son equivalentes; la diferencia es solo el tamaño de la muestra utilizada.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q2','D')"><input type="radio" name="s2q2"><span class="opt-letter">D</span><span class="opt-text">El descriptivo establece relaciones causales entre variables, mientras que el exploratorio solo recolecta datos sin ningún propósito específico.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q2-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Los alcances son escalones de conocimiento: primero explores (¿qué hay aquí?), luego describes (¿cómo es?), luego correlacionas (¿están relacionados?) y finalmente explicas (¿por qué?). <br><em>Por qué no las otras:</em> B es falsa: el exploratorio tiene limitaciones propias de su apertura. C es falsa. D confunde el descriptivo con el explicativo; el descriptivo NO establece causalidad.
+      </div>
+    </div>
+
+    <!-- S2 P3 -->
+    <div class="question-block" id="s2q3">
+      <div class="q-top"><span class="q-num">S2 · P3</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué distingue al alcance correlacional del alcance explicativo?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q3','A')"><input type="radio" name="s2q3"><span class="opt-letter">A</span><span class="opt-text">El correlacional detecta si dos o más variables se asocian estadísticamente, pero no establece cuál causa a cuál; el explicativo busca demostrar relaciones de causalidad, respondiendo por qué ocurre el fenómeno.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q3','B')"><input type="radio" name="s2q3"><span class="opt-letter">B</span><span class="opt-text">El correlacional es más riguroso que el explicativo porque usa exclusivamente estadísticas avanzadas.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q3','C')"><input type="radio" name="s2q3"><span class="opt-letter">C</span><span class="opt-text">El explicativo puede realizarse sin datos; el correlacional siempre requiere una muestra grande de más de 500 sujetos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q3','D')"><input type="radio" name="s2q3"><span class="opt-letter">D</span><span class="opt-text">Ambos establecen causalidad; la diferencia es que el explicativo usa entrevistas y el correlacional usa encuestas.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q3-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        "Correlación no implica causalidad" es uno de los principios más importantes de la metodología. Que el consumo de helado y la tasa de ahogamiento estén correlacionados no significa que el helado cause ahogamientos (ambos aumentan en verano). <br><em>Por qué no las otras:</em> B es falsa: el explicativo también usa estadística. C tiene criterios arbitrarios sin fundamento. D confunde el alcance con los instrumentos de recolección de datos.
+      </div>
+    </div>
+
+    <!-- S2 P4 -->
+    <div class="question-block" id="s2q4">
+      <div class="q-top"><span class="q-num">S2 · P4</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué es la validez interna de un estudio de investigación?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q4','A')"><input type="radio" name="s2q4"><span class="opt-letter">A</span><span class="opt-text">La medida en que los resultados del estudio reflejan correctamente la relación entre las variables estudiadas, sin que factores externos no controlados expliquen los hallazgos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q4','B')"><input type="radio" name="s2q4"><span class="opt-letter">B</span><span class="opt-text">La capacidad de los resultados de generalizarse a otras poblaciones y contextos más amplios.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q4','C')"><input type="radio" name="s2q4"><span class="opt-letter">C</span><span class="opt-text">El grado en que los instrumentos de medición (encuestas, cuestionarios) han sido validados por expertos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q4','D')"><input type="radio" name="s2q4"><span class="opt-letter">D</span><span class="opt-text">El porcentaje de preguntas correctamente respondidas por los participantes en un instrumento de evaluación.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q4-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        La validez interna responde: ¿estamos midiendo lo que creemos medir? ¿Las conclusiones son correctas dentro de este estudio? Es diferente de la validez externa, que pregunta: ¿se puede generalizar? <br><em>Por qué no las otras:</em> B define la validez EXTERNA, no la interna. C describe la validez de contenido de un instrumento, que es un tipo específico dentro del concepto. D confunde validez con porcentaje de respuestas correctas.
+      </div>
+    </div>
+
+    <!-- S2 P5 -->
+    <div class="question-block" id="s2q5">
+      <div class="q-top"><span class="q-num">S2 · P5</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuál de los siguientes es un elemento esencial de toda investigación científica?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q5','A')"><input type="radio" name="s2q5"><span class="opt-letter">A</span><span class="opt-text">Un problema de investigación claramente definido, que oriente la recolección de datos, el análisis y las conclusiones de manera coherente.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q5','B')"><input type="radio" name="s2q5"><span class="opt-letter">B</span><span class="opt-text">El uso obligatorio de instrumentos estadísticos avanzados como regresión múltiple o análisis factorial.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q5','C')"><input type="radio" name="s2q5"><span class="opt-letter">C</span><span class="opt-text">La participación de al menos 100 sujetos para garantizar representatividad estadística.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q5','D')"><input type="radio" name="s2q5"><span class="opt-letter">D</span><span class="opt-text">La aprobación previa de una revista científica indexada antes de iniciar el proceso de investigación.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q5-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Los elementos de la investigación incluyen: problema, objetivos, marco teórico, metodología, recolección de datos, análisis y conclusiones. El problema es el punto de partida que articula todo lo demás. <br><em>Por qué no las otras:</em> B es falsa: un estudio cualitativo puede ser riguroso sin estadística compleja. C es arbitrario: estudios de caso con 1 sujeto pueden ser científicamente válidos. D es falsa: la publicación es posterior a la investigación, no un requisito previo.
+      </div>
+    </div>
+
+    <!-- S2 P6 -->
+    <div class="question-block" id="s2q6">
+      <div class="q-top"><span class="q-num">S2 · P6</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué es el sesgo de confirmación en investigación científica?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q6','A')"><input type="radio" name="s2q6"><span class="opt-letter">A</span><span class="opt-text">La tendencia del investigador a buscar, interpretar y recordar la información de manera que confirme sus hipótesis o creencias previas, ignorando o minimizando la evidencia contraria.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q6','B')"><input type="radio" name="s2q6"><span class="opt-letter">B</span><span class="opt-text">Un error estadístico que ocurre cuando la muestra seleccionada es demasiado pequeña para el estudio.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q6','C')"><input type="radio" name="s2q6"><span class="opt-letter">C</span><span class="opt-text">La tendencia de los participantes a responder lo que creen que el investigador quiere escuchar.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q6','D')"><input type="radio" name="s2q6"><span class="opt-letter">D</span><span class="opt-text">Un procedimiento para confirmar que los datos recolectados son estadísticamente significativos.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q6-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El sesgo de confirmación es uno de los más peligrosos en investigación porque opera inconscientemente: el investigador "ve" lo que espera ver. <br><em>Por qué no las otras:</em> B describe el problema de tamaño muestral. C describe el "sesgo de deseabilidad social" o "sesgo del entrevistado". D confunde un sesgo cognitivo con un procedimiento estadístico.
+      </div>
+    </div>
+
+    <!-- S2 P7 -->
+    <div class="question-block" id="s2q7">
+      <div class="q-top"><span class="q-num">S2 · P7</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">El paradigma positivista en investigación social asume que:</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q7','A')"><input type="radio" name="s2q7"><span class="opt-letter">A</span><span class="opt-text">La realidad social existe independientemente del observador, puede ser medida objetivamente y los fenómenos sociales deben estudiarse con los mismos métodos de las ciencias naturales (cuantificación, predicción, leyes generales).</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q7','B')"><input type="radio" name="s2q7"><span class="opt-letter">B</span><span class="opt-text">La realidad social es construida por los actores sociales y solo puede comprenderse desde la perspectiva de los propios protagonistas, rechazando la cuantificación.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q7','C')"><input type="radio" name="s2q7"><span class="opt-letter">C</span><span class="opt-text">La investigación debe comprometerse con la transformación social y cuestionar las estructuras de poder existentes en lugar de describirlas.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q7','D')"><input type="radio" name="s2q7"><span class="opt-letter">D</span><span class="opt-text">No existen verdades objetivas y toda investigación refleja únicamente la ideología del investigador.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q7-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El positivismo (Comte, Durkheim) propone que los hechos sociales son "cosas" que pueden observarse, medirse y sobre los cuales pueden formularse leyes generales, igual que en física. <br><em>Por qué no las otras:</em> B describe el paradigma interpretativo o constructivista. C describe el paradigma crítico (Escuela de Frankfurt). D describe el relativismo epistemológico extremo.
+      </div>
+    </div>
+
+    <!-- S2 P8 APP -->
+    <div class="question-block" id="s2q8">
+      <div class="q-top"><span class="q-num">S2 · P8</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">Una investigadora estudia cuántas microempresas de Guayaquil llevan contabilidad formal. Recopila datos de 400 negocios del sector informal y calcula porcentajes y promedios. ¿Cuál es el alcance más adecuado para describir esta investigación?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q8','A')"><input type="radio" name="s2q8"><span class="opt-letter">A</span><span class="opt-text">Descriptivo, porque busca caracterizar con precisión una situación (qué porcentaje de microempresas lleva contabilidad formal) sin establecer causas ni probar relaciones entre variables.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q8','B')"><input type="radio" name="s2q8"><span class="opt-letter">B</span><span class="opt-text">Exploratorio, porque el sector informal en Guayaquil es un fenómeno completamente desconocido que nadie ha estudiado antes.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q8','C')"><input type="radio" name="s2q8"><span class="opt-letter">C</span><span class="opt-text">Explicativo, porque al recopilar datos de 400 negocios se puede determinar por qué no llevan contabilidad.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q8','D')"><input type="radio" name="s2q8"><span class="opt-letter">D</span><span class="opt-text">Correlacional, porque compara negocios que llevan contabilidad con los que no la llevan.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q8-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El objetivo es caracterizar: ¿cuántos?, ¿qué porcentaje?, ¿dónde? Sin buscar causas ni correlaciones entre variables, eso es alcance descriptivo. <br><em>Por qué no las otras:</em> B es falsa porque el sector informal ecuatoriano ha sido ampliamente estudiado. C requeriría analizar variables explicativas (por qué no llevan contabilidad), lo cual no está en el estudio. D requeriría correlacionar dos variables, lo que tampoco hace este estudio.
+      </div>
+    </div>
+
+    <!-- S2 P9 APP -->
+    <div class="question-block" id="s2q9">
+      <div class="q-top"><span class="q-num">S2 · P9</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">Un investigador detecta que en su encuesta sobre hábitos financieros de jóvenes ecuatorianos, el 80% de los encuestados dijeron "siempre ahorro mensualmente", pero los datos bancarios muestran que solo el 15% tiene cuentas de ahorro activas. ¿Cuál es la explicación metodológica más probable?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q9','A')"><input type="radio" name="s2q9"><span class="opt-letter">A</span><span class="opt-text">Sesgo de deseabilidad social: los encuestados respondieron lo que creen que es socialmente esperado o positivo, no lo que realmente hacen.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q9','B')"><input type="radio" name="s2q9"><span class="opt-letter">B</span><span class="opt-text">Error de muestreo: la muestra de la encuesta era demasiado pequeña y no representaba a la población.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q9','C')"><input type="radio" name="s2q9"><span class="opt-letter">C</span><span class="opt-text">Los datos bancarios están equivocados porque no todas las formas de ahorro se reflejan en cuentas bancarias.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q9','D')"><input type="radio" name="s2q9"><span class="opt-letter">D</span><span class="opt-text">El instrumento de encuesta fue mal traducido del inglés al español, generando confusión en las respuestas.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q9-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El sesgo de deseabilidad social es muy frecuente en preguntas sobre comportamientos financieros, sexuales o éticos: la gente responde lo que "debería" ser, no lo que es. Es un problema central en la validez de las encuestas autoadministradas. <br><em>Por qué no las otras:</em> B no explica la brecha tan grande (80% vs 15%). C puede ser parcialmente cierto (ahorro en efectivo), pero no explica una diferencia de 65 puntos porcentuales. D es especulativa y no tiene evidencia en el enunciado.
+      </div>
+    </div>
+
+    <!-- S2 P10 APP -->
+    <div class="question-block" id="s2q10">
+      <div class="q-top"><span class="q-num">S2 · P10</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">¿Cuál es la función principal de la revisión de literatura (marco teórico) en el proceso de investigación?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q10','A')"><input type="radio" name="s2q10"><span class="opt-letter">A</span><span class="opt-text">Contextualizar el problema en el conocimiento existente, identificar vacíos teóricos que la investigación puede llenar y evitar duplicar esfuerzos ya realizados por otros investigadores.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q10','B')"><input type="radio" name="s2q10"><span class="opt-letter">B</span><span class="opt-text">Demostrar que el investigador ha leído muchos libros, lo que le otorga credibilidad académica ante el comité evaluador.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q10','C')"><input type="radio" name="s2q10"><span class="opt-letter">C</span><span class="opt-text">Reemplazar la recolección de datos primarios cuando el tema ya ha sido estudiado previamente.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q10','D')"><input type="radio" name="s2q10"><span class="opt-letter">D</span><span class="opt-text">Servir únicamente como requisito formal de los reglamentos universitarios sin impacto real en la investigación.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q10-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El marco teórico no es "relleno académico": permite saber qué se sabe, qué está en disputa y qué nadie ha investigado. Eso orienta toda la investigación. <br><em>Por qué no las otras:</em> B es una visión superficial y negativa. C es falsa: el marco teórico y los datos primarios son complementarios. D es completamente incorrecta sobre su propósito.
+      </div>
+    </div>
+
+    <!-- S2 P11 APP -->
+    <div class="question-block" id="s2q11">
+      <div class="q-top"><span class="q-num">S2 · P11</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">¿Por qué la precisión (confiabilidad) y la validez son conceptos distintos en investigación, aunque ambos afectan la calidad de un estudio?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q11','A')"><input type="radio" name="s2q11"><span class="opt-letter">A</span><span class="opt-text">La precisión (confiabilidad) indica si el instrumento produce resultados consistentes al repetirse; la validez indica si el instrumento mide realmente lo que pretende medir. Un instrumento puede ser preciso pero medir lo incorrecto.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q11','B')"><input type="radio" name="s2q11"><span class="opt-letter">B</span><span class="opt-text">Son sinónimos: si un instrumento es confiable, automáticamente es válido, y viceversa.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q11','C')"><input type="radio" name="s2q11"><span class="opt-letter">C</span><span class="opt-text">La validez se aplica solo a instrumentos cuantitativos; la confiabilidad solo a instrumentos cualitativos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q11','D')"><input type="radio" name="s2q11"><span class="opt-letter">D</span><span class="opt-text">La precisión es más importante que la validez porque si el instrumento no es consistente, los resultados no importan.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q11-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Metáfora de la diana: confiabilidad = todos los dardos caen en el mismo lugar (consistencia); validez = los dardos caen en el centro (miden lo correcto). Puedes ser consistentemente incorrecto (confiable pero no válido). <br><em>Por qué no las otras:</em> B es falsa: son conceptos independientes. C es arbitraria y falsa. D es incorrecta: ambas son necesarias; sin validez, la confiabilidad sola no garantiza nada útil.
+      </div>
+    </div>
+
+    <!-- S2 P12 APP -->
+    <div class="question-block" id="s2q12">
+      <div class="q-top"><span class="q-num">S2 · P12</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">Un contador público debe elaborar un informe de análisis financiero de una empresa familiar. Antes de empezar, ya tiene la convicción de que la empresa está subcapitalizada. Durante su análisis, presta más atención a los indicadores que confirman su hipótesis inicial y resta importancia a los que la contradicen. ¿Qué problema metodológico está cometiendo?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q11','A')"><input type="radio" name="s2q12"><span class="opt-letter">A</span><span class="opt-text">Sesgo de confirmación: el contador está procesando selectivamente la información para que respalde su conclusión preexistente, comprometiendo la objetividad del análisis.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q12','B')"><input type="radio" name="s2q12"><span class="opt-letter">B</span><span class="opt-text">Error de muestreo: no revisó suficientes indicadores financieros para tener una muestra representativa.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q12','C')"><input type="radio" name="s2q12"><span class="opt-letter">C</span><span class="opt-text">Falta de confiabilidad: el análisis no puede repetirse por otro contador con los mismos resultados.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q12','D')"><input type="radio" name="s2q12"><span class="opt-letter">D</span><span class="opt-text">Error de validez externa: sus conclusiones no pueden aplicarse a otras empresas del mismo sector.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q12-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Este caso ilustra cómo el sesgo de confirmación opera en la práctica profesional. Un auditor o contador debe buscar activamente evidencia que contradiga sus hipótesis iniciales (escepticismo profesional), no solo la que las confirma. <br><em>Por qué no las otras:</em> B confunde el concepto de sesgo con error muestral. C habla de un problema diferente (consistencia). D habla de la generalización, que no es el problema central aquí.
+      </div>
+    </div>
+
+    <!-- S2 P13 CASO -->
+    <div class="question-block" id="s2q13">
+      <div class="q-top"><span class="q-num">S2 · P13</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+      <div class="caso-box">En 2022, el Ministerio de Salud del Ecuador quiso saber si existe relación entre el nivel de ingresos familiares y el acceso a atención médica privada. Recolectó datos de 2.000 familias en 10 provincias, midiendo ingresos mensuales y número de consultas médicas privadas al año. Analizó estadísticamente si las familias de mayores ingresos tienen más consultas privadas.</div>
+      <span class="q-text">¿Cuál es el alcance investigativo de este estudio?</span>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q13','A')"><input type="radio" name="s2q13"><span class="opt-letter">A</span><span class="opt-text">Correlacional, porque busca establecer si existe asociación estadística entre dos variables (ingreso y acceso médico), sin manipular ninguna de ellas ni establecer causalidad.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q13','B')"><input type="radio" name="s2q13"><span class="opt-letter">B</span><span class="opt-text">Explicativo, porque al analizar los datos de 2.000 familias se puede determinar con certeza por qué las familias pobres no acceden a salud privada.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q13','C')"><input type="radio" name="s2q13"><span class="opt-letter">C</span><span class="opt-text">Exploratorio, porque el Ministerio no tenía ninguna información previa sobre el tema.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q13','D')"><input type="radio" name="s2q13"><span class="opt-letter">D</span><span class="opt-text">Descriptivo, porque describe el número de consultas médicas que tienen las familias ecuatorianas.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q13-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El estudio busca saber si ingreso y acceso médico están relacionados estadísticamente. No manipula variables (no asigna ingresos), no establece causalidad formal. Es correlacional. <br><em>Por qué no las otras:</em> B requeriría análisis causal riguroso (experimento o diseño cuasi-experimental). C es falsa porque el ministerio de salud claramente tiene información previa. D es parcialmente correcta pero insuficiente: el objetivo principal es la relación entre variables, no solo la descripción de una.
+      </div>
+    </div>
+
+    <!-- S2 P14 CASO -->
+    <div class="question-block" id="s2q14">
+      <div class="q-top"><span class="q-num">S2 · P14</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+      <div class="caso-box">Romina es auditora y revisa las facturas de una empresa de importación. Nota que 3 de las 50 facturas revisadas tienen irregularidades. Su jefe le dice: "Con eso basta, podemos concluir que toda la empresa tiene problemas de control interno". Romina duda de esta conclusión.</div>
+      <span class="q-text">¿Tiene razón Romina al dudar? ¿Cuál es el problema metodológico en la conclusión del jefe?</span>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q14','A')"><input type="radio" name="s2q14"><span class="opt-letter">A</span><span class="opt-text">Sí tiene razón. El jefe comete una generalización apresurada: 3 casos irregulares de 50 (6%) no son suficientes para concluir que "toda la empresa" tiene problemas sin más evidencia.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q14','B')"><input type="radio" name="s2q14"><span class="opt-letter">B</span><span class="opt-text">No tiene razón. En auditoría, cualquier irregularidad es evidencia suficiente para concluir sobre toda la empresa, porque las normas de auditoría así lo establecen.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q14','C')"><input type="radio" name="s2q14"><span class="opt-letter">C</span><span class="opt-text">Tiene razón parcialmente: podría concluir que existe un problema si las 3 facturas irregulares son del mismo proveedor.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q14','D')"><input type="radio" name="s2q14"><span class="opt-letter">D</span><span class="opt-text">No importa el porcentaje; lo importante es el monto monetario de las irregularidades, no la cantidad de facturas.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q14-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        La auditoría trabaja con muestreo estadístico precisamente porque no puede revisar todo. Pero la conclusión debe estar apropiadamente limitada a lo que la muestra permite inferir con un nivel de confianza definido. "3 de 50" puede ser indicativo, pero "toda la empresa tiene problemas" es una generalización que excede la evidencia. <br><em>Por qué no las otras:</em> B es falsa: las NIA requieren evidencia suficiente y apropiada. C introduce una variable (mismo proveedor) que puede ser relevante pero no salva la generalización. D introduce criterio de materialidad, que es importante en auditoría pero no elimina el problema de generalización metodológica señalado.
+      </div>
+    </div>
+
+    <!-- S2 P15 CASO -->
+    <div class="question-block" id="s2q15">
+      <div class="q-top"><span class="q-num">S2 · P15</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+      <div class="caso-box">Dos investigadores estudian el mismo fenómeno: el impacto del teletrabajo en la productividad de empleados del sector público ecuatoriano. El Investigador A aplica un cuestionario a 800 empleados y calcula índices de productividad. El Investigador B realiza entrevistas en profundidad a 15 empleados para comprender cómo ellos vivencian el teletrabajo. Ambos llegan a conclusiones diferentes.</div>
+      <span class="q-text">¿Cuál de las siguientes afirmaciones explica mejor por qué sus conclusiones difieren?</span>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s2q15','A')"><input type="radio" name="s2q15"><span class="opt-letter">A</span><span class="opt-text">Operan desde paradigmas distintos (positivista el A, interpretativo el B), por lo que hacen preguntas diferentes, miden aspectos distintos de la realidad y consideran válida evidencia de tipos diferentes.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q15','B')"><input type="radio" name="s2q15"><span class="opt-letter">B</span><span class="opt-text">El Investigador B está equivocado porque su muestra de 15 personas es demasiado pequeña para extraer cualquier conclusión válida.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q15','C')"><input type="radio" name="s2q15"><span class="opt-letter">C</span><span class="opt-text">Solo uno de los dos puede tener razón, porque sobre un mismo fenómeno solo puede existir una verdad científica.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s2q15','D')"><input type="radio" name="s2q15"><span class="opt-letter">D</span><span class="opt-text">El Investigador A tiene más razón porque usó mayor número de participantes, lo que garantiza automáticamente mayor rigor científico.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s2q15-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El A mide la productividad como un dato cuantificable (paradigma positivista). El B busca el significado que los trabajadores construyen sobre su experiencia (paradigma interpretativo). No estudian "lo mismo" aunque el tema sea el mismo: las preguntas son distintas. <br><em>Por qué no las otras:</em> B aplica criterios cuantitativos (tamaño de muestra) a una metodología cualitativa, lo cual es una categoría errónea. C adopta una postura de "verdad única" incompatible con la complejidad de los fenómenos sociales. D equipara tamaño de muestra con rigor, lo cual es un error frecuente pero incorrecto.
+      </div>
+    </div>
+
+  </div>
+  <button class="verify-btn" onclick="verifyQuiz('s2', 15)">✅ Verificar respuestas</button>
+  <div id="s2-result" class="result-panel"></div>
+  <button class="reset-btn" id="s2-reset" onclick="resetQuiz('s2', 15)">🔄 Reiniciar Semana 2</button>
+</div>
+
+<!-- ===== SEMANA 3 ===== -->
+<div id="tab-s3" class="tab-content">
+  <div class="quiz-header">
+    <h2>📙 Semana 3 — Ética en la Ciencia y Epistemología</h2>
+    <div class="quiz-stats">
+      <div class="quiz-stat">Preguntas: <span>15</span></div>
+      <div class="quiz-stat">Teóricas: <span>7</span></div>
+      <div class="quiz-stat">Aplicación: <span>5</span></div>
+      <div class="quiz-stat">Análisis de caso: <span>3</span></div>
+    </div>
+  </div>
+  <div id="s3-questions">
+
+    <div class="question-block" id="s3q1">
+      <div class="q-top"><span class="q-num">S3 · P1</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué es la epistemología y en qué se diferencia de la gnoseología?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q1','A')"><input type="radio" name="s3q1"><span class="opt-letter">A</span><span class="opt-text">La epistemología estudia los fundamentos, métodos y límites del conocimiento científico específicamente; la gnoseología es el término más amplio que estudia el conocimiento en general, incluyendo el no científico.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q1','B')"><input type="radio" name="s3q1"><span class="opt-letter">B</span><span class="opt-text">Son sinónimos perfectos; el término "gnoseología" se usa en Europa y "epistemología" en América, pero designan exactamente lo mismo.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q1','C')"><input type="radio" name="s3q1"><span class="opt-letter">C</span><span class="opt-text">La gnoseología es una subdisciplina de la epistemología que estudia únicamente el conocimiento matemático y lógico.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q1','D')"><input type="radio" name="s3q1"><span class="opt-letter">D</span><span class="opt-text">Ambas son ramas de la psicología cognitiva que estudian cómo el cerebro procesa la información.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q1-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        La gnoseología (del griego "gnosis" = conocimiento) abarca todo tipo de conocimiento. La epistemología (del griego "episteme" = conocimiento científico) se enfoca específicamente en los fundamentos y métodos de la ciencia. <br><em>Por qué no las otras:</em> B los trata como sinónimos, pero sí hay diferencia de alcance. C invierte la relación: la epistemología es la más específica, no la gnoseología. D los lleva incorrectamente al campo de la psicología; son ramas de la filosofía.
+      </div>
+    </div>
+
+    <div class="question-block" id="s3q2">
+      <div class="q-top"><span class="q-num">S3 · P2</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuál de los siguientes constituye un principio ético fundamental en la investigación científica con seres humanos?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q2','A')"><input type="radio" name="s3q2"><span class="opt-letter">A</span><span class="opt-text">El consentimiento informado: los participantes deben conocer el propósito de la investigación, los riesgos implicados y su derecho a retirarse sin consecuencias, antes de decidir participar.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q2','B')"><input type="radio" name="s3q2"><span class="opt-letter">B</span><span class="opt-text">La obligación de publicar únicamente resultados positivos para no decepcionar a los financiadores de la investigación.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q2','C')"><input type="radio" name="s3q2"><span class="opt-letter">C</span><span class="opt-text">El principio de que el fin justifica los medios: si la investigación beneficia a muchos, se justifica perjudicar a pocos participantes.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q2','D')"><input type="radio" name="s3q2"><span class="opt-letter">D</span><span class="opt-text">La confidencialidad absoluta, que impide publicar cualquier resultado de investigación sin autorización expresa de todos los participantes.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q2-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El consentimiento informado es un pilar ético establecido desde el Código de Núremberg (1947) y la Declaración de Helsinki. Protege la autonomía y dignidad de los participantes. <br><em>Por qué no las otras:</em> B describe el "sesgo de publicación", que es un problema ético, no una obligación. C es el principio utilitarista extremo que precisamente la ética de investigación rechaza. D exagera la confidencialidad: los resultados pueden publicarse con datos anonimizados.
+      </div>
+    </div>
+
+    <div class="question-block" id="s3q3">
+      <div class="q-top"><span class="q-num">S3 · P3</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué se entiende por "objeto de estudio" en una investigación científica?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q3','A')"><input type="radio" name="s3q3"><span class="opt-letter">A</span><span class="opt-text">El aspecto específico de la realidad al que se dirige la investigación: el fenómeno, proceso o situación concreta que se quiere conocer, describir, explicar o transformar.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q3','B')"><input type="radio" name="s3q3"><span class="opt-letter">B</span><span class="opt-text">El instrumento físico (cuestionario, guía de entrevista) que se usa para recolectar datos durante la investigación.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q3','C')"><input type="radio" name="s3q3"><span class="opt-letter">C</span><span class="opt-text">La lista de objetivos específicos que el investigador establece al inicio del proyecto.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q3','D')"><input type="radio" name="s3q3"><span class="opt-letter">D</span><span class="opt-text">El financiador o institución que encarga la investigación y define sus propósitos.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q3-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El objeto de estudio es el "qué" de la investigación: puede ser un fenómeno social (la evasión tributaria), un proceso (el control interno), una población (microempresarios informales). No confundir con el "campo" (el contexto específico donde se estudia). <br><em>Por qué no las otras:</em> B describe el instrumento de investigación. C confunde "objeto" con "objetivos". D describe al sujeto financiador, que es externo al diseño epistemológico.
+      </div>
+    </div>
+
+    <div class="question-block" id="s3q4">
+      <div class="q-top"><span class="q-num">S3 · P4</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuál de las siguientes es una característica esencial de la investigación científica que la distingue de otros tipos de indagación?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q4','A')"><input type="radio" name="s3q4"><span class="opt-letter">A</span><span class="opt-text">La sistematicidad: la investigación científica sigue un proceso organizado y planificado que permite que otros investigadores comprendan, evalúen y eventualmente repliquen el proceso y sus resultados.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q4','B')"><input type="radio" name="s3q4"><span class="opt-letter">B</span><span class="opt-text">La certeza absoluta: la investigación científica siempre llega a verdades definitivas que no pueden ser cuestionadas.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q4','C')"><input type="radio" name="s3q4"><span class="opt-letter">C</span><span class="opt-text">La neutralidad política: la investigación científica nunca puede ser financiada por organismos gubernamentales o empresas privadas.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q4','D')"><input type="radio" name="s3q4"><span class="opt-letter">D</span><span class="opt-text">El uso exclusivo de laboratorios físicos: toda investigación científica requiere instalaciones especializadas.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q4-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        La sistematicidad, junto con la objetividad, la verificabilidad, la replicabilidad y la falibilidad, son características nucleares de la ciencia. <br><em>Por qué no las otras:</em> B es falsa: la ciencia es falible y provisional. C es falsa: gran parte de la ciencia es financiada por estados y empresas (lo importante es la transparencia sobre conflictos de interés). D es falsa: hay ciencias de campo, ciencias sociales, astronomía, etc., que no requieren laboratorio físico.
+      </div>
+    </div>
+
+    <div class="question-block" id="s3q5">
+      <div class="q-top"><span class="q-num">S3 · P5</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué problemas le competen principalmente a la epistemología como disciplina filosófica?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q5','A')"><input type="radio" name="s3q5"><span class="opt-letter">A</span><span class="opt-text">Los fundamentos y límites del conocimiento científico: qué puede conocerse, cómo se justifica ese conocimiento, cuáles son los criterios de demarcación entre ciencia y no-ciencia, y cómo evoluciona el conocimiento científico.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q5','B')"><input type="radio" name="s3q5"><span class="opt-letter">B</span><span class="opt-text">La enseñanza de los métodos estadísticos correctos para el análisis de datos en investigación cuantitativa.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q5','C')"><input type="radio" name="s3q5"><span class="opt-letter">C</span><span class="opt-text">La clasificación de los libros y artículos científicos según su área temática y nivel de impacto.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q5','D')"><input type="radio" name="s3q5"><span class="opt-letter">D</span><span class="opt-text">La regulación de los derechos de autor de las publicaciones científicas a nivel internacional.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q5-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        La epistemología pregunta: ¿Qué es el conocimiento científico? ¿Cómo se justifica? ¿Cuándo una teoría es científica y cuándo es pseudociencia (problema de demarcación de Popper)? ¿Progresa la ciencia o simplemente cambia (Kuhn)? <br><em>Por qué no las otras:</em> B describe metodología estadística. C describe bibliometría o cienciometría. D describe propiedad intelectual.
+      </div>
+    </div>
+
+    <div class="question-block" id="s3q6">
+      <div class="q-top"><span class="q-num">S3 · P6</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué se entiende por "plagio" en el contexto de la ética de investigación científica?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q6','A')"><input type="radio" name="s3q6"><span class="opt-letter">A</span><span class="opt-text">Presentar como propia la producción intelectual de otro autor sin reconocer la fuente, ya sea copiando textualmente, parafraseando sin citar, o utilizando ideas ajenas sin atribución adecuada.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q6','B')"><input type="radio" name="s3q6"><span class="opt-letter">B</span><span class="opt-text">Citar excesivamente a otros autores en un trabajo académico, lo que reduce la originalidad de la investigación.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q6','C')"><input type="radio" name="s3q6"><span class="opt-letter">C</span><span class="opt-text">Usar el trabajo de estudiantes anteriores como referencia sin solicitar permiso al docente correspondiente.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q6','D')"><input type="radio" name="s3q6"><span class="opt-letter">D</span><span class="opt-text">Publicar los mismos resultados de investigación en dos revistas diferentes, práctica conocida como "publicación dual".</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q6-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El plagio incluye la copia textual sin comillas ni cita, la paráfrasis sin citar la fuente, y el "autoplagiarismo" (reusar trabajo propio previo sin declararlo). <br><em>Por qué no las otras:</em> B describe un estilo de escritura, no una falta ética (citar mucho no es plagio). C describe una situación distinta que no necesariamente implica plagio. D describe la "publicación duplicada" o "redundante", que es una falta ética diferente al plagio.
+      </div>
+    </div>
+
+    <div class="question-block" id="s3q7">
+      <div class="q-top"><span class="q-num">S3 · P7</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuáles son las categorías o tipos de epistemología que se distinguen en la filosofía de la ciencia?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q7','A')"><input type="radio" name="s3q7"><span class="opt-letter">A</span><span class="opt-text">Se distinguen la epistemología general (que estudia el conocimiento científico en su conjunto) y las epistemologías regionales o específicas (que estudian los fundamentos de disciplinas particulares como la epistemología de la contabilidad, del derecho o de la economía).</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q7','B')"><input type="radio" name="s3q7"><span class="opt-letter">B</span><span class="opt-text">Las categorías son: epistemología cuantitativa y epistemología cualitativa, según el tipo de datos que estudia.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q7','C')"><input type="radio" name="s3q7"><span class="opt-letter">C</span><span class="opt-text">La epistemología solo tiene una forma: la racionalista, porque el conocimiento científico solo puede ser racional.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q7','D')"><input type="radio" name="s3q7"><span class="opt-letter">D</span><span class="opt-text">Las categorías son: epistemología básica (para ciencias exactas) y epistemología aplicada (para ciencias sociales y humanidades).</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q7-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        La epistemología general analiza qué es la ciencia en su conjunto. Las epistemologías regionales preguntan: ¿qué tipo de conocimiento produce la Contabilidad? ¿Es objetiva? ¿Puede haber leyes contables universales? ¿Cuál es el objeto de estudio de la Auditoría? <br><em>Por qué no las otras:</em> B aplica una categoría metodológica (cuanti/cuali) a la epistemología, lo cual es una confusión. C es falsa: existe el empirismo, el constructivismo, el relativismo. D mezcla criterios que no corresponden.
+      </div>
+    </div>
+
+    <!-- S3 APP -->
+    <div class="question-block" id="s3q8">
+      <div class="q-top"><span class="q-num">S3 · P8</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">Un investigador del INEC (Instituto Nacional de Estadística y Censos) diseña una encuesta sobre pobreza en Ecuador. Decide no incluir preguntas sobre discriminación racial porque "en Ecuador no hay racismo". ¿Qué problema metodológico-ético presenta esta decisión?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q8','A')"><input type="radio" name="s3q8"><span class="opt-letter">A</span><span class="opt-text">El investigador está dejando que su sesgo personal (la creencia de que no hay racismo) determine qué variables se incluyen o excluyen, comprometiendo tanto la validez del estudio como la ética de no omitir variables relevantes.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q8','B')"><input type="radio" name="s3q8"><span class="opt-letter">B</span><span class="opt-text">No hay problema ético ni metodológico; el investigador tiene plena libertad para definir el alcance de su estudio.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q8','C')"><input type="radio" name="s3q8"><span class="opt-letter">C</span><span class="opt-text">El problema es únicamente estadístico: al no incluir esa variable, el modelo de regresión quedará mal especificado.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q8','D')"><input type="radio" name="s3q8"><span class="opt-letter">D</span><span class="opt-text">La decisión es correcta porque incluir preguntas sobre raza puede ofender a los participantes y violar el principio de no maleficencia.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q8-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        La decisión del investigador está cargada ideológicamente y puede perpetuar la invisibilización de una forma de discriminación. La ética de investigación incluye el principio de no omitir intencionalmente variables relevantes para el fenómeno estudiado. <br><em>Por qué no las otras:</em> B ignora el sesgo implícito en la decisión. C reduce a un problema técnico lo que también es ético. D confunde "preguntar sobre raza" (legítimo metodológicamente) con "discriminar" (que no ocurre al formular bien las preguntas).
+      </div>
+    </div>
+
+    <div class="question-block" id="s3q9">
+      <div class="q-top"><span class="q-num">S3 · P9</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">¿Cuál de las siguientes situaciones representa una violación del principio de "honestidad" en la investigación científica?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q9','A')"><input type="radio" name="s3q9"><span class="opt-letter">A</span><span class="opt-text">Un investigador elimina de su base de datos los valores que "no encajan" con su hipótesis, sin declarar que lo hizo ni justificar metodológicamente la exclusión.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q9','B')"><input type="radio" name="s3q9"><span class="opt-letter">B</span><span class="opt-text">Un investigador usa un software estadístico diferente al que usó su asesor, lo que produce resultados ligeramente distintos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q9','C')"><input type="radio" name="s3q9"><span class="opt-letter">C</span><span class="opt-text">Un investigador decide cambiar el título de su tesis después de haber recolectado los datos para que refleje mejor los hallazgos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q9','D')"><input type="radio" name="s3q9"><span class="opt-letter">D</span><span class="opt-text">Un investigador publica resultados negativos (que refutan su hipótesis), aunque sabe que son menos atractivos para las revistas científicas.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q9-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Eliminar datos sin declararlo es "fabricación o manipulación de datos", una de las faltas más graves en investigación. Destruye la integridad de los resultados. <br><em>Por qué no las otras:</em> B es una diferencia técnica legítima, no una falta ética. C puede cambiar el enfoque pero no es una violación si los datos lo justifican. D es precisamente lo que la ética de investigación exige (publicar resultados negativos).
+      </div>
+    </div>
+
+    <div class="question-block" id="s3q10">
+      <div class="q-top"><span class="q-num">S3 · P10</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">Desde la epistemología de la Contabilidad, ¿cuál es el principal debate sobre la objetividad del conocimiento contable?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q10','A')"><input type="radio" name="s3q10"><span class="opt-letter">A</span><span class="opt-text">Si la Contabilidad puede producir representaciones completamente neutrales de la realidad económica, o si toda medición contable implica juicios de valor, elecciones normativas y convenciones socialmente construidas.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q10','B')"><input type="radio" name="s3q10"><span class="opt-letter">B</span><span class="opt-text">Si los contadores deben usar calculadoras o software contable para garantizar la objetividad de sus cálculos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q10','C')"><input type="radio" name="s3q10"><span class="opt-letter">C</span><span class="opt-text">Si las Normas Internacionales de Información Financiera (NIIF) deben adoptarse obligatoriamente en todos los países o pueden adaptarse localmente.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q10','D')"><input type="radio" name="s3q10"><span class="opt-letter">D</span><span class="opt-text">Si la Contabilidad es una ciencia o una técnica, debate que se resolvió definitivamente en la década de 1980.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q10-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Este es el núcleo del debate epistemológico contable: ¿el estado financiero "revela" la realidad o la "construye"? Conceptos como "valor razonable" implican juicios; las estimaciones de provisiones también. La contabilidad no es un espejo neutro. <br><em>Por qué no las otras:</em> B es una pregunta técnica-operativa, no epistemológica. C es un debate normativo y de política contable. D es falsa: el debate sobre si la Contabilidad es ciencia o técnica sigue activo.
+      </div>
+    </div>
+
+    <div class="question-block" id="s3q11">
+      <div class="q-top"><span class="q-num">S3 · P11</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">Un investigador quiere estudiar el nivel de satisfacción laboral de los empleados de una empresa pero decide recolectar datos sin informar a los trabajadores que está realizando una investigación. ¿Qué principio ético viola?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q11','A')"><input type="radio" name="s3q11"><span class="opt-letter">A</span><span class="opt-text">El principio de consentimiento informado y respeto a la autonomía: los participantes tienen derecho a saber que son parte de una investigación y a decidir si participan.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q11','B')"><input type="radio" name="s3q11"><span class="opt-letter">B</span><span class="opt-text">No viola ningún principio ético si los datos son anónimos, porque la anonimidad protege a los participantes automáticamente.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q11','C')"><input type="radio" name="s3q11"><span class="opt-letter">C</span><span class="opt-text">Viola el principio de validez externa, porque los resultados de una investigación encubierta no pueden generalizarse.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q11','D')"><input type="radio" name="s3q11"><span class="opt-letter">D</span><span class="opt-text">No hay violación si la investigación es académica y no tiene fines comerciales.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q11-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El consentimiento informado no depende del anonimato: aunque los datos sean anónimos, las personas tienen derecho a saber que están siendo estudiadas. La excepción (observación naturalista no intrusiva en espacios públicos) no aplica en contextos laborales privados. <br><em>Por qué no las otras:</em> B confunde anonimato con consentimiento: son dos garantías distintas. C confunde un principio ético con un criterio metodológico. D es falsa: el propósito (académico vs. comercial) no exime de la ética de investigación.
+      </div>
+    </div>
+
+    <!-- S3 CASOS -->
+    <div class="question-block" id="s3q12">
+      <div class="q-top"><span class="q-num">S3 · P12</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">¿Cuál es la diferencia entre el "objeto de estudio" y el "campo de investigación"?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q12','A')"><input type="radio" name="s3q12"><span class="opt-letter">A</span><span class="opt-text">El objeto es el fenómeno que se estudia (qué se investiga); el campo es el contexto específico donde se lleva a cabo esa investigación (dónde, en qué ámbito o disciplina).</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q12','B')"><input type="radio" name="s3q12"><span class="opt-letter">B</span><span class="opt-text">Son sinónimos; ambos designan el tema general de investigación que el investigador elige estudiar.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q12','C')"><input type="radio" name="s3q12"><span class="opt-letter">C</span><span class="opt-text">El campo de investigación es el fenómeno y el objeto es la metodología que se usará para estudiarlo.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q12','D')"><input type="radio" name="s3q12"><span class="opt-letter">D</span><span class="opt-text">El objeto siempre se refiere a personas; el campo siempre se refiere a documentos o datos secundarios.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q12-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Ejemplo: Objeto de estudio = "La evasión del IVA en Ecuador". Campo de investigación = "Sector restaurantero de Guayaquil, período 2020-2024". El campo delimita dónde y cuándo se estudia el objeto. <br><em>Por qué no las otras:</em> B los confunde. C invierte las definiciones. D aplica criterios arbitrarios que no corresponden a la distinción epistemológica.
+      </div>
+    </div>
+
+    <div class="question-block" id="s3q13">
+      <div class="q-top"><span class="q-num">S3 · P13</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+      <div class="caso-box">Una empresa farmacéutica financia un estudio sobre la eficacia de su nuevo medicamento para la hipertensión. Los investigadores, que reciben salario de la empresa, publican que el medicamento es "significativamente efectivo". Una revisión independiente posterior encuentra que los efectos secundarios graves fueron reportados en solo el 20% de los casos reales, y que el grupo control recibió un placebo que producía síntomas leves (lo que artificialmente hacía al medicamento parecer mejor).</div>
+      <span class="q-text">¿Cuál es el problema ético y metodológico principal en este caso?</span>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q13','A')"><input type="radio" name="s3q13"><span class="opt-letter">A</span><span class="opt-text">Conflicto de intereses que compromete la independencia del investigador, combinado con manipulación del diseño experimental (uso de un placebo activo) que sesga artificialmente los resultados a favor del medicamento.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q13','B')"><input type="radio" name="s3q13"><span class="opt-letter">B</span><span class="opt-text">El problema es que publicaron en una revista; deberían haber guardado la información como confidencial por razones comerciales.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q13','C')"><input type="radio" name="s3q13"><span class="opt-letter">C</span><span class="opt-text">La empresa no debió haber contratado a investigadores: debió realizar el estudio internamente para mayor control.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q13','D')"><input type="radio" name="s3q13"><span class="opt-letter">D</span><span class="opt-text">El principal problema es que la muestra de pacientes era demasiado pequeña para detectar efectos secundarios graves.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q13-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Este caso ilustra dos fallas simultáneas: (1) conflicto de interés: los investigadores dependen económicamente de la empresa; (2) manipulación del diseño: un "placebo activo" no es un control válido. Ambas comprometen la validez interna y la integridad ética. <br><em>Por qué no las otras:</em> B propone exactamente lo contrario a los principios de transparencia científica. C agravaría el conflicto de interés, no lo reduciría. D puede ser una preocupación adicional, pero no es el problema principal señalado en el enunciado.
+      </div>
+    </div>
+
+    <div class="question-block" id="s3q14">
+      <div class="q-top"><span class="q-num">S3 · P14</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+      <div class="caso-box">Andrea es contadora y realiza su tesis sobre la adopción de las NIIF (Normas Internacionales de Información Financiera) en empresas familiares de Cuenca. Su tutora le dice que el "campo de investigación" es "la Contabilidad". Andrea, confundida, pregunta si no debería ser más específica en la delimitación del campo.</div>
+      <span class="q-text">¿Tiene razón Andrea al querer ser más específica?</span>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q14','A')"><input type="radio" name="s3q14"><span class="opt-letter">A</span><span class="opt-text">Sí tiene razón. El campo debe delimitarse con precisión: "Empresas familiares del sector comercial de Cuenca, período 2022-2024", porque "la Contabilidad" es demasiado amplia para constituir el campo de un estudio concreto.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q14','B')"><input type="radio" name="s3q14"><span class="opt-letter">B</span><span class="opt-text">No tiene razón. En metodología de la investigación, el campo siempre es la disciplina científica (Contabilidad, Medicina, Derecho), no el contexto específico.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q14','C')"><input type="radio" name="s3q14"><span class="opt-letter">C</span><span class="opt-text">No importa la especificidad del campo porque lo que realmente orienta la investigación son los objetivos, no el campo.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q14','D')"><input type="radio" name="s3q14"><span class="opt-letter">D</span><span class="opt-text">Tiene razón parcialmente: el campo debe incluir el país (Ecuador) pero no necesita especificar el tipo de empresa ni el período.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q14-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Un campo bien delimitado responde: ¿en qué sector?, ¿en qué ubicación geográfica?, ¿en qué período temporal? Esto permite que otros investigadores comprendan exactamente el contexto y los límites de generalización del estudio. <br><em>Por qué no las otras:</em> B confunde "campo disciplinar" (Contabilidad como ciencia) con "campo de investigación" (contexto específico del estudio). C es falsa: campo y objetivos son elementos distintos e igualmente importantes. D es insuficiente: el país solo no delimita adecuadamente.
+      </div>
+    </div>
+
+    <div class="question-block" id="s3q15">
+      <div class="q-top"><span class="q-num">S3 · P15</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+      <div class="caso-box">En 2019, un investigador ecuatoriano publicó un artículo sobre la relación entre informalidad empresarial y evasión tributaria. Tres años después, otro investigador descubrió que el primero había "inventado" datos de 200 empresas que nunca fueron encuestadas, para aumentar el tamaño de su muestra y hacer el estudio más "representativo". El artículo fue retirado de la revista.</div>
+      <span class="q-text">Además de la evidente falta de honestidad, ¿cuál otro principio ético de la investigación científica fue violado?</span>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s3q15','A')"><input type="radio" name="s3q15"><span class="opt-letter">A</span><span class="opt-text">El principio de verificabilidad: al inventar datos, el investigador hace imposible que otros puedan replicar el estudio o verificar los datos en las fuentes originales, destruyendo la base intersubjetiva del conocimiento científico.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q15','B')"><input type="radio" name="s3q15"><span class="opt-letter">B</span><span class="opt-text">El principio de originalidad: el investigador no debió haber estudiado un tema que ya había sido investigado por otros.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q15','C')"><input type="radio" name="s3q15"><span class="opt-letter">C</span><span class="opt-text">El principio de confidencialidad: al publicar datos de empresas sin su autorización, violó la privacidad del sector empresarial.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s3q15','D')"><input type="radio" name="s3q15"><span class="opt-letter">D</span><span class="opt-text">El principio de financiamiento transparente: debió haber declarado quién financió la investigación para evaluar posibles conflictos de interés.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s3q15-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Al fabricar datos, el investigador destruye la posibilidad de que cualquier otro académico pueda verificar o replicar los resultados. Nadie puede ir a entrevistar a empresas que nunca existieron. La verificabilidad intersubjetiva (que otros puedan comprobar los resultados) es un pilar del conocimiento científico. <br><em>Por qué no las otras:</em> B el problema de originalidad no es el central aquí; hablar de un tema ya investigado está permitido. C es irrelevante porque los datos son inventados, no reales. D puede ser una preocupación legítima, pero no es el principio más directamente violado por la fabricación de datos.
+      </div>
+    </div>
+
+  </div>
+  <button class="verify-btn" onclick="verifyQuiz('s3', 15)">✅ Verificar respuestas</button>
+  <div id="s3-result" class="result-panel"></div>
+  <button class="reset-btn" id="s3-reset" onclick="resetQuiz('s3', 15)">🔄 Reiniciar Semana 3</button>
+</div>
+
+<!-- ===== SEMANA 4 ===== -->
+<div id="tab-s4" class="tab-content">
+  <div class="quiz-header">
+    <h2>📕 Semana 4 — Complejidad, Interdisciplinariedad y Epistemologías Regionales</h2>
+    <div class="quiz-stats">
+      <div class="quiz-stat">Preguntas: <span>15</span></div>
+      <div class="quiz-stat">Teóricas: <span>7</span></div>
+      <div class="quiz-stat">Aplicación: <span>5</span></div>
+      <div class="quiz-stat">Análisis de caso: <span>3</span></div>
+    </div>
+  </div>
+  <div id="s4-questions">
+
+    <div class="question-block" id="s4q1">
+      <div class="q-top"><span class="q-num">S4 · P1</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué propone Edgar Morin con el concepto de "pensamiento complejo"?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q1','A')"><input type="radio" name="s4q1"><span class="opt-letter">A</span><span class="opt-text">Que la realidad no puede comprenderse reduciéndola a sus partes aisladas; los fenómenos deben estudiarse en sus interrelaciones, contradicciones y múltiples dimensiones, superando el paradigma de la simplificación.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q1','B')"><input type="radio" name="s4q1"><span class="opt-letter">B</span><span class="opt-text">Que solo los fenómenos difíciles de entender ameritan investigación científica; los fenómenos simples deben dejarse al conocimiento empírico.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q1','C')"><input type="radio" name="s4q1"><span class="opt-letter">C</span><span class="opt-text">Que las ciencias deben unificarse en una sola megadisciplina que integre todos los conocimientos existentes bajo un único método.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q1','D')"><input type="radio" name="s4q1"><span class="opt-letter">D</span><span class="opt-text">Que el pensamiento científico moderno ya es suficientemente complejo y no necesita reformulación filosófica.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q1-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Morin critica el "paradigma de la simplificación" que divide, especializa y aísla. Propone un pensamiento que une sin fusionar, distingue sin separar y reconoce la incertidumbre como parte constitutiva del conocimiento. <br><em>Por qué no las otras:</em> B no tiene fundamento en la obra de Morin. C propone una unificación que Morin no defiende (él propone diálogo, no fusión). D es contraria a toda la propuesta crítica de Morin.
+      </div>
+    </div>
+
+    <div class="question-block" id="s4q2">
+      <div class="q-top"><span class="q-num">S4 · P2</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuál es la diferencia entre multidisciplinariedad, interdisciplinariedad y transdisciplinariedad?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q2','A')"><input type="radio" name="s4q2"><span class="opt-letter">A</span><span class="opt-text">La multidisciplinariedad yuxtapone varias disciplinas sin integración real; la interdisciplinariedad implica un diálogo e integración entre disciplinas; la transdisciplinariedad supera las fronteras disciplinares y articula conocimientos científicos con saberes no académicos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q2','B')"><input type="radio" name="s4q2"><span class="opt-letter">B</span><span class="opt-text">Son tres niveles de complejidad matemática en el análisis estadístico: básico, intermedio y avanzado.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q2','C')"><input type="radio" name="s4q2"><span class="opt-letter">C</span><span class="opt-text">La diferencia es solo semántica; en la práctica investigativa las tres formas son equivalentes e intercambiables.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q2','D')"><input type="radio" name="s4q2"><span class="opt-letter">D</span><span class="opt-text">La transdisciplinariedad es simplemente la suma de todas las disciplinas existentes en una universidad o institución académica.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q2-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Ejemplo: un equipo que estudia la desnutrición infantil. Multidisciplinar = médico, nutricionista y economista cada uno por su lado. Interdisciplinar = los tres trabajan juntos con un marco conceptual integrado. Transdisciplinar = además incluyen el conocimiento ancestral de las comunidades indígenas sobre alimentación. <br><em>Por qué no las otras:</em> B descontextualiza completamente. C niega diferencias que son epistemológicamente relevantes. D reduce la transdisciplinariedad a un catálogo institucional.
+      </div>
+    </div>
+
+    <div class="question-block" id="s4q3">
+      <div class="q-top"><span class="q-num">S4 · P3</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué es una "epistemología regional" y por qué es relevante para la Contabilidad?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q3','A')"><input type="radio" name="s4q3"><span class="opt-letter">A</span><span class="opt-text">Una epistemología regional es el estudio de los fundamentos, métodos y límites del conocimiento en una disciplina específica. Para la Contabilidad implica preguntarse si puede producir conocimiento objetivo, cuál es su objeto de estudio propio y qué tipo de verdades puede afirmar.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q3','B')"><input type="radio" name="s4q3"><span class="opt-letter">B</span><span class="opt-text">Una epistemología regional estudia las diferencias en los sistemas contables entre distintas regiones geográficas (América Latina vs. Europa).</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q3','C')"><input type="radio" name="s4q3"><span class="opt-letter">C</span><span class="opt-text">Es el conjunto de normas técnicas que regulan la práctica contable en una región determinada del mundo.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q3','D')"><input type="radio" name="s4q3"><span class="opt-letter">D</span><span class="opt-text">Es la historia de cómo se desarrolló la Contabilidad como disciplina en distintas culturas a lo largo del tiempo.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q3-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        La epistemología de la Contabilidad pregunta: ¿es la Contabilidad una ciencia o una técnica? ¿Puede ser objetiva? ¿Los estados financieros "reflejan" o "construyen" la realidad económica? ¿Cuál es el estatuto de las NIIF como cuerpo de conocimiento? <br><em>Por qué no las otras:</em> B confunde "regional" (de una disciplina) con "geográfico". C describe normas técnicas, no epistemología. D describe historia de la disciplina, no su epistemología.
+      </div>
+    </div>
+
+    <div class="question-block" id="s4q4">
+      <div class="q-top"><span class="q-num">S4 · P4</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Cuál es el "problema de demarcación" en epistemología?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q4','A')"><input type="radio" name="s4q4"><span class="opt-letter">A</span><span class="opt-text">El problema de establecer un criterio que permita distinguir lo que es ciencia de lo que no lo es (pseudociencia, metafísica o creencia). Popper propuso la "falsabilidad" como criterio: una teoría es científica si puede ser refutada.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q4','B')"><input type="radio" name="s4q4"><span class="opt-letter">B</span><span class="opt-text">El problema de delimitar geográficamente las zonas donde se realizan investigaciones científicas financiadas por el Estado.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q4','C')"><input type="radio" name="s4q4"><span class="opt-letter">C</span><span class="opt-text">La dificultad de decidir qué porcentaje del presupuesto universitario debe destinarse a investigación básica versus aplicada.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q4','D')"><input type="radio" name="s4q4"><span class="opt-letter">D</span><span class="opt-text">El problema de establecer las fronteras disciplinares entre ciencias afines, como la diferencia entre Economía y Administración.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q4-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Karl Popper formuló que si una teoría no puede ser falsada (es decir, no existe ningún experimento posible que pueda demostrar que es falsa), entonces no es científica. Ejemplo: el psicoanálisis freudiano puede explicar cualquier comportamiento humano, lo que lo hace irrefutable pero también no falsable. <br><em>Por qué no las otras:</em> B usa "demarcación" en sentido geográfico, no epistemológico. C es un problema de política universitaria. D describe las fronteras entre disciplinas, no entre ciencia y no-ciencia.
+      </div>
+    </div>
+
+    <div class="question-block" id="s4q5">
+      <div class="q-top"><span class="q-num">S4 · P5</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué significa el principio "hologramático" del pensamiento complejo de Morin?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q5','A')"><input type="radio" name="s4q5"><span class="opt-letter">A</span><span class="opt-text">Que cada parte contiene información del todo, y el todo está de alguna manera contenido en cada parte. No solo el todo es más que la suma de sus partes, sino que cada parte porta la complejidad del conjunto.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q5','B')"><input type="radio" name="s4q5"><span class="opt-letter">B</span><span class="opt-text">Que para comprender un fenómeno hay que estudiarlo desde múltiples ángulos simultáneamente, como un holograma tridimensional.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q5','C')"><input type="radio" name="s4q5"><span class="opt-letter">C</span><span class="opt-text">Que la realidad social es una ilusión o proyección, tal como las imágenes holográficas no tienen sustancia física real.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q5','D')"><input type="radio" name="s4q5"><span class="opt-letter">D</span><span class="opt-text">Que el conocimiento científico debe ser presentado en formatos visuales tridimensionales para ser comprendido correctamente.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q5-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Analogía: en un holograma, si lo fragmentas, cada fragmento contiene la imagen completa (aunque menos nítida). Así, cada célula contiene el ADN del organismo completo; cada individuo lleva en sí la cultura de su sociedad. <br><em>Por qué no las otras:</em> B describe una metodología de análisis, no el principio hologramático. C introduce una lectura metafísica que Morin no propone. D es una aplicación didáctica superficial sin relación con el principio epistemológico.
+      </div>
+    </div>
+
+    <div class="question-block" id="s4q6">
+      <div class="q-top"><span class="q-num">S4 · P6</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Qué problema epistemológico plantea el "relativismo del conocimiento"?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q6','A')"><input type="radio" name="s4q6"><span class="opt-letter">A</span><span class="opt-text">Sostiene que no existe una verdad objetiva universal: todo conocimiento es relativo al contexto cultural, histórico o individual del sujeto que conoce, lo que dificulta establecer criterios universales de validez científica.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q6','B')"><input type="radio" name="s4q6"><span class="opt-letter">B</span><span class="opt-text">Plantea que el conocimiento científico solo puede producirse en países desarrollados y que los resultados de investigaciones latinoamericanas son relativamente menos válidos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q6','C')"><input type="radio" name="s4q6"><span class="opt-letter">C</span><span class="opt-text">Propone que la verdad científica es relativa al número de investigadores que la apoyan: más firmas = más verdad.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q6','D')"><input type="radio" name="s4q6"><span class="opt-letter">D</span><span class="opt-text">Afirma que la relatividad especial de Einstein es el único marco para interpretar todos los fenómenos científicos.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q6-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El relativismo epistémico surge del reconocimiento de que la ciencia está situada históricamente y culturalmente. En su versión extrema, niega que se pueda comparar o evaluar entre distintas formas de conocimiento, lo que genera el desafío de cómo mantener criterios de racionalidad sin caer en el dogmatismo. <br><em>Por qué no las otras:</em> B introduce un sesgo geopolítico que no es el relativismo filosófico. C confunde consenso con verdad (falacia ad populum). D hace referencia a física, no a epistemología filosófica.
+      </div>
+    </div>
+
+    <div class="question-block" id="s4q7">
+      <div class="q-top"><span class="q-num">S4 · P7</span><span class="q-badge badge-teo">Teórica</span><span class="q-text">¿Por qué la complejidad representa un desafío para las ciencias contables y de auditoría?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q7','A')"><input type="radio" name="s4q7"><span class="opt-letter">A</span><span class="opt-text">Porque los fenómenos contables y de auditoría involucran simultáneamente dimensiones económicas, jurídicas, psicológicas, éticas y organizacionales que no pueden comprenderse adecuadamente reduciéndolas a una sola variable o disciplina.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q7','B')"><input type="radio" name="s4q7"><span class="opt-letter">B</span><span class="opt-text">Porque la complejidad de las fórmulas matemáticas contables hace difícil que los estudiantes aprendan a aplicarlas correctamente.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q7','C')"><input type="radio" name="s4q7"><span class="opt-letter">C</span><span class="opt-text">Porque el número de normas contables (NIIF, NIA) ha aumentado tanto que resulta difícil memorizarlas todas.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q7"><span class="opt-letter">D</span><span class="opt-text">Porque los programas de software contable moderno generan resultados demasiado complejos para ser interpretados sin asistencia técnica especializada.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q7-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Un fraude corporativo (caso Odebrecht, por ejemplo) involucra derecho, psicología del fraude, estructuras organizacionales, vacíos normativos, cultura corporativa y decisiones económicas: reducirlo solo a "movimientos contables" impide comprenderlo. <br><em>Por qué no las otras:</em> B confunde complejidad epistemológica con dificultad matemática. C confunde cantidad de normas con complejidad del fenómeno. D confunde complejidad tecnológica con complejidad teórica.
+      </div>
+    </div>
+
+    <!-- S4 APP -->
+    <div class="question-block" id="s4q8">
+      <div class="q-top"><span class="q-num">S4 · P8</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">Un equipo de auditoría forense investiga un caso de lavado de dinero en una empresa importadora de Guayaquil. Incluyen en el equipo a un abogado, un economista, un contador y un especialista en psicología organizacional. ¿Cuál nivel de integración disciplinar describe mejor esta práctica?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q8','A')"><input type="radio" name="s4q8"><span class="opt-letter">A</span><span class="opt-text">Interdisciplinariedad: las cuatro disciplinas dialogan e integran sus perspectivas para construir un análisis conjunto que ninguna disciplina podría producir sola.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q8','B')"><input type="radio" name="s4q8"><span class="opt-letter">B</span><span class="opt-text">Multidisciplinariedad: cada profesional produce su informe por separado y los informes se suman al final sin integración real.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q8','C')"><input type="radio" name="s4q8"><span class="opt-letter">C</span><span class="opt-text">Transdisciplinariedad: el equipo también incorpora el testimonio de víctimas del lavado de dinero y saberes comunitarios.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q8','D')"><input type="radio" name="s4q8"><span class="opt-letter">D</span><span class="opt-text">No puede clasificarse porque la auditoría forense es una disciplina única y no admite colaboración con otras áreas del conocimiento.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q8-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El enunciado describe integración real entre disciplinas para producir un análisis conjunto, lo cual es interdisciplinariedad. <br><em>Por qué no las otras:</em> B describiría el caso si cada uno trabajara por separado. C requeriría la incorporación de conocimientos no académicos (saberes populares, comunitarios), lo cual no está en el enunciado. D es incorrecta: la auditoría forense es inherentemente interdisciplinar.
+      </div>
+    </div>
+
+    <div class="question-block" id="s4q9">
+      <div class="q-top"><span class="q-num">S4 · P9</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">¿Cómo se aplica el principio del "bucle recursivo" de Morin al análisis de la cultura de fraude en una organización?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q9','A')"><input type="radio" name="s4q9"><span class="opt-letter">A</span><span class="opt-text">Los empleados que cometen fraude son producidos por una cultura organizacional que lo permite, y a su vez refuerzan esa cultura con sus actos, creando un ciclo donde causa y efecto se retroalimentan mutuamente.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q9','B')"><input type="radio" name="s4q9"><span class="opt-letter">B</span><span class="opt-text">El fraude ocurre porque los empleados individuales son malos por naturaleza, independientemente del contexto organizacional.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q9','C')"><input type="radio" name="s4q9"><span class="opt-letter">C</span><span class="opt-text">El bucle recursivo implica que el fraude siempre regresa al punto de partida, por lo que nunca puede ser completamente erradicado.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q9','D')"><input type="radio" name="s4q9"><span class="opt-letter">D</span><span class="opt-text">El principio recursivo sugiere que la auditoría debe repetir sus procedimientos varias veces hasta encontrar el fraude.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q9-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El bucle recursivo de Morin rompe la causalidad lineal (A causa B). En cambio, propone que los productos son también productores: la organización produce empleados deshonestos y los empleados deshonestos reproducen la organización corrupta. <br><em>Por qué no las otras:</em> B adopta una explicación lineal y esencialista. C aplica "recursivo" en sentido circular-fatalista que no corresponde a Morin. D confunde recursividad epistemológica con repetición procedural.
+      </div>
+    </div>
+
+    <div class="question-block" id="s4q10">
+      <div class="q-top"><span class="q-num">S4 · P10</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">La Superintendencia de Compañías y Valores del Ecuador emite normas contables que deben aplicar todas las empresas. Desde la epistemología de la Contabilidad, ¿qué tipo de "verdad" producen estas normas?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q10','A')"><input type="radio" name="s4q10"><span class="opt-letter">A</span><span class="opt-text">Una verdad normativa y convencional: las normas establecen cómo debe registrarse la realidad económica según criterios técnicos y jurídicos acordados, no una descripción neutral y objetiva de esa realidad.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q10','B')"><input type="radio" name="s4q10"><span class="opt-letter">B</span><span class="opt-text">Una verdad absoluta e irrefutable porque emana de una autoridad estatal reconocida por la ley ecuatoriana.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q10','C')"><input type="radio" name="s4q10"><span class="opt-letter">C</span><span class="opt-text">No producen ningún tipo de verdad; solo crean obligaciones legales sin contenido epistemológico.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q10','D')"><input type="radio" name="s4q10"><span class="opt-letter">D</span><span class="opt-text">Una verdad empírica directa porque las normas son creadas después de observar cómo las empresas registran sus transacciones.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q10-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Las normas contables son convenciones: "depreciar un activo en 5 años" no es una ley natural; es una decisión normativa sobre cómo representar la realidad. Dos sistemas normativos diferentes (NIIF vs. PCGA) pueden producir "realidades financieras" distintas de la misma empresa. <br><em>Por qué no las otras:</em> B confunde autoridad legal con verdad epistémica. C niega que las normas tengan implicaciones epistemológicas, lo cual es incorrecto. D invierte el proceso: las normas se crean en parte normativamente, no solo empíricamente.
+      </div>
+    </div>
+
+    <div class="question-block" id="s4q11">
+      <div class="q-top"><span class="q-num">S4 · P11</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">¿Cuál es el problema epistemológico del "progreso científico" y cómo lo aborda Thomas Kuhn?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q11','A')"><input type="radio" name="s4q11"><span class="opt-letter">A</span><span class="opt-text">Kuhn argumenta que la ciencia no progresa de forma lineal y acumulativa, sino mediante "revoluciones científicas": períodos de ciencia normal son interrumpidos por crisis que producen un cambio de paradigma donde la ciencia reorganiza completamente sus fundamentos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q11','B')"><input type="radio" name="s4q11"><span class="opt-letter">B</span><span class="opt-text">Kuhn sostiene que la ciencia siempre progresa de manera continua y acumulativa, añadiendo nuevos conocimientos sin cuestionar los anteriores.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q11','C')"><input type="radio" name="s4q11"><span class="opt-letter">C</span><span class="opt-text">Para Kuhn, el progreso científico depende exclusivamente del avance tecnológico: mejores instrumentos producen mejor ciencia.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q11','D')"><input type="radio" name="s4q11"><span class="opt-letter">D</span><span class="opt-text">Kuhn afirma que el progreso científico es imposible porque cada paradigma está completamente encerrado en sí mismo sin posibilidad de comunicación con otros.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q11-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El ejemplo clásico de Kuhn: la astronomía ptolomeica (tierra en el centro) fue reemplazada por la copernicana (sol en el centro) no por acumulación gradual sino por una revolución. <br><em>Por qué no las otras:</em> B describe la visión positivista clásica del progreso que Kuhn precisamente critica. C es reduccionismo tecnológico que Kuhn no sostiene. D exagera la "inconmensurabilidad" de los paradigmas; Kuhn no niega la comunicación entre científicos.
+      </div>
+    </div>
+
+    <!-- S4 CASOS -->
+    <div class="question-block" id="s4q12">
+      <div class="q-top"><span class="q-num">S4 · P12</span><span class="q-badge badge-app">Aplicación</span><span class="q-text">¿Cuál es la implicación epistemológica del principio dialógico de Morin para la investigación en auditoría?</span></div>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q12','A')"><input type="radio" name="s4q12"><span class="opt-letter">A</span><span class="opt-text">Que en auditoría coexisten lógicas aparentemente contradictorias pero ambas necesarias: el auditor debe ser independiente del cliente (para ser objetivo) y al mismo tiempo conocerlo profundamente (para auditar eficazmente). Estas tensiones no deben resolverse eliminando uno de los polos.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q12','B')"><input type="radio" name="s4q12"><span class="opt-letter">B</span><span class="opt-text">Que los auditores deben llevar un diálogo formal con los auditados al inicio y al final de cada auditoría, siguiendo los pasos que Morin establece en su metodología.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q12','C')"><input type="radio" name="s4q12"><span class="opt-letter">C</span><span class="opt-text">Que la auditoría debe ser dialogada: el auditor y el auditado negocian juntos cuáles hallazgos incluir en el informe final.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q12','D')"><input type="radio" name="s4q12"><span class="opt-letter">D</span><span class="opt-text">Que el principio dialógico elimina la contradicción: el auditor puede ser cliente y juez al mismo tiempo sin problema.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q12-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El principio dialógico no elimina la contradicción sino que la sostiene como tensión productiva. La auditoría vive esa tensión: independencia vs. conocimiento profundo del auditado. <br><em>Por qué no las otras:</em> B describe el diálogo en sentido coloquial, no el principio dialógico de Morin. C confunde diálogo epistemológico con negociación de hallazgos (que es éticamente inaceptable). D invierte el principio: el dialógico no elimina la contradicción, la mantiene.
+      </div>
+    </div>
+
+    <div class="question-block" id="s4q13">
+      <div class="q-top"><span class="q-num">S4 · P13</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+      <div class="caso-box">En 2016, el escándalo Odebrecht reveló que esta constructora brasileña había pagado sobornos a funcionarios de múltiples países latinoamericanos, incluyendo Ecuador. Los análisis forenses posteriores encontraron que las empresas beneficiadas habían registrado los pagos de soborno como "consultorías legítimas" en sus estados financieros, pasando por las auditorías externas sin ser detectados.</div>
+      <span class="q-text">Desde la perspectiva del pensamiento complejo de Morin, ¿qué explica que el fraude no fuera detectado por las auditorías?</span>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q13','A')"><input type="radio" name="s4q13"><span class="opt-letter">A</span><span class="opt-text">Los auditores aplicaron un pensamiento simplificador: revisaron documentos contables de forma aislada sin considerar la complejidad del entorno (relaciones políticas, contextos culturales de corrupción, presiones organizacionales) que hacía plausible el fraude.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q13','B')"><input type="radio" name="s4q13"><span class="opt-letter">B</span><span class="opt-text">El fraude no se detectó porque los auditores eran incompetentes y no conocían las normas de auditoría internacionales.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q13','C')"><input type="radio" name="s4q13"><span class="opt-letter">C</span><span class="opt-text">La auditoría es un proceso ineficaz por naturaleza y nunca puede detectar fraudes sofisticados, independientemente del enfoque utilizado.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q13','D')"><input type="radio" name="s4q13"><span class="opt-letter">D</span><span class="opt-text">El problema fue exclusivamente tecnológico: en 2016 no existían herramientas de análisis de datos suficientemente avanzadas para detectar patrones de fraude.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q13-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Morin diría que el "paradigma de la simplificación" llevó a los auditores a revisar números en forma aislada, sin comprender el sistema complejo de incentivos políticos, presiones organizacionales y cultura de impunidad que hacía posible y coherente el fraude. Un pensamiento complejo habría alertado sobre las inconsistencias en el contexto. <br><em>Por qué no las otras:</em> B es ad hominem y no tiene evidencia. C es una conclusión pesimista que no se sostiene: hay auditorías que sí detectan fraudes. D es una explicación tecnológica que ignora la dimensión epistemológica señalada en el tema.
+      </div>
+    </div>
+
+    <div class="question-block" id="s4q14">
+      <div class="q-top"><span class="q-num">S4 · P14</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+      <div class="caso-box">Una profesora de la Universidad de Cuenca pregunta a sus estudiantes de posgrado: "¿Por qué la misma transacción económica puede registrarse de manera diferente según si se aplican las NIIF o los Principios de Contabilidad Generalmente Aceptados (PCGA)?" Los estudiantes se confunden porque asumen que los hechos económicos tienen una sola forma correcta de registrarse.</div>
+      <span class="q-text">¿Qué concepto epistemológico explica mejor por qué pueden coexistir distintas formas válidas de registrar la misma realidad?</span>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q14','A')"><input type="radio" name="s4q14"><span class="opt-letter">A</span><span class="opt-text">El constructivismo epistemológico: el conocimiento contable no es un reflejo neutro de la realidad sino una construcción que depende de los supuestos, convenciones y propósitos del sistema normativo que se adopte.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q14','B')"><input type="radio" name="s4q14"><span class="opt-letter">B</span><span class="opt-text">El positivismo: existen múltiples verdades objetivas sobre la misma transacción porque la realidad económica es multidimensional.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q14','C')"><input type="radio" name="s4q14"><span class="opt-letter">C</span><span class="opt-text">Un error en las normas internacionales que debería corregirse para que solo exista una forma de registrar cada tipo de transacción.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q14','D')"><input type="radio" name="s4q14"><span class="opt-letter">D</span><span class="opt-text">La relatividad especial de Einstein, que demuestra que la medición siempre depende del marco de referencia del observador.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q14-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        Las NIIF priorizan el valor razonable y la sustancia económica; los PCGA pueden priorizar el costo histórico y la forma legal. Ambos sistemas son "construcciones" que sirven a propósitos distintos; ninguno es "la realidad" pura. <br><em>Por qué no las otras:</em> B el positivismo no acepta múltiples verdades objetivas simultáneas. C busca unificación como si hubiera una verdad única, lo que contradice el constructivismo. D aplica física relativista a epistemología social de manera inadecuada.
+      </div>
+    </div>
+
+    <div class="question-block" id="s4q15">
+      <div class="q-top"><span class="q-num">S4 · P15</span><span class="q-badge badge-caso">Análisis de caso</span></div>
+      <div class="caso-box">El IESS (Instituto Ecuatoriano de Seguridad Social) encarga un estudio sobre la sostenibilidad financiera del sistema de pensiones. Un equipo de actuarios (especialistas en cálculo de riesgos) presenta proyecciones que muestran que el sistema es insostenible en 20 años. Sin embargo, el directorio del IESS rechaza el informe argumentando que "la metodología actuarial no considera los factores político-institucionales que pueden cambiar el escenario".</div>
+      <span class="q-text">¿Quién tiene razón desde la perspectiva del pensamiento complejo?</span>
+      <ul class="options-list">
+        <li><label class="option-label" onclick="selectOpt(this,'s4q15','A')"><input type="radio" name="s4q15"><span class="opt-letter">A</span><span class="opt-text">El directorio tiene un punto válido: el análisis actuarial es necesario pero insuficiente si no integra las dimensiones político-institucionales y sociales. El pensamiento complejo exige considerar múltiples dimensiones del fenómeno.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q15','B')"><input type="radio" name="s4q15"><span class="opt-letter">B</span><span class="opt-text">Los actuarios tienen razón absoluta: los modelos matemáticos son objetivos y no pueden ser cuestionados por razones políticas.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q15','C')"><input type="radio" name="s4q15"><span class="opt-letter">C</span><span class="opt-text">El directorio tiene razón absoluta: los modelos matemáticos no sirven para estudiar fenómenos sociales y deben descartarse.</span></label></li>
+        <li><label class="option-label" onclick="selectOpt(this,'s4q15','D')"><input type="radio" name="s4q15"><span class="opt-letter">D</span><span class="opt-text">Nadie tiene razón porque la sostenibilidad de los sistemas de pensiones es un tema que escapa completamente a la investigación científica.</span></label></li>
+      </ul>
+      <div class="feedback-box" id="s4q15-fb">
+        <div class="fb-correct">✅ Respuesta correcta: A</div>
+        El pensamiento complejo de Morin señala que los fenómenos sociales (como la sostenibilidad de un sistema de pensiones) tienen dimensiones económicas, políticas, demográficas e institucionales que interactúan. Un modelo solo actuarial es un "pensamiento simplificador" legítimo pero incompleto. La respuesta correcta no descarta los modelos matemáticos sino que los complementa. <br><em>Por qué no las otras:</em> B cae en el reduccionismo matemático. C descarta los modelos matemáticos sin justificación. D niega la posibilidad de investigación científica de los fenómenos sociales, lo cual es epistemológicamente indefendible.
+      </div>
+    </div>
+
+  </div>
+  <button class="verify-btn" onclick="verifyQuiz('s4', 15)">✅ Verificar respuestas</button>
+  <div id="s4-result" class="result-panel"></div>
+  <button class="reset-btn" id="s4-reset" onclick="resetQuiz('s4', 15)">🔄 Reiniciar Semana 4</button>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// ---- TAB NAVIGATION ----
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// ---- OPTION SELECTION ----
+function selectOpt(label, qId, opt) {
+  const block = document.getElementById(qId);
+  block.querySelectorAll('.option-label').forEach(l => l.classList.remove('selected'));
+  label.classList.add('selected');
+  block.classList.add('answered');
+  block.dataset.answer = opt;
+}
+
+// ---- ANSWER KEY ----
+const answerKey = {
+  s1q1:'A', s1q2:'A', s1q3:'A', s1q4:'A', s1q5:'A', s1q6:'A', s1q7:'A',
+  s1q8:'A', s1q9:'A', s1q10:'A', s1q11:'A', s1q12:'A', s1q13:'A', s1q14:'A', s1q15:'A',
+  s2q1:'A', s2q2:'A', s2q3:'A', s2q4:'A', s2q5:'A', s2q6:'A', s2q7:'A',
+  s2q8:'A', s2q9:'A', s2q10:'A', s2q11:'A', s2q12:'A', s2q13:'A', s2q14:'A', s2q15:'A',
+  s3q1:'A', s3q2:'A', s3q3:'A', s3q4:'A', s3q5:'A', s3q6:'A', s3q7:'A',
+  s3q8:'A', s3q9:'A', s3q10:'A', s3q11:'A', s3q12:'A', s3q13:'A', s3q14:'A', s3q15:'A',
+  s4q1:'A', s4q2:'A', s4q3:'A', s4q4:'A', s4q5:'A', s4q6:'A', s4q7:'A',
+  s4q8:'A', s4q9:'A', s4q10:'A', s4q11:'A', s4q12:'A', s4q13:'A', s4q14:'A', s4q15:'A'
+};
+
+function verifyQuiz(sem, total) {
+  let unanswered = [];
+  for (let i = 1; i <= total; i++) {
+    const block = document.getElementById(sem + 'q' + i);
+    if (!block.dataset.answer) unanswered.push(i);
+  }
+  if (unanswered.length > 0) {
+    alert('⚠️ Aún no has respondido ' + unanswered.length + ' pregunta(s): P' + unanswered.join(', P') + '. Completa todas antes de verificar.');
+    return;
+  }
+
+  let correct = 0;
+  for (let i = 1; i <= total; i++) {
+    const block = document.getElementById(sem + 'q' + i);
+    const chosen = block.dataset.answer;
+    const right = answerKey[sem + 'q' + i];
+    const labels = block.querySelectorAll('.option-label');
+    const fb = document.getElementById(sem + 'q' + i + '-fb');
+
+    labels.forEach(l => {
+      const letter = l.querySelector('.opt-letter').textContent;
+      if (letter === right) l.classList.add('correct-ans');
+      if (letter === chosen && chosen !== right) l.classList.add('wrong-ans');
+      l.style.pointerEvents = 'none';
+      const radio = l.querySelector('input[type="radio"]');
+      if (radio) radio.disabled = true;
+    });
+
+    if (fb) { fb.classList.add('show'); }
+
+    if (chosen === right) {
+      correct++;
+      block.classList.remove('answered'); block.classList.add('correct');
+    } else {
+      block.classList.remove('answered'); block.classList.add('incorrect');
+    }
+  }
+
+  const pct = Math.round((correct / total) * 100);
+  const panel = document.getElementById(sem + '-result');
+  let emoji = pct === 100 ? '🏆' : pct >= 80 ? '🎯' : pct >= 60 ? '📘' : pct >= 40 ? '⚠️' : '📖';
+  let msg = pct === 100 ? '¡Perfecto! Dominas completamente este tema.' :
+    pct >= 80 ? '¡Excelente! Estás muy bien preparado/a.' :
+    pct >= 60 ? 'Buen trabajo. Repasa los ítems marcados en rojo.' :
+    pct >= 40 ? 'Hay áreas que necesitas reforzar. Revisa el material.' :
+    'Te recomendamos volver a estudiar esta semana antes del examen.';
+
+  panel.innerHTML = `
+    <div class="result-emoji">${emoji}</div>
+    <div class="result-score">${correct} / ${total}</div>
+    <div class="result-pct">${pct}%</div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="${sem}-bar"></div></div>
+    <div class="result-msg">${msg}</div>
+  `;
+  panel.classList.add('show');
+  setTimeout(() => {
+    const bar = document.getElementById(sem + '-bar');
+    if (bar) bar.style.width = pct + '%';
+  }, 100);
+
+  document.querySelector('button.verify-btn[onclick*="' + sem + '"]').style.display = 'none';
+  document.getElementById(sem + '-reset').style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetQuiz(sem, total) {
+  for (let i = 1; i <= total; i++) {
+    const block = document.getElementById(sem + 'q' + i);
+    block.classList.remove('correct', 'incorrect', 'answered');
+    delete block.dataset.answer;
+    block.querySelectorAll('.option-label').forEach(l => {
+      l.classList.remove('selected', 'correct-ans', 'wrong-ans');
+      l.style.pointerEvents = '';
+      const radio = l.querySelector('input[type="radio"]');
+      if (radio) { radio.disabled = false; radio.checked = false; }
+    });
+    const fb = document.getElementById(sem + 'q' + i + '-fb');
+    if (fb) fb.classList.remove('show');
+  }
+  const panel = document.getElementById(sem + '-result');
+  panel.classList.remove('show');
+  panel.innerHTML = '';
+  document.querySelector('button.verify-btn[onclick*="' + sem + '"]').style.display = 'block';
+  document.getElementById(sem + '-reset').style.display = 'none';
+}
+</script>
+</body>
+</html>
