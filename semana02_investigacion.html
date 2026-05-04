@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 2 – Paradigmas, Alcances y Sesgos | Metodología de la Investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== VARIABLES Y RESET ===== */
+  :root {
+    --azul: #003366;
+    --azul-medio: #0052a0;
+    --celeste: #87CEEB;
+    --celeste-claro: #d6eef8;
+    --blanco: #ffffff;
+    --gris-claro: #f4f7fb;
+    --gris-borde: #dee2e6;
+    --dorado: #c8960c;
+    --dorado-claro: #fff8e1;
+    --verde: #1a7a4a;
+    --verde-claro: #e8f5ee;
+    --rojo: #c0392b;
+    --rojo-claro: #fdecea;
+    --naranja: #d35400;
+    --naranja-claro: #fef0e7;
+    --morado: #6c3483;
+    --morado-claro: #f5eef8;
+    --texto: #1a1a2e;
+    --texto-suave: #4a5568;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Sans 3', sans-serif; background: #edf2f7; color: var(--texto); font-size: 16px; line-height: 1.7; }
+
+  /* ===== ENCABEZADO ===== */
+  .header { background: var(--azul); color: var(--blanco); padding: 20px 32px; display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+  .header-logo { width: 60px; height: 60px; background: var(--blanco); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .header-info h1 { font-family: 'Lora', serif; font-size: 1.3rem; font-weight: 700; line-height: 1.2; }
+  .header-info p { font-size: 0.85rem; opacity: 0.85; margin-top: 3px; }
+  .header-badges { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 4px 14px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.03em; white-space: nowrap; }
+
+  /* ===== SEMANA INFO ===== */
+  .semana-info { background: linear-gradient(135deg, #004080, #0066cc); color: var(--blanco); padding: 18px 32px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .semana-tag { background: rgba(255,255,255,0.2); border-radius: 8px; padding: 8px 18px; text-align: center; }
+  .semana-tag .num { font-family: 'Lora', serif; font-size: 1.8rem; font-weight: 700; line-height: 1; }
+  .semana-tag .lbl { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8; }
+  .semana-titulo h2 { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600; }
+  .semana-titulo p { font-size: 0.82rem; opacity: 0.8; margin-top: 3px; }
+
+  /* ===== PESTAÑAS ===== */
+  .tabs-nav { background: var(--celeste); display: flex; overflow-x: auto; scrollbar-width: thin; border-bottom: 3px solid var(--azul); padding: 0 8px; }
+  .tab-btn { border: none; background: transparent; padding: 12px 18px; font-family: 'Source Sans 3', sans-serif; font-size: 0.83rem; font-weight: 500; color: #1a1a2e; cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; margin-bottom: -3px; transition: all 0.2s; flex-shrink: 0; }
+  .tab-btn:hover { background: rgba(255,255,255,0.5); }
+  .tab-btn.active { background: var(--blanco); color: var(--azul); font-weight: 700; border-bottom: 3px solid var(--azul); }
+
+  /* ===== CONTENIDO ===== */
+  .tab-content { display: none; padding: 32px; max-width: 960px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* ===== COMPONENTES ===== */
+  .section-title { font-family: 'Lora', serif; font-size: 1.5rem; color: var(--azul); font-weight: 700; margin-bottom: 8px; padding-bottom: 10px; border-bottom: 2px solid var(--celeste); }
+  .subtitle { font-size: 0.9rem; color: var(--texto-suave); margin-bottom: 24px; }
+  .content-p { margin: 14px 0; font-size: 0.97rem; }
+  h3 { font-family: 'Lora', serif; font-size: 1.15rem; color: var(--azul); margin: 28px 0 12px; }
+  h4 { font-size: 1rem; font-weight: 700; color: var(--azul); margin: 20px 0 8px; }
+
+  .concept-box { border-left: 5px solid var(--azul); background: var(--gris-claro); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+  .concept-box .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--azul); font-weight: 700; margin-bottom: 6px; }
+  .concept-box p { font-size: 0.97rem; }
+
+  .example-box { background: var(--celeste-claro); border: 1px solid var(--celeste); border-radius: 10px; padding: 18px 20px; margin: 20px 0; }
+  .example-box .example-title { font-weight: 700; color: var(--azul); font-size: 0.9rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+  .key-idea { background: linear-gradient(135deg, #e8f0fe, #d2e3fc); border: 1px solid #93b4e8; border-radius: 10px; padding: 18px 20px; margin: 24px 0; }
+  .key-idea .ki-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: #1a56a3; font-weight: 700; margin-bottom: 8px; }
+
+  .alert-info { background: var(--dorado-claro); border-left: 5px solid var(--dorado); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 20px 0; font-size: 0.92rem; }
+  .alert-danger { background: var(--rojo-claro); border-left: 5px solid var(--rojo); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 20px 0; font-size: 0.92rem; }
+
+  .table-wrap { overflow-x: auto; margin: 20px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  thead tr { background: var(--azul); color: var(--blanco); }
+  thead th { padding: 12px 14px; text-align: left; font-weight: 600; }
+  tbody tr:nth-child(even) { background: var(--gris-claro); }
+  tbody tr:nth-child(odd) { background: var(--blanco); }
+  tbody td { padding: 10px 14px; border-bottom: 1px solid var(--gris-borde); vertical-align: top; }
+
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
+  .card { background: var(--blanco); border: 1px solid var(--gris-borde); border-top: 4px solid var(--azul); border-radius: 8px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .card-icon { font-size: 1.8rem; margin-bottom: 10px; }
+  .card h4 { font-size: 0.95rem; color: var(--azul); margin: 0 0 8px; font-weight: 700; }
+  .card p { font-size: 0.87rem; color: var(--texto-suave); line-height: 1.5; }
+
+  .styled-list { list-style: none; padding: 0; margin: 14px 0; }
+  .styled-list li { padding: 8px 0 8px 28px; position: relative; border-bottom: 1px solid var(--gris-borde); font-size: 0.96rem; }
+  .styled-list li:last-child { border-bottom: none; }
+  .styled-list li::before { content: "▸"; position: absolute; left: 8px; color: var(--azul); font-weight: 700; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } .header-badges { display: none; } .tab-content { padding: 20px 16px; } .cards-grid { grid-template-columns: 1fr; } }
+
+  /* ===== PARADIGMA CARDS ===== */
+  .paradigma-cuantitativo { background: #e8f0fe; border: 2px solid #1a56a3; border-radius: 12px; padding: 20px; margin: 12px 0; }
+  .paradigma-cualitativo { background: var(--morado-claro); border: 2px solid var(--morado); border-radius: 12px; padding: 20px; margin: 12px 0; }
+  .paradigma-cuantitativo h4 { color: #1a56a3; }
+  .paradigma-cualitativo h4 { color: var(--morado); }
+
+  /* ===== ALCANCE CARDS ===== */
+  .alcance-cards { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+  .alcance-item { border-radius: 10px; padding: 16px 20px; display: flex; gap: 16px; align-items: flex-start; }
+  .alcance-item.exploratoria { background: #fff8e1; border: 1px solid #f9ca24; }
+  .alcance-item.descriptiva { background: #e8f0fe; border: 1px solid #1a56a3; }
+  .alcance-item.correlacional { background: var(--verde-claro); border: 1px solid var(--verde); }
+  .alcance-item.explicativa { background: var(--naranja-claro); border: 1px solid var(--naranja); }
+  .alcance-badge { width: 80px; min-width: 80px; border-radius: 8px; padding: 8px; text-align: center; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+  .badge-exp { background: #f9ca24; color: #7d6608; }
+  .badge-desc { background: #1a56a3; color: white; }
+  .badge-corr { background: var(--verde); color: white; }
+  .badge-expl { background: var(--naranja); color: white; }
+  .alcance-item h4 { margin: 0 0 6px; font-size: 0.97rem; }
+  .alcance-item p { font-size: 0.88rem; color: var(--texto-suave); margin: 0; }
+
+  /* ===== SESGO CARDS ===== */
+  .sesgo-card { background: var(--blanco); border: 1px solid var(--gris-borde); border-left: 5px solid var(--rojo); border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 12px; }
+  .sesgo-card h4 { color: var(--rojo); margin: 0 0 6px; font-size: 0.97rem; }
+  .sesgo-card p { font-size: 0.88rem; color: var(--texto-suave); margin: 0; }
+
+  /* ===== REPASO ===== */
+  .repaso-card { background: linear-gradient(135deg, #003366, #0052a0); color: var(--blanco); border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+  .repaso-card h3 { color: var(--blanco); font-size: 1.2rem; margin-top: 0; }
+  .repaso-card p { opacity: 0.9; font-size: 0.96rem; }
+  .repaso-item { background: rgba(255,255,255,0.12); border-radius: 8px; padding: 10px 16px; margin: 8px 0; font-size: 0.9rem; }
+
+  /* ===== EJERCICIO / CUESTIONARIO ===== */
+  .ejercicio-intro { background: var(--celeste-claro); border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; font-size: 0.95rem; }
+  .ejercicio-intro strong { color: var(--azul); }
+
+  .ejercicio-item { background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; transition: border-color 0.2s; }
+  .ejercicio-item.correct { border-color: var(--verde); background: var(--verde-claro); }
+  .ejercicio-item.incorrect { border-color: var(--rojo); background: var(--rojo-claro); }
+  .ejercicio-item .item-num { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--texto-suave); margin-bottom: 8px; }
+  .ejercicio-item .item-text { font-weight: 600; margin-bottom: 12px; font-size: 0.97rem; }
+
+  .options-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt-btn { border: 2px solid var(--gris-borde); background: var(--blanco); border-radius: 6px; padding: 7px 14px; cursor: pointer; font-family: 'Source Sans 3', sans-serif; font-size: 0.88rem; transition: all 0.2s; }
+  .opt-btn:hover { border-color: var(--azul); background: var(--gris-claro); }
+  .opt-btn.selected { border-color: var(--azul); background: var(--azul); color: var(--blanco); }
+  .opt-btn.correct-answer { border-color: var(--verde); background: var(--verde); color: var(--blanco); }
+  .opt-btn.wrong-answer { border-color: var(--rojo); background: var(--rojo); color: var(--blanco); }
+  .opt-btn:disabled { cursor: default; }
+
+  .feedback-text { margin-top: 10px; font-size: 0.88rem; padding: 8px 12px; border-radius: 6px; display: none; }
+  .feedback-text.show { display: block; }
+  .feedback-text.ok { background: #e8f5ee; color: #1a5c38; }
+  .feedback-text.fail { background: var(--rojo-claro); color: #7b2020; }
+
+  .quiz-item { background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: 10px; padding: 18px 20px; margin-bottom: 16px; }
+  .quiz-item.correct { border-left: 5px solid var(--verde); }
+  .quiz-item.incorrect { border-left: 5px solid var(--rojo); }
+  .quiz-badge { display: inline-block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 12px; padding: 3px 10px; font-weight: 700; margin-bottom: 10px; }
+  .quiz-badge.teorica { background: #e8f0fe; color: #1a56a3; }
+  .quiz-badge.analisis { background: var(--rojo-claro); color: var(--rojo); }
+  .quiz-q { font-weight: 700; font-size: 0.97rem; margin-bottom: 14px; }
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-opt { border: 2px solid var(--gris-borde); background: var(--blanco); border-radius: 6px; padding: 9px 14px; cursor: pointer; font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; text-align: left; transition: all 0.2s; }
+  .quiz-opt:hover { border-color: var(--azul); background: var(--gris-claro); }
+  .quiz-opt.selected { border-color: var(--azul); background: var(--azul); color: var(--blanco); }
+  .quiz-opt.correct-answer { border-color: var(--verde); background: var(--verde); color: var(--blanco); }
+  .quiz-opt.wrong-answer { border-color: var(--rojo); background: var(--rojo); color: var(--blanco); }
+  .quiz-opt:disabled { cursor: default; }
+
+  .btn-verify { background: var(--azul); color: var(--blanco); border: none; border-radius: 8px; padding: 12px 28px; font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: background 0.2s; }
+  .btn-verify:hover { background: #004d99; }
+  .btn-reset { background: transparent; color: var(--azul); border: 2px solid var(--azul); border-radius: 8px; padding: 10px 24px; font-family: 'Source Sans 3', sans-serif; font-size: 0.97rem; font-weight: 600; cursor: pointer; margin-top: 12px; margin-left: 12px; transition: all 0.2s; }
+  .btn-reset:hover { background: var(--azul); color: var(--blanco); }
+
+  .result-panel { background: var(--blanco); border: 2px solid var(--azul); border-radius: 12px; padding: 24px; margin-top: 20px; display: none; text-align: center; }
+  .result-panel.show { display: block; }
+  .result-score { font-family: 'Lora', serif; font-size: 2.5rem; color: var(--azul); font-weight: 700; }
+  .result-pct { font-size: 1.2rem; color: var(--texto-suave); margin: 4px 0 16px; }
+  .progress-bar { width: 100%; background: var(--gris-borde); border-radius: 20px; height: 14px; overflow: hidden; margin: 12px 0; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--azul), #0077cc); border-radius: 20px; transition: width 0.8s ease; }
+  .result-msg { font-size: 1.1rem; margin-top: 14px; font-weight: 600; }
+  .result-emoji { font-size: 2.5rem; }
+
+  /* ===== IA ===== */
+  .ia-card { background: linear-gradient(135deg, #001a33, #003366); color: var(--blanco); border-radius: 14px; padding: 28px; margin-bottom: 24px; }
+  .ia-card h3 { color: var(--blanco); font-size: 1.25rem; margin-top: 0; margin-bottom: 12px; }
+  .ia-card p { opacity: 0.9; font-size: 0.96rem; }
+  .ia-tool-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 6px 16px; font-size: 0.85rem; font-weight: 600; margin-top: 14px; }
+  .prompt-box { background: #0d1117; color: #58d68d; border-radius: 10px; padding: 18px 20px; font-family: 'Courier New', monospace; font-size: 0.88rem; margin: 16px 0; border: 1px solid #2d4a2d; white-space: pre-wrap; line-height: 1.6; }
+  .ia-step { background: var(--blanco); border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-left: 4px solid var(--celeste); font-size: 0.93rem; }
+  .ia-step strong { color: var(--azul); }
+
+  /* ===== REFLEXIÓN ===== */
+  .reflexion-item { background: var(--blanco); border: 1px solid var(--gris-borde); border-left: 5px solid var(--dorado); border-radius: 0 10px 10px 0; padding: 16px 20px; margin-bottom: 16px; }
+  .reflexion-item .r-num { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dorado); font-weight: 700; margin-bottom: 6px; }
+
+  /* ===== BIBLIOGRAFÍA ===== */
+  .ref-card { background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: 10px; padding: 16px 20px; margin-bottom: 14px; display: flex; gap: 14px; align-items: flex-start; }
+  .ref-num { background: var(--azul); color: var(--blanco); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+  .ref-text { font-size: 0.9rem; line-height: 1.6; }
+  .bib-note { background: var(--dorado-claro); border-left: 4px solid var(--dorado); border-radius: 0 8px 8px 0; padding: 12px 16px; margin-top: 20px; font-size: 0.88rem; }
+
+  /* ===== FLUJO DE ELEMENTOS ===== */
+  .flow-horizontal { display: flex; align-items: stretch; flex-wrap: wrap; gap: 0; margin: 20px 0; border: 1px solid var(--gris-borde); border-radius: 10px; overflow: hidden; }
+  .flow-step { flex: 1; min-width: 140px; padding: 14px 12px; text-align: center; }
+  .flow-step:nth-child(odd) { background: var(--azul); color: white; }
+  .flow-step:nth-child(even) { background: var(--celeste-claro); color: var(--azul); font-size: 1.5rem; display: flex; align-items: center; justify-content: center; max-width: 40px; flex: 0; }
+  .flow-step h5 { font-size: 0.82rem; font-weight: 700; margin-bottom: 4px; }
+  .flow-step p { font-size: 0.75rem; opacity: 0.85; margin: 0; }
+
+  /* ===== DRAG & DROP ===== */
+  .match-container { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .match-col h5 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--azul); font-weight: 700; margin-bottom: 10px; }
+  .match-source { background: var(--azul); color: white; border-radius: 8px; padding: 10px 14px; margin-bottom: 8px; font-size: 0.88rem; font-weight: 600; cursor: pointer; user-select: none; transition: opacity 0.2s; }
+  .match-source.used { opacity: 0.4; cursor: default; pointer-events: none; }
+  .match-target { background: var(--gris-claro); border: 2px dashed var(--gris-borde); border-radius: 8px; padding: 10px 14px; margin-bottom: 8px; font-size: 0.85rem; min-height: 42px; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s; }
+  .match-target .label-text { color: var(--texto-suave); }
+  .match-target .filled-badge { background: var(--azul); color: white; border-radius: 6px; padding: 3px 10px; font-size: 0.82rem; font-weight: 600; }
+  .match-target.correct { background: var(--verde-claro); border-color: var(--verde); }
+  .match-target.incorrect { background: var(--rojo-claro); border-color: var(--rojo); }
+  @media (max-width: 600px) { .match-container { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- ===== ENCABEZADO ===== -->
+<header class="header">
+  <div class="header-logo">
+    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="30" cy="30" r="28" fill="#003366"/>
+      <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="18" font-family="serif" font-weight="bold">UG</text>
+    </svg>
+  </div>
+  <div class="header-info">
+    <h1>Universidad de Guayaquil</h1>
+    <p>Facultad de Ciencias Administrativas &nbsp;|&nbsp; Carrera en Contabilidad y Auditoría</p>
+    <p style="margin-top:4px;font-size:0.78rem;opacity:0.7;">Metodología de la Investigación &nbsp;·&nbsp; Primer Semestre</p>
+  </div>
+  <div class="header-badges">
+    <span class="badge">Unidad I</span>
+    <span class="badge">Semana 2</span>
+    <span class="badge">Modalidad Virtual</span>
+  </div>
+</header>
+
+<!-- ===== BARRA SEMANA ===== -->
+<div class="semana-info">
+  <div class="semana-tag">
+    <div class="num">02</div>
+    <div class="lbl">Semana</div>
+  </div>
+  <div class="semana-titulo">
+    <h2>Unidad I — Introducción a la Investigación Científica</h2>
+    <p>Paradigmas del conocimiento · Elementos de la investigación · Clasificación y alcances investigativos · Sesgos, precisión y validez</p>
+  </div>
+</div>
+
+<!-- ===== NAVEGACIÓN ===== -->
+<nav class="tabs-nav" id="tabsNav">
+  <button class="tab-btn active" onclick="showTab('repaso',this)">📋 Repaso</button>
+  <button class="tab-btn" onclick="showTab('t1',this)">1 · Paradigmas del conocimiento</button>
+  <button class="tab-btn" onclick="showTab('t2',this)">2 · Elementos de la investigación</button>
+  <button class="tab-btn" onclick="showTab('t3',this)">3 · Alcances investigativos</button>
+  <button class="tab-btn" onclick="showTab('t4',this)">4 · Sesgos, precisión y validez</button>
+  <button class="tab-btn" onclick="showTab('ejercicio',this)">⚡ Ejercicio Interactivo</button>
+  <button class="tab-btn" onclick="showTab('cuestionario',this)">📝 Cuestionario</button>
+  <button class="tab-btn" onclick="showTab('ia',this)">🤖 Actividad con IA</button>
+  <button class="tab-btn" onclick="showTab('reflexion',this)">💭 Reflexión</button>
+  <button class="tab-btn" onclick="showTab('biblio',this)">📚 Bibliografía</button>
+</nav>
+
+<!-- ===== CONTENIDOS ===== -->
+
+<!-- REPASO -->
+<div class="tab-content active" id="repaso">
+  <h2 class="section-title">📋 Repaso — Semana 1 y Puente hacia la Semana 2</h2>
+  <p class="subtitle">¿Qué aprendimos? ¿Hacia dónde vamos?</p>
+
+  <div class="repaso-card">
+    <h3>🔁 Lo que vimos la semana pasada</h3>
+    <p>La Semana 1 nos dio los cimientos. Repasemos los conceptos clave antes de construir sobre ellos:</p>
+    <div class="repaso-item">🧠 <strong>Corrientes del conocimiento:</strong> teológico, filosófico, empírico y científico. El conocimiento científico es sistemático, verificable, metódico y abierto a la revisión.</div>
+    <div class="repaso-item">🔬 <strong>Ciencias formales vs. empíricas:</strong> las ciencias formales (lógica, matemáticas) se verifican por coherencia lógica; las empíricas (Contabilidad, Economía) se verifican con hechos reales.</div>
+    <div class="repaso-item">⚙️ <strong>Método científico:</strong> el procedimiento que conecta la investigación con el conocimiento. Sus etapas van desde la observación hasta la conclusión, pasando por la formulación de hipótesis y la verificación.</div>
+    <div class="repaso-item">📐 <strong>Conceptos, teorías, axiomas y leyes:</strong> los bloques de construcción del conocimiento científico. No son lo mismo, y confundirlos genera errores conceptuales.</div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-title">🎯 ¿Por qué importa lo de la semana pasada para hoy?</div>
+    <p>Ahora que sabemos <em>qué es</em> el conocimiento científico y <em>cómo</em> se genera, esta semana preguntamos: <strong>¿desde dónde lo generamos?</strong> (paradigmas), <strong>¿con qué elementos?</strong> (elementos de investigación), <strong>¿con qué profundidad?</strong> (alcances) y <strong>¿qué puede salir mal?</strong> (sesgos y validez). Es como pasar del "qué" al "cómo" en detalle.</p>
+  </div>
+
+  <h3>🗺️ Mapa de la Semana 2</h3>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <h4>Tema 1 — Paradigmas</h4>
+      <p>¿Desde qué visión del mundo investigamos? Paradigma cuantitativo, cualitativo y sus diferencias esenciales.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧩</div>
+      <h4>Tema 2 — Elementos</h4>
+      <p>¿Qué partes componen toda investigación? Problema, objetivos, hipótesis, variables, marco teórico, metodología.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h4>Tema 3 — Alcances</h4>
+      <p>¿Con qué profundidad? Investigación exploratoria, descriptiva, correlacional y explicativa.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚠️</div>
+      <h4>Tema 4 — Sesgos y validez</h4>
+      <p>¿Qué amenaza la calidad de un estudio? Sesgos del investigador, de medición, de selección, y cómo garantizar validez y precisión.</p>
+    </div>
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea motivadora de la semana</div>
+    <p>Todo investigador, antes de comenzar, toma decisiones sobre <em>cómo ver el mundo</em>. Esas decisiones determinan todo lo demás. Un auditor que solo busca números (paradigma cuantitativo) podría perder información clave que solo se revela a través de entrevistas y contexto (paradigma cualitativo). La semana 2 te enseña a ser consciente de esas decisiones.</p>
+  </div>
+</div>
+
+<!-- TEMA 1: PARADIGMAS -->
+<div class="tab-content" id="t1">
+  <h2 class="section-title">1 · La investigación en el proceso del conocimiento y sus paradigmas</h2>
+  <p class="subtitle">¿Desde dónde investigamos? La visión del mundo del investigador</p>
+
+  <p class="content-p">Imagina que dos investigadores estudian el mismo problema: el fraude contable en microempresas de Guayaquil. Uno recopila registros financieros de 500 empresas y hace análisis estadísticos. El otro entrevista a 12 contadores en profundidad durante horas. ¿Cuál tiene razón? Los dos, porque parten de <strong>paradigmas</strong> distintos.</p>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición de Paradigma</div>
+    <p>Un <strong>paradigma</strong> es un conjunto de creencias, valores y supuestos compartidos por una comunidad científica que define qué se debe estudiar, cómo se debe investigar y cómo se interpretan los resultados. Para Kuhn (1971), son <em>"realizaciones científicas universalmente reconocidas que, durante cierto tiempo, proporcionan modelos de problemas y soluciones a una comunidad científica"</em>.</p>
+  </div>
+
+  <h3>1.1 Las tres dimensiones de todo paradigma</h3>
+  <p class="content-p">Todo paradigma se sostiene en tres preguntas fundamentales (Guba, 1990):</p>
+
+  <div class="cards-grid">
+    <div class="card" style="border-top-color:#6c3483;">
+      <div class="card-icon">🌍</div>
+      <h4>Dimensión Ontológica</h4>
+      <p><em>¿Cuál es la naturaleza de la realidad?</em> ¿La realidad existe independientemente del observador (objetiva), o es construida socialmente (subjetiva)?</p>
+    </div>
+    <div class="card" style="border-top-color:#c0392b;">
+      <div class="card-icon">🔗</div>
+      <h4>Dimensión Epistemológica</h4>
+      <p><em>¿Cómo conocemos la realidad?</em> ¿El investigador debe estar separado de lo que investiga (neutralidad), o interactúa con ello?</p>
+    </div>
+    <div class="card" style="border-top-color:#1a7a4a;">
+      <div class="card-icon">⚙️</div>
+      <h4>Dimensión Metodológica</h4>
+      <p><em>¿Cómo accedemos al conocimiento?</em> ¿Usamos medición estadística y experimentos, o narrativa, contexto e interpretación?</p>
+    </div>
+  </div>
+
+  <h3>1.2 Paradigma Cuantitativo (Positivista)</h3>
+
+  <div class="paradigma-cuantitativo">
+    <h4>📊 Paradigma Cuantitativo — "Medir para conocer"</h4>
+    <p style="font-size:0.92rem; margin-bottom: 10px;">También llamado <em>positivista, experimental o hipotético-deductivo</em>. Surgió en el siglo XIX y tiene como base filosófica el positivismo.</p>
+    <ul class="styled-list" style="margin:0;">
+      <li><strong>Ontología:</strong> La realidad es objetiva, única y separada del investigador.</li>
+      <li><strong>Epistemología:</strong> El investigador es neutral e independiente de lo que estudia.</li>
+      <li><strong>Metodología:</strong> Proceso deductivo. Datos numéricos, estadísticas, encuestas estructuradas.</li>
+      <li><strong>Objetivo:</strong> Explicar, predecir, controlar y generalizar fenómenos.</li>
+      <li><strong>Diseño:</strong> Predeterminado, rígido y estructurado antes de comenzar.</li>
+      <li><strong>Hallazgos:</strong> Precisos, cuantificables, estadísticamente significativos.</li>
+    </ul>
+  </div>
+
+  <div class="example-box">
+    <div class="example-title">🇪🇨 Ejemplo ecuatoriano — Paradigma cuantitativo en Auditoría</div>
+    <p>El SRI analiza las declaraciones del Impuesto a la Renta de 15.000 empresas guayaquileñas usando software estadístico para detectar patrones de evasión. Compara variables numéricas (ingresos declarados, gastos, sector económico) y concluye que el 18% de empresas del sector comercio subdeclara ingresos. Eso es investigación cuantitativa: datos numéricos, análisis estadístico, generalización.</p>
+  </div>
+
+  <h3>1.3 Paradigma Cualitativo (Interpretativo)</h3>
+
+  <div class="paradigma-cualitativo">
+    <h4>🔍 Paradigma Cualitativo — "Comprender para conocer"</h4>
+    <p style="font-size:0.92rem; margin-bottom: 10px;">También llamado <em>interpretativo, fenomenológico o naturalista</em>. Se basa en la fenomenología y las teorías interpretativas.</p>
+    <ul class="styled-list" style="margin:0;">
+      <li><strong>Ontología:</strong> La realidad es subjetiva, múltiple y construida socialmente.</li>
+      <li><strong>Epistemología:</strong> El investigador interactúa con lo que investiga; no puede ser neutral.</li>
+      <li><strong>Metodología:</strong> Proceso inductivo. Entrevistas, observación, análisis de discurso.</li>
+      <li><strong>Objetivo:</strong> Comprender, describir e interpretar significados, percepciones e intenciones.</li>
+      <li><strong>Diseño:</strong> Flexible, emergente; evoluciona durante la investigación.</li>
+      <li><strong>Hallazgos:</strong> Comprensivos, contextualizados, narrativos.</li>
+    </ul>
+  </div>
+
+  <div class="example-box">
+    <div class="example-title">🇪🇨 Ejemplo ecuatoriano — Paradigma cualitativo en Contabilidad</div>
+    <p>Una investigadora entrevista en profundidad a 15 contadores de microempresas guayaquileñas para entender <em>por qué</em> no aplican correctamente las NIIF para PYMES, más allá de los números. Descubre que el problema principal no es técnico sino cultural: el gerente-propietario no confía en el sistema formal y prefiere llevar "dos contabilidades". Eso no aparece en ninguna estadística.</p>
+  </div>
+
+  <h3>1.4 Comparativa: cuantitativo vs. cualitativo</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Dimensión</th><th>Cuantitativo</th><th>Cualitativo</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Naturaleza de la realidad</strong></td><td>Objetiva, única, medible</td><td>Subjetiva, múltiple, construida</td></tr>
+        <tr><td><strong>Rol del investigador</strong></td><td>Neutral, separado del objeto</td><td>Involucrado, interactúa con el objeto</td></tr>
+        <tr><td><strong>Proceso</strong></td><td>Deductivo (de la teoría a los datos)</td><td>Inductivo (de los datos a la teoría)</td></tr>
+        <tr><td><strong>Datos</strong></td><td>Numéricos, estadísticos</td><td>Textuales, visuales, narrativos</td></tr>
+        <tr><td><strong>Muestra</strong></td><td>Grande, aleatoria, representativa</td><td>Pequeña, intencional, teórica</td></tr>
+        <tr><td><strong>Instrumento</strong></td><td>Encuestas, tests, escalas</td><td>Entrevistas, observación, documentos</td></tr>
+        <tr><td><strong>Resultado</strong></td><td>Generalizable, predecible</td><td>Profundo, contextual, comprensivo</td></tr>
+        <tr><td><strong>Fundamento filosófico</strong></td><td>Positivismo, empirismo lógico</td><td>Fenomenología, hermenéutica</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>1.5 El paradigma mixto: lo mejor de ambos mundos</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición del método mixto</div>
+    <p>El <strong>método mixto</strong> combina elementos cuantitativos y cualitativos en un mismo estudio. Surgió a principios de los años 90 y ha ganado enorme visibilidad. Johnson, Onwuegbuzie y Turner (2007) lo definen como la investigación que combina "el uso de puntos de vista cualitativos y cuantitativos, recopilación de datos, análisis, técnicas de inferencia" en un solo estudio.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="example-title">🇪🇨 Ejemplo de método mixto — Auditoría forense en Ecuador</div>
+    <p>Un equipo de auditores investiga corrupción en una empresa pública de Guayaquil. <strong>Cuantitativamente:</strong> analizan estadísticamente 10 años de transacciones para detectar irregularidades numéricas. <strong>Cualitativamente:</strong> entrevistan a empleados para entender cómo funcionaba el esquema de corrupción culturalmente. Combinando ambos, obtienen una imagen completa que ninguno por separado habría revelado.</p>
+  </div>
+
+  <div class="alert-info">
+    <strong>⚠️ Error frecuente:</strong> Creer que cuantitativo = mejor o más científico que cualitativo. Ambos son igualmente científicos; simplemente responden preguntas distintas. El cuantitativo responde al <em>¿cuánto? ¿cuántos? ¿con qué frecuencia?</em>, mientras que el cualitativo responde al <em>¿por qué? ¿cómo? ¿qué significa?</em>
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea clave del Tema 1</div>
+    <p>Elegir un paradigma no es solo una decisión técnica: es una postura filosófica sobre cómo es el mundo y cómo lo conocemos. Un auditor competente debe saber cuándo los números son suficientes y cuándo necesita ir más allá de ellos para entender el contexto humano que los genera.</p>
+  </div>
+</div>
+
+<!-- TEMA 2: ELEMENTOS -->
+<div class="tab-content" id="t2">
+  <h2 class="section-title">2 · Elementos de la investigación</h2>
+  <p class="subtitle">¿Qué partes componen toda investigación científica?</p>
+
+  <p class="content-p">Una investigación científica no es simplemente "hacer preguntas y ver qué pasa". Tiene una estructura bien definida, compuesta por elementos que interactúan y se condicionan mutuamente. Conocerlos te permitirá diseñar investigaciones sólidas y evaluar críticamente las de otros.</p>
+
+  <h3>2.1 El proceso de la investigación: visión general</h3>
+
+  <div class="flow-horizontal">
+    <div class="flow-step"><h5>Problema</h5><p>¿Qué no sé?</p></div>
+    <div class="flow-step">→</div>
+    <div class="flow-step"><h5>Objetivos</h5><p>¿Qué quiero lograr?</p></div>
+    <div class="flow-step">→</div>
+    <div class="flow-step"><h5>Marco teórico</h5><p>¿Qué se sabe ya?</p></div>
+    <div class="flow-step">→</div>
+    <div class="flow-step"><h5>Hipótesis</h5><p>¿Qué creo que pasará?</p></div>
+    <div class="flow-step">→</div>
+    <div class="flow-step"><h5>Metodología</h5><p>¿Cómo lo verifico?</p></div>
+    <div class="flow-step">→</div>
+    <div class="flow-step"><h5>Resultados</h5><p>¿Qué encontré?</p></div>
+  </div>
+
+  <h3>2.2 El problema de investigación</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición</div>
+    <p>El <strong>problema de investigación</strong> es la situación, fenómeno o vacío de conocimiento que motiva la investigación. Se formula como una pregunta clara, delimitada y que tenga posibilidad real de ser respondida mediante investigación.</p>
+  </div>
+
+  <div class="two-col">
+    <div style="background: var(--rojo-claro); border-radius:8px; padding:14px;">
+      <p style="font-weight:700; color:var(--rojo); margin-bottom:6px;">❌ Mal formulado</p>
+      <p style="font-size:0.9rem;">"¿Por qué la economía del Ecuador es difícil?" → demasiado vago, amplio e imposible de investigar sistemáticamente.</p>
+    </div>
+    <div style="background: var(--verde-claro); border-radius:8px; padding:14px;">
+      <p style="font-weight:700; color:var(--verde); margin-bottom:6px;">✅ Bien formulado</p>
+      <p style="font-size:0.9rem;">"¿En qué medida la implementación de controles internos reduce los errores en los estados financieros de las PYMES del sector comercio de Guayaquil en el período 2020–2023?"</p>
+    </div>
+  </div>
+
+  <h3>2.3 Objetivos de la investigación</h3>
+
+  <p class="content-p">Los objetivos responden a la pregunta <em>¿qué se propone lograr la investigación?</em> Se dividen en:</p>
+
+  <div class="two-col">
+    <div class="card" style="border-top-color:#0052a0;">
+      <h4>🎯 Objetivo General</h4>
+      <p>Describe el propósito central y más amplio de la investigación. Solo debe haber uno. Comienza con un verbo en infinitivo: <em>analizar, determinar, establecer, evaluar, comparar…</em></p>
+    </div>
+    <div class="card" style="border-top-color:#1a7a4a;">
+      <h4>🎯 Objetivos Específicos</h4>
+      <p>Desglosan el objetivo general en tareas concretas y medibles. Son los pasos para lograr el objetivo general. Pueden ser 3–5, dependiendo del estudio.</p>
+    </div>
+  </div>
+
+  <h3>2.4 La hipótesis</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición</div>
+    <p>La <strong>hipótesis</strong> es una afirmación tentativa y provisional sobre la relación entre dos o más variables, que puede ser comprobada o refutada mediante la investigación. Es la "respuesta anticipada" al problema.</p>
+  </div>
+
+  <ul class="styled-list">
+    <li><strong>Debe ser verificable:</strong> debe poder ponerse a prueba con datos reales.</li>
+    <li><strong>Debe ser clara:</strong> las variables deben estar bien definidas.</li>
+    <li><strong>Debe relacionar variables:</strong> no es una simple afirmación, sino una relación entre conceptos.</li>
+    <li><strong>No siempre obligatoria:</strong> en estudios cualitativos exploratorios, no siempre se formula una hipótesis.</li>
+  </ul>
+
+  <div class="example-box">
+    <div class="example-title">💼 Hipótesis en auditoría ecuatoriana</div>
+    <p><em>"Las empresas del sector constructor de Guayaquil que implementan un sistema de control interno según el modelo COSO tienen significativamente menos observaciones en auditoría externa que aquellas que no lo implementan."</em><br>— Esta hipótesis relaciona dos variables (implementación de COSO y número de observaciones), es verificable con datos reales y puede probarse estadísticamente.</p>
+  </div>
+
+  <h3>2.5 Variables</h3>
+
+  <p class="content-p">Una <strong>variable</strong> es cualquier característica, propiedad o cualidad de un fenómeno que puede asumir diferentes valores. Las variables son lo que medimos, observamos o manipulamos en la investigación.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tipo de variable</th><th>Definición</th><th>Ejemplo en Contabilidad</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Independiente</strong></td><td>La que se manipula o es causa presunta del efecto</td><td>Implementación de NIIF</td></tr>
+        <tr><td><strong>Dependiente</strong></td><td>La que se mide; el efecto o resultado</td><td>Calidad de los estados financieros</td></tr>
+        <tr><td><strong>Interviniente</strong></td><td>Afecta la relación sin ser el foco del estudio</td><td>Tamaño de la empresa</td></tr>
+        <tr><td><strong>Cuantitativa</strong></td><td>Se expresa en números</td><td>Monto de activos, tasa de error</td></tr>
+        <tr><td><strong>Cualitativa</strong></td><td>Se expresa en categorías</td><td>Sector económico, tipo de empresa</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.6 Marco teórico y metodología</h3>
+
+  <div class="two-col">
+    <div class="concept-box" style="margin:0;">
+      <div class="label">Marco Teórico</div>
+      <p>Es el conjunto organizado de teorías, conceptos y estudios previos que fundamentan y contextualizan la investigación. Responde a la pregunta: <em>¿qué se sabe ya sobre este tema?</em></p>
+    </div>
+    <div class="concept-box" style="margin:0; border-left-color: var(--verde);">
+      <div class="label" style="color:var(--verde);">Metodología</div>
+      <p>Especifica <em>cómo</em> se llevará a cabo la investigación: tipo de estudio, diseño, población, muestra, instrumentos de recolección y plan de análisis de datos.</p>
+    </div>
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea clave del Tema 2</div>
+    <p>Los elementos de la investigación no son independientes: cada uno condiciona al siguiente. Un problema mal formulado llevará a objetivos vagos, hipótesis incoherentes y metodología inadecuada. La coherencia entre todos los elementos es el sello de una investigación bien construida.</p>
+  </div>
+</div>
+
+<!-- TEMA 3: ALCANCES -->
+<div class="tab-content" id="t3">
+  <h2 class="section-title">3 · Clasificación de los tipos de estudios (alcances investigativos)</h2>
+  <p class="subtitle">¿Qué tan profundo llega nuestra investigación?</p>
+
+  <p class="content-p">No todas las investigaciones tienen el mismo propósito ni el mismo nivel de profundidad. El <strong>alcance</strong> de una investigación determina qué tipo de preguntas puede responder y qué tipo de conocimiento genera. Según Arias (2006) y Hernández-Sampieri et al. (2014), los alcances se clasifican en cuatro niveles progresivos.</p>
+
+  <div class="concept-box">
+    <div class="label">📖 Principio clave</div>
+    <p>Los alcances no son excluyentes: un estudio puede ser primero exploratorio y luego descriptivo. Tampoco hay jerarquía de valor: un estudio exploratorio bien hecho es tan valioso como uno explicativo. Lo importante es que el alcance sea coherente con el problema y los objetivos.</p>
+  </div>
+
+  <h3>3.1 Los cuatro alcances investigativos</h3>
+
+  <div class="alcance-cards">
+
+    <div class="alcance-item exploratoria">
+      <div class="alcance-badge badge-exp">Exploratorio</div>
+      <div>
+        <h4>🔭 Investigación Exploratoria</h4>
+        <p><strong>¿Cuándo se usa?</strong> Cuando el tema es nuevo, poco conocido o no ha sido estudiado antes. Cuando no hay suficiente información para formular hipótesis precisas.</p>
+        <p style="margin-top:6px;"><strong>¿Qué hace?</strong> Reconoce, ubica y define el problema. Recoge ideas iniciales y abre camino para investigaciones más profundas. Diseño flexible.</p>
+        <p style="margin-top:6px;"><strong>Ejemplo ecuatoriano:</strong> En 2020, cuando el COVID impactó la economía, varios investigadores hicieron estudios exploratorios sobre el impacto en las microempresas informales de Guayaquil, porque no había datos ni antecedentes claros.</p>
+      </div>
+    </div>
+
+    <div class="alcance-item descriptiva">
+      <div class="alcance-badge badge-desc">Descriptivo</div>
+      <div>
+        <h4>📋 Investigación Descriptiva</h4>
+        <p><strong>¿Cuándo se usa?</strong> Cuando queremos caracterizar con precisión un fenómeno: sus propiedades, perfiles, tendencias. Tenemos ya cierto conocimiento del tema.</p>
+        <p style="margin-top:6px;"><strong>¿Qué hace?</strong> Describe tendencias de un grupo o población. Va más allá de la exploración: mide con mayor precisión. No busca relaciones causales.</p>
+        <p style="margin-top:6px;"><strong>Ejemplo ecuatoriano:</strong> Un estudio que describe las características financieras de las PYMES del sector manufacturero de Guayaquil (tamaño, activos, patrimonio, sector) sin buscar causas ni predicciones.</p>
+      </div>
+    </div>
+
+    <div class="alcance-item correlacional">
+      <div class="alcance-badge badge-corr">Correlacional</div>
+      <div>
+        <h4>🔗 Investigación Correlacional</h4>
+        <p><strong>¿Cuándo se usa?</strong> Cuando queremos saber si dos o más variables están relacionadas entre sí, y en qué medida.</p>
+        <p style="margin-top:6px;"><strong>¿Qué hace?</strong> Mide dos o más variables en los mismos sujetos y analiza estadísticamente si existe asociación. <em>Cuidado:</em> correlación no implica causalidad.</p>
+        <p style="margin-top:6px;"><strong>Ejemplo ecuatoriano:</strong> Estudio que analiza si existe correlación entre el nivel de capacitación en NIIF de los contadores de una empresa y la calidad de sus estados financieros.</p>
+      </div>
+    </div>
+
+    <div class="alcance-item explicativa">
+      <div class="alcance-badge badge-expl">Explicativo</div>
+      <div>
+        <h4>💡 Investigación Explicativa</h4>
+        <p><strong>¿Cuándo se usa?</strong> Cuando ya sabemos que existe una relación y queremos explicar <em>por qué</em>. Es el nivel más profundo y estructurado.</p>
+        <p style="margin-top:6px;"><strong>¿Qué hace?</strong> Responde al <em>¿por qué?</em>. Busca relaciones causales entre variables. Requiere diseños más rigurosos (experimentales o cuasi-experimentales).</p>
+        <p style="margin-top:6px;"><strong>Ejemplo ecuatoriano:</strong> Investigación que explica <em>por qué</em> las empresas del sector petrolero con comités de auditoría activos tienen menores tasas de fraude interno — identificando los mecanismos causales específicos.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <h3>3.2 Comparativa de los cuatro alcances</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Alcance</th><th>Pregunta clave</th><th>Nivel de conocimiento previo</th><th>Resultado típico</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Exploratorio</strong></td><td>¿Qué hay aquí? ¿Cómo es esto?</td><td>Muy poco o ninguno</td><td>Identificación de variables, hipótesis tentativas</td></tr>
+        <tr><td><strong>Descriptivo</strong></td><td>¿Cómo es este fenómeno en detalle?</td><td>Moderado</td><td>Perfiles, caracterizaciones, tendencias</td></tr>
+        <tr><td><strong>Correlacional</strong></td><td>¿Estas variables están relacionadas?</td><td>Bueno (se conocen las variables)</td><td>Coeficientes de correlación, predicciones</td></tr>
+        <tr><td><strong>Explicativo</strong></td><td>¿Por qué ocurre esto?</td><td>Sólido (se conoce la correlación)</td><td>Relaciones causales, modelos explicativos</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.3 Clasificación adicional: según el diseño y el propósito</h3>
+
+  <div class="two-col">
+    <div>
+      <h4>📐 Según el diseño</h4>
+      <ul class="styled-list">
+        <li><strong>Experimental:</strong> el investigador manipula variables y controla condiciones.</li>
+        <li><strong>Cuasi-experimental:</strong> similar al experimental pero sin control total de variables extrañas.</li>
+        <li><strong>No experimental:</strong> observa fenómenos tal como ocurren, sin manipulación.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>🎯 Según el propósito</h4>
+      <ul class="styled-list">
+        <li><strong>Básica o pura:</strong> genera conocimiento teórico sin aplicación inmediata.</li>
+        <li><strong>Aplicada:</strong> busca soluciones a problemas concretos y prácticos.</li>
+        <li><strong>Documental:</strong> se basa en fuentes bibliográficas y documentales.</li>
+        <li><strong>De campo:</strong> recolecta datos directamente en el lugar donde ocurre el fenómeno.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea clave del Tema 3</div>
+    <p>El alcance no se elige arbitrariamente: lo dicta el estado del conocimiento sobre el tema y el problema que se quiere resolver. Elegir un alcance explicativo cuando no hay investigaciones descriptivas previas es como querer construir el techo antes que los cimientos. La lógica acumulativa de la ciencia exige respetar estos niveles.</p>
+  </div>
+</div>
+
+<!-- TEMA 4: SESGOS Y VALIDEZ -->
+<div class="tab-content" id="t4">
+  <h2 class="section-title">4 · Sesgos, precisión y validez de un estudio</h2>
+  <p class="subtitle">¿Qué puede hacer que una investigación nos engañe — y cómo evitarlo?</p>
+
+  <p class="content-p">Una investigación puede estar perfectamente diseñada en papel y aun así llegar a conclusiones equivocadas. Las amenazas principales son los <strong>sesgos</strong>, que son errores sistemáticos que distorsionan los resultados. Comprenderlos es esencial para diseñar investigaciones confiables y para leer críticamente los estudios de otros.</p>
+
+  <h3>4.1 ¿Qué es un sesgo?</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición</div>
+    <p>Un <strong>sesgo</strong> (bias) es cualquier error sistemático —no aleatorio— en el diseño, la ejecución o la interpretación de una investigación que lleva a resultados o conclusiones incorrectas o distorsionadas. A diferencia del error aleatorio (que promedia y se cancela), el sesgo siempre empuja los resultados en una misma dirección errónea.</p>
+  </div>
+
+  <div class="alert-danger">
+    <strong>⚠️ Importante:</strong> Todos los estudios tienen algún grado de sesgo. El objetivo del investigador no es eliminarlo completamente (imposible), sino <em>identificarlo, minimizarlo y declararlo abiertamente</em> para que otros puedan evaluar la confiabilidad de las conclusiones.
+  </div>
+
+  <h3>4.2 Principales tipos de sesgos en investigación</h3>
+
+  <div class="sesgo-card">
+    <h4>🎭 Sesgo del investigador (sesgo de confirmación)</h4>
+    <p>El investigador inconscientemente busca, interpreta o presenta datos que confirman sus hipótesis previas, ignorando evidencia contradictoria. Es el sesgo más difícil de detectar porque opera de forma inconsciente. <em>Ejemplo:</em> un auditor que ya "sabe" que hay fraude tiende a interpretar ambigüedades como evidencia de fraude.</p>
+  </div>
+
+  <div class="sesgo-card">
+    <h4>🎯 Sesgo de selección</h4>
+    <p>Ocurre cuando la muestra estudiada no representa adecuadamente a la población de interés. Los hallazgos pueden ser válidos para la muestra pero no generalizables. <em>Ejemplo:</em> estudiar prácticas contables solo en empresas grandes de Guayaquil y generalizar los resultados a todas las PYMES del Ecuador.</p>
+  </div>
+
+  <div class="sesgo-card">
+    <h4>📏 Sesgo de medición (o de información)</h4>
+    <p>El instrumento de medición no captura correctamente lo que pretende medir. Puede deberse a preguntas mal formuladas, escalas inadecuadas o condiciones de aplicación deficientes. <em>Ejemplo:</em> una encuesta que pregunta "¿Cumple su empresa con todas las obligaciones tributarias?" — ningún infractor responderá "no".</p>
+  </div>
+
+  <div class="sesgo-card">
+    <h4>🕐 Sesgo temporal o de supervivencia</h4>
+    <p>Solo se estudian los casos que "sobrevivieron" hasta el momento del estudio, ignorando los que desaparecieron. <em>Ejemplo:</em> analizar solo las PYMES que sobrevivieron la pandemia para sacar conclusiones sobre resiliencia empresarial, ignorando las que quebraron.</p>
+  </div>
+
+  <div class="sesgo-card">
+    <h4>🗣️ Sesgo de respuesta (deseabilidad social)</h4>
+    <p>Los participantes responden lo que creen que se espera de ellos, no la verdad. Especialmente relevante en temas sensibles. <em>Ejemplo:</em> preguntar a empleados de una empresa si el ambiente laboral es bueno mientras el jefe está presente.</p>
+  </div>
+
+  <h3>4.3 Precisión y validez: dos pilares de la calidad investigativa</h3>
+
+  <div class="two-col">
+    <div class="paradigma-cuantitativo" style="border-radius:10px;">
+      <h4>🎯 Precisión (Confiabilidad / Fiabilidad)</h4>
+      <p style="font-size:0.9rem; margin-bottom:8px;">La <strong>precisión</strong> o confiabilidad de un instrumento se refiere a su capacidad de producir resultados consistentes y estables cuando se aplica en condiciones similares. Un instrumento preciso da los mismos resultados si se repite la medición.</p>
+      <p style="font-size:0.88rem; color:#1a56a3;"><strong>Analogía:</strong> Una balanza precisa siempre marca el mismo peso para el mismo objeto. Si varía cada vez, no es confiable.</p>
+    </div>
+    <div class="paradigma-cualitativo" style="border-radius:10px;">
+      <h4>✅ Validez</h4>
+      <p style="font-size:0.9rem; margin-bottom:8px;">La <strong>validez</strong> es la capacidad de un instrumento de medir lo que realmente pretende medir. Un instrumento puede ser preciso (consistente) pero no válido (si mide la cosa equivocada).</p>
+      <p style="font-size:0.88rem; color:var(--morado);"><strong>Analogía:</strong> Un termómetro que mide temperatura corporal con precisión pero en centímetros. Es consistente, pero no válido para ese propósito.</p>
+    </div>
+  </div>
+
+  <h3>4.4 Tipos de validez</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tipo de validez</th><th>¿Qué verifica?</th><th>Ejemplo en investigación contable</th></tr></thead>
+      <tbody>
+        <tr><td><strong>De contenido</strong></td><td>¿El instrumento cubre adecuadamente todo el tema?</td><td>Una encuesta sobre NIIF que incluye todas las normas relevantes, no solo las más fáciles</td></tr>
+        <tr><td><strong>De criterio</strong></td><td>¿Los resultados se correlacionan con medidas externas reconocidas?</td><td>Comparar resultados de la encuesta con dictámenes de auditoría real</td></tr>
+        <tr><td><strong>De constructo</strong></td><td>¿Mide el concepto teórico que pretende medir?</td><td>¿La escala de "cultura de control interno" realmente captura ese concepto?</td></tr>
+        <tr><td><strong>Predictiva</strong></td><td>¿Los resultados permiten predecir comportamientos futuros?</td><td>¿El puntaje de riesgo de auditoría predice efectivamente hallazgos futuros?</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>4.5 ¿Cómo mejorar la calidad de un estudio?</h3>
+
+  <div class="cards-grid">
+    <div class="card" style="border-top-color:var(--verde);">
+      <div class="card-icon">🔀</div>
+      <h4>Triangulación</h4>
+      <p>Usar múltiples fuentes, métodos o investigadores para verificar los mismos hallazgos. Si tres métodos distintos llegan a la misma conclusión, es más confiable.</p>
+    </div>
+    <div class="card" style="border-top-color:#1a56a3;">
+      <div class="card-icon">🧪</div>
+      <h4>Pilotaje del instrumento</h4>
+      <p>Probar el instrumento con un grupo pequeño antes de aplicarlo masivamente, para detectar preguntas ambiguas o poco claras.</p>
+    </div>
+    <div class="card" style="border-top-color:var(--dorado);">
+      <div class="card-icon">👥</div>
+      <h4>Revisión de pares</h4>
+      <p>Que otros investigadores revisen el diseño y los resultados antes de publicarlos. El escrutinio externo reduce el sesgo del investigador.</p>
+    </div>
+    <div class="card" style="border-top-color:var(--morado);">
+      <div class="card-icon">📋</div>
+      <h4>Declarar las limitaciones</h4>
+      <p>Reconocer abiertamente los sesgos potenciales y limitaciones del estudio. Un investigador honesto hace explícito lo que su estudio no puede concluir.</p>
+    </div>
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea clave del Tema 4</div>
+    <p>La conciencia sobre los sesgos no es un signo de debilidad científica: es un signo de madurez investigativa. Un auditor que ignora los sesgos en su propio proceso de evaluación puede firmar un dictamen incorrecto con absoluta convicción. El rigor metodológico protege tanto al investigador como a quienes usan sus conclusiones.</p>
+  </div>
+</div>
+
+<!-- EJERCICIO INTERACTIVO -->
+<div class="tab-content" id="ejercicio">
+  <h2 class="section-title">⚡ Ejercicio Interactivo — Empareja el concepto</h2>
+  <p class="subtitle">Tipo: Selección múltiple contextualizada · 8 ítems · Responde todo antes de verificar</p>
+
+  <div class="ejercicio-intro">
+    <strong>Instrucciones:</strong> Lee cada situación y selecciona la opción que mejor la describe. Responde <em>todos</em> los ítems antes de presionar "Verificar respuestas". Recibirás retroalimentación detallada de cada respuesta y tu calificación final.
+  </div>
+
+  <div id="ejercicioContainer">
+
+    <div class="ejercicio-item" id="ei1">
+      <div class="item-num">Ítem 1 de 8</div>
+      <div class="item-text">Sofía, estudiante de contabilidad, investiga la experiencia subjetiva de los contadores ante la implementación de NIIF en su empresa: realiza entrevistas en profundidad y analiza narrativas. ¿Qué paradigma de investigación está usando?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e1','A',this)">A. Cualitativo</button>
+        <button class="opt-btn" onclick="selectOpt('e1','B',this)">B. Cuantitativo</button>
+        <button class="opt-btn" onclick="selectOpt('e1','C',this)">C. Experimental</button>
+        <button class="opt-btn" onclick="selectOpt('e1','D',this)">D. Deductivo puro</button>
+      </div>
+      <div class="feedback-text" id="fb-e1"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei2">
+      <div class="item-num">Ítem 2 de 8</div>
+      <div class="item-text">Un investigador analiza los estados financieros de 800 empresas del Ecuador para determinar estadísticamente si existe relación entre el nivel de endeudamiento y la probabilidad de quiebra. ¿Qué paradigma y alcance combinados mejor describen este estudio?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e2','A',this)">A. Cuantitativo — correlacional</button>
+        <button class="opt-btn" onclick="selectOpt('e2','B',this)">B. Cualitativo — exploratorio</button>
+        <button class="opt-btn" onclick="selectOpt('e2','C',this)">C. Mixto — descriptivo</button>
+        <button class="opt-btn" onclick="selectOpt('e2','D',this)">D. Cuantitativo — explicativo</button>
+      </div>
+      <div class="feedback-text" id="fb-e2"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei3">
+      <div class="item-num">Ítem 3 de 8</div>
+      <div class="item-text">En 2021, tras el surgimiento de las criptomonedas como activo empresarial, una investigadora decide hacer un primer acercamiento para entender cómo las empresas ecuatorianas están registrando este nuevo tipo de activo, sin formular hipótesis. ¿Qué alcance corresponde?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e3','A',this)">A. Exploratorio</button>
+        <button class="opt-btn" onclick="selectOpt('e3','B',this)">B. Explicativo</button>
+        <button class="opt-btn" onclick="selectOpt('e3','C',this)">C. Correlacional</button>
+        <button class="opt-btn" onclick="selectOpt('e3','D',this)">D. Descriptivo avanzado</button>
+      </div>
+      <div class="feedback-text" id="fb-e3"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei4">
+      <div class="item-num">Ítem 4 de 8</div>
+      <div class="item-text">Un auditor aplica una encuesta sobre "cultura de cumplimiento tributario" a empleados mientras el gerente general está presente en la misma sala. Los resultados muestran niveles altísimos de cumplimiento. ¿Qué tipo de sesgo es el más probable?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e4','A',this)">A. Sesgo de respuesta (deseabilidad social)</button>
+        <button class="opt-btn" onclick="selectOpt('e4','B',this)">B. Sesgo de selección</button>
+        <button class="opt-btn" onclick="selectOpt('e4','C',this)">C. Sesgo temporal</button>
+        <button class="opt-btn" onclick="selectOpt('e4','D',this)">D. Sesgo de medición</button>
+      </div>
+      <div class="feedback-text" id="fb-e4"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei5">
+      <div class="item-num">Ítem 5 de 8</div>
+      <div class="item-text">En una investigación, la hipótesis plantea: "A mayor capacitación en control interno, menor incidencia de errores en los estados financieros." En este planteamiento, "capacitación en control interno" es la variable…</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e5','A',this)">A. Independiente</button>
+        <button class="opt-btn" onclick="selectOpt('e5','B',this)">B. Dependiente</button>
+        <button class="opt-btn" onclick="selectOpt('e5','C',this)">C. Interviniente</button>
+        <button class="opt-btn" onclick="selectOpt('e5','D',this)">D. De control</button>
+      </div>
+      <div class="feedback-text" id="fb-e5"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei6">
+      <div class="item-num">Ítem 6 de 8</div>
+      <div class="item-text">Un instrumento de investigación produce exactamente los mismos resultados cada vez que se aplica a los mismos sujetos, pero mide el concepto equivocado. ¿Cuál es el problema?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e6','A',this)">A. Alta confiabilidad pero baja validez</button>
+        <button class="opt-btn" onclick="selectOpt('e6','B',this)">B. Alta validez pero baja confiabilidad</button>
+        <button class="opt-btn" onclick="selectOpt('e6','C',this)">C. Bajo sesgo y alta precisión</button>
+        <button class="opt-btn" onclick="selectOpt('e6','D',this)">D. Error aleatorio sin sesgo</button>
+      </div>
+      <div class="feedback-text" id="fb-e6"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei7">
+      <div class="item-num">Ítem 7 de 8</div>
+      <div class="item-text">Una investigación busca explicar <em>por qué</em> las empresas del sector bananero del Guayas que implementaron COSO I tienen menos fraudes internos, identificando los mecanismos causales específicos. ¿Cuál es el alcance?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e7','A',this)">A. Explicativo</button>
+        <button class="opt-btn" onclick="selectOpt('e7','B',this)">B. Descriptivo</button>
+        <button class="opt-btn" onclick="selectOpt('e7','C',this)">C. Exploratorio</button>
+        <button class="opt-btn" onclick="selectOpt('e7','D',this)">D. Correlacional</button>
+      </div>
+      <div class="feedback-text" id="fb-e7"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei8">
+      <div class="item-num">Ítem 8 de 8</div>
+      <div class="item-text">Un investigador quiere estudiar la "resiliencia financiera de las PYMES ecuatorianas durante la pandemia" y solo estudia las empresas que sobrevivieron al período 2020–2021, sin considerar las que quebraron. ¿Qué sesgo comete?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e8','A',this)">A. Sesgo de supervivencia</button>
+        <button class="opt-btn" onclick="selectOpt('e8','B',this)">B. Sesgo de confirmación</button>
+        <button class="opt-btn" onclick="selectOpt('e8','C',this)">C. Sesgo de medición</button>
+        <button class="opt-btn" onclick="selectOpt('e8','D',this)">D. Sesgo de deseabilidad social</button>
+      </div>
+      <div class="feedback-text" id="fb-e8"></div>
+    </div>
+
+  </div>
+
+  <button class="btn-verify" onclick="verificarEjercicio()">✔ Verificar respuestas</button>
+  <button class="btn-reset" onclick="resetEjercicio()" id="btnResetEj" style="display:none">↺ Reiniciar</button>
+
+  <div class="result-panel" id="resultEj">
+    <div class="result-emoji" id="emojiEj"></div>
+    <div class="result-score" id="scoreEj"></div>
+    <div class="result-pct" id="pctEj"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progEj" style="width:0%"></div></div>
+    <div class="result-msg" id="msgEj"></div>
+  </div>
+</div>
+
+<!-- CUESTIONARIO -->
+<div class="tab-content" id="cuestionario">
+  <h2 class="section-title">📝 Cuestionario — Semana 2</h2>
+  <p class="subtitle">10 preguntas · 7 teóricas + 3 de análisis · Responde todo antes de verificar</p>
+
+  <div id="quizContainer">
+
+    <div class="quiz-item" id="qi1">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">1. Según Kuhn (1971), ¿cuál de las siguientes opciones define mejor el concepto de "paradigma" científico?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q1','A',this)">A. Un conjunto de realizaciones científicas reconocidas que proporcionan modelos de problemas y soluciones a una comunidad científica durante cierto tiempo</button>
+        <button class="quiz-opt" onclick="selectQuiz('q1','B',this)">B. Una técnica estadística para analizar grandes volúmenes de datos cuantitativos</button>
+        <button class="quiz-opt" onclick="selectQuiz('q1','C',this)">C. La hipótesis central de un estudio que todavía no ha sido verificada</button>
+        <button class="quiz-opt" onclick="selectQuiz('q1','D',this)">D. El conjunto de instrumentos de medición utilizados en una investigación</button>
+      </div>
+      <div class="feedback-text" id="fb-q1"></div>
+    </div>
+
+    <div class="quiz-item" id="qi2">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">2. ¿Cuál es la diferencia fundamental entre la dimensión ONTOLÓGICA y la EPISTEMOLÓGICA de un paradigma?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q2','A',this)">A. La ontológica pregunta ¿cuál es la naturaleza de la realidad?, mientras la epistemológica pregunta ¿cómo es la relación entre el investigador y lo que investiga?</button>
+        <button class="quiz-opt" onclick="selectQuiz('q2','B',this)">B. La ontológica es propia del paradigma cuantitativo y la epistemológica del cualitativo</button>
+        <button class="quiz-opt" onclick="selectQuiz('q2','C',this)">C. La ontológica se refiere al método y la epistemológica a la muestra del estudio</button>
+        <button class="quiz-opt" onclick="selectQuiz('q2','D',this)">D. No existe diferencia; ambas preguntas son equivalentes en la práctica investigativa</button>
+      </div>
+      <div class="feedback-text" id="fb-q2"></div>
+    </div>
+
+    <div class="quiz-item" id="qi3">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">3. En el paradigma cuantitativo, ¿cuál es el rol del investigador respecto a su objeto de estudio?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q3','A',this)">A. Debe mantenerse neutral e independiente, sin interactuar con el objeto de estudio para no contaminar los resultados</button>
+        <button class="quiz-opt" onclick="selectQuiz('q3','B',this)">B. Debe involucrarse activamente e interactuar con los participantes para comprender sus perspectivas</button>
+        <button class="quiz-opt" onclick="selectQuiz('q3','C',this)">C. Debe asumir que la realidad es subjetiva y múltiple</button>
+        <button class="quiz-opt" onclick="selectQuiz('q3','D',this)">D. El investigador cuantitativo no necesita formular hipótesis previas</button>
+      </div>
+      <div class="feedback-text" id="fb-q3"></div>
+    </div>
+
+    <div class="quiz-item" id="qi4">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">4. ¿Cuál de las siguientes es la característica MÁS importante que debe tener el problema de investigación?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q4','A',this)">A. Debe ser específico, claramente delimitado y susceptible de responderse mediante investigación sistemática</button>
+        <button class="quiz-opt" onclick="selectQuiz('q4','B',this)">B. Debe abarcar el mayor número posible de variables para ser relevante</button>
+        <button class="quiz-opt" onclick="selectQuiz('q4','C',this)">C. Debe ser completamente novedoso, sin relación con investigaciones previas</button>
+        <button class="quiz-opt" onclick="selectQuiz('q4','D',this)">D. Debe ser complejo y difícil de entender para demostrar rigor académico</button>
+      </div>
+      <div class="feedback-text" id="fb-q4"></div>
+    </div>
+
+    <div class="quiz-item" id="qi5">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">5. ¿En qué se diferencia una investigación CORRELACIONAL de una EXPLICATIVA?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q5','A',this)">A. La correlacional determina si existe asociación entre variables; la explicativa busca identificar las causas de esa asociación</button>
+        <button class="quiz-opt" onclick="selectQuiz('q5','B',this)">B. La correlacional siempre usa métodos cualitativos y la explicativa usa métodos cuantitativos</button>
+        <button class="quiz-opt" onclick="selectQuiz('q5','C',this)">C. La correlacional requiere más tiempo y recursos que la explicativa</button>
+        <button class="quiz-opt" onclick="selectQuiz('q5','D',this)">D. No hay diferencia real: ambas responden a la pregunta ¿por qué?</button>
+      </div>
+      <div class="feedback-text" id="fb-q5"></div>
+    </div>
+
+    <div class="quiz-item" id="qi6">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">6. ¿Por qué "correlación no implica causalidad"? ¿Cuál de las siguientes explica mejor este principio?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q6','A',this)">A. Dos variables pueden estar estadísticamente asociadas por una tercera causa común o por coincidencia, sin que una produzca necesariamente a la otra</button>
+        <button class="quiz-opt" onclick="selectQuiz('q6','B',this)">B. Las correlaciones estadísticas nunca son científicamente válidas</button>
+        <button class="quiz-opt" onclick="selectQuiz('q6','C',this)">C. La causalidad solo puede establecerse con métodos cualitativos, nunca con estadísticas</button>
+        <button class="quiz-opt" onclick="selectQuiz('q6','D',this)">D. Los coeficientes de correlación son herramientas poco confiables en ciencias sociales</button>
+      </div>
+      <div class="feedback-text" id="fb-q6"></div>
+    </div>
+
+    <div class="quiz-item" id="qi7">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">7. ¿Cuál de los siguientes describe mejor el concepto de VALIDEZ DE CONSTRUCTO?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q7','A',this)">A. La capacidad del instrumento de medir el concepto teórico que pretende medir, de acuerdo con la teoría que fundamenta la investigación</button>
+        <button class="quiz-opt" onclick="selectQuiz('q7','B',this)">B. La estabilidad de los resultados cuando el instrumento se aplica más de una vez</button>
+        <button class="quiz-opt" onclick="selectQuiz('q7','C',this)">C. La cobertura temática del instrumento sobre el tema investigado</button>
+        <button class="quiz-opt" onclick="selectQuiz('q7','D',this)">D. La capacidad del instrumento para predecir resultados futuros</button>
+      </div>
+      <div class="feedback-text" id="fb-q7"></div>
+    </div>
+
+    <div class="quiz-item" id="qi8">
+      <span class="quiz-badge analisis">Análisis de Caso</span>
+      <div class="quiz-q">8. <strong>Caso:</strong> Una consultora es contratada por el Ministerio de Economía del Ecuador para evaluar el impacto de la dolarización en las microempresas informales. La consultora diseña una encuesta de 50 preguntas cerradas, la aplica a 2.000 microempresarios seleccionados aleatoriamente y analiza los datos estadísticamente. ¿Cuál es el paradigma y el alcance de este estudio?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q8','A',this)">A. Paradigma cuantitativo; alcance descriptivo (caracteriza el impacto en detalle con datos numéricos, sin buscar relaciones causales explícitas)</button>
+        <button class="quiz-opt" onclick="selectQuiz('q8','B',this)">B. Paradigma cualitativo; alcance exploratorio</button>
+        <button class="quiz-opt" onclick="selectQuiz('q8','C',this)">C. Método mixto; alcance explicativo</button>
+        <button class="quiz-opt" onclick="selectQuiz('q8','D',this)">D. Paradigma cuantitativo; alcance exploratorio</button>
+      </div>
+      <div class="feedback-text" id="fb-q8"></div>
+    </div>
+
+    <div class="quiz-item" id="qi9">
+      <span class="quiz-badge analisis">Análisis de Caso</span>
+      <div class="quiz-q">9. <strong>Caso:</strong> Un investigador quiere demostrar que "las PYMES que usan software contable tienen mejor desempeño financiero". Diseña su estudio de tal forma que solo incluye PYMES que ya llevan varios años usando software (las más exitosas), excluyendo a las que lo intentaron y lo abandonaron. ¿Cuál es el error metodológico principal?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q9','A',this)">A. Sesgo de selección combinado con sesgo de supervivencia: la muestra excluye sistemáticamente los casos que refutarían la hipótesis, produciendo conclusiones distorsionadas</button>
+        <button class="quiz-opt" onclick="selectQuiz('q9','B',this)">B. El investigador usa un diseño cualitativo cuando debería usar uno cuantitativo</button>
+        <button class="quiz-opt" onclick="selectQuiz('q9','C',this)">C. El problema de investigación está mal formulado como pregunta</button>
+        <button class="quiz-opt" onclick="selectQuiz('q9','D',this)">D. La muestra es demasiado grande para el tipo de estudio planteado</button>
+      </div>
+      <div class="feedback-text" id="fb-q9"></div>
+    </div>
+
+    <div class="quiz-item" id="qi10">
+      <span class="quiz-badge analisis">Análisis de Caso</span>
+      <div class="quiz-q">10. <strong>Caso:</strong> Una investigadora estudia por qué los auditores internos del sector bancario ecuatoriano reportan más irregularidades que los de otros sectores. Primero analiza estadísticas de la Superintendencia de Bancos (datos numéricos) y luego realiza entrevistas profundas a 20 auditores para entender las dinámicas culturales e institucionales. ¿Cómo se clasifica este estudio?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q10','A',this)">A. Método mixto con alcance explicativo: combina datos cuantitativos (estadísticas) y cualitativos (entrevistas) para explicar las causas del fenómeno</button>
+        <button class="quiz-opt" onclick="selectQuiz('q10','B',this)">B. Estudio puramente cuantitativo con alcance descriptivo</button>
+        <button class="quiz-opt" onclick="selectQuiz('q10','C',this)">C. Estudio cualitativo con alcance exploratorio porque usa entrevistas</button>
+        <button class="quiz-opt" onclick="selectQuiz('q10','D',this)">D. Estudio experimental porque compara dos grupos distintos</button>
+      </div>
+      <div class="feedback-text" id="fb-q10"></div>
+    </div>
+
+  </div>
+
+  <button class="btn-verify" onclick="verificarQuiz()">✔ Verificar respuestas</button>
+  <button class="btn-reset" onclick="resetQuiz()" id="btnResetQ" style="display:none">↺ Reiniciar cuestionario</button>
+
+  <div class="result-panel" id="resultQ">
+    <div class="result-emoji" id="emojiQ"></div>
+    <div class="result-score" id="scoreQ"></div>
+    <div class="result-pct" id="pctQ"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progQ" style="width:0%"></div></div>
+    <div class="result-msg" id="msgQ"></div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD IA -->
+<div class="tab-content" id="ia">
+  <h2 class="section-title">🤖 Actividad con Inteligencia Artificial</h2>
+  <p class="subtitle">Pensamiento crítico asistido por IA · Herramienta recomendada: Claude (claude.ai)</p>
+
+  <div class="ia-card">
+    <h3>🎯 Objetivo de la actividad</h3>
+    <p>Esta semana usaremos la IA para explorar un tema complejo: la elección de paradigma en investigaciones contables y de auditoría reales. El objetivo es que puedas evaluar críticamente cuándo un estudio usa el paradigma más adecuado — y cuándo no.</p>
+    <div class="ia-tool-tag">⭐ Herramienta recomendada: <strong>Claude — claude.ai</strong> (gratuito) | También: ChatGPT o Gemini</div>
+  </div>
+
+  <h3>📋 Actividad: "El paradigma que nadie declaró"</h3>
+
+  <div class="ia-step">
+    <strong>Paso 1 — Presenta el contexto a la IA.</strong> Abre <a href="https://claude.ai" target="_blank" style="color:var(--azul);">claude.ai</a> y copia el siguiente prompt exactamente como aparece:
+  </div>
+
+  <div class="prompt-box">Eres un experto en metodología de la investigación con especialización en ciencias contables y auditoría. Necesito que me ayudes a analizar tres situaciones de investigación aplicada al contexto ecuatoriano.
+
+Para CADA situación debes:
+1. Identificar qué paradigma de investigación (cuantitativo, cualitativo o mixto) está usando implícitamente el investigador y por qué.
+2. Identificar el alcance investigativo (exploratorio, descriptivo, correlacional o explicativo).
+3. Señalar al menos UN sesgo potencial que podría amenazar la validez del estudio.
+4. Proponer cómo podría mejorarse el diseño para reducir ese sesgo.
+
+SITUACIONES:
+A) El Servicio de Rentas Internas (SRI) del Ecuador analiza 50.000 declaraciones tributarias de 2022 usando algoritmos de detección de anomalías para identificar patrones estadísticos de posible evasión fiscal en el sector comercial.
+
+B) Una investigadora de la Universidad de Guayaquil entrevista a 8 gerentes de empresas familiares sobre cómo toman decisiones de inversión a pesar de no contar con contabilidad formal ni estados financieros actualizados.
+
+C) Un banco privado ecuatoriano compara el historial de crédito de 3.000 clientes que recibieron asesoría financiera gratuita durante 2021–2022 con 3.000 clientes que no la recibieron, para ver si los primeros tienen mejor comportamiento de pago.
+
+Responde con detalle técnico pero lenguaje accesible para estudiantes universitarios de primer semestre.</div>
+
+  <div class="ia-step">
+    <strong>Paso 2 — Analiza la respuesta.</strong> Lee las tres situaciones que la IA analiza. Por cada una pregúntate:
+    <ul style="margin-top:8px; padding-left:20px; font-size:0.92rem;">
+      <li>¿Estoy de acuerdo con la clasificación de paradigma? ¿Por qué?</li>
+      <li>¿El sesgo que identificó la IA es el más importante o hay otro que se le escapó?</li>
+      <li>¿La propuesta de mejora es realista en el contexto ecuatoriano?</li>
+    </ul>
+  </div>
+
+  <div class="ia-step">
+    <strong>Paso 3 — Debate con la IA.</strong> Elige UNA de las situaciones y escríbele a la IA: <em>"En la situación [A/B/C], yo creo que también podría ser clasificada como [otro paradigma/alcance] porque [tu argumento]. ¿Estás de acuerdo o puedes rebatirme?"</em> Observa si la IA puede argumentar en sentido contrario con solidez.
+  </div>
+
+  <div class="ia-step">
+    <strong>Paso 4 — Crea tu propia situación.</strong> Inventa una cuarta situación de investigación aplicada al contexto contable o de auditoría ecuatoriana (diferente a las tres anteriores) y pídele a la IA que la analice. Luego compara ese análisis con el tuyo propio.
+  </div>
+
+  <div class="ia-step">
+    <strong>Paso 5 — Entregable.</strong> Redacta un texto de 300–400 palabras que incluya:
+    <ul style="margin-top:6px; padding-left:18px; font-size:0.91rem;">
+      <li>Tu análisis de la situación que más te sorprendió o generó dudas.</li>
+      <li>En qué aspectos discrepaste con la IA y por qué.</li>
+      <li>Una reflexión sobre cómo la elección de paradigma afecta las conclusiones de una investigación.</li>
+    </ul>
+  </div>
+
+  <div class="concept-box" style="margin-top:20px;">
+    <div class="label">📊 Criterio de evaluación</div>
+    <p><strong>✅ Pensamiento crítico (nota alta):</strong> El estudiante discrepa con argumentos técnicos, identifica sesgos que la IA no vio, y reflexiona sobre las implicaciones prácticas.<br><br>
+    <strong>⚠️ Copia sin análisis (nota baja):</strong> El estudiante simplemente transcribe lo que la IA respondió sin agregar perspectiva propia ni cuestionamiento alguno.</p>
+  </div>
+</div>
+
+<!-- REFLEXIÓN -->
+<div class="tab-content" id="reflexion">
+  <h2 class="section-title">💭 Preguntas Reflexivas</h2>
+  <p class="subtitle">Conecta los paradigmas y los sesgos con tu vida cotidiana</p>
+
+  <div class="concept-box" style="margin-bottom:24px;">
+    <div class="label">🎯 Propósito</div>
+    <p>Los paradigmas no son solo cosa de investigadores. Cada persona tiene una forma de "ver el mundo" que determina cómo interpreta la realidad y toma decisiones. Esta sección te invita a descubrir cuál es la tuya — y si es la más útil para cada situación.</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 1 · Tu paradigma personal</div>
+    <p>Cuando tienes que tomar una decisión importante (¿comprar algo, cambiar de trabajo, escoger a un amigo?), ¿tiendes a buscar datos y estadísticas (cuantitativo) o a guiarte por el contexto, las relaciones y las emociones (cualitativo)? ¿Crees que ese estilo te ha funcionado siempre o hay momentos donde hubiera convenido usar el otro enfoque?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 2 · Sesgos de confirmación en redes sociales</div>
+    <p>¿Alguna vez buscaste en Google o en redes sociales información para "confirmar" algo que ya creías, ignorando los resultados que contradecían tu idea? ¿Reconoces ese sesgo de confirmación en ti mismo? ¿En qué situaciones eres más vulnerable a él?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 3 · El "sesgo de supervivencia" en la vida</div>
+    <p>Piensa en una historia de éxito empresarial o personal que te han contado como modelo a seguir. ¿Cuántas personas intentaron lo mismo y fracasaron sin que nadie lo mencione? ¿Cómo cambia tu interpretación de esa historia de éxito cuando consideras a los que no lograron lo mismo?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 4 · Alcance de tus propias "investigaciones"</div>
+    <p>Antes de tomar una decisión importante (comprar un celular, escoger una universidad, elegir a una pareja), ¿tu proceso de investigación personal es más exploratorio (hago preguntas generales primero), descriptivo (busco información detallada), o correlacional (comparo opciones)? ¿Llegas alguna vez al nivel explicativo (entender por qué algo es mejor)?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 5 · Validez en la información que consumes</div>
+    <p>Cuando lees un artículo, ves un video o escuchas a alguien dar estadísticas o datos, ¿preguntas mentalmente: "¿De dónde vienen estos datos? ¿Cuántas personas estudiaron? ¿Podría haber sesgo?"? ¿Qué tan seguido lo haces? ¿Crees que deberías hacerlo más?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 6 · Contabilidad y paradigma</div>
+    <p>Un estado financiero es la representación numérica de la realidad económica de una empresa. Pero detrás de cada número hay decisiones humanas, criterios subjetivos y contexto cultural. ¿Crees que la contabilidad es puramente cuantitativa, o tiene dimensiones cualitativas que los números no capturan? Pon un ejemplo concreto.</p>
+  </div>
+</div>
+
+<!-- BIBLIOGRAFÍA -->
+<div class="tab-content" id="biblio">
+  <h2 class="section-title">📚 Bibliografía de Referencia</h2>
+  <p class="subtitle">Formato APA 7.ª edición · Semana 2 — Paradigmas, Alcances, Sesgos y Validez</p>
+
+  <div class="ref-card">
+    <div class="ref-num">1</div>
+    <div class="ref-text">Hernández Sampieri, R., Fernández Collado, C., y Baptista Lucio, P. (2014). <em>Metodología de la investigación</em> (6.ª ed.). McGraw-Hill Education.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">2</div>
+    <div class="ref-text">Kuhn, T. S. (1971). <em>La estructura de las revoluciones científicas</em>. Fondo de Cultura Económica. (Obra original publicada en 1962)</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">3</div>
+    <div class="ref-text">Creswell, J. W. (2014). <em>Research design: Qualitative, quantitative, and mixed methods approaches</em> (4.ª ed.). SAGE Publications.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">4</div>
+    <div class="ref-text">Arias, F. G. (2006). <em>El proyecto de investigación: Introducción a la metodología científica</em> (5.ª ed.). Episteme.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">5</div>
+    <div class="ref-text">Guba, E. G., y Lincoln, Y. S. (1994). Competing paradigms in qualitative research. En N. K. Denzin y Y. S. Lincoln (Eds.), <em>Handbook of qualitative research</em> (pp. 105–117). SAGE Publications.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">6</div>
+    <div class="ref-text">Johnson, R. B., Onwuegbuzie, A. J., y Turner, L. A. (2007). Toward a definition of mixed methods research. <em>Journal of Mixed Methods Research, 1</em>(2), 112–133. https://doi.org/10.1177/1558689806298224</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">7</div>
+    <div class="ref-text">Tamayo y Tamayo, M. (2003). <em>El proceso de la investigación científica</em> (4.ª ed.). Limusa.</div>
+  </div>
+
+  <div class="bib-note">
+    📌 <strong>Nota:</strong> Se recomienda verificar cada referencia en Google Scholar (<a href="https://scholar.google.com" target="_blank">scholar.google.com</a>) o en el repositorio institucional de la Universidad de Guayaquil antes de citar en trabajos académicos.
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// ===== NAVEGACIÓN =====
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== EJERCICIO =====
+const ejAnswers = {
+  e1: { correct: 'A', feedback: {
+    A: '✅ Correcto. Entrevistas en profundidad y análisis de narrativas son técnicas del paradigma cualitativo (interpretativo). La investigadora busca comprender experiencias subjetivas, no cuantificarlas.',
+    B: '❌ Incorrecto. El paradigma cuantitativo usa encuestas estructuradas, datos numéricos y análisis estadístico — no entrevistas en profundidad ni análisis de narrativas.',
+    C: '❌ Incorrecto. El diseño experimental implica manipulación de variables en condiciones controladas; las entrevistas no constituyen un diseño experimental.',
+    D: '❌ Incorrecto. El método deductivo puro aplica principios generales a casos particulares; la investigación con entrevistas narrativas sigue un proceso inductivo (de los datos a las conclusiones).'
+  }},
+  e2: { correct: 'A', feedback: {
+    A: '✅ Correcto. 800 empresas con análisis estadístico = paradigma cuantitativo. La pregunta central (¿existe relación entre endeudamiento y quiebra?) indica alcance correlacional: mide la asociación entre dos variables.',
+    B: '❌ Incorrecto. 800 casos con análisis estadístico es claramente cuantitativo, no cualitativo. Y si busca relación entre variables específicas, no es exploratorio.',
+    C: '❌ Incorrecto. No hay elementos cualitativos descritos (entrevistas, observación, narrativas), por lo que no es método mixto.',
+    D: '❌ Incorrecto. Un estudio explicativo busca las causas; este estudio busca la asociación estadística, no la causa. Para ser explicativo debería identificar mecanismos causales.'
+  }},
+  e3: { correct: 'A', feedback: {
+    A: '✅ Correcto. Ante un fenómeno nuevo (criptomonedas como activo empresarial) sin antecedentes claros, sin hipótesis y con diseño flexible, el alcance correcto es exploratorio. Se busca reconocer y ubicar el problema.',
+    B: '❌ Incorrecto. El explicativo requiere conocimiento previo sólido sobre el fenómeno y busca causas. Sin datos ni antecedentes, no se puede explicar causas.',
+    C: '❌ Incorrecto. El correlacional requiere tener ya identificadas al menos dos variables para analizar su relación; en este caso apenas se está explorando qué hay.',
+    D: '❌ Incorrecto. El alcance descriptivo requiere ya conocer las características principales del fenómeno para describirlas con precisión; aquí no hay ese conocimiento previo.'
+  }},
+  e4: { correct: 'A', feedback: {
+    A: '✅ Correcto. Cuando los participantes responden lo que creen que el contexto social espera (y no la verdad), especialmente por la presencia de figuras de autoridad, estamos ante sesgo de respuesta o deseabilidad social.',
+    B: '❌ Incorrecto. El sesgo de selección ocurre en el momento de elegir la muestra, no durante la aplicación del instrumento con la muestra ya seleccionada.',
+    C: '❌ Incorrecto. El sesgo temporal se relaciona con el período en que se recogen los datos o con el sesgo de supervivencia, no con la influencia del contexto social en las respuestas.',
+    D: '❌ Incorrecto. El sesgo de medición está relacionado con problemas en el instrumento mismo (preguntas mal formuladas); aquí el problema es el contexto de aplicación, no el instrumento.'
+  }},
+  e5: { correct: 'A', feedback: {
+    A: '✅ Correcto. La variable independiente es la presunta "causa" o la que se manipula/observa como factor de influencia. La capacitación en control interno es el factor que, según la hipótesis, influye sobre los errores.',
+    B: '❌ Incorrecto. La variable dependiente es el "efecto" medido. En este caso, "incidencia de errores en los estados financieros" es la variable dependiente: lo que se mide como resultado.',
+    C: '❌ Incorrecto. La variable interviniente es aquella que puede afectar la relación sin ser el foco del estudio (como el tamaño de la empresa o el sector). La capacitación es el foco principal.',
+    D: '❌ Incorrecto. Las variables de control son aquellas que se mantienen constantes para no contaminar los resultados. La capacitación es la variable central de la hipótesis.'
+  }},
+  e6: { correct: 'A', feedback: {
+    A: '✅ Correcto. Un instrumento puede ser muy consistente (confiable/preciso) y aun así medir el concepto equivocado (baja validez). Son dimensiones independientes: necesitamos ambas para que un instrumento sea útil.',
+    B: '❌ Incorrecto. Si el instrumento da resultados inconsistentes, tiene baja confiabilidad. Si mide el concepto correcto, tiene alta validez. Aquí el problema es el inverso: consistente pero midiendo lo equivocado.',
+    C: '❌ Incorrecto. Un sesgo bajo y alta precisión no describen el problema identificado. El problema aquí es específicamente la falta de validez conceptual.',
+    D: '❌ Incorrecto. El error aleatorio implica variabilidad en los resultados; aquí el instrumento produce resultados estables (no aleatorios), solo que del concepto equivocado.'
+  }},
+  e7: { correct: 'A', feedback: {
+    A: '✅ Correcto. La pregunta central es ¿POR QUÉ tienen menos fraudes? — eso es alcance explicativo. Busca relaciones causales y mecanismos que expliquen el fenómeno, el nivel más profundo de investigación.',
+    B: '❌ Incorrecto. El alcance descriptivo caracterizaría el fenómeno (¿cómo son esas empresas?) pero no explicaría por qué tienen menos fraudes.',
+    C: '❌ Incorrecto. El exploratorio se usa cuando hay poco conocimiento previo. Aquí ya existe conocimiento previo (se sabe que COSO reduce fraudes) y se busca explicar el mecanismo.',
+    D: '❌ Incorrecto. El correlacional busca si existe asociación entre variables; aquí ya se sabe que existe la relación y se busca explicar sus causas.'
+  }},
+  e8: { correct: 'A', feedback: {
+    A: '✅ Correcto. Estudiar solo las empresas que sobrevivieron para sacar conclusiones sobre "resiliencia" excluye sistemáticamente los casos más relevantes (las que quebraron). Eso es sesgo de supervivencia: los "perdedores" no están en la muestra.',
+    B: '❌ Incorrecto. El sesgo de confirmación implica que el investigador busca evidencias que apoyen su hipótesis. Aquí el problema es estructural en el diseño de la muestra, no en la búsqueda de evidencias.',
+    C: '❌ Incorrecto. El sesgo de medición surge de problemas en los instrumentos de recolección de datos. Aquí el problema es en la selección de quiénes se estudian, no en cómo se miden.',
+    D: '❌ Incorrecto. La deseabilidad social ocurre cuando los participantes responden lo que se espera socialmente. Aquí el problema es la exclusión de ciertos casos de la muestra.'
+  }}
+};
+
+const ejSelected = {};
+function selectOpt(key, val, btn) {
+  btn.parentElement.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  ejSelected[key] = val;
+}
+
+function verificarEjercicio() {
+  const keys = ['e1','e2','e3','e4','e5','e6','e7','e8'];
+  const missing = keys.filter(k => !ejSelected[k]);
+  if (missing.length > 0) { alert(`⚠️ Responde todos los ítems antes de verificar. Faltan: ${missing.length}.`); return; }
+  let correct = 0;
+  keys.forEach((key, i) => {
+    const ans = ejAnswers[key];
+    const container = document.getElementById('ei' + (i+1));
+    container.querySelectorAll('.opt-btn').forEach(b => {
+      b.disabled = true; b.classList.remove('selected');
+      const letter = b.textContent.trim().charAt(0);
+      if (letter === ans.correct) b.classList.add('correct-answer');
+      else if (letter === ejSelected[key] && ejSelected[key] !== ans.correct) b.classList.add('wrong-answer');
+    });
+    const isOk = ejSelected[key] === ans.correct;
+    if (isOk) correct++;
+    container.classList.add(isOk ? 'correct' : 'incorrect');
+    const fb = document.getElementById('fb-' + key);
+    fb.textContent = ans.feedback[ejSelected[key]];
+    fb.className = 'feedback-text show ' + (isOk ? 'ok' : 'fail');
+  });
+  const pct = Math.round((correct / keys.length) * 100);
+  document.getElementById('scoreEj').textContent = correct + ' / ' + keys.length;
+  document.getElementById('pctEj').textContent = pct + '% de respuestas correctas';
+  setTimeout(() => { document.getElementById('progEj').style.width = pct + '%'; }, 100);
+  const msgs = [[100,'🏆','¡Perfecto! Dominas los paradigmas y alcances de la Semana 2.'],[80,'🎯','¡Muy bien! Comprensión sólida. Revisa los ítems que fallaste.'],[60,'📘','Buen avance. Refuerza los temas con mayor dificultad.'],[40,'⚠️','Necesitas consolidar los conceptos. Vuelve al contenido.'],[0,'📖','Revisa el material completo antes de reintentar. ¡Ánimo!']];
+  const m = msgs.find(([t]) => pct >= t);
+  document.getElementById('emojiEj').textContent = m[1];
+  document.getElementById('msgEj').textContent = m[2];
+  document.getElementById('resultEj').classList.add('show');
+  document.getElementById('btnResetEj').style.display = 'inline-block';
+  document.getElementById('resultEj').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetEjercicio() {
+  const keys = ['e1','e2','e3','e4','e5','e6','e7','e8'];
+  keys.forEach((key, i) => {
+    delete ejSelected[key];
+    const c = document.getElementById('ei' + (i+1));
+    c.classList.remove('correct','incorrect');
+    c.querySelectorAll('.opt-btn').forEach(b => { b.disabled = false; b.classList.remove('selected','correct-answer','wrong-answer'); });
+    const fb = document.getElementById('fb-' + key);
+    fb.className = 'feedback-text'; fb.textContent = '';
+  });
+  document.getElementById('resultEj').classList.remove('show');
+  document.getElementById('progEj').style.width = '0%';
+  document.getElementById('btnResetEj').style.display = 'none';
+}
+
+// ===== CUESTIONARIO =====
+const quizAnswers = {
+  q1: { correct: 'A', fb: { A: '✅ Correcto. Kuhn (1971) define paradigma como las realizaciones científicas universalmente reconocidas que proporcionan modelos de problemas y soluciones a una comunidad científica durante cierto tiempo.', B: '❌ Incorrecto. Una técnica estadística es una herramienta metodológica específica, no un paradigma. Los paradigmas son marcos filosóficos amplios, no herramientas técnicas.', C: '❌ Incorrecto. Eso describe una hipótesis. Un paradigma es mucho más amplio: es el marco conceptual y filosófico desde el que se construye toda la investigación.', D: '❌ Incorrecto. Los instrumentos de medición son elementos metodológicos específicos, no paradigmas. El paradigma determina qué tipo de instrumentos son apropiados, no al revés.' }},
+  q2: { correct: 'A', fb: { A: '✅ Correcto. La dimensión ontológica pregunta sobre la naturaleza de la realidad (¿es objetiva o subjetiva?). La epistemológica pregunta sobre la relación investigador-objeto (¿puede ser neutral o siempre interactúa?).', B: '❌ Incorrecto. Ambas dimensiones (ontológica y epistemológica) están presentes en TODOS los paradigmas (cuantitativo, cualitativo y mixto); no son exclusivas de ninguno.', C: '❌ Incorrecto. El método es la dimensión metodológica. La muestra también es metodológica. Ni la ontología ni la epistemología se refieren directamente a estos elementos.', D: '❌ Incorrecto. Las tres dimensiones (ontológica, epistemológica y metodológica) son distintas y representan preguntas fundamentalmente diferentes sobre el proceso de conocer.' }},
+  q3: { correct: 'A', fb: { A: '✅ Correcto. En el paradigma cuantitativo, el investigador debe ser neutral e independiente del objeto de estudio. La realidad se concibe como objetiva y separada del observador, lo que requiere distancia metodológica.', B: '❌ Incorrecto. Involucrarse activamente e interactuar con los participantes es la postura epistemológica del paradigma cualitativo (interpretativo), no del cuantitativo.', C: '❌ Incorrecto. Asumir que la realidad es subjetiva y múltiple es el supuesto ontológico del paradigma cualitativo, no del cuantitativo (que asume realidad objetiva y singular).', D: '❌ Incorrecto. El investigador cuantitativo sí formula hipótesis, incluso es su punto de partida fundamental en el proceso hipotético-deductivo.' }},
+  q4: { correct: 'A', fb: { A: '✅ Correcto. Un buen problema de investigación debe ser específico (no vago), delimitado (con límites claros) y factible (posible de investigar con metodología y recursos disponibles). La especificidad y la viabilidad son sus características más importantes.', B: '❌ Incorrecto. Abarcar muchas variables no garantiza relevancia; al contrario, puede hacer inmanejable la investigación. La calidad del problema no depende del número de variables.', C: '❌ Incorrecto. La novedad absoluta no es requisito. Muchos estudios valiosos replican investigaciones previas en nuevos contextos o con nuevas metodologías.', D: '❌ Incorrecto. La complejidad y dificultad de comprensión no son indicadores de rigor. Un problema bien formulado es claro y comprensible para todos los que lo lean.' }},
+  q5: { correct: 'A', fb: { A: '✅ Correcto. El correlacional determina si existe asociación estadística entre variables (¿están relacionadas? ¿cuánto?). El explicativo va un paso más allá: explica POR QUÉ existe esa relación, identificando mecanismos causales.', B: '❌ Incorrecto. El alcance no determina el método (cuantitativo/cualitativo). Un estudio correlacional puede ser cuantitativo o cualitativo según el paradigma elegido.', C: '❌ Incorrecto. El nivel de recursos requeridos depende del diseño específico, no del alcance. Un correlacional bien diseñado puede ser más costoso que un explicativo simple.', D: '❌ Incorrecto. La pregunta ¿por qué? es exclusiva del alcance explicativo. El correlacional responde ¿existe relación? y ¿cuán fuerte es?, no por qué existe.' }},
+  q6: { correct: 'A', fb: { A: '✅ Correcto. La correlación estadística muestra que dos variables varían juntas, pero no prueba que una cause a la otra. Puede existir una tercera variable (variable confusora) que cause ambas, o puede ser una coincidencia estadística (correlaciones espurias).', B: '❌ Incorrecto. Las correlaciones estadísticas son herramientas científicamente válidas y ampliamente usadas. El problema no es la herramienta sino su interpretación incorrecta como causalidad.', C: '❌ Incorrecto. La causalidad puede establecerse con diseños cuantitativos experimentales bien controlados. El problema no está en lo cuantitativo vs. cualitativo sino en el diseño del estudio.', D: '❌ Incorrecto. Los coeficientes de correlación son herramientas estadísticas confiables y bien fundamentadas matemáticamente. Su limitación no está en la confiabilidad sino en la interpretación causal.' }},
+  q7: { correct: 'A', fb: { A: '✅ Correcto. La validez de constructo verifica si el instrumento realmente mide el concepto teórico que pretende medir, según el marco teórico de la investigación. Es la validez más importante y más difícil de establecer.', B: '❌ Incorrecto. Eso describe la confiabilidad (o precisión), no la validez de constructo. La confiabilidad mide estabilidad de resultados; la validez mide si se mide lo correcto.', C: '❌ Incorrecto. Eso describe la validez de contenido: verificar que el instrumento cubre adecuadamente todos los aspectos del tema. Es un tipo diferente de validez.', D: '❌ Incorrecto. Eso describe la validez predictiva: si los resultados del instrumento permiten predecir comportamientos o resultados futuros.' }},
+  q8: { correct: 'A', fb: { A: '✅ Correcto. 2.000 casos con encuesta estructurada y análisis estadístico = paradigma cuantitativo. El objetivo es evaluar el impacto con datos numéricos y caracterizarlo en detalle = alcance descriptivo. No busca causas (explicativo) ni correlación entre dos variables específicas (correlacional).', B: '❌ Incorrecto. Encuesta a 2.000 personas con análisis estadístico es claramente cuantitativo. Y con tanto conocimiento previo sobre dolarización, no puede ser exploratorio.', C: '❌ Incorrecto. No hay elementos cualitativos (entrevistas, observación, narrativas) en el diseño descrito. El método mixto requiere ambos componentes.', D: '❌ Incorrecto. El alcance exploratorio se usa cuando hay muy poco conocimiento previo. La dolarización en Ecuador es un fenómeno ampliamente estudiado; hay suficiente conocimiento para un diseño descriptivo.' }},
+  q9: { correct: 'A', fb: { A: '✅ Correcto. Al incluir solo empresas que "sobrevivieron" usando el software (sesgo de supervivencia) y excluir las que fracasaron (sesgo de selección), la muestra está sistemáticamente sesgada hacia los casos exitosos, haciendo imposible una conclusión válida sobre el impacto del software.', B: '❌ Incorrecto. No hay información sobre el método (cualitativo/cuantitativo) en el problema; ese no es el error descrito. El error está en la composición de la muestra.', C: '❌ Incorrecto. El problema de investigación puede estar bien formulado; el error metodológico específico está en cómo se seleccionaron los casos para estudiar.', D: '❌ Incorrecto. No se menciona el tamaño de la muestra como problema; el problema es quiénes están incluidos y quiénes están excluidos sistemáticamente.' }},
+  q10: { correct: 'A', fb: { A: '✅ Correcto. Combina datos estadísticos de la Superintendencia de Bancos (cuantitativo) con entrevistas profundas (cualitativo) = método mixto. La pregunta central (¿POR QUÉ ocurre?) indica alcance explicativo.', B: '❌ Incorrecto. Las entrevistas son un componente cualitativo explícito; ignorarlas hace incorrecta esta clasificación. No puede ser "puramente cuantitativo".', C: '❌ Incorrecto. Aunque usa entrevistas, también usa estadísticas de la Superintendencia de Bancos. La combinación hace que sea mixto, no puramente cualitativo. Y el alcance es explicativo, no exploratorio.', D: '❌ Incorrecto. El diseño experimental requiere manipulación de variables en condiciones controladas; aquí se observan fenómenos naturales sin manipulación alguna.' }}
+};
+
+const quizSelected = {};
+function selectQuiz(key, val, btn) {
+  btn.parentElement.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  quizSelected[key] = val;
+}
+
+function verificarQuiz() {
+  const keys = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+  const missing = keys.filter(k => !quizSelected[k]);
+  if (missing.length > 0) { alert(`⚠️ Responde todas las preguntas antes de verificar. Faltan: ${missing.length}.`); return; }
+  let correct = 0;
+  keys.forEach((key, i) => {
+    const ans = quizAnswers[key];
+    const container = document.getElementById('qi' + (i+1));
+    container.querySelectorAll('.quiz-opt').forEach(b => {
+      b.disabled = true; b.classList.remove('selected');
+      const letter = b.textContent.trim().charAt(0);
+      if (letter === ans.correct) b.classList.add('correct-answer');
+      else if (letter === quizSelected[key] && quizSelected[key] !== ans.correct) b.classList.add('wrong-answer');
+    });
+    const isOk = quizSelected[key] === ans.correct;
+    if (isOk) correct++;
+    container.classList.add(isOk ? 'correct' : 'incorrect');
+    const fb = document.getElementById('fb-' + key);
+    fb.textContent = ans.fb[quizSelected[key]];
+    fb.className = 'feedback-text show ' + (isOk ? 'ok' : 'fail');
+  });
+  const pct = Math.round((correct / keys.length) * 100);
+  document.getElementById('scoreQ').textContent = correct + ' / ' + keys.length;
+  document.getElementById('pctQ').textContent = pct + '% de respuestas correctas';
+  setTimeout(() => { document.getElementById('progQ').style.width = pct + '%'; }, 100);
+  const msgs = [[100,'🏆','¡Puntaje perfecto! Dominas los paradigmas, alcances y sesgos.'],[80,'🎯','¡Excelente! Comprensión sólida. Revisa los casos que fallaste.'],[60,'📘','Buen avance. Refuerza los temas con mayor dificultad.'],[40,'⚠️','Revisa el contenido con atención antes de continuar.'],[0,'📖','Vuelve al material de esta semana. ¡La perseverancia es la clave!']];
+  const m = msgs.find(([t]) => pct >= t);
+  document.getElementById('emojiQ').textContent = m[1];
+  document.getElementById('msgQ').textContent = m[2];
+  document.getElementById('resultQ').classList.add('show');
+  document.getElementById('btnResetQ').style.display = 'inline-block';
+  document.getElementById('resultQ').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetQuiz() {
+  const keys = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+  keys.forEach((key, i) => {
+    delete quizSelected[key];
+    const c = document.getElementById('qi' + (i+1));
+    c.classList.remove('correct','incorrect');
+    c.querySelectorAll('.quiz-opt').forEach(b => { b.disabled = false; b.classList.remove('selected','correct-answer','wrong-answer'); });
+    const fb = document.getElementById('fb-' + key);
+    fb.className = 'feedback-text'; fb.textContent = '';
+  });
+  document.getElementById('resultQ').classList.remove('show');
+  document.getElementById('progQ').style.width = '0%';
+  document.getElementById('btnResetQ').style.display = 'none';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 06 | Metodología de la Investigación | Universidad de Guayaquil</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     VARIABLES Y RESET
+  ============================================================ */
+  :root {
+    --azul-oscuro: #003366;
+    --azul-celeste: #87CEEB;
+    --azul-claro-bg: #e8f4fb;
+    --blanco: #ffffff;
+    --gris-claro: #f5f7fa;
+    --gris-borde: #dee2e6;
+    --texto-oscuro: #1a1a2e;
+    --verde: #28a745;
+    --rojo: #dc3545;
+    --naranja: #fd7e14;
+    --amarillo: #ffc107;
+    --sombra: 0 2px 12px rgba(0,51,102,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #eef2f7;
+    color: var(--texto-oscuro);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ============================================================
+     ENCABEZADO
+  ============================================================ */
+  header {
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    padding: 22px 28px 16px;
+  }
+  header .inst {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.82;
+    margin-bottom: 6px;
+  }
+  header h1 {
+    font-family: 'Lora', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  header .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin-top: 10px;
+    font-size: 13px;
+    opacity: 0.88;
+  }
+  header .meta span {
+    background: rgba(255,255,255,0.13);
+    border-radius: 20px;
+    padding: 3px 12px;
+  }
+
+  /* ============================================================
+     BARRA DE PESTAÑAS
+  ============================================================ */
+  .tab-bar-wrapper {
+    background: var(--azul-celeste);
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: 3px solid var(--azul-oscuro);
+  }
+  .tab-bar {
+    display: inline-flex;
+    padding: 0 8px;
+  }
+  .tab-btn {
+    display: inline-block;
+    padding: 11px 18px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #1a1a2e;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { background: rgba(255,255,255,0.45); }
+  .tab-btn.active {
+    background: var(--blanco);
+    color: var(--azul-oscuro);
+    font-weight: 700;
+    border-bottom: 3px solid var(--azul-oscuro);
+  }
+
+  /* ============================================================
+     CONTENIDO PRINCIPAL
+  ============================================================ */
+  .tab-content { display: none; padding: 28px 24px 40px; max-width: 900px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.35rem;
+    color: var(--azul-oscuro);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--azul-celeste);
+  }
+  h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    color: var(--azul-oscuro);
+    margin: 20px 0 10px;
+  }
+  p { margin-bottom: 14px; }
+  ul, ol { margin: 0 0 14px 22px; }
+  li { margin-bottom: 6px; }
+
+  /* ============================================================
+     COMPONENTES REUTILIZABLES
+  ============================================================ */
+  .caja-concepto {
+    border-left: 5px solid var(--azul-oscuro);
+    background: var(--gris-claro);
+    padding: 14px 18px;
+    margin: 18px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .caja-concepto strong { color: var(--azul-oscuro); }
+
+  .caja-ejemplo {
+    background: var(--azul-claro-bg);
+    border: 1px solid #b8ddf5;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 18px 0;
+  }
+  .caja-ejemplo .etiqueta {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--azul-oscuro);
+    margin-bottom: 6px;
+  }
+
+  .caja-clave {
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 22px 0;
+  }
+  .caja-clave .etiqueta {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-bottom: 6px;
+  }
+  .caja-clave p { margin-bottom: 0; }
+
+  .caja-advertencia {
+    background: #fff8e1;
+    border-left: 5px solid #ffc107;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 18px 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 14.5px;
+  }
+  th {
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    padding: 10px 14px;
+    text-align: left;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--gris-borde);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: var(--gris-claro); }
+  tr:hover td { background: #dff0fa; }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 12px;
+    font-size: 11.5px;
+    font-weight: 700;
+  }
+  .badge-teorica { background: #cce5ff; color: #004085; }
+  .badge-analisis { background: #d4edda; color: #155724; }
+  .badge-reflexion { background: #f3e5f5; color: #4a148c; }
+
+  .paso {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .paso-num {
+    background: var(--azul-oscuro);
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ============================================================
+     EJERCICIO INTERACTIVO
+  ============================================================ */
+  .ejercicio-item {
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--sombra);
+  }
+  .ejercicio-item p { font-weight: 600; margin-bottom: 10px; }
+  .opcion-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1.5px solid var(--gris-borde);
+    margin-bottom: 7px;
+    transition: background 0.15s;
+    font-size: 14.5px;
+    background: #fafafa;
+  }
+  .opcion-label:hover { background: var(--azul-claro-bg); border-color: var(--azul-celeste); }
+  .opcion-label input { margin-top: 2px; }
+  .opcion-label.correcto { background: #d4edda; border-color: var(--verde); }
+  .opcion-label.incorrecto { background: #f8d7da; border-color: var(--rojo); }
+
+  .explicacion-item {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  .explicacion-correcto { background: #d4edda; border-left: 4px solid var(--verde); }
+  .explicacion-incorrecto { background: #f8d7da; border-left: 4px solid var(--rojo); }
+
+  .btn-primary {
+    background: var(--azul-oscuro);
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #0055a4; }
+  .btn-secondary {
+    background: var(--gris-claro);
+    color: var(--azul-oscuro);
+    border: 2px solid var(--azul-oscuro);
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-left: 10px;
+    transition: background 0.2s;
+    display: none;
+  }
+  .btn-secondary:hover { background: var(--azul-claro-bg); }
+
+  .resultado-box {
+    display: none;
+    margin-top: 22px;
+    padding: 20px;
+    background: var(--blanco);
+    border-radius: 10px;
+    border: 2px solid var(--azul-oscuro);
+    text-align: center;
+  }
+  .resultado-box h3 { color: var(--azul-oscuro); }
+  .barra-progreso-bg {
+    background: #dee2e6;
+    border-radius: 10px;
+    height: 18px;
+    overflow: hidden;
+    margin: 14px 0;
+  }
+  .barra-progreso-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--azul-oscuro), #0077cc);
+    transition: width 0.8s ease;
+  }
+  .resultado-emoji { font-size: 2.5rem; margin: 10px 0; }
+
+  /* ============================================================
+     CUESTIONARIO
+  ============================================================ */
+  .quiz-item {
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 18px;
+    box-shadow: var(--sombra);
+  }
+  .quiz-pregunta { font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+  .quiz-opcion {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1.5px solid var(--gris-borde);
+    margin-bottom: 7px;
+    font-size: 14.5px;
+    background: #fafafa;
+    transition: background 0.15s;
+  }
+  .quiz-opcion:hover { background: var(--azul-claro-bg); border-color: var(--azul-celeste); }
+  .quiz-opcion.correcto { background: #d4edda; border-color: var(--verde); }
+  .quiz-opcion.incorrecto { background: #f8d7da; border-color: var(--rojo); }
+  .quiz-opcion input { margin-top: 2px; }
+
+  /* ============================================================
+     BIBLIOGRAFÍA
+  ============================================================ */
+  .ref-card {
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--sombra);
+    border-left: 5px solid var(--azul-celeste);
+  }
+  .ref-autor { font-weight: 700; color: var(--azul-oscuro); }
+  .ref-titulo { font-style: italic; }
+  .ref-nota {
+    background: #fff8e1;
+    border-left: 4px solid #ffc107;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 22px;
+    font-size: 13.5px;
+  }
+
+  /* ============================================================
+     ACTIVIDAD IA Y REFLEXION
+  ============================================================ */
+  .prompt-box {
+    background: #1a1a2e;
+    color: #a0e0ff;
+    border-radius: 8px;
+    padding: 18px 20px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 16px 0;
+    white-space: pre-wrap;
+    border-left: 4px solid #87CEEB;
+  }
+  .reflx-card {
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    box-shadow: var(--sombra);
+    border-left: 5px solid #9b59b6;
+  }
+  .reflx-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #9b59b6;
+    margin-bottom: 6px;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.15rem; }
+    .tab-content { padding: 18px 12px 30px; }
+    table { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     ENCABEZADO
+============================================================ -->
+<header>
+  <div class="inst">Universidad de Guayaquil &bull; Facultad de Ciencias Administrativas &bull; Carrera en Contabilidad y Auditoría</div>
+  <h1>Metodología de la Investigación</h1>
+  <div class="meta">
+    <span>📅 Semana 06</span>
+    <span>📚 Unidad 2: Enfoques y Diseños de Investigación</span>
+    <span>🎯 Diseños Experimentales y No Experimentales</span>
+    <span>🏛️ Modalidad Virtual</span>
+  </div>
+</header>
+
+<!-- ============================================================
+     BARRA DE PESTAÑAS
+============================================================ -->
+<div class="tab-bar-wrapper">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="mostrarTab('repaso')">📋 Repaso</button>
+    <button class="tab-btn" onclick="mostrarTab('tema1')">1. Diseño de Investigación</button>
+    <button class="tab-btn" onclick="mostrarTab('tema2')">2. Tipos de Diseño</button>
+    <button class="tab-btn" onclick="mostrarTab('tema3')">3. Diseños Experimentales</button>
+    <button class="tab-btn" onclick="mostrarTab('tema4')">4. El Experimento: Pasos y Contextos</button>
+    <button class="tab-btn" onclick="mostrarTab('ejercicio')">🧩 Ejercicio Interactivo</button>
+    <button class="tab-btn" onclick="mostrarTab('cuestionario')">📝 Cuestionario</button>
+    <button class="tab-btn" onclick="mostrarTab('ia')">🤖 Actividad con IA</button>
+    <button class="tab-btn" onclick="mostrarTab('reflexion')">💭 Preguntas Reflexivas</button>
+    <button class="tab-btn" onclick="mostrarTab('bibliografia')">📚 Bibliografía</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     REPASO
+============================================================ -->
+<div id="repaso" class="tab-content active">
+  <h2>📋 Repaso — Lo que hemos construido hasta aquí</h2>
+  <p>Esta es la <strong>Semana 6</strong> del curso. Hemos recorrido un camino conceptual que va desde los fundamentos filosóficos del conocimiento hasta las decisiones metodológicas concretas que define un investigador. Antes de avanzar, consolidemos lo esencial.</p>
+
+  <h3>Unidad 1 — Introducción a la Investigación Científica (Semanas 1–4)</h3>
+  <div class="caja-concepto">
+    <strong>Semana 1:</strong> Aprendimos que el conocimiento puede ser <em>empírico</em> (basado en la experiencia directa) o <em>científico</em> (sistemático, verificable y replicable). Conocimos las <strong>ciencias formales</strong> (matemática, lógica) y las <strong>ciencias empíricas</strong> (naturales y sociales). El <strong>método científico</strong> —observar, formular hipótesis, experimentar y concluir— es la brújula que guía toda investigación rigurosa.
+  </div>
+  <div class="caja-concepto">
+    <strong>Semana 2:</strong> Exploramos los <strong>paradigmas de investigación</strong>: positivismo, interpretativismo y enfoque crítico. Entendimos los <strong>alcances investigativos</strong> (exploratorio, descriptivo, correlacional y explicativo) y cómo los <strong>sesgos</strong> amenazan la precisión y validez de los estudios.
+  </div>
+  <div class="caja-concepto">
+    <strong>Semana 3:</strong> Profundizamos en la <strong>ética en la investigación</strong> y los <strong>fundamentos epistemológicos</strong> de las ciencias sociales. La epistemología —la rama de la filosofía que estudia qué es el conocimiento y cómo se lo obtiene— es el marco sobre el cual se apoya toda decisión metodológica.
+  </div>
+  <div class="caja-concepto">
+    <strong>Semana 4:</strong> Abordamos la <strong>complejidad e interdisciplinariedad</strong> de la ciencia moderna. Las problemáticas reales —como el fraude contable, la informalidad empresarial o la evasión fiscal— no pueden entenderse desde una sola disciplina. También analizamos las <strong>epistemologías regionales</strong>: cada área del conocimiento tiene sus propias reglas para generar y validar su saber.
+  </div>
+
+  <h3>Unidad 2 — Enfoques y Diseños de Investigación (Semana 5)</h3>
+  <div class="caja-concepto">
+    <strong>Semana 5:</strong> Iniciamos la Unidad 2 distinguiendo los dos grandes enfoques de investigación:
+    <ul style="margin-top:8px;">
+      <li><strong>Enfoque cuantitativo:</strong> Mide variables numéricamente, busca relaciones causales o correlacionales, generaliza resultados y sigue un proceso lineal y estructurado.</li>
+      <li><strong>Enfoque cualitativo:</strong> Comprende fenómenos desde la perspectiva de los participantes, trabaja con datos no numéricos (relatos, observaciones), es flexible y emergente.</li>
+      <li><strong>Métodos mixtos:</strong> Combinan ambos enfoques para obtener una visión más completa del fenómeno investigado.</li>
+    </ul>
+  </div>
+
+  <div class="caja-clave">
+    <div class="etiqueta">🔗 Conexión con la Semana 6</div>
+    <p>Esta semana damos el siguiente paso: ya sabemos <em>qué tipo de conocimiento queremos generar</em> (el enfoque). Ahora aprenderemos <em>cómo estructuramos concretamente la investigación para obtener ese conocimiento</em>: el <strong>diseño de investigación</strong>. Específicamente, estudiaremos los diseños <strong>experimentales y no experimentales</strong>, que son el corazón metodológico de cualquier investigación rigurosa.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     TEMA 1 — DISEÑO DE INVESTIGACIÓN
+============================================================ -->
+<div id="tema1" class="tab-content">
+  <h2>1. ¿Qué es el Diseño de Investigación?</h2>
+
+  <div class="caja-concepto">
+    <strong>Definición precisa:</strong> El <em>diseño de investigación</em> es el plan estratégico que establece cómo se va a recolectar, analizar e interpretar la información para responder a las preguntas de investigación y verificar (o refutar) las hipótesis planteadas. Es, en pocas palabras, el "mapa" que guía cada decisión metodológica del estudio.
+  </div>
+
+  <p>Imagina que quieres construir una casa. No basta con saber que quieres "una casa grande y funcional" (el objetivo). Necesitas un plano arquitectónico que especifique dónde van los muros, qué materiales se usarán, en qué orden se construirá cada parte. El <strong>diseño de investigación</strong> cumple exactamente esa función para un estudio científico.</p>
+
+  <h3>¿Por qué es tan importante definir el diseño?</h3>
+  <p>El diseño determina la <strong>validez interna</strong> (si los resultados realmente responden a la pregunta de investigación) y la <strong>validez externa</strong> (si esos resultados son generalizables a otros contextos). Un diseño inadecuado puede producir conclusiones falsas o engañosas, aunque los datos hayan sido recolectados con precisión.</p>
+
+  <div class="caja-advertencia">
+    <strong>⚠️ Error frecuente:</strong> Muchos investigadores novatos definen primero los instrumentos de recolección (el cuestionario, la encuesta) antes de definir el diseño. Esto es un error grave. El diseño debe definirse <em>antes</em> de elegir los instrumentos, porque el diseño determina qué tipo de datos se necesitan y cómo deben obtenerse.
+  </div>
+
+  <h3>Componentes de un diseño de investigación</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Componente</th>
+        <th>Pregunta que responde</th>
+        <th>Ejemplo aplicado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Tipo de diseño</strong></td>
+        <td>¿Experimento o no experimento?</td>
+        <td>Estudio observacional de empresas vs. ensayo controlado</td>
+      </tr>
+      <tr>
+        <td><strong>Unidades de análisis</strong></td>
+        <td>¿A quién o qué se estudia?</td>
+        <td>Microempresas de Guayaquil, auditores, estados financieros</td>
+      </tr>
+      <tr>
+        <td><strong>Temporalidad</strong></td>
+        <td>¿En qué momento(s) se recogen los datos?</td>
+        <td>Un momento único (transversal) vs. varios momentos (longitudinal)</td>
+      </tr>
+      <tr>
+        <td><strong>Nivel de control</strong></td>
+        <td>¿El investigador manipula variables o solo las observa?</td>
+        <td>Asignación aleatoria de grupos vs. grupos naturales</td>
+      </tr>
+      <tr>
+        <td><strong>Instrumentos de medición</strong></td>
+        <td>¿Cómo se recogen los datos?</td>
+        <td>Encuestas, entrevistas, análisis de estados financieros</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="caja-ejemplo">
+    <div class="etiqueta">📍 Ejemplo Ecuador — Contabilidad y Auditoría</div>
+    <p>Una auditora de Guayaquil desea estudiar si las microempresas del sector comercial que implementaron capacitaciones en control interno durante el 2023 tienen menor índice de pérdidas por malversación que las que no lo hicieron. Para esto, debe definir su diseño: ¿observará retrospectivamente los registros contables (diseño no experimental)? ¿O capacitará a un grupo y compara resultados antes y después (diseño cuasiexperimental)? La respuesta a esta pregunta <em>es</em> el diseño de investigación.</p>
+  </div>
+
+  <h3>El diseño como compromiso ético</h3>
+  <p>Desde la epistemología que hemos estudiado, el diseño no es una decisión meramente técnica: es también <strong>ética</strong>. Diseñar mal una investigación puede producir resultados falsos que, en el contexto contable, podrían llevar a decisiones financieras erróneas o incluso a avalar prácticas fraudulentas. La rigurosidad del diseño es, por tanto, una responsabilidad profesional.</p>
+
+  <div class="caja-clave">
+    <div class="etiqueta">💡 Idea Clave</div>
+    <p>El diseño de investigación es el puente entre la pregunta que el investigador formula y la respuesta válida que puede construir. Sin un diseño sólido, los datos recolectados —por voluminosos que sean— no pueden responder con confianza a ninguna pregunta científica.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     TEMA 2 — TIPOS DE DISEÑO
+============================================================ -->
+<div id="tema2" class="tab-content">
+  <h2>2. Tipos de Diseño de Investigación</h2>
+
+  <p>Los diseños de investigación se clasifican principalmente según <strong>dos criterios</strong>: (1) si el investigador manipula activamente alguna variable o no, y (2) en qué momento(s) se recolectan los datos.</p>
+
+  <h3>Clasificación 1: Según el control del investigador</h3>
+  <div class="caja-concepto">
+    <strong>Diseño experimental:</strong> El investigador manipula deliberadamente una o más variables (<em>variables independientes</em>) para observar el efecto sobre otra variable (<em>variable dependiente</em>), manteniendo condiciones controladas y asignando participantes a grupos de manera aleatoria. Es el diseño con mayor capacidad para establecer relaciones de <em>causa–efecto</em>.
+  </div>
+  <div class="caja-concepto">
+    <strong>Diseño no experimental:</strong> El investigador observa los fenómenos tal como ocurren en su contexto natural, <em>sin manipular variables</em>. Se limita a describir, correlacionar o comparar situaciones ya existentes. No puede afirmar causalidad con certeza, pero es el más frecuente en ciencias sociales y contables.
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Criterio</th>
+        <th>Experimental</th>
+        <th>No Experimental</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Manipulación de variables</td>
+        <td>✅ Sí, deliberada</td>
+        <td>❌ No, solo se observa</td>
+      </tr>
+      <tr>
+        <td>Asignación aleatoria</td>
+        <td>✅ Sí (idealmente)</td>
+        <td>❌ No es posible</td>
+      </tr>
+      <tr>
+        <td>Control del entorno</td>
+        <td>✅ Alto</td>
+        <td>❌ Bajo o nulo</td>
+      </tr>
+      <tr>
+        <td>Capacidad de inferir causalidad</td>
+        <td>✅ Alta</td>
+        <td>⚠️ Limitada</td>
+      </tr>
+      <tr>
+        <td>Aplicabilidad en contabilidad</td>
+        <td>⚠️ Limitada (contextos de laboratorio o simulación)</td>
+        <td>✅ Muy frecuente (estudios de campo)</td>
+      </tr>
+      <tr>
+        <td>Ejemplos</td>
+        <td>Ensayo de software contable, experimento de toma de decisiones</td>
+        <td>Análisis de estados financieros, encuestas a auditores</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Clasificación 2: Según la temporalidad de la recolección</h3>
+
+  <div class="caja-concepto">
+    <strong>Diseño transversal (o transeccional):</strong> Los datos se recolectan en un <em>único momento</em> del tiempo. Es como una fotografía: captura el estado de las cosas en un instante. Ejemplo: encuestar a contadores de Quito en enero de 2024 sobre sus prácticas de auditoría.
+  </div>
+  <div class="caja-concepto">
+    <strong>Diseño longitudinal:</strong> Los datos se recolectan en <em>varios momentos</em> a lo largo del tiempo para analizar cambios o evoluciones. Es como una película. Ejemplo: monitorear el desempeño financiero de cooperativas de ahorro durante cinco años consecutivos.
+  </div>
+
+  <div class="caja-ejemplo">
+    <div class="etiqueta">📍 Subtipo de diseño longitudinal en contabilidad</div>
+    <p>Los <strong>estudios de panel</strong> —muy usados en economía y contabilidad— son una variante longitudinal que sigue a las <em>mismas unidades</em> (empresas, individuos) a lo largo del tiempo. Por ejemplo, la Superintendencia de Compañías del Ecuador publica estados financieros anuales de miles de empresas; un investigador puede usar esos datos de panel para estudiar cómo evolucionan indicadores de rentabilidad o endeudamiento año tras año.</p>
+  </div>
+
+  <h3>Subtipos del diseño no experimental transversal</h3>
+  <p>Dentro de los diseños no experimentales, los <strong>transversales</strong> tienen tres subtipos que conviene conocer:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Subtipo</th>
+        <th>Propósito</th>
+        <th>Ejemplo contable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Descriptivo</strong></td>
+        <td>Describir cómo es una variable o un fenómeno en un momento dado</td>
+        <td>Describir el nivel de conocimiento de NIIF en PYMES de Guayaquil</td>
+      </tr>
+      <tr>
+        <td><strong>Correlacional</strong></td>
+        <td>Medir la relación entre dos o más variables, sin manipularlas</td>
+        <td>Asociación entre tamaño de empresa y calidad de auditoría</td>
+      </tr>
+      <tr>
+        <td><strong>Causal-comparativo</strong></td>
+        <td>Comparar grupos existentes para inferir posibles causas de diferencias</td>
+        <td>Comparar empresas auditadas vs. no auditadas en tasas de fraude</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="caja-clave">
+    <div class="etiqueta">💡 Idea Clave</div>
+    <p>En la práctica profesional contable y auditora, la mayoría de las investigaciones son de diseño <strong>no experimental</strong> porque no es posible —ni ético— manipular variables como los ingresos de una empresa, las tasas de evasión fiscal o las decisiones de un directorio. Sin embargo, esto no hace que esas investigaciones sean "menos científicas"; las hace simplemente adecuadas a su objeto de estudio.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     TEMA 3 — DISEÑOS EXPERIMENTALES
+============================================================ -->
+<div id="tema3" class="tab-content">
+  <h2>3. Diseños Experimentales: El Corazón del Control Científico</h2>
+
+  <h3>¿Qué es un experimento?</h3>
+  <div class="caja-concepto">
+    <strong>Definición:</strong> Un <em>experimento</em> es un procedimiento científico en el que el investigador <strong>manipula deliberadamente</strong> una o más variables independientes, <strong>controla</strong> todas las demás condiciones posibles, y <strong>mide el efecto</strong> de esa manipulación sobre una variable dependiente, con el propósito de establecer relaciones causales.
+  </div>
+
+  <p>La palabra clave es <strong>control</strong>. A diferencia de la simple observación, en un experimento el investigador no espera a que las cosas sucedan: las <em>provoca</em> de manera controlada para poder atribuir con certeza los cambios observados a la causa que manipuló y no a otros factores.</p>
+
+  <h3>Los tres pilares del experimento verdadero</h3>
+  <div class="paso"><div class="paso-num">1</div><div><strong>Manipulación:</strong> El investigador introduce deliberadamente un cambio (tratamiento o intervención) en la variable independiente. Ejemplo: capacitar a un grupo de contadores en el uso de software de detección de fraude.</div></div>
+  <div class="paso"><div class="paso-num">2</div><div><strong>Control:</strong> Se mantienen constantes todas las demás variables que podrían influir en el resultado (variables extrañas o confundentes). Ejemplo: asegurarse de que ambos grupos tengan el mismo nivel educativo previo, la misma experiencia laboral y trabajen en condiciones similares.</div></div>
+  <div class="paso"><div class="paso-num">3</div><div><strong>Aleatorización:</strong> Los participantes son asignados al azar a los grupos (experimental y control). Esto elimina el sesgo de selección, garantizando que las diferencias observadas no se deban a características previas de los participantes.</div></div>
+
+  <div class="caja-ejemplo">
+    <div class="etiqueta">📍 Terminología esencial que debes conocer</div>
+    <table>
+      <thead><tr><th>Término</th><th>Definición</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Variable independiente (VI)</strong></td><td>La que el investigador manipula. Es la causa presunta. Ej.: el tipo de capacitación recibida.</td></tr>
+        <tr><td><strong>Variable dependiente (VD)</strong></td><td>La que se mide para ver si cambió. Es el efecto observado. Ej.: número de irregularidades detectadas.</td></tr>
+        <tr><td><strong>Grupo experimental</strong></td><td>El que recibe el tratamiento (la manipulación de la VI).</td></tr>
+        <tr><td><strong>Grupo control</strong></td><td>El que NO recibe el tratamiento; sirve de punto de comparación.</td></tr>
+        <tr><td><strong>Pretest</strong></td><td>Medición de la VD <em>antes</em> de aplicar el tratamiento.</td></tr>
+        <tr><td><strong>Postest</strong></td><td>Medición de la VD <em>después</em> de aplicar el tratamiento.</td></tr>
+        <tr><td><strong>Variables extrañas</strong></td><td>Factores externos que podrían afectar la VD y que el investigador debe controlar o neutralizar.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Tipos de diseños experimentales</h3>
+
+  <div class="caja-concepto">
+    <strong>1. Experimento puro (verdadero):</strong> Cumple los tres pilares: manipulación, control y aleatorización. Es el gold standard de la investigación causal. Ejemplo: asignar al azar a 40 auditores en dos grupos; el grupo A usa un software de inteligencia artificial para detectar fraudes; el grupo B usa métodos tradicionales. Después de seis meses, se compara la tasa de detección.
+  </div>
+
+  <div class="caja-concepto">
+    <strong>2. Cuasiexperimento:</strong> Tiene manipulación y a veces control, pero <em>carece de aleatorización completa</em>. Los grupos ya existen de forma natural (clases, empresas, sucursales). Ejemplo: una empresa tiene dos sucursales en Guayaquil; en una se implementa un nuevo sistema de control interno (grupo experimental) y en la otra no (grupo control). Se mide el impacto en los indicadores de riesgo operativo.
+  </div>
+
+  <div class="caja-concepto">
+    <strong>3. Preexperimento:</strong> No cumple los requisitos mínimos de control ni aleatorización. Tiene bajo nivel de rigor científico y no permite inferir causalidad con seguridad. Sirve como estudio exploratorio preliminar. Ejemplo: aplicar una capacitación a un solo grupo de auditores y comparar sus resultados antes y después (sin grupo control).
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Tipo</th>
+        <th>Manipulación</th>
+        <th>Control</th>
+        <th>Aleatorización</th>
+        <th>Capacidad causal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Experimento puro</td>
+        <td>✅</td><td>✅</td><td>✅</td><td>⭐⭐⭐ Alta</td>
+      </tr>
+      <tr>
+        <td>Cuasiexperimento</td>
+        <td>✅</td><td>⚠️ Parcial</td><td>❌</td><td>⭐⭐ Media</td>
+      </tr>
+      <tr>
+        <td>Preexperimento</td>
+        <td>✅</td><td>❌</td><td>❌</td><td>⭐ Baja</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="caja-clave">
+    <div class="etiqueta">💡 Idea Clave</div>
+    <p>No todos los experimentos son iguales. El experimento "puro" es el ideal científico, pero en las ciencias sociales y contables es muy difícil de lograr porque implica controlar la conducta humana en condiciones de laboratorio. Por eso el <strong>cuasiexperimento</strong> es la opción más común y válida en investigaciones de contabilidad, auditoría y economía aplicada.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     TEMA 4 — PASOS Y CONTEXTOS DEL EXPERIMENTO
+============================================================ -->
+<div id="tema4" class="tab-content">
+  <h2>4. El Experimento: Requisitos, Contextos y Pasos</h2>
+
+  <h3>Requisitos para que un estudio sea considerado experimental</h3>
+  <p>Para que una investigación pueda llamarse legítimamente "experimental", debe cumplir con condiciones mínimas que garantizan la validez de sus conclusiones:</p>
+
+  <div class="caja-concepto">
+    <strong>Requisito 1 — Hipótesis causal clara:</strong> El investigador debe partir de una hipótesis que proponga una relación de causa-efecto entre dos variables. No basta con preguntarse si dos variables están relacionadas; se afirma que una <em>produce</em> cambios en la otra. Ejemplo: "La implementación del programa X de formación ética reduce en un 30% los errores de registro contable voluntarios en auditores junior."
+  </div>
+  <div class="caja-concepto">
+    <strong>Requisito 2 — Variable independiente manipulable:</strong> La causa que el investigador quiere probar debe ser algo que pueda controlarse y variarse deliberadamente. Las variables como "la personalidad del auditor" o "la cultura corporativa" son difícilmente manipulables.
+  </div>
+  <div class="caja-concepto">
+    <strong>Requisito 3 — Variable dependiente medible:</strong> El efecto que se espera observar debe poder cuantificarse u observarse de forma objetiva y reproducible.
+  </div>
+  <div class="caja-concepto">
+    <strong>Requisito 4 — Posibilidad de comparación:</strong> Debe existir al menos un grupo experimental y un grupo de comparación (control), o en su defecto, medidas antes y después del tratamiento.
+  </div>
+  <div class="caja-concepto">
+    <strong>Requisito 5 — Control de variables extrañas:</strong> El investigador debe identificar qué otros factores podrían afectar la variable dependiente y neutralizarlos o tenerlos en cuenta estadísticamente.
+  </div>
+
+  <h3>Contextos en los que se aplican experimentos en ciencias sociales y contables</h3>
+  <table>
+    <thead>
+      <tr><th>Contexto</th><th>Descripción</th><th>Ejemplo en Contabilidad/Auditoría</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Laboratorio</strong></td>
+        <td>Entorno artificial y controlado donde el investigador controla casi todas las variables</td>
+        <td>Simulación de decisiones de auditoría en entornos digitales con auditores voluntarios</td>
+      </tr>
+      <tr>
+        <td><strong>Campo</strong></td>
+        <td>Entorno natural (empresas reales, organizaciones) con menor control pero mayor realismo</td>
+        <td>Implementar un sistema de control interno en tres sucursales de una cooperativa y medir el impacto</td>
+      </tr>
+      <tr>
+        <td><strong>Natural o ex post facto</strong></td>
+        <td>El investigador no puede manipular la VI, pero estudia situaciones donde la manipulación ya ocurrió naturalmente</td>
+        <td>Comparar empresas que adoptaron NIIF voluntariamente antes de la obligación legal vs. las que no lo hicieron</td>
+      </tr>
+      <tr>
+        <td><strong>Digital / A/B Testing</strong></td>
+        <td>Comparación de dos versiones de un sistema, proceso o interfaz en condiciones controladas</td>
+        <td>Comparar dos versiones de un formulario de declaración tributaria para reducir errores de llenado</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Pasos para diseñar y ejecutar un experimento</h3>
+
+  <div class="paso"><div class="paso-num">1</div><div><strong>Definir el problema y la hipótesis causal:</strong> ¿Qué causa qué? La hipótesis debe ser específica, falsable y medible. Ejemplo: "La capacitación en ética contable reduce la intención de fraude en empleados de finanzas."</div></div>
+  <div class="paso"><div class="paso-num">2</div><div><strong>Identificar variables:</strong> Definir con precisión la variable independiente (lo que se manipula) y la variable dependiente (lo que se mide). Identificar también las variables extrañas que podrían contaminar los resultados.</div></div>
+  <div class="paso"><div class="paso-num">3</div><div><strong>Seleccionar y asignar participantes:</strong> Definir la muestra y asignarla aleatoriamente a los grupos experimental y control (cuando sea posible). Esto garantiza la equivalencia inicial entre grupos.</div></div>
+  <div class="paso"><div class="paso-num">4</div><div><strong>Aplicar el pretest:</strong> Antes del tratamiento, medir la variable dependiente en ambos grupos. Esto permite comparar "puntos de partida" y calcular el cambio real producido por el experimento.</div></div>
+  <div class="paso"><div class="paso-num">5</div><div><strong>Aplicar el tratamiento (intervención):</strong> Introducir la manipulación de la variable independiente solo en el grupo experimental. El grupo control no recibe ningún tratamiento (o recibe un tratamiento neutro llamado <em>placebo</em>).</div></div>
+  <div class="paso"><div class="paso-num">6</div><div><strong>Aplicar el postest:</strong> Medir de nuevo la variable dependiente en ambos grupos. La diferencia entre pretest y postest, comparada entre grupos, revela el efecto del tratamiento.</div></div>
+  <div class="paso"><div class="paso-num">7</div><div><strong>Analizar los datos y concluir:</strong> Aplicar los análisis estadísticos apropiados para determinar si la diferencia entre grupos es estadísticamente significativa o podría deberse al azar. Las conclusiones deben limitarse a lo que los datos realmente permiten inferir.</div></div>
+  <div class="paso"><div class="paso-num">8</div><div><strong>Reportar con transparencia:</strong> Describir el procedimiento con suficiente detalle para que otro investigador pueda replicar el experimento. La replicabilidad es un principio ético y científico fundamental.</div></div>
+
+  <div class="caja-ejemplo">
+    <div class="etiqueta">📍 Ejemplo integrado — Ecuador</div>
+    <p><strong>Pregunta de investigación:</strong> ¿Un taller de concientización sobre riesgos de fraude reduce la percepción de tolerancia al fraude en estudiantes de Contabilidad de la Universidad de Guayaquil?</p>
+    <ul>
+      <li><strong>VI:</strong> Participación en el taller (sí/no)</li>
+      <li><strong>VD:</strong> Puntaje en escala de tolerancia al fraude (0–100)</li>
+      <li><strong>Diseño:</strong> Cuasiexperimental con pretest-postest y grupo control (dos paralelos de la misma carrera)</li>
+      <li><strong>Variables extrañas controladas:</strong> Semestre, docente, hora de clase, materiales previos</li>
+      <li><strong>Resultado esperado:</strong> Si el grupo que recibió el taller reduce significativamente su puntaje de tolerancia al fraude comparado con el grupo control, se tiene evidencia de que el taller es eficaz.</li>
+    </ul>
+  </div>
+
+  <div class="caja-clave">
+    <div class="etiqueta">💡 Idea Clave</div>
+    <p>El experimento es la herramienta más poderosa de la ciencia para establecer relaciones causales. Sin embargo, su aplicación en contabilidad y auditoría requiere creatividad metodológica, porque los entornos reales de negocio difícilmente se prestan a condiciones de laboratorio. El cuasiexperimento y el experimento de campo son las modalidades más viables y éticamente responsables en este campo profesional.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     EJERCICIO INTERACTIVO
+============================================================ -->
+<div id="ejercicio" class="tab-content">
+  <h2>🧩 Ejercicio Interactivo — Clasificar Diseños</h2>
+  <p>Responde <strong>todas las preguntas</strong> antes de verificar. Lee cada situación con atención y selecciona la opción que mejor la identifica. Puedes apoyarte en el contenido de las pestañas anteriores.</p>
+
+  <!-- Ítem 1 -->
+  <div class="ejercicio-item" id="ei1">
+    <p>1. Una investigadora divide al azar a 60 auditores en dos grupos. El grupo A usa un software de IA para revisión de facturas; el grupo B continúa con el método tradicional. Después de 3 meses mide el número de errores detectados en cada grupo. ¿Qué tipo de diseño es este?</p>
+    <label class="opcion-label"><input type="radio" name="e1" value="a"> a) Experimento puro (verdadero)</label>
+    <label class="opcion-label"><input type="radio" name="e1" value="b"> b) Cuasiexperimento</label>
+    <label class="opcion-label"><input type="radio" name="e1" value="c"> c) Diseño descriptivo transversal</label>
+    <label class="opcion-label"><input type="radio" name="e1" value="d"> d) Preexperimento</label>
+    <div class="explicacion-item" id="exp1"></div>
+  </div>
+
+  <!-- Ítem 2 -->
+  <div class="ejercicio-item" id="ei2">
+    <p>2. Un contador estudia los estados financieros de 200 empresas ecuatorianas durante el año 2023 para describir su nivel de endeudamiento. No manipula ninguna variable; solo analiza datos existentes. ¿Qué diseño corresponde?</p>
+    <label class="opcion-label"><input type="radio" name="e2" value="a"> a) No experimental — transversal descriptivo</label>
+    <label class="opcion-label"><input type="radio" name="e2" value="b"> b) Experimental puro</label>
+    <label class="opcion-label"><input type="radio" name="e2" value="c"> c) Longitudinal de panel</label>
+    <label class="opcion-label"><input type="radio" name="e2" value="d"> d) Cuasiexperimental</label>
+    <div class="explicacion-item" id="exp2"></div>
+  </div>
+
+  <!-- Ítem 3 -->
+  <div class="ejercicio-item" id="ei3">
+    <p>3. El investigador tiene dos sucursales de una empresa: en la sucursal Norte implementa un nuevo sistema de control interno; en la sucursal Sur no lo hace. Compara los índices de errores contables antes y después. ¿Qué diseño es?</p>
+    <label class="opcion-label"><input type="radio" name="e3" value="a"> a) Cuasiexperimental</label>
+    <label class="opcion-label"><input type="radio" name="e3" value="b"> b) Experimento puro</label>
+    <label class="opcion-label"><input type="radio" name="e3" value="c"> c) No experimental correlacional</label>
+    <label class="opcion-label"><input type="radio" name="e3" value="d"> d) Preexperimental</label>
+    <div class="explicacion-item" id="exp3"></div>
+  </div>
+
+  <!-- Ítem 4 -->
+  <div class="ejercicio-item" id="ei4">
+    <p>4. ¿Cuál de los siguientes elementos es EXCLUSIVO del diseño experimental (puro) y lo diferencia del cuasiexperimental?</p>
+    <label class="opcion-label"><input type="radio" name="e4" value="a"> a) La asignación aleatoria de participantes a los grupos</label>
+    <label class="opcion-label"><input type="radio" name="e4" value="b"> b) La existencia de un grupo de control</label>
+    <label class="opcion-label"><input type="radio" name="e4" value="c"> c) La medición de una variable dependiente</label>
+    <label class="opcion-label"><input type="radio" name="e4" value="d"> d) La aplicación de un pretest</label>
+    <div class="explicacion-item" id="exp4"></div>
+  </div>
+
+  <!-- Ítem 5 -->
+  <div class="ejercicio-item" id="ei5">
+    <p>5. Un estudio sigue durante cuatro años a las mismas 50 cooperativas de ahorro y crédito del Ecuador para analizar cómo cambia su ratio de liquidez año a año. ¿Qué tipo de diseño corresponde?</p>
+    <label class="opcion-label"><input type="radio" name="e5" value="a"> a) No experimental — longitudinal</label>
+    <label class="opcion-label"><input type="radio" name="e5" value="b"> b) Experimental de campo</label>
+    <label class="opcion-label"><input type="radio" name="e5" value="c"> c) No experimental — transversal descriptivo</label>
+    <label class="opcion-label"><input type="radio" name="e5" value="d"> d) Preexperimental</label>
+    <div class="explicacion-item" id="exp5"></div>
+  </div>
+
+  <!-- Ítem 6 -->
+  <div class="ejercicio-item" id="ei6">
+    <p>6. En el paso "aplicar el pretest" dentro de la secuencia de un experimento, ¿cuál es la función principal de esta medición?</p>
+    <label class="opcion-label"><input type="radio" name="e6" value="a"> a) Conocer el estado inicial de la variable dependiente para poder comparar el cambio producido por el tratamiento</label>
+    <label class="opcion-label"><input type="radio" name="e6" value="b"> b) Determinar quiénes pertenecerán al grupo experimental</label>
+    <label class="opcion-label"><input type="radio" name="e6" value="c"> c) Aplicar la variable independiente por primera vez</label>
+    <label class="opcion-label"><input type="radio" name="e6" value="d"> d) Identificar las variables extrañas del estudio</label>
+    <div class="explicacion-item" id="exp6"></div>
+  </div>
+
+  <!-- Ítem 7 -->
+  <div class="ejercicio-item" id="ei7">
+    <p>7. Un investigador capacita a un solo grupo de 20 empleados contables (sin grupo control) y mide sus competencias antes y después. ¿Qué tipo de diseño experimental representa este estudio?</p>
+    <label class="opcion-label"><input type="radio" name="e7" value="a"> a) Preexperimento</label>
+    <label class="opcion-label"><input type="radio" name="e7" value="b"> b) Experimento puro</label>
+    <label class="opcion-label"><input type="radio" name="e7" value="c"> c) Cuasiexperimento</label>
+    <label class="opcion-label"><input type="radio" name="e7" value="d"> d) Diseño longitudinal de panel</label>
+    <div class="explicacion-item" id="exp7"></div>
+  </div>
+
+  <div style="display:flex; align-items:center; flex-wrap:wrap;">
+    <button class="btn-primary" onclick="verificarEjercicio()">Verificar respuestas</button>
+    <button class="btn-secondary" id="reiniciarEj" onclick="reiniciarEjercicio()">🔄 Reiniciar</button>
+  </div>
+
+  <div class="resultado-box" id="resultadoEjercicio">
+    <h3>📊 Resultado del ejercicio</h3>
+    <div class="resultado-emoji" id="emojiEj"></div>
+    <p id="puntajeEj" style="font-size:1.3rem;font-weight:700;"></p>
+    <div class="barra-progreso-bg"><div class="barra-progreso-fill" id="barraEj" style="width:0%"></div></div>
+    <p id="mensajeEj" style="margin-top:10px; font-weight:600;"></p>
+  </div>
+</div>
+
+<!-- ============================================================
+     CUESTIONARIO
+============================================================ -->
+<div id="cuestionario" class="tab-content">
+  <h2>📝 Cuestionario — Semana 6</h2>
+  <p>Responde las <strong>10 preguntas</strong> y luego presiona "Verificar respuestas". Las preguntas incluyen ítems <span class="badge badge-teorica">Teórica</span> y de <span class="badge badge-analisis">Análisis</span>.</p>
+
+  <!-- P1 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <p class="quiz-pregunta">1. ¿Cuál es la función principal del diseño de investigación en un estudio científico?</p>
+    <label class="quiz-opcion"><input type="radio" name="q1" value="a"> a) Establecer el plan estratégico que guía la recolección, análisis e interpretación de datos para responder las preguntas de investigación.</label>
+    <label class="quiz-opcion"><input type="radio" name="q1" value="b"> b) Seleccionar la muestra de participantes del estudio.</label>
+    <label class="quiz-opcion"><input type="radio" name="q1" value="c"> c) Elegir el software estadístico que se usará en el análisis.</label>
+    <label class="quiz-opcion"><input type="radio" name="q1" value="d"> d) Redactar el informe final de la investigación.</label>
+    <div class="explicacion-item" id="qexp1"></div>
+  </div>
+
+  <!-- P2 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <p class="quiz-pregunta">2. ¿Cuál de los siguientes elementos distingue al experimento puro del cuasiexperimento?</p>
+    <label class="quiz-opcion"><input type="radio" name="q2" value="a"> a) La asignación aleatoria de los participantes a los grupos.</label>
+    <label class="quiz-opcion"><input type="radio" name="q2" value="b"> b) La existencia de una variable dependiente.</label>
+    <label class="quiz-opcion"><input type="radio" name="q2" value="c"> c) La manipulación de una variable independiente.</label>
+    <label class="quiz-opcion"><input type="radio" name="q2" value="d"> d) La realización de un postest al final del estudio.</label>
+    <div class="explicacion-item" id="qexp2"></div>
+  </div>
+
+  <!-- P3 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <p class="quiz-pregunta">3. En una investigación experimental, ¿qué son las "variables extrañas"?</p>
+    <label class="quiz-opcion"><input type="radio" name="q3" value="a"> a) Factores externos que podrían afectar la variable dependiente y que el investigador debe controlar o neutralizar.</label>
+    <label class="quiz-opcion"><input type="radio" name="q3" value="b"> b) Las variables que el investigador manipula deliberadamente.</label>
+    <label class="quiz-opcion"><input type="radio" name="q3" value="c"> c) Las variables que se miden al final del experimento.</label>
+    <label class="quiz-opcion"><input type="radio" name="q3" value="d"> d) Los datos que no coinciden con la hipótesis del investigador.</label>
+    <div class="explicacion-item" id="qexp3"></div>
+  </div>
+
+  <!-- P4 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <p class="quiz-pregunta">4. ¿Cuál es la principal diferencia entre un diseño transversal y uno longitudinal?</p>
+    <label class="quiz-opcion"><input type="radio" name="q4" value="a"> a) El diseño transversal recolecta datos en un único momento; el longitudinal lo hace en varios momentos a lo largo del tiempo.</label>
+    <label class="quiz-opcion"><input type="radio" name="q4" value="b"> b) El diseño transversal estudia más participantes que el longitudinal.</label>
+    <label class="quiz-opcion"><input type="radio" name="q4" value="c"> c) El diseño longitudinal siempre es experimental; el transversal siempre es observacional.</label>
+    <label class="quiz-opcion"><input type="radio" name="q4" value="d"> d) El diseño transversal analiza variables cualitativas; el longitudinal analiza variables cuantitativas.</label>
+    <div class="explicacion-item" id="qexp4"></div>
+  </div>
+
+  <!-- P5 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <p class="quiz-pregunta">5. ¿Qué es el "pretest" en el diseño experimental y para qué sirve?</p>
+    <label class="quiz-opcion"><input type="radio" name="q5" value="a"> a) Es la medición de la variable dependiente antes de aplicar el tratamiento, para conocer el estado inicial y comparar el cambio posterior.</label>
+    <label class="quiz-opcion"><input type="radio" name="q5" value="b"> b) Es la prueba que permite seleccionar a los participantes más capaces para el experimento.</label>
+    <label class="quiz-opcion"><input type="radio" name="q5" value="c"> c) Es la aplicación inicial de la variable independiente al grupo experimental.</label>
+    <label class="quiz-opcion"><input type="radio" name="q5" value="d"> d) Es el análisis estadístico que se realiza antes de iniciar el estudio.</label>
+    <div class="explicacion-item" id="qexp5"></div>
+  </div>
+
+  <!-- P6 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <p class="quiz-pregunta">6. ¿Por qué el diseño no experimental es el más frecuente en investigaciones de contabilidad y auditoría?</p>
+    <label class="quiz-opcion"><input type="radio" name="q6" value="a"> a) Porque no es posible ni ético manipular variables como ingresos empresariales, decisiones de directorio o tasas de evasión fiscal en contextos reales.</label>
+    <label class="quiz-opcion"><input type="radio" name="q6" value="b"> b) Porque el diseño experimental requiere demasiados participantes y es muy costoso.</label>
+    <label class="quiz-opcion"><input type="radio" name="q6" value="c"> c) Porque en contabilidad no se pueden formular hipótesis causales.</label>
+    <label class="quiz-opcion"><input type="radio" name="q6" value="d"> d) Porque el diseño no experimental siempre produce resultados más precisos.</label>
+    <div class="explicacion-item" id="qexp6"></div>
+  </div>
+
+  <!-- P7 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <p class="quiz-pregunta">7. ¿Qué caracteriza al diseño causal-comparativo dentro de los diseños no experimentales transversales?</p>
+    <label class="quiz-opcion"><input type="radio" name="q7" value="a"> a) Compara grupos naturales ya existentes para inferir posibles causas de las diferencias observadas, sin manipular ninguna variable.</label>
+    <label class="quiz-opcion"><input type="radio" name="q7" value="b"> b) Asigna aleatoriamente a los participantes en grupos para comparar el efecto de un tratamiento.</label>
+    <label class="quiz-opcion"><input type="radio" name="q7" value="c"> c) Describe una sola variable en un único momento sin establecer comparaciones.</label>
+    <label class="quiz-opcion"><input type="radio" name="q7" value="d"> d) Sigue a los mismos sujetos en múltiples momentos para analizar cambios.</label>
+    <div class="explicacion-item" id="qexp7"></div>
+  </div>
+
+  <!-- P8 — ANÁLISIS -->
+  <div class="quiz-item">
+    <span class="badge badge-analisis">Análisis</span>
+    <p class="quiz-pregunta">8. Una empresa farmacéutica quiere probar si un nuevo medicamento reduce la presión arterial. Divide a 200 pacientes al azar: 100 reciben el medicamento real y 100 reciben un placebo. Miden la presión antes y después durante 6 meses. ¿Qué tipo de diseño utilizó la empresa?</p>
+    <label class="quiz-opcion"><input type="radio" name="q8" value="a"> a) Experimento puro con grupo control y placebo, diseño pretest-postest con aleatorización.</label>
+    <label class="quiz-opcion"><input type="radio" name="q8" value="b"> b) Cuasiexperimento porque los grupos son naturales.</label>
+    <label class="quiz-opcion"><input type="radio" name="q8" value="c"> c) Diseño no experimental correlacional porque se mide la presión arterial sin interacción.</label>
+    <label class="quiz-opcion"><input type="radio" name="q8" value="d"> d) Preexperimento porque solo hay un momento de medición final.</label>
+    <div class="explicacion-item" id="qexp8"></div>
+  </div>
+
+  <!-- P9 — ANÁLISIS -->
+  <div class="quiz-item">
+    <span class="badge badge-analisis">Análisis</span>
+    <p class="quiz-pregunta">9. Un auditor afirma: "Como estudiamos 500 empresas y encontramos que las que tienen más empleados tienden a tener más controles internos, podemos concluir que tener más empleados CAUSA mejores controles internos." ¿Qué error metodológico está cometiendo este auditor?</p>
+    <label class="quiz-opcion"><input type="radio" name="q9" value="a"> a) Está infiriendo causalidad a partir de un diseño correlacional (no experimental), lo que no está metodológicamente justificado.</label>
+    <label class="quiz-opcion"><input type="radio" name="q9" value="b"> b) Está utilizando una muestra demasiado pequeña para sus conclusiones.</label>
+    <label class="quiz-opcion"><input type="radio" name="q9" value="c"> c) Está confundiendo la variable independiente con la variable dependiente.</label>
+    <label class="quiz-opcion"><input type="radio" name="q9" value="d"> d) Está usando un diseño longitudinal cuando debería usar uno transversal.</label>
+    <div class="explicacion-item" id="qexp9"></div>
+  </div>
+
+  <!-- P10 — ANÁLISIS -->
+  <div class="quiz-item">
+    <span class="badge badge-analisis">Análisis</span>
+    <p class="quiz-pregunta">10. Una investigadora del Servicio de Rentas Internas (SRI) del Ecuador compara la tasa de cumplimiento tributario de empresas ANTES y DESPUÉS de una campaña de sensibilización fiscal, pero no tiene un grupo control. ¿Qué tipo de diseño experimental corresponde y cuál es su principal limitación?</p>
+    <label class="quiz-opcion"><input type="radio" name="q10" value="a"> a) Preexperimento; su limitación es que sin grupo control no puede descartarse que la mejora se deba a otros factores ajenos a la campaña.</label>
+    <label class="quiz-opcion"><input type="radio" name="q10" value="b"> b) Experimento puro; su limitación es que la muestra es muy pequeña.</label>
+    <label class="quiz-opcion"><input type="radio" name="q10" value="c"> c) Cuasiexperimento; su limitación es la falta de aleatorización en la selección.</label>
+    <label class="quiz-opcion"><input type="radio" name="q10" value="d"> d) Diseño longitudinal; su limitación es que solo mide una variable a la vez.</label>
+    <div class="explicacion-item" id="qexp10"></div>
+  </div>
+
+  <div style="display:flex; align-items:center; flex-wrap:wrap;">
+    <button class="btn-primary" onclick="verificarCuestionario()">Verificar respuestas</button>
+    <button class="btn-secondary" id="reiniciarQuiz" onclick="reiniciarCuestionario()">🔄 Reiniciar</button>
+  </div>
+
+  <div class="resultado-box" id="resultadoQuiz">
+    <h3>📊 Calificación Final</h3>
+    <div class="resultado-emoji" id="emojiQuiz"></div>
+    <p id="puntajeQuiz" style="font-size:1.4rem;font-weight:700;"></p>
+    <div class="barra-progreso-bg"><div class="barra-progreso-fill" id="barraQuiz" style="width:0%"></div></div>
+    <p id="mensajeQuiz" style="margin-top:10px; font-weight:600;"></p>
+  </div>
+</div>
+
+<!-- ============================================================
+     ACTIVIDAD CON IA
+============================================================ -->
+<div id="ia" class="tab-content">
+  <h2>🤖 Actividad con Inteligencia Artificial</h2>
+
+  <div class="caja-concepto">
+    <strong>Objetivo de la actividad:</strong> Usar la IA como interlocutora crítica para diseñar una investigación y luego evaluar si el diseño propuesto es realmente el más adecuado. No se trata de copiar lo que diga la IA, sino de dialogar con ella, cuestionar sus sugerencias y justificar tus propias decisiones metodológicas.
+  </div>
+
+  <h3>Herramienta recomendada</h3>
+  <p>Se recomienda usar <strong>Claude en <a href="https://claude.ai" target="_blank">claude.ai</a></strong> (Anthropic). También puedes usar ChatGPT (versión gratuita en chat.openai.com) o Gemini (gemini.google.com). Todas son gratuitas en su versión básica.</p>
+
+  <h3>Situación de partida</h3>
+  <p>Imagina que eres investigador/a y quieres estudiar si la implementación de un <strong>programa de educación financiera en microempresas familiares de Guayaquil</strong> mejora la calidad de sus registros contables. Tu desafío: proponer un diseño de investigación y discutirlo con la IA.</p>
+
+  <h3>Paso 1 — Usa este prompt exacto con la IA</h3>
+  <div class="prompt-box">Actúa como un metodólogo experto en investigación científica en ciencias sociales y contabilidad.
+
+Te presento mi problema de investigación: "¿La implementación de un programa de educación financiera en microempresas familiares de Guayaquil, Ecuador, mejora la calidad de sus registros contables?"
+
+Por favor:
+1. Propone el diseño de investigación más adecuado para este problema (experimental, cuasiexperimental o no experimental) y justifica detalladamente tu elección.
+2. Identifica cuál sería la variable independiente y cuál la dependiente.
+3. Señala al menos tres variables extrañas que podrían afectar los resultados y cómo controlarlas.
+4. Indica qué tipo de temporalidad tendría el estudio (transversal o longitudinal) y por qué.
+5. Señala una limitación importante de tu diseño propuesto y cómo podría mitigarse.
+
+Sé riguroso y específico. No uses lenguaje genérico.</div>
+
+  <h3>Paso 2 — Qué hacer con la respuesta de la IA</h3>
+  <ol>
+    <li><strong>Lee cuidadosamente la respuesta</strong> y anota los puntos con los que estás de acuerdo y los que te generan duda o desacuerdo.</li>
+    <li><strong>Contrasta</strong> la propuesta de diseño de la IA con lo que aprendiste en este widget. ¿Coincide? ¿Contradice algo?</li>
+    <li><strong>Escribe una respuesta de seguimiento</strong> a la IA, desafiando al menos UN punto de su propuesta. Por ejemplo: "Dices que un cuasiexperimento es adecuado, pero yo creo que un diseño no experimental longitudinal podría ser más ético en este contexto. ¿Por qué preferirías el cuasiexperimento?"</li>
+    <li><strong>Redacta un párrafo corto</strong> (150–200 palabras) con tu posición final sobre cuál es el diseño más adecuado para ese problema y por qué. Esta es la parte que demuestra tu pensamiento propio.</li>
+  </ol>
+
+  <h3>Criterio de evaluación</h3>
+  <table>
+    <thead>
+      <tr><th>Indicador</th><th>Pensamiento crítico (✅)</th><th>Copia simple (❌)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Uso de la IA</td>
+        <td>Dialoga, cuestiona, exige justificaciones</td>
+        <td>Copia la primera respuesta sin interactuar</td>
+      </tr>
+      <tr>
+        <td>Posición propia</td>
+        <td>Redacta con voz propia, conecta con su contexto real</td>
+        <td>Parafrasea lo que dijo la IA</td>
+      </tr>
+      <tr>
+        <td>Uso de conceptos</td>
+        <td>Usa terminología del curso correctamente</td>
+        <td>Usa términos sin comprender su significado</td>
+      </tr>
+      <tr>
+        <td>Argumentación</td>
+        <td>Justifica cada decisión metodológica</td>
+        <td>Afirma sin explicar el porqué</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="caja-clave">
+    <div class="etiqueta">🎯 Lo que demuestra esta actividad</div>
+    <p>Un investigador competente no delega sus decisiones metodológicas a ninguna herramienta —ni a la IA, ni a un manual, ni a un docente. La IA es un interlocutor poderoso para explorar ideas, pero las decisiones del diseño son responsabilidad del investigador. Esta actividad entrena exactamente esa capacidad.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PREGUNTAS REFLEXIVAS
+============================================================ -->
+<div id="reflexion" class="tab-content">
+  <h2>💭 Preguntas Reflexivas — Tu vida como laboratorio</h2>
+  <p>No hay respuestas correctas ni incorrectas. El propósito de estas preguntas es que conectes los conceptos metodológicos que estudiamos con situaciones que vives a diario. La investigación científica no es algo ajeno a tu vida: la practicas —o la deberías practicar— cada vez que tomas una decisión importante.</p>
+
+  <div class="caja-concepto" style="margin-bottom:22px;">
+    <strong>Reflexión inicial:</strong> La metodología de investigación no es una materia teórica desconectada de la realidad. Es el arte de tomar decisiones informadas, de no dejarse llevar por la primera impresión, de controlar los sesgos y de pedir evidencia antes de creer. Eso es exactamente lo que hacemos —o deberíamos hacer— en nuestra vida cotidiana.
+  </div>
+
+  <div class="reflx-card">
+    <div class="reflx-num">Pregunta reflexiva 01</div>
+    <p><strong>Piensa en una decisión importante que hayas tomado en los últimos meses</strong> (elegir una carrera, terminar una relación, cambiar de trabajo, hacer una compra grande). ¿Cómo "recolectaste datos" antes de decidir? ¿Qué variables consideraste y cuáles ignoraste? ¿Hubo alguna "variable extraña" que influyó en tu decisión sin que te dieras cuenta en ese momento?</p>
+  </div>
+
+  <div class="reflx-card">
+    <div class="reflx-num">Pregunta reflexiva 02</div>
+    <p><strong>En el diseño experimental, el investigador controla el entorno para evitar que factores externos distorsionen los resultados.</strong> ¿Hay situaciones en tu vida donde inconscientemente también intentas "controlar el entorno"? Por ejemplo, cuando preparas una conversación difícil, cuando estudias en silencio, o cuando evitas ciertas personas antes de tomar una decisión. ¿Qué dice eso sobre tu intuición metodológica natural?</p>
+  </div>
+
+  <div class="reflx-card">
+    <div class="reflx-num">Pregunta reflexiva 03</div>
+    <p><strong>La aleatorización en un experimento elimina el sesgo de selección.</strong> ¿Cuántas veces en tu vida has elegido "experimentar" solo en condiciones que ya te favorecían? Por ejemplo, probar una nueva forma de estudiar pero solo en las materias que ya te gustan. ¿Cómo cambia el resultado de esas "pruebas personales" cuando no hay aleatorización ni grupo de control?</p>
+  </div>
+
+  <div class="reflx-card">
+    <div class="reflx-num">Pregunta reflexiva 04</div>
+    <p><strong>Los diseños longitudinales siguen a los mismos sujetos a lo largo del tiempo para detectar cambios.</strong> Si alguien te hubiera "medido" en cinco momentos distintos de tu vida (con 10, 14, 18, 21 años y hoy), ¿qué "variable" en ti habría cambiado más? ¿Tu confianza, tus creencias, tus miedos, tus valores? ¿Qué evento fue el "tratamiento" que más cambió esa variable?</p>
+  </div>
+
+  <div class="reflx-card">
+    <div class="reflx-num">Pregunta reflexiva 05</div>
+    <p><strong>En un experimento, el "grupo control" no recibe el tratamiento y sirve de referencia.</strong> ¿Tienes en tu vida personas que funcionan como tu "grupo control"? Amigos que tomaron decisiones diferentes a las tuyas, que siguieron otro camino. ¿Qué aprendes cuando comparas tu trayectoria con la de ellos? ¿Qué conclusiones puedes y no puedes sacar de esa comparación?</p>
+  </div>
+
+  <div class="reflx-card">
+    <div class="reflx-num">Pregunta reflexiva 06</div>
+    <p><strong>La ética en el diseño experimental exige no causar daño a los participantes.</strong> Desde la inteligencia emocional y los valores humanos: ¿cuándo en tu vida has "experimentado" con otras personas sin pedirles consentimiento? Por ejemplo, probar si alguien reacciona diferente según cómo le das una noticia, o probar hasta dónde llega su paciencia. ¿Qué reflexión te genera eso desde la ética personal?</p>
+  </div>
+
+  <div class="reflx-card">
+    <div class="reflx-num">Pregunta reflexiva 07</div>
+    <p><strong>El pretest mide el estado inicial antes del tratamiento.</strong> Si hoy fuera tu "pretest" de vida —antes de graduarte, de entrar al mundo profesional, de convertirte en contador o auditor— ¿qué medirías de ti mismo? ¿Qué competencias, valores o actitudes quisieras que hubieran mejorado en tu "postest" al terminar la carrera? ¿Qué "tratamiento" te vas a aplicar tú mismo para lograrlo?</p>
+  </div>
+
+  <div class="caja-clave">
+    <div class="etiqueta">🌱 Para cerrar este espacio de reflexión</div>
+    <p>La metodología de investigación no solo te forma como profesional contable. Te forma como <strong>pensador crítico</strong> y como <strong>persona íntegra</strong>. Cada vez que en tu vida cotidiana pides evidencia antes de creer, identificas los sesgos que te nublan, controlas las variables que puedes y reconoces las que no puedes controlar, estás siendo —en el sentido más humano y más científico— un investigador. Eso vale dentro y fuera de las aulas.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     BIBLIOGRAFÍA
+============================================================ -->
+<div id="bibliografia" class="tab-content">
+  <h2>📚 Bibliografía — Semana 06</h2>
+  <p>Referencias seleccionadas en formato APA 7.ª edición sobre diseños de investigación experimental y no experimental.</p>
+
+  <div class="ref-card">
+    <div class="ref-autor">Hernández Sampieri, R., Fernández Collado, C., y Baptista Lucio, P.</div>
+    <div>(2014). <span class="ref-titulo">Metodología de la investigación</span> (6.ª ed.). McGraw-Hill Education.</div>
+    <div style="margin-top:6px; font-size:13.5px; color:#555;">Capítulos 7, 8 y 9. Obra de referencia central para los diseños de investigación en ciencias sociales. Desarrolla en profundidad los diseños experimentales, cuasiexperimentales y no experimentales.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-autor">Campbell, D. T., y Stanley, J. C.</div>
+    <div>(1966). <span class="ref-titulo">Experimental and quasi-experimental designs for research</span>. Rand McNally.</div>
+    <div style="margin-top:6px; font-size:13.5px; color:#555;">Obra clásica y fundacional sobre el diseño experimental en ciencias sociales. Define los criterios de validez interna y externa que todo investigador debe conocer.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-autor">Creswell, J. W., y Creswell, J. D.</div>
+    <div>(2018). <span class="ref-titulo">Research design: Qualitative, quantitative, and mixed methods approaches</span> (5.ª ed.). SAGE Publications.</div>
+    <div style="margin-top:6px; font-size:13.5px; color:#555;">Manual contemporáneo que integra los tres grandes enfoques de investigación, con énfasis en la elección del diseño según el problema y la pregunta de investigación.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-autor">Kerlinger, F. N., y Lee, H. B.</div>
+    <div>(2002). <span class="ref-titulo">Investigación del comportamiento: Métodos de investigación en ciencias sociales</span> (4.ª ed.). McGraw-Hill.</div>
+    <div style="margin-top:6px; font-size:13.5px; color:#555;">Referencia clásica en metodología. Desarrolla los fundamentos filosóficos y técnicos del diseño experimental con rigor conceptual aplicable a las ciencias sociales y administrativas.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-autor">Shadish, W. R., Cook, T. D., y Campbell, D. T.</div>
+    <div>(2002). <span class="ref-titulo">Experimental and quasi-experimental designs for generalized causal inference</span>. Houghton Mifflin.</div>
+    <div style="margin-top:6px; font-size:13.5px; color:#555;">Actualización y expansión del clásico de Campbell y Stanley. Obra fundamental para comprender la validez de las inferencias causales en diseños con y sin aleatorización.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-autor">Bryman, A.</div>
+    <div>(2016). <span class="ref-titulo">Social research methods</span> (5.ª ed.). Oxford University Press.</div>
+    <div style="margin-top:6px; font-size:13.5px; color:#555;">Texto universitario ampliamente utilizado en ciencias sociales. Ofrece una visión accesible y comparativa de los distintos diseños de investigación, con ejemplos aplicados.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-autor">Rodríguez Moguel, E. A.</div>
+    <div>(2005). <span class="ref-titulo">Metodología de la investigación</span>. Universidad Juárez Autónoma de Tabasco.</div>
+    <div style="margin-top:6px; font-size:13.5px; color:#555;">Obra hispanohablante de referencia, con enfoque aplicado al contexto latinoamericano. Útil para estudiantes de contabilidad y administración por sus ejemplos contextualizados.</div>
+  </div>
+
+  <div class="ref-nota">
+    📌 <strong>Nota:</strong> Se recomienda verificar cada referencia en Google Scholar (<a href="https://scholar.google.com" target="_blank">scholar.google.com</a>) o en el repositorio institucional de la Universidad de Guayaquil antes de citar en trabajos académicos.
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+  // ─── Navegación de pestañas ───────────────────────────────────
+  function mostrarTab(id) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  // ─── Datos del Ejercicio Interactivo ─────────────────────────
+  const respuestasEjercicio = {
+    e1: { correcta: 'a', explicaciones: {
+      a: '✅ Correcto. Hay manipulación de la VI (tipo de herramienta), asignación aleatoria y grupo control. Es el experimento puro.',
+      b: '❌ Incorrecto. El cuasiexperimento no tiene asignación aleatoria; aquí sí la hay.',
+      c: '❌ Incorrecto. Un diseño descriptivo transversal solo observa y describe, no manipula ninguna variable.',
+      d: '❌ Incorrecto. El preexperimento carece de grupo control y de aleatorización; aquí ambos están presentes.'
+    }},
+    e2: { correcta: 'a', explicaciones: {
+      a: '✅ Correcto. El investigador solo analiza datos existentes en un momento dado, sin manipular nada. Es no experimental y transversal descriptivo.',
+      b: '❌ Incorrecto. Un experimento puro requiere manipulación y aleatorización; aquí no hay ninguna.',
+      c: '❌ Incorrecto. Un diseño longitudinal de panel estudia las mismas unidades en múltiples momentos; aquí solo hay un año.',
+      d: '❌ Incorrecto. El cuasiexperimento requiere al menos manipulación de una variable; aquí no hay manipulación.'
+    }},
+    e3: { correcta: 'a', explicaciones: {
+      a: '✅ Correcto. Hay manipulación (el sistema de control interno se implementa en una sucursal) y hay grupo control (la otra sucursal), pero los grupos no son aleatorizados; son grupos naturales preexistentes.',
+      b: '❌ Incorrecto. El experimento puro requiere asignación aleatoria, que aquí no existe.',
+      c: '❌ Incorrecto. Un diseño correlacional solo mide la asociación entre variables sin manipular ninguna.',
+      d: '❌ Incorrecto. El preexperimento no tiene grupo de control; aquí sí existe la sucursal Sur como comparación.'
+    }},
+    e4: { correcta: 'a', explicaciones: {
+      a: '✅ Correcto. La aleatorización es el rasgo definitorio del experimento puro. El cuasiexperimento puede tener grupo control y pretest-postest, pero le falta la asignación aleatoria.',
+      b: '❌ Incorrecto. El grupo control también puede existir en diseños cuasiexperimentales.',
+      c: '❌ Incorrecto. La variable dependiente existe tanto en experimentos puros como cuasiexperimentos.',
+      d: '❌ Incorrecto. El pretest se usa en ambos tipos de diseño experimental.'
+    }},
+    e5: { correcta: 'a', explicaciones: {
+      a: '✅ Correcto. Se sigue a las mismas unidades (cooperativas) durante cuatro años, midiendo cambios a lo largo del tiempo. Es un diseño longitudinal no experimental (no se manipula ninguna variable).',
+      b: '❌ Incorrecto. Un experimento de campo requiere manipulación de una variable; aquí solo se observa.',
+      c: '❌ Incorrecto. Un diseño transversal descriptivo recolecta datos en un único momento; aquí son cuatro años consecutivos.',
+      d: '❌ Incorrecto. El preexperimento es un tipo de diseño experimental con manipulación; aquí no hay ninguna.'
+    }},
+    e6: { correcta: 'a', explicaciones: {
+      a: '✅ Correcto. El pretest mide la variable dependiente ANTES del tratamiento para tener un punto de referencia y poder calcular el cambio producido por la intervención.',
+      b: '❌ Incorrecto. Los participantes son asignados a los grupos antes del pretest, generalmente de manera aleatoria.',
+      c: '❌ Incorrecto. La variable independiente se aplica DESPUÉS del pretest, no durante él.',
+      d: '❌ Incorrecto. Las variables extrañas se identifican en la etapa de diseño, no en el pretest.'
+    }},
+    e7: { correcta: 'a', explicaciones: {
+      a: '✅ Correcto. El preexperimento tiene manipulación (la capacitación) y medición antes-después, pero no tiene grupo control ni aleatorización. Es el tipo de diseño experimental de menor rigor.',
+      b: '❌ Incorrecto. El experimento puro requiere grupo control y asignación aleatoria, que aquí no existen.',
+      c: '❌ Incorrecto. El cuasiexperimento tiene grupo control aunque sin aleatorización; aquí no hay grupo control.',
+      d: '❌ Incorrecto. Un diseño longitudinal de panel es no experimental; aquí hay manipulación (la capacitación).'
+    }}
+  };
+
+  function verificarEjercicio() {
+    const nombres = ['e1','e2','e3','e4','e5','e6','e7'];
+    let respondidas = 0, correctas = 0;
+    nombres.forEach(n => {
+      const sel = document.querySelector(`input[name="${n}"]:checked`);
+      if (sel) respondidas++;
+    });
+    if (respondidas < nombres.length) {
+      alert('⚠️ Por favor, responde todas las preguntas antes de verificar.');
+      return;
+    }
+    nombres.forEach((n, i) => {
+      const sel = document.querySelector(`input[name="${n}"]:checked`).value;
+      const datos = respuestasEjercicio[n];
+      const num = i + 1;
+      const expDiv = document.getElementById(`exp${num}`);
+      const labels = document.querySelectorAll(`#ei${num} .opcion-label`);
+      labels.forEach(lbl => {
+        lbl.style.pointerEvents = 'none';
+        const inp = lbl.querySelector('input');
+        if (inp.value === datos.correcta) lbl.classList.add('correcto');
+        else if (inp.value === sel && sel !== datos.correcta) lbl.classList.add('incorrecto');
+      });
+      expDiv.style.display = 'block';
+      if (sel === datos.correcta) {
+        expDiv.className = 'explicacion-item explicacion-correcto';
+        expDiv.innerHTML = datos.explicaciones[datos.correcta];
+        correctas++;
+      } else {
+        expDiv.className = 'explicacion-item explicacion-incorrecto';
+        expDiv.innerHTML = datos.explicaciones[datos.correcta] + '<br><br><em>Tu respuesta:</em> ' + datos.explicaciones[sel];
+      }
+    });
+    mostrarResultado('resultadoEjercicio', correctas, nombres.length, 'emojiEj', 'puntajeEj', 'barraEj', 'mensajeEj', 'reiniciarEj');
+  }
+
+  function reiniciarEjercicio() {
+    ['e1','e2','e3','e4','e5','e6','e7'].forEach((n,i) => {
+      document.querySelectorAll(`input[name="${n}"]`).forEach(r => { r.checked = false; });
+      const num = i+1;
+      const expDiv = document.getElementById(`exp${num}`);
+      expDiv.style.display = 'none'; expDiv.innerHTML = '';
+      document.querySelectorAll(`#ei${num} .opcion-label`).forEach(l => {
+        l.classList.remove('correcto','incorrecto');
+        l.style.pointerEvents = '';
+      });
+    });
+    document.getElementById('resultadoEjercicio').style.display = 'none';
+    document.getElementById('reiniciarEj').style.display = 'none';
+  }
+
+  // ─── Datos del Cuestionario ────────────────────────────────────
+  const respuestasQuiz = {
+    q1: { correcta: 'a', exps: {
+      a: '✅ Correcto. El diseño de investigación es el plan estratégico integral que guía todo el proceso metodológico del estudio.',
+      b: '❌ Incorrecto. La selección de muestra es un componente del diseño, pero no es su función principal ni su definición.',
+      c: '❌ Incorrecto. La elección del software es una decisión instrumental posterior al diseño.',
+      d: '❌ Incorrecto. El informe es el producto final, no el diseño de investigación.'
+    }},
+    q2: { correcta: 'a', exps: {
+      a: '✅ Correcto. La aleatorización es el rasgo definitorio del experimento puro y lo que lo diferencia del cuasiexperimento.',
+      b: '❌ Incorrecto. Ambos tipos de diseño experimental pueden tener variable dependiente.',
+      c: '❌ Incorrecto. Tanto el experimento puro como el cuasiexperimento manipulan la variable independiente.',
+      d: '❌ Incorrecto. El postest puede usarse en ambos tipos de diseño experimental.'
+    }},
+    q3: { correcta: 'a', exps: {
+      a: '✅ Correcto. Las variables extrañas son factores externos no controlados que podrían afectar la variable dependiente y distorsionar los resultados.',
+      b: '❌ Incorrecto. Lo que el investigador manipula deliberadamente es la variable independiente.',
+      c: '❌ Incorrecto. Las variables medidas al final son la variable dependiente en el postest.',
+      d: '❌ Incorrecto. Los datos que no coinciden con la hipótesis son simplemente resultados; no se llaman variables extrañas.'
+    }},
+    q4: { correcta: 'a', exps: {
+      a: '✅ Correcto. La temporalidad es la diferencia clave: transversal = fotografía en un momento; longitudinal = película a lo largo del tiempo.',
+      b: '❌ Incorrecto. El número de participantes no define la temporalidad del diseño.',
+      c: '❌ Incorrecto. Ambos tipos de temporalidad pueden combinarse con diseños experimentales o no experimentales.',
+      d: '❌ Incorrecto. La naturaleza de las variables (cualitativa/cuantitativa) no determina la temporalidad del diseño.'
+    }},
+    q5: { correcta: 'a', exps: {
+      a: '✅ Correcto. El pretest mide la VD antes del tratamiento para establecer el punto de partida y poder calcular el cambio real producido por la intervención.',
+      b: '❌ Incorrecto. La selección de participantes se realiza antes del pretest.',
+      c: '❌ Incorrecto. La aplicación inicial de la VI ocurre después del pretest, en la etapa de tratamiento.',
+      d: '❌ Incorrecto. El análisis estadístico es posterior al diseño y a la recolección de datos.'
+    }},
+    q6: { correcta: 'a', exps: {
+      a: '✅ Correcto. La imposibilidad ética y práctica de manipular variables reales en contextos empresariales es la razón principal de la prevalencia de diseños no experimentales en contabilidad.',
+      b: '❌ Incorrecto. El número de participantes no determina el tipo de diseño utilizado.',
+      c: '❌ Incorrecto. En contabilidad sí se formulan hipótesis causales; el problema es la viabilidad de manipular las variables.',
+      d: '❌ Incorrecto. La precisión de los resultados depende del rigor metodológico, no del tipo de diseño per se.'
+    }},
+    q7: { correcta: 'a', exps: {
+      a: '✅ Correcto. El diseño causal-comparativo compara grupos naturales preexistentes para inferir posibles relaciones causales, sin manipulación de variables.',
+      b: '❌ Incorrecto. La asignación aleatoria a grupos es propia del experimento puro, no del causal-comparativo.',
+      c: '❌ Incorrecto. El diseño descriptivo no establece comparaciones entre grupos; solo describe.',
+      d: '❌ Incorrecto. Seguir a los mismos sujetos en múltiples momentos es propio del diseño longitudinal.'
+    }},
+    q8: { correcta: 'a', exps: {
+      a: '✅ Correcto. Hay manipulación (medicamento vs. placebo), aleatorización (200 pacientes asignados al azar), grupo control (placebo), medición antes y después (pretest-postest). Es un experimento puro clásico.',
+      b: '❌ Incorrecto. En el cuasiexperimento los grupos son naturales y no hay asignación aleatoria; aquí se asigna aleatoriamente.',
+      c: '❌ Incorrecto. En un diseño correlacional no hay intervención; aquí hay manipulación activa (medicamento vs. placebo).',
+      d: '❌ Incorrecto. Hay dos momentos de medición (pretest y postest), y hay grupo control; no es un preexperimento.'
+    }},
+    q9: { correcta: 'a', exps: {
+      a: '✅ Correcto. La correlación (más empleados = más controles) no implica causalidad. Para afirmar que A causa B se requiere un diseño experimental; el diseño correlacional solo muestra asociación.',
+      b: '❌ Incorrecto. 500 empresas es una muestra grande; el problema no es el tamaño sino la inferencia causal indebida.',
+      c: '❌ Incorrecto. El error no está en la identificación de variables sino en la inferencia causal a partir de datos correlacionales.',
+      d: '❌ Incorrecto. No se menciona el diseño temporal como el problema; el error es metodológico-interpretativo.'
+    }},
+    q10: { correcta: 'a', exps: {
+      a: '✅ Correcto. Sin grupo control, no se puede descartar que la mejora en el cumplimiento tributario se deba a otras causas (campaña mediática, ciclo fiscal, cambios en la economía), no a la campaña del SRI.',
+      b: '❌ Incorrecto. El experimento puro requiere aleatorización y grupo control; aquí ninguno existe.',
+      c: '❌ Incorrecto. El cuasiexperimento tiene grupo control (aunque sin aleatorización); aquí no hay grupo control.',
+      d: '❌ Incorrecto. Un diseño longitudinal es no experimental; aquí hay manipulación (la campaña). El problema identificado es la falta de grupo control, no la temporalidad.'
+    }}
+  };
+
+  function verificarCuestionario() {
+    const nombres = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+    let respondidas = 0, correctas = 0;
+    nombres.forEach(n => { if (document.querySelector(`input[name="${n}"]:checked`)) respondidas++; });
+    if (respondidas < nombres.length) { alert('⚠️ Por favor, responde todas las preguntas antes de verificar.'); return; }
+    nombres.forEach((n, i) => {
+      const sel = document.querySelector(`input[name="${n}"]:checked`).value;
+      const datos = respuestasQuiz[n];
+      const num = i + 1;
+      const expDiv = document.getElementById(`qexp${num}`);
+      const item = expDiv.closest('.quiz-item');
+      item.querySelectorAll('.quiz-opcion').forEach(lbl => {
+        lbl.style.pointerEvents = 'none';
+        const inp = lbl.querySelector('input');
+        if (inp.value === datos.correcta) lbl.classList.add('correcto');
+        else if (inp.value === sel && sel !== datos.correcta) lbl.classList.add('incorrecto');
+      });
+      expDiv.style.display = 'block';
+      if (sel === datos.correcta) {
+        expDiv.className = 'explicacion-item explicacion-correcto';
+        expDiv.innerHTML = datos.exps[datos.correcta];
+        correctas++;
+      } else {
+        expDiv.className = 'explicacion-item explicacion-incorrecto';
+        expDiv.innerHTML = datos.exps[datos.correcta] + '<br><br><em>Tu respuesta:</em> ' + datos.exps[sel];
+      }
+    });
+    mostrarResultado('resultadoQuiz', correctas, 10, 'emojiQuiz', 'puntajeQuiz', 'barraQuiz', 'mensajeQuiz', 'reiniciarQuiz');
+  }
+
+  function reiniciarCuestionario() {
+    ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'].forEach((n,i) => {
+      document.querySelectorAll(`input[name="${n}"]`).forEach(r => { r.checked = false; });
+      const num = i+1;
+      const expDiv = document.getElementById(`qexp${num}`);
+      expDiv.style.display = 'none'; expDiv.innerHTML = '';
+      const item = expDiv.closest('.quiz-item');
+      item.querySelectorAll('.quiz-opcion').forEach(l => {
+        l.classList.remove('correcto','incorrecto');
+        l.style.pointerEvents = '';
+      });
+    });
+    document.getElementById('resultadoQuiz').style.display = 'none';
+    document.getElementById('reiniciarQuiz').style.display = 'none';
+  }
+
+  // ─── Función genérica de resultado ───────────────────────────
+  function mostrarResultado(boxId, correctas, total, emojiId, puntajeId, barraId, mensajeId, reiniciarId) {
+    const pct = Math.round((correctas / total) * 100);
+    const box = document.getElementById(boxId);
+    box.style.display = 'block';
+    document.getElementById(emojiId).textContent = pct === 100 ? '🏆' : pct >= 80 ? '🎯' : pct >= 60 ? '📘' : pct >= 40 ? '⚠️' : '📖';
+    document.getElementById(puntajeId).textContent = `${correctas} / ${total} correctas — ${pct}%`;
+    setTimeout(() => { document.getElementById(barraId).style.width = pct + '%'; }, 100);
+    const mensajes = {
+      100: '¡Perfecto! Dominas completamente los diseños de investigación. ¡Excelente trabajo!',
+      80: 'Muy bien. Tienes una sólida comprensión de los diseños. Repasa los ítems incorrectos.',
+      60: 'Buen avance. Aún hay conceptos que reforzar. Revisa las pestañas de contenido.',
+      40: 'Hay trabajo por hacer. Te recomendamos releer las pestañas Tema 1 al Tema 4.',
+      0: 'No te desanimes. Regresa al contenido del widget y vuelve a intentarlo. ¡Puedes lograrlo!'
+    };
+    const umbral = pct === 100 ? 100 : pct >= 80 ? 80 : pct >= 60 ? 60 : pct >= 40 ? 40 : 0;
+    document.getElementById(mensajeId).textContent = mensajes[umbral];
+    document.getElementById(reiniciarId).style.display = 'inline-block';
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 07 – Variables y Diseños de Investigación | Metodología de la Investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #1a1a2e;
+    background: #f4f7fb;
+    min-height: 100vh;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: #003366;
+    color: #fff;
+    padding: 0;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 28px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .header-logo {
+    width: 54px; height: 54px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 700; color: #87CEEB;
+    flex-shrink: 0;
+    font-family: 'Lora', serif;
+  }
+  .header-inst { display: flex; flex-direction: column; }
+  .header-inst .univ { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #87CEEB; }
+  .header-inst .fac  { font-size: 13px; color: rgba(255,255,255,0.85); }
+  .header-inst .carr { font-size: 12px; color: rgba(255,255,255,0.65); }
+  .header-body { padding: 14px 28px 18px; }
+  .badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .badge {
+    font-size: 11px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 20px;
+    background: rgba(135,206,235,0.2); color: #87CEEB; border: 1px solid rgba(135,206,235,0.4);
+  }
+  .header-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(17px, 2.5vw, 23px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .header-subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+  }
+
+  /* ===== TAB NAV ===== */
+  .tab-nav-wrapper {
+    background: #87CEEB;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #003366 #87CEEB;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  .tab-nav-wrapper::-webkit-scrollbar { height: 4px; }
+  .tab-nav-wrapper::-webkit-scrollbar-thumb { background: #003366; border-radius: 2px; }
+  .tab-nav {
+    display: flex;
+    white-space: nowrap;
+    padding: 0 8px;
+    min-width: max-content;
+  }
+  .tab-btn {
+    display: inline-block;
+    padding: 13px 18px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a2e;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { background: rgba(255,255,255,0.5); }
+  .tab-btn.active {
+    background: #fff;
+    color: #003366;
+    font-weight: 700;
+    border-bottom: 3px solid #003366;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .tab-content { display: none; padding: 28px 24px 48px; max-width: 960px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* ===== TYPOGRAPHY ===== */
+  h2 {
+    font-family: 'Lora', serif;
+    font-size: clamp(20px, 3vw, 26px);
+    font-weight: 700;
+    color: #003366;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #87CEEB;
+  }
+  h3 {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    color: #003366;
+    margin: 24px 0 10px;
+  }
+  h4 { font-size: 15px; font-weight: 700; color: #003366; margin: 18px 0 8px; }
+  p { margin-bottom: 14px; }
+  ul, ol { margin-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 6px; }
+
+  /* ===== BOXES ===== */
+  .box-concepto {
+    border-left: 5px solid #003366;
+    background: #eef4fb;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 18px 0;
+  }
+  .box-concepto .box-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    color: #003366; margin-bottom: 6px;
+  }
+  .box-ejemplo {
+    background: #dbeeff;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 18px 0;
+    border: 1px solid #aed4f7;
+  }
+  .box-ejemplo .box-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    color: #005fa3; margin-bottom: 6px;
+  }
+  .box-clave {
+    background: #003366;
+    color: #fff;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 22px 0;
+  }
+  .box-clave .box-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    color: #87CEEB; margin-bottom: 6px;
+  }
+  .box-clave p { margin-bottom: 0; color: #fff; }
+  .box-warning {
+    background: #fff8e1;
+    border-left: 5px solid #f39c12;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 16px 0;
+  }
+
+  /* ===== TABLE ===== */
+  .tbl-wrap { overflow-x: auto; margin: 18px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead tr { background: #003366; color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-weight: 600; }
+  tbody tr:nth-child(even) { background: #eef4fb; }
+  tbody tr:nth-child(odd) { background: #fff; }
+  tbody td { padding: 10px 14px; border-bottom: 1px solid #d0e4f5; vertical-align: top; }
+  tbody tr:hover { background: #dbeeff; }
+
+  /* ===== REPASO CARDS ===== */
+  .repaso-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin: 20px 0; }
+  .repaso-card {
+    background: #fff;
+    border: 1px solid #d0e4f5;
+    border-top: 4px solid #003366;
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .repaso-card .sem { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #87CEEB; background: #003366; display: inline-block; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; }
+  .repaso-card h4 { margin-top: 0; font-size: 14px; color: #003366; }
+  .repaso-card p { font-size: 13px; color: #444; margin-bottom: 0; }
+
+  /* ===== INTERACTIVE / QUIZ ===== */
+  .ex-item {
+    background: #fff;
+    border: 1px solid #d0e4f5;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+  .ex-item .ex-q { font-weight: 600; color: #003366; margin-bottom: 12px; }
+  .ex-options { display: flex; flex-direction: column; gap: 8px; }
+  .ex-option {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border: 2px solid #d0e4f5;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .2s;
+    font-size: 14px;
+  }
+  .ex-option:hover { background: #eef4fb; border-color: #87CEEB; }
+  .ex-option input { width: 16px; height: 16px; flex-shrink: 0; }
+  .ex-option.correct { background: #e8f8e8; border-color: #27ae60; color: #1a5e30; }
+  .ex-option.incorrect { background: #fdecea; border-color: #e74c3c; color: #7b1f1f; }
+  .ex-option.correct-missed { background: #fff8cc; border-color: #f0c040; }
+  .feedback-text {
+    margin-top: 10px; padding: 10px 14px;
+    border-radius: 6px; font-size: 13px;
+    display: none;
+  }
+  .feedback-text.show { display: block; }
+  .feedback-ok { background: #e8f8e8; color: #1a5e30; border-left: 4px solid #27ae60; }
+  .feedback-err { background: #fdecea; color: #7b1f1f; border-left: 4px solid #e74c3c; }
+
+  /* drag-drop */
+  .drag-pool { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  .drag-chip {
+    background: #003366; color: #fff;
+    padding: 6px 14px; border-radius: 20px;
+    cursor: grab; font-size: 13px; font-weight: 600;
+    transition: opacity .2s;
+    user-select: none;
+  }
+  .drag-chip.used { opacity: .3; cursor: default; }
+  .drop-zone {
+    min-height: 40px; border: 2px dashed #87CEEB;
+    border-radius: 6px; padding: 6px 12px;
+    background: #f4f7fb; color: #888; font-size: 13px;
+    display: inline-flex; align-items: center;
+    min-width: 160px; transition: background .2s;
+  }
+  .drop-zone.over { background: #dbeeff; border-color: #003366; }
+  .drop-zone.filled { background: #eef4fb; color: #003366; font-weight: 600; border-style: solid; border-color: #87CEEB; }
+
+  /* score */
+  .score-box {
+    background: #003366; color: #fff;
+    border-radius: 10px; padding: 22px 24px;
+    margin-top: 22px; text-align: center;
+    display: none;
+  }
+  .score-box.show { display: block; }
+  .score-emoji { font-size: 42px; margin-bottom: 8px; }
+  .score-num { font-family: 'Lora', serif; font-size: 34px; font-weight: 700; }
+  .score-label { font-size: 14px; color: rgba(255,255,255,0.75); margin-bottom: 14px; }
+  .progress-bar-wrap { background: rgba(255,255,255,0.2); border-radius: 20px; height: 12px; overflow: hidden; margin: 10px 0; }
+  .progress-bar-fill { height: 100%; border-radius: 20px; background: #87CEEB; transition: width 1s ease; }
+  .score-msg { font-size: 15px; margin-top: 10px; }
+
+  /* badge tipo */
+  .badge-tipo {
+    display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .8px;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px;
+  }
+  .badge-teo { background: #dbeeff; color: #003366; }
+  .badge-ana { background: #fff0d0; color: #7a4800; }
+
+  /* btn */
+  .btn {
+    display: inline-block; padding: 12px 28px;
+    background: #003366; color: #fff;
+    border: none; border-radius: 6px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: background .2s;
+    margin-top: 10px;
+  }
+  .btn:hover { background: #004b99; }
+  .btn.secondary { background: #87CEEB; color: #003366; }
+  .btn.secondary:hover { background: #5ab8e8; }
+
+  /* ===== AI ACTIVITY ===== */
+  .ai-step {
+    display: flex; gap: 14px; margin-bottom: 18px;
+    align-items: flex-start;
+  }
+  .ai-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: #003366; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .prompt-box {
+    background: #1a1a2e; color: #e0f0ff;
+    border-radius: 8px; padding: 18px 20px;
+    font-family: 'Source Sans 3', monospace;
+    font-size: 13px; line-height: 1.7;
+    white-space: pre-wrap; margin: 14px 0;
+    border-left: 4px solid #87CEEB;
+  }
+
+  /* ===== REFLEXION ===== */
+  .reflex-card {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #d0e4f5;
+    border-top: 4px solid #87CEEB;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .reflex-icon { font-size: 24px; margin-bottom: 8px; }
+  .reflex-q { font-family: 'Lora', serif; font-size: 16px; color: #003366; font-style: italic; margin-bottom: 10px; }
+  .reflex-hint { font-size: 13px; color: #555; }
+
+  /* ===== BIBLIO ===== */
+  .bib-card {
+    background: #fff;
+    border: 1px solid #d0e4f5;
+    border-left: 5px solid #003366;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+  }
+  .bib-card .bib-au { font-size: 13px; color: #003366; font-weight: 600; }
+  .bib-card .bib-title { font-style: italic; font-size: 14px; color: #1a1a2e; margin: 4px 0; }
+  .bib-card .bib-meta { font-size: 13px; color: #555; }
+  .bib-note { background: #fff8e1; border-radius: 6px; padding: 12px 16px; font-size: 13px; color: #6b4c00; margin-top: 22px; border-left: 4px solid #f39c12; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .tab-content { padding: 18px 14px 40px; }
+    .header-top { padding: 12px 16px 8px; }
+    .header-body { padding: 10px 16px 14px; }
+    h2 { font-size: 19px; }
+    .repaso-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-top">
+    <div class="header-logo">UG</div>
+    <div class="header-inst">
+      <span class="univ">Universidad de Guayaquil</span>
+      <span class="fac">Facultad de Ciencias Administrativas</span>
+      <span class="carr">Carrera en Contabilidad y Auditoría</span>
+    </div>
+  </div>
+  <div class="header-body">
+    <div class="badge-row">
+      <span class="badge">Metodología de la Investigación</span>
+      <span class="badge">Unidad 2</span>
+      <span class="badge">Semana 07</span>
+    </div>
+    <div class="header-title">Variables y Diseños de Investigación: control, validez y tipos de diseño</div>
+    <div class="header-subtitle">Variables dependientes e independientes · Manipulación · Control · Validez interna y externa · Diseños experimentales y no experimentales</div>
+  </div>
+</header>
+
+<!-- ===== TAB NAV ===== -->
+<div class="tab-nav-wrapper">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('repaso')">📚 Repaso</button>
+    <button class="tab-btn" onclick="showTab('t1')">1. Variables VI y VD</button>
+    <button class="tab-btn" onclick="showTab('t2')">2. Manipulación y Control</button>
+    <button class="tab-btn" onclick="showTab('t3')">3. Validez Interna</button>
+    <button class="tab-btn" onclick="showTab('t4')">4. Diseños Experimentales</button>
+    <button class="tab-btn" onclick="showTab('t5')">5. Validez Externa</button>
+    <button class="tab-btn" onclick="showTab('t6')">6. Diseños No Experimentales</button>
+    <button class="tab-btn" onclick="showTab('ejercicio')">🎯 Ejercicio Interactivo</button>
+    <button class="tab-btn" onclick="showTab('cuestionario')">📝 Cuestionario</button>
+    <button class="tab-btn" onclick="showTab('ia')">🤖 Actividad con IA</button>
+    <button class="tab-btn" onclick="showTab('reflexion')">💭 Reflexión</button>
+    <button class="tab-btn" onclick="showTab('biblio')">📖 Bibliografía</button>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- TAB: REPASO -->
+<!-- ============================== -->
+<div id="tab-repaso" class="tab-content active">
+  <h2>📚 Repaso de Semanas Anteriores</h2>
+  <p>Antes de explorar los contenidos de esta semana, recapitulemos el camino recorrido. Cada semana ha construido un peldaño que hoy nos permite hablar con precisión de <strong>variables</strong> y <strong>diseños de investigación</strong>.</p>
+
+  <div class="repaso-grid">
+    <div class="repaso-card">
+      <span class="sem">Semana 01</span>
+      <h4>Fundamentos del conocimiento científico</h4>
+      <p>Diferenciamos conocimiento empírico (basado en la experiencia sensorial) del científico (sistemático, verificable). Estudiamos el método científico y sus características: objetividad, sistematicidad y replicabilidad.</p>
+    </div>
+    <div class="repaso-card">
+      <span class="sem">Semana 02</span>
+      <h4>Paradigmas e investigación</h4>
+      <p>Exploramos los elementos de la investigación, los alcances investigativos (exploratorio, descriptivo, correlacional, explicativo) y el concepto de sesgo como amenaza a la validez de un estudio.</p>
+    </div>
+    <div class="repaso-card">
+      <span class="sem">Semana 03</span>
+      <h4>Ética y epistemología</h4>
+      <p>Reflexionamos sobre la ética en la ciencia y los fundamentos epistemológicos de la investigación. La epistemología nos pregunta: ¿cómo sabemos lo que sabemos? ¿qué distingue el conocimiento verdadero?</p>
+    </div>
+    <div class="repaso-card">
+      <span class="sem">Semana 04</span>
+      <h4>Complejidad e interdisciplinariedad</h4>
+      <p>Con Morin como guía, entendimos que la realidad es compleja e interdependiente. La epistemología no es solo filosofía: orienta cómo diseñamos nuestra investigación.</p>
+    </div>
+    <div class="repaso-card">
+      <span class="sem">Semana 05</span>
+      <h4>Enfoques cuantitativo y cualitativo</h4>
+      <p>Definimos y comparamos los enfoques cuantitativo (medición numérica, generalización) y cualitativo (interpretación profunda, subjetividad). Introdujimos los métodos mixtos como integración de ambos.</p>
+    </div>
+    <div class="repaso-card">
+      <span class="sem">Semana 06</span>
+      <h4>Diseño de investigación: primer acercamiento</h4>
+      <p>Establecimos el concepto de diseño como el plan estructurado para responder preguntas de investigación. Distinguimos diseños experimentales de no experimentales y definimos los requisitos de un experimento verdadero: manipulación, control y aleatorización.</p>
+    </div>
+  </div>
+
+  <div class="box-clave">
+    <div class="box-label">🔗 Conexión con la semana de hoy</div>
+    <p>Esta semana profundizamos en el corazón del diseño experimental: <strong>las variables</strong> (independiente y dependiente), cómo se <em>manipulan</em> y <em>controlan</em>, qué es la <strong>validez interna y externa</strong> de un experimento, cuáles son los tipos de <strong>diseños experimentales</strong>, y por qué los <strong>diseños no experimentales</strong> son igualmente valiosos en ciencias sociales como la Contabilidad y la Auditoría.</p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- TAB: T1 – Variables VI y VD -->
+<!-- ============================== -->
+<div id="tab-t1" class="tab-content">
+  <h2>1. Variables Independiente y Dependiente</h2>
+
+  <p>Toda investigación científica que busca establecer relaciones de <strong>causa y efecto</strong> trabaja con al menos dos tipos de variables fundamentales: la <em>variable independiente</em> (VI) y la <em>variable dependiente</em> (VD). Entender con claridad la diferencia entre ellas es el primer paso para diseñar cualquier experimento o estudio riguroso.</p>
+
+  <div class="box-concepto">
+    <div class="box-label">📌 Definición: Variable</div>
+    <p>Una <strong>variable</strong> es cualquier característica, propiedad o atributo de personas, objetos o fenómenos que puede tomar <em>diferentes valores</em> (puede variar). Por ejemplo: el nivel de estrés de un trabajador, el monto de ventas de una empresa, la edad de un estudiante o el tipo de capacitación que recibe un empleado. Si algo no varía (siempre es igual), no es una variable: es una constante.</p>
+  </div>
+
+  <h3>1.1 Variable Independiente (VI)</h3>
+  <p>La <strong>variable independiente</strong> es la causa supuesta, la que el investigador <em>manipula</em> o selecciona deliberadamente para observar su efecto. En un experimento, el investigador decide qué niveles o condiciones tendrá esta variable. También se la llama <em>variable explicativa</em>, <em>variable predictora</em> o <em>variable de tratamiento</em>.</p>
+
+  <div class="box-ejemplo">
+    <div class="box-label">🇪🇨 Ejemplo ecuatoriano — VI</div>
+    <p>Un investigador quiere saber si recibir <strong>capacitación en uso de software contable</strong> mejora el desempeño laboral de los contadores de microempresas en Guayaquil. La variable independiente es: <em>"tipo de capacitación recibida"</em> (con dos niveles: con capacitación / sin capacitación). El investigador decide quién recibe el tratamiento.</p>
+  </div>
+
+  <h3>1.2 Variable Dependiente (VD)</h3>
+  <p>La <strong>variable dependiente</strong> es el efecto supuesto, lo que se <em>mide</em> o <em>observa</em> para ver si cambió como resultado de la variable independiente. Depende (en teoría) de lo que ocurra con la VI. También se la llama <em>variable de respuesta</em> o <em>variable criterio</em>.</p>
+
+  <div class="box-ejemplo">
+    <div class="box-label">🇪🇨 Ejemplo ecuatoriano — VD</div>
+    <p>En el mismo estudio, la variable dependiente sería: <em>"desempeño laboral del contador"</em>, medida, por ejemplo, a través del número de errores en declaraciones tributarias al mes o el tiempo promedio que tarda en cerrar estados financieros.</p>
+  </div>
+
+  <h3>1.3 ¿Cómo identificarlas? La pregunta clave</h3>
+  <p>Una forma práctica de distinguirlas es hacerse la pregunta: <em>¿Qué causa qué?</em></p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Pregunta</th><th>Variable Independiente (causa)</th><th>Variable Dependiente (efecto)</th></tr></thead>
+      <tbody>
+        <tr><td>¿La auditoría frecuente reduce el fraude?</td><td>Frecuencia de auditorías internas</td><td>Número de casos de fraude detectados</td></tr>
+        <tr><td>¿El salario emocional aumenta la productividad?</td><td>Implementación de salario emocional</td><td>Productividad del empleado</td></tr>
+        <tr><td>¿El estrés afecta la precisión contable?</td><td>Nivel de estrés laboral</td><td>Tasa de errores en registros contables</td></tr>
+        <tr><td>¿La capacitación reduce el tiempo de cierre financiero?</td><td>Horas de capacitación recibidas</td><td>Días necesarios para cerrar el período contable</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>1.4 Variables intervinientes o extrañas</h3>
+  <p>En el mundo real, rara vez solo dos variables están en juego. Existen <strong>variables extrañas</strong> (también llamadas <em>variables de confusión</em> o <em>variables intervinientes</em>): características que podrían afectar la variable dependiente sin que el investigador las haya incluido en su diseño. Si no se controlan, pueden distorsionar los resultados y llevar a conclusiones falsas.</p>
+
+  <div class="box-warning">
+    <strong>⚠️ Ejemplo de variable extraña:</strong> Si capacitamos a empleados de una empresa y su desempeño mejora, ¿fue por la capacitación (VI) o porque ese mes también subió el sueldo (variable extraña)? Sin controlar este factor, no podemos atribuir la mejora solo a nuestra VI.
+  </div>
+
+  <div class="box-clave">
+    <div class="box-label">💡 Idea clave</div>
+    <p>La variable independiente es lo que el investigador <strong>manipula o introduce</strong>. La variable dependiente es lo que el investigador <strong>mide</strong> para ver si hubo cambio. Las variables extrañas son las que el investigador debe <strong>controlar</strong> para no contaminar sus conclusiones. Identificar correctamente cada una es la base de cualquier buen diseño de investigación.</p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- TAB: T2 – Manipulación y Control -->
+<!-- ============================== -->
+<div id="tab-t2" class="tab-content">
+  <h2>2. Manipulación de la Variable Independiente y Control</h2>
+
+  <p>Para que una investigación sea considerada un <strong>experimento verdadero</strong>, no basta con observar lo que ocurre de forma natural. El investigador debe <em>intervenir activamente</em> en el fenómeno. Esta intervención se llama <strong>manipulación</strong>. Junto a ella, el <strong>control</strong> es el mecanismo que asegura que los cambios observados en la VD sean realmente causados por la VI y no por otros factores.</p>
+
+  <h3>2.1 ¿Qué significa manipular la variable independiente?</h3>
+
+  <div class="box-concepto">
+    <div class="box-label">📌 Definición: Manipulación de la VI</div>
+    <p>Manipular la variable independiente significa que el investigador <strong>decide deliberada y sistemáticamente</strong> qué condición o nivel de la VI recibirá cada participante o grupo del estudio. No se trata de engañar: se trata de crear variaciones controladas para observar su efecto.</p>
+  </div>
+
+  <h3>2.2 Tipos de manipulación</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Tipo</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Presencia/Ausencia</strong></td>
+          <td>Un grupo recibe el tratamiento; el otro no recibe nada (o recibe un placebo).</td>
+          <td>Grupo A recibe capacitación en NIIF; Grupo B no recibe ninguna.</td>
+        </tr>
+        <tr>
+          <td><strong>Cantidad o intensidad</strong></td>
+          <td>Se varía cuánto del tratamiento recibe cada grupo.</td>
+          <td>Grupo A: 8 horas de capacitación. Grupo B: 4 horas. Grupo C: 0 horas.</td>
+        </tr>
+        <tr>
+          <td><strong>Tipo o modalidad</strong></td>
+          <td>Se comparan diferentes formas del mismo tratamiento.</td>
+          <td>Grupo A: capacitación presencial. Grupo B: capacitación virtual. Grupo C: autoaprendizaje.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.3 El grupo control y el grupo experimental</h3>
+  <p>Para poder medir el efecto de la manipulación, siempre se necesita un <strong>punto de comparación</strong>:</p>
+  <ul>
+    <li><strong>Grupo experimental:</strong> recibe el tratamiento (la VI en uno de sus niveles activos).</li>
+    <li><strong>Grupo control:</strong> no recibe el tratamiento o recibe una condición neutra. Es el <em>estándar de referencia</em> contra el cual se comparan los resultados del grupo experimental.</li>
+  </ul>
+
+  <div class="box-ejemplo">
+    <div class="box-label">🇪🇨 Ejemplo aplicado — Auditoría forense</div>
+    <p>Un investigador quiere saber si implementar un <em>sistema de alertas digitales de irregularidades</em> reduce el tiempo de detección de fraudes en empresas medianas de Quito. Grupo experimental: 10 empresas que instalan el sistema. Grupo control: 10 empresas similares que siguen con sus procesos manuales habituales. Después de 6 meses se compara el tiempo promedio de detección en ambos grupos.</p>
+  </div>
+
+  <h3>2.4 Control: la garantía de los resultados</h3>
+  <div class="box-concepto">
+    <div class="box-label">📌 Definición: Control experimental</div>
+    <p>El <strong>control</strong> es el conjunto de estrategias que el investigador emplea para asegurarse de que <em>solo la VI</em> varíe entre los grupos y que todo lo demás permanezca constante o sea equivalente. Sin control, no podemos atribuir los cambios en la VD a nuestra manipulación.</p>
+  </div>
+
+  <h4>Estrategias de control más importantes:</h4>
+  <ul>
+    <li><strong>Aleatorización (randomización):</strong> asignar participantes a grupos <em>al azar</em>, lo que distribuye de manera equitativa las diferencias individuales entre grupos. Es la estrategia de control más poderosa.</li>
+    <li><strong>Igualación (matching):</strong> emparejar participantes de ambos grupos según características relevantes (edad, experiencia, nivel de educación) para que sean comparables.</li>
+    <li><strong>Eliminación:</strong> remover una variable extraña del estudio (por ejemplo, realizarlo en un solo horario para eliminar la influencia del cansancio nocturno).</li>
+    <li><strong>Mantenimiento constante:</strong> mantener iguales las condiciones en que ambos grupos realizan la tarea (misma sala, mismo tiempo, mismos materiales).</li>
+    <li><strong>Covarianza estadística:</strong> usar técnicas estadísticas para "descontar" el efecto de variables extrañas que no pudieron eliminarse físicamente.</li>
+  </ul>
+
+  <div class="box-clave">
+    <div class="box-label">💡 Idea clave</div>
+    <p>Manipular sin controlar produce datos que no podemos interpretar con confianza. Controlar sin manipular no es un experimento: es solo observación. La combinación de <strong>manipulación + control</strong> es lo que da al diseño experimental su capacidad única para establecer relaciones causales. Un auditor bien formado entiende que la "prueba de que algo causó algo" requiere exactamente este nivel de rigor metodológico.</p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- TAB: T3 – Validez Interna -->
+<!-- ============================== -->
+<div id="tab-t3" class="tab-content">
+  <h2>3. Validez Interna y sus Amenazas</h2>
+
+  <p>Imagina que realizas un experimento, obtienes resultados claros y concluyes que tu VI causó los cambios en la VD. Pero ¿y si esos cambios en realidad fueron causados por otro factor que no consideraste? Eso es exactamente lo que mide la <strong>validez interna</strong>.</p>
+
+  <div class="box-concepto">
+    <div class="box-label">📌 Definición: Validez interna</div>
+    <p>La <strong>validez interna</strong> es el grado en que los cambios observados en la variable dependiente son causados <em>exclusivamente</em> por la manipulación de la variable independiente, y no por variables extrañas o errores de diseño. Un estudio tiene alta validez interna cuando podemos afirmar con confianza: <em>"fue la VI la que produjo estos resultados, no otra cosa."</em></p>
+  </div>
+
+  <h3>3.1 Principales amenazas a la validez interna</h3>
+  <p>Campbell y Stanley (1966), dos de los investigadores más influyentes en metodología experimental, identificaron las principales <strong>fuentes de invalidación interna</strong>. Estas son situaciones o eventos que pueden explicar los resultados de un estudio sin necesidad de invocar la VI:</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Amenaza</th><th>¿En qué consiste?</th><th>Ejemplo en contexto contable</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Historia</strong></td>
+          <td>Eventos externos que ocurren entre el pretest y el postest y que pueden afectar la VD.</td>
+          <td>Se implementa un programa de capacitación contable, pero a mitad del estudio el gobierno emite nuevas regulaciones tributarias que también mejoran el desempeño. ¿Cuál fue la causa real?</td>
+        </tr>
+        <tr>
+          <td><strong>Maduración</strong></td>
+          <td>Los participantes cambian con el tiempo por su propio desarrollo o experiencia natural.</td>
+          <td>Los contadores mejoran su desempeño simplemente porque llevan más meses en el trabajo, no por el tratamiento recibido.</td>
+        </tr>
+        <tr>
+          <td><strong>Instrumentación</strong></td>
+          <td>El instrumento de medición cambia entre el pretest y el postest, o los observadores se vuelven más "expertos" y califican diferente.</td>
+          <td>En el pretest se usa una rúbrica de 5 criterios; en el postest se usa una de 8. Los puntajes no son comparables.</td>
+        </tr>
+        <tr>
+          <td><strong>Selección sesgada</strong></td>
+          <td>Los grupos experimental y control ya son diferentes entre sí antes de que comience el estudio.</td>
+          <td>Al grupo experimental se le asignan los contadores con más experiencia y al control los más nuevos. Cualquier diferencia al final puede deberse a la experiencia previa, no a la capacitación.</td>
+        </tr>
+        <tr>
+          <td><strong>Mortalidad experimental (desgaste)</strong></td>
+          <td>Algunos participantes abandonan el estudio, y los que se van no lo hacen al azar: suelen ser los que tienen peores resultados o mayor desmotivación.</td>
+          <td>De 30 contadores en el grupo de capacitación, 8 renuncian antes del postest. Los que quedan son los más comprometidos, inflando artificialmente los resultados.</td>
+        </tr>
+        <tr>
+          <td><strong>Regresión a la media</strong></td>
+          <td>Si se selecciona a participantes con puntuaciones extremas (muy altas o muy bajas), en la siguiente medición tienden a acercarse al promedio por causas puramente estadísticas.</td>
+          <td>Se selecciona a los contadores con los peores registros de error para el programa de mejora. En el siguiente período cometen menos errores, pero parte de esa mejora es estadística, no resultado de la capacitación.</td>
+        </tr>
+        <tr>
+          <td><strong>Difusión del tratamiento</strong></td>
+          <td>Los participantes del grupo control aprenden (por conversación informal) lo que recibe el grupo experimental y lo aplican.</td>
+          <td>Los contadores del grupo control escuchan a sus colegas del grupo experimental contar qué aprendieron y comienzan a aplicarlo también. Los grupos ya no son independientes.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.2 ¿Cómo proteger la validez interna?</h3>
+  <ul>
+    <li><strong>Aleatorización:</strong> la mejor defensa contra la selección sesgada.</li>
+    <li><strong>Grupo control:</strong> permite detectar el efecto de la historia y la maduración.</li>
+    <li><strong>Estandarización de instrumentos:</strong> misma rúbrica, mismo evaluador, mismas condiciones en pretest y postest.</li>
+    <li><strong>Cegamiento (blinding):</strong> el evaluador no sabe a qué grupo pertenece el participante.</li>
+    <li><strong>Separación física de los grupos:</strong> reduce la difusión del tratamiento.</li>
+  </ul>
+
+  <div class="box-clave">
+    <div class="box-label">💡 Idea clave</div>
+    <p>La validez interna nos protege de <strong>errores de atribución causal</strong>. En auditoría, saber distinguir la causa real del efecto observado es crucial: si un proceso mejora, ¿fue por el nuevo control interno o porque cambió el personal? Un investigador (y un auditor) que no conoce las amenazas a la validez interna puede llegar a conclusiones completamente equivocadas con datos completamente reales.</p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- TAB: T4 – Diseños Experimentales -->
+<!-- ============================== -->
+<div id="tab-t4" class="tab-content">
+  <h2>4. Tipos de Diseños Experimentales</h2>
+
+  <p>No todos los experimentos tienen el mismo nivel de rigor y control. En función de si se cuenta con grupos de control, aleatorización y mediciones previas (pretest), los diseños experimentales se clasifican en tres categorías principales.</p>
+
+  <div class="box-concepto">
+    <div class="box-label">📌 Recordatorio clave</div>
+    <p>Un diseño experimental es el <em>plan estructurado</em> que define cómo se asignan los participantes a los grupos, cuándo y cómo se mide la VD, y cómo se aplica el tratamiento (VI). La elección del diseño determina en gran medida cuánta <strong>validez interna</strong> tendrá el estudio.</p>
+  </div>
+
+  <h3>4.1 Preexperimentos (Diseños pre-experimentales)</h3>
+  <p>Son los diseños con <strong>menor control</strong>. No incluyen grupos control verdaderos ni aleatorización. Se usan como primeros acercamientos exploratorios, pero no permiten establecer causalidad con confianza.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Tipo</th><th>Estructura</th><th>Debilidad principal</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Estudio de caso con una sola medición</strong></td>
+          <td>Un grupo → Tratamiento (X) → Postest (O₂)</td>
+          <td>Sin referencia previa, no sabemos si hubo cambio ni de cuánto.</td>
+        </tr>
+        <tr>
+          <td><strong>Diseño pretest-postest de un solo grupo</strong></td>
+          <td>Un grupo → Pretest (O₁) → Tratamiento (X) → Postest (O₂)</td>
+          <td>La historia y la maduración pueden explicar las diferencias O₂-O₁.</td>
+        </tr>
+        <tr>
+          <td><strong>Comparación de grupos estáticos</strong></td>
+          <td>Grupo A → Tratamiento (X) → O₁ / Grupo B (sin tratamiento) → O₂</td>
+          <td>Los grupos pueden ser muy diferentes desde el inicio (selección sesgada).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>4.2 Diseños cuasiexperimentales</h3>
+  <p>Los diseños cuasiexperimentales incluyen <strong>grupos de comparación</strong>, pero <em>sin aleatorización</em>. Se usan cuando no es ético o posible asignar participantes al azar (por ejemplo, en contextos educativos o empresariales reales donde los grupos ya están formados). Tienen más validez interna que los pre-experimentos, pero menos que los experimentos verdaderos.</p>
+
+  <div class="box-ejemplo">
+    <div class="box-label">🇪🇨 Ejemplo — Diseño cuasiexperimental</div>
+    <p>Un investigador quiere evaluar si un programa de ética empresarial reduce los informes de irregularidades contables en dos sucursales bancarias de Cuenca. No puede reasignar aleatoriamente a los empleados, pero puede aplicar el programa a la Sucursal A (experimental) y no a la Sucursal B (control). Aplica pretest y postest en ambas. Este es un <em>diseño de grupo control no equivalente con pretest-postest</em>: el diseño cuasiexperimental más común.</p>
+  </div>
+
+  <h3>4.3 Experimentos verdaderos (Diseños experimentales puros)</h3>
+  <p>Son los diseños con <strong>mayor control</strong> y, por tanto, mayor validez interna. Su característica definitoria es la <strong>aleatorización</strong> en la asignación de participantes a los grupos. Solo cuando se aleatoriza correctamente podemos decir que los grupos son estadísticamente equivalentes antes del tratamiento.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Diseño</th><th>Estructura</th><th>Ventaja principal</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Pretest-postest con grupo control aleatorio</strong></td>
+          <td>R → O₁ → X → O₂ (experimental) / R → O₁ → — → O₂ (control)</td>
+          <td>Controla historia, maduración, regresión y selección. El más completo.</td>
+        </tr>
+        <tr>
+          <td><strong>Solo postest con grupo control aleatorio</strong></td>
+          <td>R → X → O (experimental) / R → — → O (control)</td>
+          <td>Evita el efecto de sensibilización del pretest. Sencillo y eficaz.</td>
+        </tr>
+        <tr>
+          <td><strong>Diseño factorial</strong></td>
+          <td>Combina dos o más VI de forma simultánea.</td>
+          <td>Permite estudiar cómo interactúan dos variables al mismo tiempo.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box-warning">
+    <strong>Nota:</strong> R = asignación aleatoria | O = observación/medición | X = tratamiento (VI) | — = sin tratamiento
+  </div>
+
+  <div class="box-ejemplo">
+    <div class="box-label">🇪🇨 Ejemplo — Experimento verdadero en auditoría</div>
+    <p>Una firma auditora en Guayaquil quiere saber si usar <em>software de auditoría con inteligencia artificial</em> mejora la precisión en la detección de errores. Cuenta con 40 auditores junior. Los asigna <strong>al azar</strong>: 20 al grupo experimental (usan el software IA) y 20 al control (usan el método tradicional). Aplica un pretest de precisión, luego el tratamiento por 3 meses, y finalmente un postest. Diseño: pretest-postest con grupo control aleatorio. Alta validez interna.</p>
+  </div>
+
+  <div class="box-clave">
+    <div class="box-label">💡 Idea clave</div>
+    <p>La diferencia entre un preexperimento, un cuasiexperimento y un experimento verdadero no es de complejidad, sino de <strong>rigor en el control</strong>. A mayor control (especialmente por aleatorización), mayor confianza en que la VI realmente causó los cambios. Elegir el diseño adecuado depende del contexto, los recursos disponibles y las consideraciones éticas del estudio.</p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- TAB: T5 – Validez Externa -->
+<!-- ============================== -->
+<div id="tab-t5" class="tab-content">
+  <h2>5. Validez Externa y Fuentes de Invalidación Externa</h2>
+
+  <p>Supón que has diseñado un experimento perfecto con alta validez interna: aleatorización impecable, grupos bien controlados, resultados claros. Pero ahora surge la pregunta: ¿esos resultados se aplican también a otras personas, en otros contextos, en otros momentos? Eso es lo que evalúa la <strong>validez externa</strong>.</p>
+
+  <div class="box-concepto">
+    <div class="box-label">📌 Definición: Validez externa</div>
+    <p>La <strong>validez externa</strong> es el grado en que los resultados de un estudio pueden <em>generalizarse</em> más allá de las condiciones específicas en que se realizó el experimento: hacia otras personas, otros entornos, otros momentos y otras versiones del tratamiento. Un estudio puede tener alta validez interna pero baja validez externa, y viceversa.</p>
+  </div>
+
+  <h3>5.1 La tensión entre validez interna y externa</h3>
+  <p>Existe una <strong>tensión inherente</strong> entre ambos tipos de validez. Cuando se controla todo exhaustivamente para asegurar la validez interna (laboratorio artificial, muestra muy homogénea, condiciones estrictas), el experimento se aleja de la realidad y se vuelve difícil de generalizar. Por el contrario, si se trabaja en contextos muy reales y diversos para mejorar la generalización, se pierde algo de control.</p>
+
+  <div class="box-ejemplo">
+    <div class="box-label">📊 La paradoja del laboratorio</div>
+    <p>Un experimento en laboratorio que prueba que un método de auditoría X reduce errores en condiciones perfectas (silencio, sin presión, tiempo ilimitado) puede no funcionar igual en una empresa real de Manta con auditores bajo presión de tiempo. Alta validez interna, baja validez externa.</p>
+  </div>
+
+  <h3>5.2 Principales fuentes de invalidación externa</h3>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Amenaza</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Efecto de la prueba (sensibilización al pretest)</strong></td>
+          <td>El hecho de haber respondido un pretest sensibiliza a los participantes y cambia su respuesta al tratamiento. Otros grupos que no hayan hecho pretest reaccionarán diferente.</td>
+          <td>Al hacer un cuestionario inicial sobre ética contable, los participantes se vuelven más conscientes del tema y mejoran su desempeño por eso, no solo por el tratamiento.</td>
+        </tr>
+        <tr>
+          <td><strong>Interacción de selección y tratamiento</strong></td>
+          <td>Los resultados solo aplican al tipo particular de personas seleccionadas, no a otras poblaciones.</td>
+          <td>Un programa de auditoría exitoso en contadores con posgrado puede no funcionar igual con contadores sin título universitario.</td>
+        </tr>
+        <tr>
+          <td><strong>Efectos reactivos de los procedimientos experimentales</strong></td>
+          <td>Las condiciones artificiales del experimento (sentirse observados, saber que participan en un estudio) modifican el comportamiento. Esto se llama efecto Hawthorne.</td>
+          <td>Los empleados trabajan mejor porque saben que están siendo evaluados para un estudio, no porque el tratamiento funcione.</td>
+        </tr>
+        <tr>
+          <td><strong>Interferencia de tratamientos múltiples</strong></td>
+          <td>Si un mismo grupo recibe varios tratamientos en secuencia, los efectos se contaminan entre sí y no se puede saber qué funcionó.</td>
+          <td>Los auditores reciben primero capacitación en NIIF, luego en gestión de riesgos, y finalmente en software. ¿Cuál de los tres mejoró su desempeño?</td>
+        </tr>
+        <tr>
+          <td><strong>Especificidad del contexto</strong></td>
+          <td>Los resultados son válidos solo en el contexto específico donde se realizó el estudio (ciudad, empresa, cultura, época).</td>
+          <td>Un programa exitoso en empresas de Quito puede no funcionar igual en comunidades rurales de la Sierra o en la Costa ecuatoriana, por diferencias culturales y de recursos.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>5.3 Estrategias para mejorar la validez externa</h3>
+  <ul>
+    <li><strong>Muestreo representativo:</strong> seleccionar participantes que sean representativos de la población a la que se quiere generalizar.</li>
+    <li><strong>Replicación:</strong> repetir el estudio en distintos contextos, momentos y con diferentes poblaciones.</li>
+    <li><strong>Condiciones realistas:</strong> realizar el experimento en entornos lo más cercanos posible a la realidad.</li>
+    <li><strong>Diseños sin pretest (solo postest):</strong> eliminan la sensibilización por pretest.</li>
+    <li><strong>Descripción detallada del contexto:</strong> documentar minuciosamente las condiciones del estudio para que otros investigadores puedan evaluar a qué otras situaciones aplican los resultados.</li>
+  </ul>
+
+  <div class="box-clave">
+    <div class="box-label">💡 Idea clave</div>
+    <p>La validez externa responde a la pregunta: <em>¿a quiénes y a qué situaciones puedo extender estos resultados?</em> Un profesional en Contabilidad y Auditoría debe recordar que los hallazgos de un estudio realizado en empresas multinacionales no necesariamente aplican a las microempresas de Guayaquil. La <strong>generalización siempre debe justificarse</strong>, nunca asumirse automáticamente.</p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- TAB: T6 – Diseños No Experimentales -->
+<!-- ============================== -->
+<div id="tab-t6" class="tab-content">
+  <h2>6. Diseños No Experimentales</h2>
+
+  <p>No toda investigación científica es, ni puede ser, un experimento. En ciencias sociales, económicas y contables, muchas veces es <strong>imposible o no ético</strong> manipular variables. En esos casos, los investigadores recurren a los <strong>diseños no experimentales</strong>, que tienen un enorme valor cuando se comprenden y aplican correctamente.</p>
+
+  <div class="box-concepto">
+    <div class="box-label">📌 Definición: Diseño no experimental</div>
+    <p>Un <strong>diseño no experimental</strong> es aquel en el que el investigador <em>no manipula ninguna variable</em> ni asigna participantes a condiciones. En cambio, <strong>observa y analiza los fenómenos tal como ocurren en su contexto natural</strong>, sin intervenir en ellos. No se puede establecer causalidad directa, pero sí describir, relacionar y predecir fenómenos.</p>
+  </div>
+
+  <h3>6.1 ¿Por qué usar diseños no experimentales?</h3>
+  <ul>
+    <li><strong>Razones éticas:</strong> no se puede manipular el nivel de estrés de un trabajador hasta el colapso para estudiar sus efectos.</li>
+    <li><strong>Razones prácticas:</strong> no es posible asignar al azar a qué empresa pertenece un trabajador para estudiar el efecto de la cultura organizacional.</li>
+    <li><strong>Estudio de hechos pasados:</strong> los eventos ya ocurrieron (como una crisis financiera). No se pueden reproducir experimentalmente.</li>
+    <li><strong>Exploración de fenómenos complejos:</strong> comprender la corrupción contable requiere observación profunda, no experimentos de laboratorio.</li>
+  </ul>
+
+  <h3>6.2 Clasificación según la dimensión temporal</h3>
+  <p>Los diseños no experimentales se clasifican principalmente según <strong>cuándo y cuántas veces</strong> se recopilan los datos:</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Dimensión temporal</th><th>Tipo</th><th>Descripción</th><th>Ejemplo contable</th></tr></thead>
+      <tbody>
+        <tr>
+          <td rowspan="2"><strong>Transversal</strong><br><em>(un solo momento)</em></td>
+          <td>Descriptivo</td>
+          <td>Describe variables en un momento específico. Sin buscar relaciones.</td>
+          <td>Encuesta a 200 contadores de Guayaquil sobre sus herramientas digitales preferidas en 2024.</td>
+        </tr>
+        <tr>
+          <td>Correlacional / Causal</td>
+          <td>Busca relaciones entre variables en un mismo momento. Puede sugerir (no probar) causalidad.</td>
+          <td>Analizar si existe correlación entre el nivel de capacitación del auditor y el número de hallazgos en auditorías internas, en un período dado.</td>
+        </tr>
+        <tr>
+          <td rowspan="3"><strong>Longitudinal</strong><br><em>(varios momentos)</em></td>
+          <td>Tendencia (trend)</td>
+          <td>Analiza cambios en una población a lo largo del tiempo, con diferentes muestras en cada medición.</td>
+          <td>Evolución de los niveles de confianza en los estados financieros de empresas ecuatorianas del 2019 al 2024, comparando distintas muestras cada año.</td>
+        </tr>
+        <tr>
+          <td>Cohorte</td>
+          <td>Sigue a un grupo específico (cohorte) con característica común a lo largo del tiempo.</td>
+          <td>Seguimiento a los egresados de Contabilidad de la UG de la promoción 2020 durante 5 años para ver su trayectoria laboral.</td>
+        </tr>
+        <tr>
+          <td>Panel</td>
+          <td>Mide las mismas personas en múltiples momentos. El más informativo de los longitudinales.</td>
+          <td>Medir el nivel de satisfacción laboral y el desempeño contable de los mismos 50 empleados de una empresa cada 6 meses durante 3 años.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>6.3 Lo que los diseños no experimentales pueden y no pueden hacer</h3>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>SÍ pueden</th><th>NO pueden</th></tr></thead>
+      <tbody>
+        <tr><td>Describir con precisión un fenómeno</td><td>Establecer causalidad definitiva</td></tr>
+        <tr><td>Identificar correlaciones y asociaciones</td><td>Controlar variables extrañas con igual precisión que un experimento</td></tr>
+        <tr><td>Estudiar hechos pasados (ex post facto)</td><td>Manipular la VI para crear condiciones</td></tr>
+        <tr><td>Analizar fenómenos en entornos naturales</td><td>Garantizar la equivalencia de los grupos comparados</td></tr>
+        <tr><td>Ser éticamente apropiados para temas sensibles</td><td>Eliminar completamente la posibilidad de variables de confusión</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box-ejemplo">
+    <div class="box-label">🇪🇨 Ejemplo aplicado en Auditoría</div>
+    <p>Un investigador quiere estudiar si existe relación entre el tamaño de la empresa y la frecuencia de irregularidades contables en empresas del sector pesquero de Manta. No puede manipular el tamaño de las empresas. Entonces diseña un estudio <strong>no experimental transversal correlacional</strong>: analiza los registros contables y los informes de auditoría de 80 empresas del sector, midiendo el tamaño (número de empleados, activos totales) y la frecuencia de irregularidades. Encuentra correlación positiva moderada: sin poder decir que el tamaño <em>causa</em> las irregularidades, sí puede decir que tienden a aparecer juntos.</p>
+  </div>
+
+  <div class="box-clave">
+    <div class="box-label">💡 Idea clave</div>
+    <p>Los diseños no experimentales no son diseños "de segunda clase". Son la forma más común y frecuentemente la más apropiada de investigar en ciencias sociales, administrativas y contables. Su limitación no es que sean débiles, sino que debemos ser <strong>honestos sobre lo que pueden y no pueden concluir</strong>. Un investigador riguroso nunca presentará una correlación como si fuera una prueba de causalidad.</p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- TAB: EJERCICIO INTERACTIVO -->
+<!-- ============================== -->
+<div id="tab-ejercicio" class="tab-content">
+  <h2>🎯 Ejercicio Interactivo: Clasifica y empareja</h2>
+  <p>Lee cada situación o descripción con cuidado. Selecciona la respuesta correcta para cada ítem. Cuando hayas respondido <strong>todos los ítems</strong>, presiona "Verificar respuestas" para ver tus resultados con retroalimentación detallada.</p>
+
+  <!-- ítem 1 -->
+  <div class="ex-item" id="ei1">
+    <div class="ex-q">1. Un investigador divide aleatoriamente a 60 auditores en dos grupos: el grupo A usa un nuevo software de revisión de cuentas, el grupo B continúa con el método tradicional. Mide la precisión de ambos antes y después. ¿Qué tipo de diseño es este?</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="ei1" value="a"> Diseño cuasiexperimental de grupo control no equivalente</label>
+      <label class="ex-option"><input type="radio" name="ei1" value="b"> Preexperimento de caso único</label>
+      <label class="ex-option"><input type="radio" name="ei1" value="c"> Experimento verdadero: pretest-postest con grupo control aleatorio</label>
+      <label class="ex-option"><input type="radio" name="ei1" value="d"> Diseño no experimental longitudinal de panel</label>
+    </div>
+    <div class="feedback-text" id="fb1"></div>
+  </div>
+
+  <!-- ítem 2 -->
+  <div class="ex-item" id="ei2">
+    <div class="ex-q">2. En un estudio sobre estrés laboral y errores contables, el investigador detecta que durante el período de medición el SRI lanzó una nueva campaña de fiscalización que aumentó la presión sobre los contadores. Esta situación es una amenaza conocida como:</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="ei2" value="a"> Maduración</label>
+      <label class="ex-option"><input type="radio" name="ei2" value="b"> Instrumentación</label>
+      <label class="ex-option"><input type="radio" name="ei2" value="c"> Historia</label>
+      <label class="ex-option"><input type="radio" name="ei2" value="d"> Mortalidad experimental</label>
+    </div>
+    <div class="feedback-text" id="fb2"></div>
+  </div>
+
+  <!-- ítem 3 -->
+  <div class="ex-item" id="ei3">
+    <div class="ex-q">3. Una empresa aplica un programa de capacitación en ética contable a sus empleados. La variable dependiente en este estudio sería:</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="ei3" value="a"> El tipo de programa de capacitación utilizado</label>
+      <label class="ex-option"><input type="radio" name="ei3" value="b"> El número de horas de capacitación</label>
+      <label class="ex-option"><input type="radio" name="ei3" value="c"> El comportamiento ético posterior de los empleados</label>
+      <label class="ex-option"><input type="radio" name="ei3" value="d"> La empresa donde trabajan los empleados</label>
+    </div>
+    <div class="feedback-text" id="fb3"></div>
+  </div>
+
+  <!-- ítem 4 -->
+  <div class="ex-item" id="ei4">
+    <div class="ex-q">4. Un investigador observa los estados financieros de 150 empresas del Ecuador durante 4 años consecutivos, midiendo los mismos indicadores cada año en las mismas empresas. ¿Qué tipo de diseño no experimental es este?</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="ei4" value="a"> Transversal descriptivo</label>
+      <label class="ex-option"><input type="radio" name="ei4" value="b"> Longitudinal de tendencia</label>
+      <label class="ex-option"><input type="radio" name="ei4" value="c"> Longitudinal de panel</label>
+      <label class="ex-option"><input type="radio" name="ei4" value="d"> Transversal correlacional</label>
+    </div>
+    <div class="feedback-text" id="fb4"></div>
+  </div>
+
+  <!-- ítem 5 -->
+  <div class="ex-item" id="ei5">
+    <div class="ex-q">5. El "efecto Hawthorne" es una fuente de invalidación que amenaza principalmente la:</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="ei5" value="a"> Validez interna del estudio</label>
+      <label class="ex-option"><input type="radio" name="ei5" value="b"> Validez externa del estudio</label>
+      <label class="ex-option"><input type="radio" name="ei5" value="c"> Validez del instrumento estadístico</label>
+      <label class="ex-option"><input type="radio" name="ei5" value="d"> La manipulación de la variable independiente</label>
+    </div>
+    <div class="feedback-text" id="fb5"></div>
+  </div>
+
+  <!-- ítem 6 -->
+  <div class="ex-item" id="ei6">
+    <div class="ex-q">6. Un investigador aplica el mismo programa de auditoría exitoso que funcionó en grandes corporaciones de Quito a una cooperativa de ahorro de Manabí y descubre que no funciona de la misma manera. Esto ilustra un problema de:</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="ei6" value="a"> Mortalidad experimental</label>
+      <label class="ex-option"><input type="radio" name="ei6" value="b"> Regresión a la media</label>
+      <label class="ex-option"><input type="radio" name="ei6" value="c"> Validez externa — especificidad del contexto</label>
+      <label class="ex-option"><input type="radio" name="ei6" value="d"> Difusión del tratamiento</label>
+    </div>
+    <div class="feedback-text" id="fb6"></div>
+  </div>
+
+  <!-- ítem 7 -->
+  <div class="ex-item" id="ei7">
+    <div class="ex-q">7. En el siguiente estudio: "Analizar si existe correlación entre la rotación de personal contable y la cantidad de errores en los estados financieros de empresas medianas de Ecuador" — ¿cuál es la variable independiente?</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="ei7" value="a"> La cantidad de errores en los estados financieros</label>
+      <label class="ex-option"><input type="radio" name="ei7" value="b"> El tamaño de las empresas medianas</label>
+      <label class="ex-option"><input type="radio" name="ei7" value="c"> La rotación de personal contable</label>
+      <label class="ex-option"><input type="radio" name="ei7" value="d"> El origen del error contable</label>
+    </div>
+    <div class="feedback-text" id="fb7"></div>
+  </div>
+
+  <!-- ítem 8 -->
+  <div class="ex-item" id="ei8">
+    <div class="ex-q">8. La principal ventaja del experimento verdadero sobre el cuasiexperimento es:</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="ei8" value="a"> Que siempre se realiza en laboratorio</label>
+      <label class="ex-option"><input type="radio" name="ei8" value="b"> Que usa más participantes</label>
+      <label class="ex-option"><input type="radio" name="ei8" value="c"> La asignación aleatoria, que garantiza la equivalencia inicial de los grupos</label>
+      <label class="ex-option"><input type="radio" name="ei8" value="d"> Que siempre incluye más de tres grupos</label>
+    </div>
+    <div class="feedback-text" id="fb8"></div>
+  </div>
+
+  <div style="text-align:center; margin-top: 24px;">
+    <button class="btn" onclick="verificarEjercicio()">✅ Verificar respuestas</button>
+    <button class="btn secondary" onclick="reiniciarEjercicio()" style="margin-left:12px;">🔄 Reiniciar</button>
+  </div>
+
+  <div class="score-box" id="score-ejercicio">
+    <div class="score-emoji" id="se-emoji"></div>
+    <div class="score-num" id="se-num"></div>
+    <div class="score-label">respuestas correctas</div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="se-bar" style="width:0%"></div></div>
+    <div class="score-msg" id="se-msg"></div>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- TAB: CUESTIONARIO -->
+<!-- ============================== -->
+<div id="tab-cuestionario" class="tab-content">
+  <h2>📝 Cuestionario — 10 Preguntas</h2>
+  <p>Responde las <strong>10 preguntas</strong> a continuación. Cuando hayas completado todas, presiona "Verificar respuestas" para obtener tu calificación con retroalimentación por pregunta. <em>No se evalúa pregunta por pregunta: primero respondes todo, luego verificas.</em></p>
+
+  <!-- P1 -->
+  <div class="ex-item" id="qi1">
+    <span class="badge-tipo badge-teo">Teórica</span>
+    <div class="ex-q">1. ¿Cuál es la definición más precisa de variable independiente?</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="qi1" value="a"> La variable que el investigador manipula deliberadamente para observar su efecto sobre otra variable.</label>
+      <label class="ex-option"><input type="radio" name="qi1" value="b"> La variable que se mide al final de un experimento para comprobar si hubo cambio.</label>
+      <label class="ex-option"><input type="radio" name="qi1" value="c"> La variable que permanece constante durante todo el estudio.</label>
+      <label class="ex-option"><input type="radio" name="qi1" value="d"> Cualquier característica del investigador que pueda influir en el estudio.</label>
+    </div>
+    <div class="feedback-text" id="fq1"></div>
+  </div>
+
+  <!-- P2 -->
+  <div class="ex-item" id="qi2">
+    <span class="badge-tipo badge-teo">Teórica</span>
+    <div class="ex-q">2. ¿Cuál de las siguientes estrategias es la más eficaz para controlar variables extrañas y garantizar la equivalencia entre grupos?</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="qi2" value="a"> La asignación aleatoria (aleatorización) de los participantes a los grupos.</label>
+      <label class="ex-option"><input type="radio" name="qi2" value="b"> Usar el mismo evaluador para todos los grupos.</label>
+      <label class="ex-option"><input type="radio" name="qi2" value="c"> Aplicar el pretest al grupo control pero no al experimental.</label>
+      <label class="ex-option"><input type="radio" name="qi2" value="d"> Aumentar el tamaño de la muestra sin aleatorizar.</label>
+    </div>
+    <div class="feedback-text" id="fq2"></div>
+  </div>
+
+  <!-- P3 -->
+  <div class="ex-item" id="qi3">
+    <span class="badge-tipo badge-teo">Teórica</span>
+    <div class="ex-q">3. La validez interna de un experimento responde a la pregunta:</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="qi3" value="a"> ¿Los cambios en la VD fueron causados realmente por la VI y no por otros factores?</label>
+      <label class="ex-option"><input type="radio" name="qi3" value="b"> ¿Los resultados son generalizables a otras poblaciones y contextos?</label>
+      <label class="ex-option"><input type="radio" name="qi3" value="c"> ¿El instrumento de medición es confiable y consistente?</label>
+      <label class="ex-option"><input type="radio" name="qi3" value="d"> ¿La muestra es representativa de la población total?</label>
+    </div>
+    <div class="feedback-text" id="fq3"></div>
+  </div>
+
+  <!-- P4 -->
+  <div class="ex-item" id="qi4">
+    <span class="badge-tipo badge-teo">Teórica</span>
+    <div class="ex-q">4. ¿Qué característica define a un diseño cuasiexperimental frente a un experimento verdadero?</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="qi4" value="a"> Tiene grupos de comparación pero sin asignación aleatoria de participantes.</label>
+      <label class="ex-option"><input type="radio" name="qi4" value="b"> No tiene grupo control ni grupo experimental.</label>
+      <label class="ex-option"><input type="radio" name="qi4" value="c"> Solo mide la variable dependiente sin manipular ninguna variable.</label>
+      <label class="ex-option"><input type="radio" name="qi4" value="d"> Se realiza exclusivamente en contextos de laboratorio.</label>
+    </div>
+    <div class="feedback-text" id="fq4"></div>
+  </div>
+
+  <!-- P5 -->
+  <div class="ex-item" id="qi5">
+    <span class="badge-tipo badge-teo">Teórica</span>
+    <div class="ex-q">5. ¿Cuál de las siguientes es una correcta descripción del diseño no experimental longitudinal de panel?</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="qi5" value="a"> Se miden las mismas personas o unidades en múltiples momentos a lo largo del tiempo.</label>
+      <label class="ex-option"><input type="radio" name="qi5" value="b"> Se estudia una muestra diferente de personas en cada momento de medición.</label>
+      <label class="ex-option"><input type="radio" name="qi5" value="c"> Solo se realiza una medición en un único momento del tiempo.</label>
+      <label class="ex-option"><input type="radio" name="qi5" value="d"> Se sigue a un grupo específico definido por un evento o característica compartida.</label>
+    </div>
+    <div class="feedback-text" id="fq5"></div>
+  </div>
+
+  <!-- P6 -->
+  <div class="ex-item" id="qi6">
+    <span class="badge-tipo badge-teo">Teórica</span>
+    <div class="ex-q">6. La amenaza a la validez interna llamada "regresión a la media" ocurre principalmente cuando:</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="qi6" value="a"> Se seleccionan participantes con puntuaciones extremas (muy altas o muy bajas) para el estudio.</label>
+      <label class="ex-option"><input type="radio" name="qi6" value="b"> Los participantes del grupo control aprenden del tratamiento dado al grupo experimental.</label>
+      <label class="ex-option"><input type="radio" name="qi6" value="c"> El instrumento de medición cambia entre el pretest y el postest.</label>
+      <label class="ex-option"><input type="radio" name="qi6" value="d"> Algunos participantes abandonan el estudio antes de concluirlo.</label>
+    </div>
+    <div class="feedback-text" id="fq6"></div>
+  </div>
+
+  <!-- P7 -->
+  <div class="ex-item" id="qi7">
+    <span class="badge-tipo badge-teo">Teórica</span>
+    <div class="ex-q">7. ¿En qué se diferencia la manipulación por "tipo o modalidad" de la manipulación por "cantidad o intensidad"?</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="qi7" value="a"> En la modalidad se comparan formas distintas del tratamiento; en la cantidad se varía cuánto del mismo tratamiento recibe cada grupo.</label>
+      <label class="ex-option"><input type="radio" name="qi7" value="b"> En la modalidad se usa aleatorización; en la cantidad no.</label>
+      <label class="ex-option"><input type="radio" name="qi7" value="c"> En la modalidad se aplica solo al grupo control; en la cantidad, solo al experimental.</label>
+      <label class="ex-option"><input type="radio" name="qi7" value="d"> Son sinónimos: ambas describen la misma estrategia de manipulación.</label>
+    </div>
+    <div class="feedback-text" id="fq7"></div>
+  </div>
+
+  <!-- P8 - Análisis -->
+  <div class="ex-item" id="qi8">
+    <span class="badge-tipo badge-ana">Análisis de caso</span>
+    <div class="ex-q">8. CASO: Una investigadora evalúa si un curso de ética reduce los casos de manipulación de balances. Aplica un pretest, da el curso al Departamento A de una empresa, y no lo da al Departamento B. Al final del año mide ambos departamentos. Sin embargo, nota que la mitad de los trabajadores del Departamento A renunció antes del postest, quedando solo los más comprometidos. ¿Qué amenaza a la validez interna representa esto?</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="qi8" value="a"> Mortalidad experimental (desgaste), que sesga los resultados porque quienes se quedan no son representativos del grupo original.</label>
+      <label class="ex-option"><input type="radio" name="qi8" value="b"> Historia, porque eventos externos cambiaron el comportamiento durante el estudio.</label>
+      <label class="ex-option"><input type="radio" name="qi8" value="c"> Instrumentación, porque el instrumento de medición cambió.</label>
+      <label class="ex-option"><input type="radio" name="qi8" value="d"> Efecto Hawthorne, porque los participantes sabían que estaban siendo observados.</label>
+    </div>
+    <div class="feedback-text" id="fq8"></div>
+  </div>
+
+  <!-- P9 - Análisis -->
+  <div class="ex-item" id="qi9">
+    <span class="badge-tipo badge-ana">Análisis de caso</span>
+    <div class="ex-q">9. CASO: Un investigador concluye que "el uso de software de auditoría IA causa una reducción del 40% en errores contables" basándose en un estudio no experimental donde midió a 80 empresas en un único momento y encontró correlación entre uso del software y pocos errores. ¿Cuál es el error metodológico de esta conclusión?</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="qi9" value="a"> Los diseños no experimentales transversales pueden establecer correlaciones, pero no probar causalidad; la conclusión excede lo que el diseño permite afirmar.</label>
+      <label class="ex-option"><input type="radio" name="qi9" value="b"> El estudio tiene demasiados participantes para ser confiable.</label>
+      <label class="ex-option"><input type="radio" name="qi9" value="c"> El software de IA no puede medirse como variable independiente.</label>
+      <label class="ex-option"><input type="radio" name="qi9" value="d"> El estudio debió haber usado solo 40 empresas para ser más preciso.</label>
+    </div>
+    <div class="feedback-text" id="fq9"></div>
+  </div>
+
+  <!-- P10 - Análisis -->
+  <div class="ex-item" id="qi10">
+    <span class="badge-tipo badge-ana">Análisis de caso</span>
+    <div class="ex-q">10. CASO: Un experimento exitoso en Quito demuestra que un programa de capacitación en NIIF reduce los errores de declaración de impuestos en un 35%. El Ministerio de Finanzas decide aplicarlo de inmediato a todas las cooperativas rurales del país. Meses después, el impacto es mínimo. ¿Qué problema de validez explica mejor este resultado?</div>
+    <div class="ex-options">
+      <label class="ex-option"><input type="radio" name="qi9" value="a"> Baja validez externa por interacción de selección y tratamiento: los resultados del experimento original no son generalizables a la población de cooperativas rurales con características muy diferentes.</label>
+      <label class="ex-option"><input type="radio" name="qi9" value="b"> Baja validez interna por falta de grupo control en la aplicación masiva.</label>
+      <label class="ex-option"><input type="radio" name="qi9" value="c"> El problema fue de instrumentación: no se midió bien el impacto del programa.</label>
+      <label class="ex-option"><input type="radio" name="qi9" value="d"> Efecto de regresión a la media, ya que las cooperativas tenían índices muy bajos de error al inicio.</label>
+    </div>
+    <div class="feedback-text" id="fq10"></div>
+  </div>
+
+  <div style="text-align:center; margin-top: 24px;">
+    <button class="btn" onclick="verificarCuestionario()">✅ Verificar respuestas</button>
+    <button class="btn secondary" onclick="reiniciarCuestionario()" style="margin-left:12px;">🔄 Reiniciar</button>
+  </div>
+
+  <div class="score-box" id="score-cuestionario">
+    <div class="score-emoji" id="sc-emoji"></div>
+    <div class="score-num" id="sc-num"></div>
+    <div class="score-label">de 10 respuestas correctas</div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="sc-bar" style="width:0%"></div></div>
+    <div class="score-msg" id="sc-msg"></div>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- TAB: ACTIVIDAD CON IA -->
+<!-- ============================== -->
+<div id="tab-ia" class="tab-content">
+  <h2>🤖 Actividad con Inteligencia Artificial</h2>
+
+  <div class="box-concepto">
+    <div class="box-label">🎯 Objetivo de la actividad</div>
+    <p>Usar la IA como <strong>interlocutor crítico</strong> para diseñar un estudio de investigación aplicado a la Contabilidad o Auditoría, y luego <em>evaluar críticamente</em> el diseño que propone, identificando fortalezas y debilidades según los conceptos de esta semana.</p>
+  </div>
+
+  <h3>📋 Instrucciones paso a paso</h3>
+
+  <div class="ai-step">
+    <div class="ai-num">1</div>
+    <div>
+      <strong>Elige tu herramienta de IA</strong><br>
+      Se recomienda <strong>Claude en <a href="https://claude.ai" target="_blank">claude.ai</a></strong> (de Anthropic). También puedes usar ChatGPT (chatgpt.com) o Gemini (gemini.google.com). Todas tienen versión gratuita.
+    </div>
+  </div>
+
+  <div class="ai-step">
+    <div class="ai-num">2</div>
+    <div>
+      <strong>Copia y pega el siguiente prompt exactamente como aparece</strong> (puedes reemplazar el área entre corchetes con tu propia elección de tema):
+    </div>
+  </div>
+
+  <div class="prompt-box">Actúa como metodólogo experto en investigación científica aplicada a las ciencias contables y financieras.
+
+Quiero que diseñes un estudio de investigación con las siguientes características:
+
+TEMA DE ESTUDIO: [Elige uno: "el impacto del teletrabajo en la productividad de los auditores internos en empresas del sector público ecuatoriano" O propón tu propio tema relacionado con Contabilidad/Auditoría en Ecuador]
+
+El diseño debe incluir:
+1. Pregunta de investigación claramente formulada
+2. Variable independiente (con definición y niveles de manipulación si aplica)
+3. Variable dependiente (con definición y forma de medición)
+4. Al menos 2 variables extrañas identificadas y cómo controlarlas
+5. Tipo de diseño propuesto (experimental verdadero, cuasiexperimental o no experimental) con justificación
+6. Si es experimental: grupo experimental vs. grupo control, y método de asignación
+7. Dimensión temporal del diseño (transversal o longitudinal, con subtipo)
+8. Amenazas a la validez interna más probables en este diseño
+9. Amenazas a la validez externa más probables
+10. Una limitación ética del diseño propuesto
+
+Por favor, sé específico y usa el contexto ecuatoriano de forma realista.</div>
+
+  <div class="ai-step">
+    <div class="ai-num">3</div>
+    <div>
+      <strong>Analiza críticamente la respuesta de la IA</strong> usando lo que aprendiste en este widget. Responde en un documento de Word o Google Docs:
+      <ul style="margin-top:8px;">
+        <li>¿El diseño propuesto por la IA realmente permite establecer causalidad, o solo correlación? ¿Por qué?</li>
+        <li>¿Identificó la IA todas las amenazas a la validez interna que tú conoces? ¿Cuáles pasó por alto?</li>
+        <li>¿Es realista aplicar ese diseño en Ecuador? ¿Qué ajustes harías tú como investigador?</li>
+        <li>¿Hay alguna variable extraña que la IA no consideró y que tú sí identificas?</li>
+        <li>Redacta una conclusión de 3-5 oraciones que evalúe la calidad metodológica del diseño propuesto por la IA.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ai-step">
+    <div class="ai-num">4</div>
+    <div>
+      <strong>Entrega final:</strong> Tu análisis crítico (no la respuesta de la IA). El producto esperado es <em>tu pensamiento evaluativo</em>, no la transcripción de lo que dijo la IA.
+    </div>
+  </div>
+
+  <h3>📊 Criterios de evaluación</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Indicador</th><th>Pensamiento crítico ✅</th><th>Copia simple ❌</th></tr></thead>
+      <tbody>
+        <tr><td>Contenido</td><td>El estudiante cuestiona, corrige o enriquece el diseño de la IA con sus propios argumentos y conceptos del curso.</td><td>El estudiante transcribe la respuesta de la IA sin añadir nada propio.</td></tr>
+        <tr><td>Uso de conceptos</td><td>Aplica correctamente términos como validez interna, validez externa, variables extrañas, aleatorización.</td><td>Solo repite los términos que usó la IA sin explicarlos.</td></tr>
+        <tr><td>Contextualización</td><td>Adapta el análisis a la realidad ecuatoriana con ejemplos propios.</td><td>No hace ninguna referencia al contexto local.</td></tr>
+        <tr><td>Postura propia</td><td>Defiende con argumentos sus propias correcciones o mejoras al diseño.</td><td>Acepta todo lo que dijo la IA sin cuestionarlo.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box-clave">
+    <div class="box-label">💡 Recuerda</div>
+    <p>La IA es un interlocutor poderoso, pero no infalible. Puede proponer diseños metodológicamente incorrectos, usar términos de forma imprecisa o ignorar contextos culturales. <strong>Tu capacidad de detectar esos errores es la evidencia de que has aprendido metodología de investigación de verdad.</strong></p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- TAB: REFLEXIÓN -->
+<!-- ============================== -->
+<div id="tab-reflexion" class="tab-content">
+  <h2>💭 Preguntas Reflexivas: Tu vida como experimento</h2>
+  <p>Esta sección no tiene respuestas correctas ni incorrectas. Es un espacio para pensar. La metodología de la investigación no vive solo en los libros: está en cómo tomamos decisiones, cómo interpretamos lo que nos pasa y cómo evitamos engañarnos a nosotros mismos. Lee cada pregunta con calma y permite que toque algo real en ti.</p>
+
+  <div class="reflex-card">
+    <div class="reflex-icon">🔬</div>
+    <div class="reflex-q">¿Alguna vez has "manipulado" una situación de tu vida para ver qué pasaba?</div>
+    <div class="reflex-hint">Piensa en una vez que cambiaste algo a propósito (tu rutina, tu forma de comunicarte, tu actitud ante alguien) para ver si las cosas mejoraban. Eso, en esencia, es lo que hace un investigador cuando manipula la variable independiente. ¿Qué "variable dependiente" estabas midiendo? ¿Controlaste las variables extrañas, o dejaste que otras cosas influyeran en el resultado?</div>
+  </div>
+
+  <div class="reflex-card">
+    <div class="reflex-icon">📊</div>
+    <div class="reflex-q">¿Tus conclusiones sobre ti mismo tienen "validez interna"?</div>
+    <div class="reflex-hint">Cuando crees que "cuando hago ejercicio me siento mejor" o "cuando duermo tarde rindo menos en clases", ¿cómo sabes que es el ejercicio o el sueño lo que causa ese resultado, y no otra cosa (como el estrés, la alimentación, las relaciones)? La validez interna exige eliminar explicaciones alternativas. ¿Eres riguroso contigo mismo o saltas a conclusiones apresuradas?</div>
+  </div>
+
+  <div class="reflex-card">
+    <div class="reflex-icon">🌍</div>
+    <div class="reflex-q">¿Cuántas veces has generalizado una experiencia personal como si fuera una verdad universal?</div>
+    <div class="reflex-hint">"Todos los hombres/mujeres son así", "los jóvenes de hoy no saben trabajar", "esa empresa es mala porque le fue mal a mi primo". La validez externa nos recuerda que un caso particular no es suficiente para generalizar. ¿En qué áreas de tu vida tiendes a generalizar demasiado rápido?</div>
+  </div>
+
+  <div class="reflex-card">
+    <div class="reflex-icon">🪞</div>
+    <div class="reflex-q">¿Qué "variable extraña" ha estado afectando tu desempeño académico sin que lo reconocieras?</div>
+    <div class="reflex-hint">A veces creemos que rendimos mal porque "no somos buenos" en algo, cuando en realidad hay factores externos (situación familiar, acceso a internet, salud emocional, ruido en el hogar) que están actuando como variables intervinientes. Nombrar esas variables con honestidad es el primer paso para controlarlas. ¿Cuál es la tuya?</div>
+  </div>
+
+  <div class="reflex-card">
+    <div class="reflex-icon">🧠</div>
+    <div class="reflex-q">¿Alguna vez el "efecto Hawthorne" ha cambiado tu comportamiento?</div>
+    <div class="reflex-hint">El efecto Hawthorne ocurre cuando la gente actúa diferente al saber que la están observando. ¿Trabajas más cuando el jefe está mirando? ¿Eres más educado cuando hay personas que te juzgan? ¿Cambia tu rendimiento cuando sabes que te están evaluando? ¿Eso es bueno o malo? ¿Cómo sería tu comportamiento si nadie te viera nunca?</div>
+  </div>
+
+  <div class="reflex-card">
+    <div class="reflex-icon">💪</div>
+    <div class="reflex-q">¿Qué experimento te gustaría hacer en tu propia vida durante los próximos 30 días?</div>
+    <div class="reflex-hint">Diseña, solo mentalmente, un "experimento personal": ¿Qué variable independiente cambiarías? (leer 20 minutos al día, no ver redes sociales antes de las 10am, escribir 3 gratitudes por la noche). ¿Cuál sería tu variable dependiente? ¿Cómo la medirías? ¿Qué variables extrañas podrían interferir? El autoconocimiento riguroso también es investigación.</div>
+  </div>
+
+  <div class="box-clave">
+    <div class="box-label">✨ Mensaje de cierre</div>
+    <p>La metodología de la investigación no es solo una materia académica. Es una forma de relacionarte con la realidad: con curiosidad, con rigor, con humildad ante la complejidad. Un contador o auditor que piensa metodológicamente es alguien que no se deja engañar fácilmente, ni por los datos ni por sus propias emociones. Ese profesional vale oro en cualquier organización.</p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- TAB: BIBLIOGRAFÍA -->
+<!-- ============================== -->
+<div id="tab-biblio" class="tab-content">
+  <h2>📖 Bibliografía</h2>
+  <p>Referencias en formato APA 7.ª edición utilizadas como fundamento de los contenidos de esta semana.</p>
+
+  <div class="bib-card">
+    <div class="bib-au">Hernández Sampieri, R., Fernández Collado, C., & Baptista Lucio, P.</div>
+    <div class="bib-title">Metodología de la investigación (6.ª ed.).</div>
+    <div class="bib-meta">McGraw-Hill / Interamericana Editores. (2014).</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-au">Campbell, D. T., & Stanley, J. C.</div>
+    <div class="bib-title">Experimental and quasi-experimental designs for research.</div>
+    <div class="bib-meta">Houghton Mifflin Company. (1966). [Obra clásica de referencia en diseños experimentales y validez interna/externa]</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-au">Kerlinger, F. N., & Lee, H. B.</div>
+    <div class="bib-title">Investigación del comportamiento: Métodos de investigación en ciencias sociales (4.ª ed.).</div>
+    <div class="bib-meta">McGraw-Hill. (2002).</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-au">Creswell, J. W., & Creswell, J. D.</div>
+    <div class="bib-title">Research design: Qualitative, quantitative, and mixed methods approaches (5.ª ed.).</div>
+    <div class="bib-meta">SAGE Publications. (2018).</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-au">Briones, G.</div>
+    <div class="bib-title">Métodos y técnicas de investigación para las ciencias sociales (4.ª ed.).</div>
+    <div class="bib-meta">Editorial Trillas. (2002).</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-au">Cook, T. D., & Campbell, D. T.</div>
+    <div class="bib-title">Quasi-experimentation: Design and analysis issues for field settings.</div>
+    <div class="bib-meta">Houghton Mifflin. (1979).</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-au">Arias, F. G.</div>
+    <div class="bib-title">El proyecto de investigación: Introducción a la metodología científica (7.ª ed.).</div>
+    <div class="bib-meta">Editorial Episteme. (2016).</div>
+  </div>
+
+  <div class="bib-note">
+    <strong>📌 Nota importante:</strong> Se recomienda verificar cada referencia en <a href="https://scholar.google.com" target="_blank">Google Scholar (scholar.google.com)</a> o en el repositorio institucional de la Universidad de Guayaquil antes de citar en trabajos académicos.
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- JAVASCRIPT -->
+<!-- ============================== -->
+<script>
+// ===== TAB NAVIGATION =====
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== EJERCICIO INTERACTIVO =====
+const ejercicioCorrects = {
+  ei1: 'c', ei2: 'c', ei3: 'c', ei4: 'c',
+  ei5: 'b', ei6: 'c', ei7: 'c', ei8: 'c'
+};
+
+const ejercicioFeedbacks = {
+  ei1: {
+    c: '✅ Correcto. La asignación aleatoria (R) es lo que lo convierte en un experimento verdadero. La medición antes (pretest) y después (postest) en ambos grupos hace que sea un diseño pretest-postest con grupo control aleatorio.',
+    wrong: '❌ Incorrecto. Cuando los investigadores asignan aleatoriamente a los participantes a grupos con pretest y postest, el diseño es un experimento verdadero pretest-postest con grupo control. Los cuasiexperimentos no tienen aleatorización; los preexperimentos no tienen grupo control real.'
+  },
+  ei2: {
+    c: '✅ Correcto. La amenaza de "historia" se refiere a eventos externos que ocurren durante el estudio y que pueden afectar la variable dependiente de forma independiente a la VI.',
+    wrong: '❌ Incorrecto. La historia (no la maduración, ni la instrumentación) es la amenaza que describe eventos externos al estudio que ocurren entre las mediciones y pueden causar los cambios observados. La campaña del SRI es exactamente ese tipo de evento externo.'
+  },
+  ei3: {
+    c: '✅ Correcto. La variable dependiente es el efecto que se mide: en este caso, el comportamiento ético posterior de los empleados es lo que cambiará (o no) en función del programa de capacitación (VI).',
+    wrong: '❌ Incorrecto. El programa de capacitación (tipo, horas) es la variable independiente que el investigador manipula. La empresa es una constante o variable extraña. Lo que se mide como resultado es la VD: el comportamiento ético posterior.'
+  },
+  ei4: {
+    c: '✅ Correcto. El diseño longitudinal de panel implica medir las mismas unidades (empresas) repetidamente a lo largo del tiempo. Es el más informativo de los diseños longitudinales.',
+    wrong: '❌ Incorrecto. Un diseño transversal solo mide en un momento. El longitudinal de tendencia usa muestras distintas en cada momento. El de cohorte sigue a un grupo definido por una característica común. Medir las mismas 150 empresas cada año durante 4 años es diseño de panel.'
+  },
+  ei5: {
+    b: '✅ Correcto. El efecto Hawthorne amenaza la validez externa porque hace que los resultados no sean generalizables: en condiciones reales donde nadie sabe que está siendo observado, el comportamiento sería diferente al observado en el experimento.',
+    wrong: '❌ Incorrecto. El efecto Hawthorne ocurre porque los participantes saben que están siendo estudiados y cambian su comportamiento. Esto afecta la validez externa (¿los resultados aplican cuando no hay observación?) más que la interna, aunque hay debate académico. Lo esencial es que el contexto artificial del experimento impide generalizar.'
+  },
+  ei6: {
+    c: '✅ Correcto. La "especificidad del contexto" es una fuente de invalidación externa: los resultados son válidos solo en el contexto donde se probaron y no se pueden generalizar automáticamente a contextos muy diferentes.',
+    wrong: '❌ Incorrecto. Este caso no trata de mortalidad (no se van participantes del estudio), ni regresión a la media (no hay selección de extremos), ni difusión del tratamiento (no hay comunicación entre grupos). Es un claro problema de validez externa por especificidad del contexto: lo que funciona en grandes corporaciones de Quito no necesariamente aplica en cooperativas rurales de Manabí.'
+  },
+  ei7: {
+    c: '✅ Correcto. En la estructura de la pregunta, la rotación de personal contable es la causa supuesta: es lo que se supone que influye en los errores. Los errores (VD) dependen (en teoría) de la rotación (VI).',
+    wrong: '❌ Incorrecto. La variable independiente es la causa, el factor que se supone influye en el resultado. En este estudio, la causa supuesta es la rotación de personal (VI), y el efecto medido es la cantidad de errores en estados financieros (VD).'
+  },
+  ei8: {
+    c: '✅ Correcto. La aleatorización es la característica definitoria del experimento verdadero. Distribuye al azar las diferencias individuales entre los grupos, haciendo que sean estadísticamente equivalentes antes del tratamiento y controlando así la selección sesgada.',
+    wrong: '❌ Incorrecto. El experimento verdadero no requiere laboratorio, ni número específico de grupos, ni una muestra mayor. Su sello distintivo es la asignación aleatoria de participantes a los grupos, que garantiza que cualquier diferencia entre grupos al final sea atribuible a la VI y no a diferencias previas.'
+  }
+};
+
+function verificarEjercicio() {
+  const items = ['ei1','ei2','ei3','ei4','ei5','ei6','ei7','ei8'];
+  let allAnswered = true;
+
+  items.forEach(id => {
+    const sel = document.querySelector(`input[name="${id}"]:checked`);
+    if (!sel) { allAnswered = false; }
+  });
+
+  if (!allAnswered) {
+    alert('⚠️ Por favor responde TODOS los ítems antes de verificar.');
+    return;
+  }
+
+  let correct = 0;
+  items.forEach(id => {
+    const sel = document.querySelector(`input[name="${id}"]:checked`);
+    const val = sel.value;
+    const correctVal = ejercicioCorrects[id];
+    const fbEl = document.getElementById('fb' + id.slice(2));
+    const options = document.querySelectorAll(`input[name="${id}"]`);
+
+    options.forEach(opt => {
+      const label = opt.parentElement;
+      label.style.pointerEvents = 'none';
+      if (opt.value === correctVal) label.classList.add('correct');
+      if (opt.checked && opt.value !== correctVal) label.classList.add('incorrect');
+    });
+
+    if (val === correctVal) {
+      correct++;
+      fbEl.className = 'feedback-text show feedback-ok';
+      fbEl.textContent = ejercicioFeedbacks[id][correctVal];
+    } else {
+      fbEl.className = 'feedback-text show feedback-err';
+      fbEl.textContent = ejercicioFeedbacks[id]['wrong'];
+    }
+  });
+
+  const pct = Math.round((correct / items.length) * 100);
+  const scoreBox = document.getElementById('score-ejercicio');
+  scoreBox.classList.add('show');
+  document.getElementById('se-num').textContent = correct + ' / ' + items.length;
+
+  let emoji, msg;
+  if (pct === 100) { emoji = '🏆'; msg = '¡Perfecto! Dominas completamente los conceptos de variables y diseños de investigación.'; }
+  else if (pct >= 80) { emoji = '🎯'; msg = '¡Excelente trabajo! Tienes una comprensión sólida del tema.'; }
+  else if (pct >= 60) { emoji = '📘'; msg = 'Buen avance. Revisa los conceptos donde tuviste dificultad y vuelve a intentarlo.'; }
+  else if (pct >= 40) { emoji = '⚠️'; msg = 'Hay aspectos importantes que necesitas reforzar. Relee el material y reintenta.'; }
+  else { emoji = '📖'; msg = 'Dedica más tiempo a la lectura del material antes de volver a intentarlo. ¡Tú puedes!'; }
+
+  document.getElementById('se-emoji').textContent = emoji;
+  document.getElementById('se-msg').textContent = msg;
+  setTimeout(() => { document.getElementById('se-bar').style.width = pct + '%'; }, 100);
+  scoreBox.scrollIntoView({ behavior: 'smooth' });
+}
+
+function reiniciarEjercicio() {
+  ['ei1','ei2','ei3','ei4','ei5','ei6','ei7','ei8'].forEach(id => {
+    document.querySelectorAll(`input[name="${id}"]`).forEach(opt => {
+      opt.checked = false;
+      const label = opt.parentElement;
+      label.classList.remove('correct','incorrect','correct-missed');
+      label.style.pointerEvents = '';
+    });
+    const num = id.slice(2);
+    const fb = document.getElementById('fb' + num);
+    if (fb) { fb.className = 'feedback-text'; fb.textContent = ''; }
+  });
+  const sb = document.getElementById('score-ejercicio');
+  sb.classList.remove('show');
+  document.getElementById('se-bar').style.width = '0%';
+}
+
+// ===== CUESTIONARIO =====
+const quizCorrects = {
+  qi1: 'a', qi2: 'a', qi3: 'a', qi4: 'a', qi5: 'a',
+  qi6: 'a', qi7: 'a', qi8: 'a', qi9: 'a', qi10: 'a'
+};
+
+const quizFeedbacks = {
+  qi1: {
+    a: '✅ La variable independiente es la que el investigador controla y varía deliberadamente para observar su efecto sobre la VD.',
+    w: '❌ La variable dependiente es la que se mide (efecto). La constante es lo que no varía. Las características del investigador no son variables del estudio. La VI es la causa que el investigador introduce.'
+  },
+  qi2: {
+    a: '✅ La aleatorización es la estrategia más eficaz porque distribuye de forma probabilística todas las diferencias individuales (conocidas y desconocidas) entre los grupos, haciéndolos estadísticamente equivalentes.',
+    w: '❌ Aunque usar el mismo evaluador ayuda a la estandarización, no garantiza la equivalencia entre grupos. Dar el pretest solo a un grupo introduce sesgo. Aumentar la muestra sin aleatorizar no resuelve el problema de la selección sesgada. Solo la aleatorización garantiza equivalencia inicial.'
+  },
+  qi3: {
+    a: '✅ La validez interna pregunta si la relación observada entre VI y VD es causal y no explicada por variables extrañas. Es la pregunta sobre la causa real del efecto.',
+    w: '❌ La pregunta sobre generalización corresponde a la validez externa. La confiabilidad del instrumento es una cuestión de validez y confiabilidad del instrumento. La representatividad de la muestra corresponde al muestreo. La validez interna es sobre causalidad interna.'
+  },
+  qi4: {
+    a: '✅ El cuasiexperimento tiene grupos de comparación (a veces incluso pretest y postest) pero le falta la aleatorización, que es el elemento que define al experimento verdadero.',
+    w: '❌ Sin asignación aleatoria: eso es el cuasiexperimento. Un estudio sin grupo control ni experimental es un preexperimento o un no experimental. Un diseño sin manipulación de VI no es experimental. El lugar del estudio (laboratorio vs campo) no define el tipo de experimento.'
+  },
+  qi5: {
+    a: '✅ En el diseño de panel, las mismas unidades de análisis (personas, empresas) son medidas en múltiples momentos. Esto permite observar cambios en las mismas unidades a lo largo del tiempo.',
+    w: '❌ Medir muestras diferentes en cada momento es el diseño de tendencia. Una sola medición es el diseño transversal. Seguir a un grupo por una característica compartida es el diseño de cohorte. El panel implica las mismas unidades en múltiples momentos.'
+  },
+  qi6: {
+    a: '✅ La regresión a la media ocurre cuando los puntos de partida son extremos. Al medir nuevamente, los valores tienden estadísticamente hacia el promedio, lo que puede confundirse con una mejora real producto del tratamiento.',
+    w: '❌ Que el control aprenda del experimental es difusión del tratamiento. Que el instrumento cambie es instrumentación. Que participantes abandonen es mortalidad experimental. La regresión a la media se activa por la selección de participantes con puntuaciones extremas.'
+  },
+  qi7: {
+    a: '✅ En la manipulación por tipo/modalidad se comparan versiones distintas del tratamiento (presencial vs. virtual). En la de cantidad/intensidad se varía cuánto del mismo tratamiento se administra. Son estrategias diferentes con propósitos distintos.',
+    w: '❌ La diferencia no es de aleatorización, ni de a quién se aplica, ni son sinónimos. Son dos formas de manipular la VI: una varía la forma del tratamiento; la otra varía la cantidad o dosis del mismo tratamiento.'
+  },
+  qi8: {
+    a: '✅ La mortalidad experimental (desgaste) ocurre cuando participantes abandonan el estudio de forma sistemática. Quienes quedan (los más comprometidos) no son representativos del grupo original, sesgando los resultados hacia arriba artificialmente.',
+    w: '❌ Historia implica eventos externos que afectan la VD. Instrumentación implica cambios en el instrumento. El efecto Hawthorne es reactivo a la observación. El abandono sistemático de participantes, especialmente los menos motivados, es mortalidad experimental.'
+  },
+  qi9: {
+    a: '✅ Un diseño no experimental transversal permite establecer correlaciones entre variables, pero no causalidad. Afirmar que el software "causa" la reducción de errores requeriría un diseño experimental con manipulación y control. La correlación no implica causalidad.',
+    w: '❌ El problema no es el tamaño de la muestra ni el tipo de variable. El error es conceptual: concluir causalidad a partir de un diseño que solo puede establecer correlación. Un diseño no experimental, por su naturaleza, no puede probar que A causa B.'
+  },
+  qi10: {
+    a: '✅ La baja validez externa por interacción de selección y tratamiento explica que el programa exitoso en empresas formales de Quito no sea generalizable a cooperativas rurales, que tienen características muy distintas (recursos, formación del personal, acceso a tecnología, cultura organizacional).',
+    w: '❌ El problema no es de validez interna del experimento original (que fue válido en su contexto). No es de instrumentación ni de regresión a la media. Es un problema clásico de validez externa: los resultados no son generalizables a una población con características sustancialmente diferentes a la del estudio original.'
+  }
+};
+
+function verificarCuestionario() {
+  const items = ['qi1','qi2','qi3','qi4','qi5','qi6','qi7','qi8','qi9','qi10'];
+  let allAnswered = true;
+
+  items.forEach(id => {
+    const sel = document.querySelector(`input[name="${id}"]:checked`);
+    if (!sel) allAnswered = false;
+  });
+
+  if (!allAnswered) {
+    alert('⚠️ Por favor responde TODAS las preguntas antes de verificar.');
+    return;
+  }
+
+  let correct = 0;
+  items.forEach((id, idx) => {
+    const sel = document.querySelector(`input[name="${id}"]:checked`);
+    const val = sel.value;
+    const correctVal = quizCorrects[id];
+    const fbEl = document.getElementById('fq' + (idx + 1));
+    const options = document.querySelectorAll(`input[name="${id}"]`);
+
+    options.forEach(opt => {
+      const label = opt.parentElement;
+      label.style.pointerEvents = 'none';
+      if (opt.value === correctVal) label.classList.add('correct');
+      if (opt.checked && opt.value !== correctVal) label.classList.add('incorrect');
+    });
+
+    if (val === correctVal) {
+      correct++;
+      fbEl.className = 'feedback-text show feedback-ok';
+      fbEl.textContent = quizFeedbacks[id]['a'];
+    } else {
+      fbEl.className = 'feedback-text show feedback-err';
+      fbEl.textContent = quizFeedbacks[id]['w'];
+    }
+  });
+
+  const pct = Math.round((correct / 10) * 100);
+  const scoreBox = document.getElementById('score-cuestionario');
+  scoreBox.classList.add('show');
+  document.getElementById('sc-num').textContent = correct;
+
+  let emoji, msg;
+  if (pct === 100) { emoji = '🏆'; msg = '¡Perfecto! Dominas al 100% los conceptos de esta semana.'; }
+  else if (pct >= 80) { emoji = '🎯'; msg = '¡Muy bien! Tienes una comprensión sólida y confiable del tema.'; }
+  else if (pct >= 60) { emoji = '📘'; msg = 'Vas por buen camino. Refuerza los conceptos donde fallaste.'; }
+  else if (pct >= 40) { emoji = '⚠️'; msg = 'Necesitas reforzar varios conceptos. Relee el material con calma.'; }
+  else { emoji = '📖'; msg = 'Dedica más tiempo al estudio del material antes de volver a intentarlo.'; }
+
+  document.getElementById('sc-emoji').textContent = emoji;
+  document.getElementById('sc-msg').textContent = msg;
+  setTimeout(() => { document.getElementById('sc-bar').style.width = pct + '%'; }, 100);
+  scoreBox.scrollIntoView({ behavior: 'smooth' });
+}
+
+function reiniciarCuestionario() {
+  for (let i = 1; i <= 10; i++) {
+    const name = 'qi' + i;
+    document.querySelectorAll(`input[name="${name}"]`).forEach(opt => {
+      opt.checked = false;
+      const label = opt.parentElement;
+      label.classList.remove('correct','incorrect','correct-missed');
+      label.style.pointerEvents = '';
+    });
+    const fb = document.getElementById('fq' + i);
+    if (fb) { fb.className = 'feedback-text'; fb.textContent = ''; }
+  }
+  const sb = document.getElementById('score-cuestionario');
+  sb.classList.remove('show');
+  document.getElementById('sc-bar').style.width = '0%';
+}
+</script>
+</body>
+</html>

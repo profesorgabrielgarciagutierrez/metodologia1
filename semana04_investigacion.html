@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 4 – Complejidad, Interdisciplinariedad y Epistemología Regional | Metodología de la Investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#003366;--azul-medio:#0052a0;--celeste:#87CEEB;--celeste-claro:#d6eef8;
+    --blanco:#ffffff;--gris-claro:#f4f7fb;--gris-borde:#dee2e6;
+    --dorado:#c8960c;--dorado-claro:#fff8e1;
+    --verde:#1a7a4a;--verde-claro:#e8f5ee;
+    --rojo:#c0392b;--rojo-claro:#fdecea;
+    --morado:#5b2c8d;--morado-claro:#f3eefb;
+    --naranja:#d35400;--naranja-claro:#fef0e7;
+    --teal:#0e7490;--teal-claro:#e0f2fe;
+    --texto:#1a1a2e;--texto-suave:#4a5568;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Source Sans 3',sans-serif;background:#edf2f7;color:var(--texto);font-size:16px;line-height:1.7;}
+
+  /* HEADER */
+  .header{background:var(--azul);color:var(--blanco);padding:20px 32px;display:flex;align-items:center;gap:20px;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+  .header-logo{width:60px;height:60px;background:var(--blanco);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .header-info h1{font-family:'Lora',serif;font-size:1.3rem;font-weight:700;line-height:1.2;}
+  .header-info p{font-size:0.85rem;opacity:0.85;margin-top:3px;}
+  .header-badges{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+  .badge{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:4px 14px;font-size:0.78rem;font-weight:600;white-space:nowrap;}
+
+  /* SEMANA INFO */
+  .semana-info{background:linear-gradient(135deg,#004080,#0066cc);color:var(--blanco);padding:18px 32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .semana-tag{background:rgba(255,255,255,0.2);border-radius:8px;padding:8px 18px;text-align:center;}
+  .semana-tag .num{font-family:'Lora',serif;font-size:1.8rem;font-weight:700;line-height:1;}
+  .semana-tag .lbl{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.8;}
+  .semana-titulo h2{font-family:'Lora',serif;font-size:1.1rem;font-weight:600;}
+  .semana-titulo p{font-size:0.82rem;opacity:0.8;margin-top:3px;}
+
+  /* TABS */
+  .tabs-nav{background:var(--celeste);display:flex;overflow-x:auto;scrollbar-width:thin;border-bottom:3px solid var(--azul);padding:0 8px;}
+  .tab-btn{border:none;background:transparent;padding:12px 18px;font-family:'Source Sans 3',sans-serif;font-size:0.83rem;font-weight:500;color:#1a1a2e;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all 0.2s;flex-shrink:0;}
+  .tab-btn:hover{background:rgba(255,255,255,0.5);}
+  .tab-btn.active{background:var(--blanco);color:var(--azul);font-weight:700;border-bottom:3px solid var(--azul);}
+
+  /* CONTENT */
+  .tab-content{display:none;padding:32px;max-width:960px;margin:0 auto;}
+  .tab-content.active{display:block;}
+
+  /* TYPOGRAPHY */
+  .section-title{font-family:'Lora',serif;font-size:1.5rem;color:var(--azul);font-weight:700;margin-bottom:8px;padding-bottom:10px;border-bottom:2px solid var(--celeste);}
+  .subtitle{font-size:0.9rem;color:var(--texto-suave);margin-bottom:24px;}
+  .content-p{margin:14px 0;font-size:0.97rem;}
+  h3{font-family:'Lora',serif;font-size:1.15rem;color:var(--azul);margin:28px 0 12px;}
+  h4{font-size:1rem;font-weight:700;color:var(--azul);margin:20px 0 8px;}
+
+  /* BOXES */
+  .concept-box{border-left:5px solid var(--azul);background:var(--gris-claro);padding:16px 20px;border-radius:0 8px 8px 0;margin:20px 0;}
+  .concept-box .label{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--azul);font-weight:700;margin-bottom:6px;}
+  .example-box{background:var(--celeste-claro);border:1px solid var(--celeste);border-radius:10px;padding:18px 20px;margin:20px 0;}
+  .example-box .example-title{font-weight:700;color:var(--azul);font-size:0.9rem;margin-bottom:8px;}
+  .key-idea{background:linear-gradient(135deg,#e8f0fe,#d2e3fc);border:1px solid #93b4e8;border-radius:10px;padding:18px 20px;margin:24px 0;}
+  .key-idea .ki-label{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;color:#1a56a3;font-weight:700;margin-bottom:8px;}
+  .alert-info{background:var(--dorado-claro);border-left:5px solid var(--dorado);border-radius:0 8px 8px 0;padding:14px 18px;margin:20px 0;font-size:0.92rem;}
+  .alert-morado{background:var(--morado-claro);border-left:5px solid var(--morado);border-radius:0 8px 8px 0;padding:14px 18px;margin:20px 0;font-size:0.92rem;}
+
+  /* TABLES */
+  .table-wrap{overflow-x:auto;margin:20px 0;}
+  table{width:100%;border-collapse:collapse;font-size:0.9rem;}
+  thead tr{background:var(--azul);color:var(--blanco);}
+  thead th{padding:12px 14px;text-align:left;font-weight:600;}
+  tbody tr:nth-child(even){background:var(--gris-claro);}
+  tbody tr:nth-child(odd){background:var(--blanco);}
+  tbody td{padding:10px 14px;border-bottom:1px solid var(--gris-borde);vertical-align:top;}
+
+  /* GRIDS */
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:20px 0;}
+  .card{background:var(--blanco);border:1px solid var(--gris-borde);border-top:4px solid var(--azul);border-radius:8px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .card-icon{font-size:1.8rem;margin-bottom:10px;}
+  .card h4{font-size:0.95rem;color:var(--azul);margin:0 0 8px;font-weight:700;}
+  .card p{font-size:0.87rem;color:var(--texto-suave);line-height:1.5;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:16px 0;}
+
+  /* LISTS */
+  .styled-list{list-style:none;padding:0;margin:14px 0;}
+  .styled-list li{padding:8px 0 8px 28px;position:relative;border-bottom:1px solid var(--gris-borde);font-size:0.96rem;}
+  .styled-list li:last-child{border-bottom:none;}
+  .styled-list li::before{content:"▸";position:absolute;left:8px;color:var(--azul);font-weight:700;}
+
+  /* REPASO */
+  .repaso-card{background:linear-gradient(135deg,#003366,#0052a0);color:var(--blanco);border-radius:12px;padding:24px;margin-bottom:24px;}
+  .repaso-card h3{color:var(--blanco);font-size:1.2rem;margin-top:0;}
+  .repaso-item{background:rgba(255,255,255,0.12);border-radius:8px;padding:10px 16px;margin:8px 0;font-size:0.9rem;}
+
+  /* COMPLEJIDAD VISUAL */
+  .complejidad-ring{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0;justify-content:center;}
+  .ring-item{background:var(--blanco);border:2px solid var(--azul);border-radius:50%;width:110px;height:110px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.78rem;font-weight:600;color:var(--azul);padding:8px;flex-direction:column;gap:4px;}
+  .ring-icon{font-size:1.4rem;}
+
+  /* DISCIPLINAS SPECTRUM */
+  .disciplinas-bar{display:flex;border-radius:10px;overflow:hidden;margin:20px 0;min-height:70px;}
+  .disc-seg{flex:1;padding:12px 8px;text-align:center;font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;}
+  .disc-seg span{font-size:0.7rem;font-weight:400;opacity:0.85;}
+  .d1{background:#e3f2fd;color:#0d47a1;}
+  .d2{background:#e8f5e9;color:#1b5e20;}
+  .d3{background:#fff3e0;color:#e65100;}
+  .d4{background:var(--morado-claro);color:var(--morado);}
+
+  /* EPISTEMOLOGÍA REGIONAL CARDS */
+  .regional-card{border-radius:12px;padding:18px 20px;margin-bottom:12px;border:1px solid;}
+  .rc-contabilidad{background:#e8f0fe;border-color:#7aa0e0;}
+  .rc-auditoria{background:var(--verde-claro);border-color:#7dbf9e;}
+  .rc-economia{background:var(--naranja-claro);border-color:#e8a07a;}
+  .rc-derecho{background:var(--morado-claro);border-color:#b08cd4;}
+  .regional-card h4{margin:0 0 8px;font-size:1rem;}
+  .rc-contabilidad h4{color:#1a56a3;}
+  .rc-auditoria h4{color:var(--verde);}
+  .rc-economia h4{color:var(--naranja);}
+  .rc-derecho h4{color:var(--morado);}
+  .regional-card p{font-size:0.9rem;color:var(--texto-suave);margin:0;}
+
+  /* PROBLEMAS EPISTEMOLOGÍA */
+  .problema-item{display:flex;gap:16px;background:var(--blanco);border:1px solid var(--gris-borde);border-left:5px solid var(--teal);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:10px;}
+  .prob-num{background:var(--teal);color:var(--blanco);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.95rem;flex-shrink:0;}
+  .prob-content h4{margin:0 0 4px;color:var(--teal);font-size:0.97rem;}
+  .prob-content p{margin:0;font-size:0.88rem;color:var(--texto-suave);}
+
+  /* INTERACTIVE */
+  .ejercicio-intro{background:var(--celeste-claro);border-radius:10px;padding:18px 22px;margin-bottom:24px;font-size:0.95rem;}
+  .ejercicio-intro strong{color:var(--azul);}
+  .ejercicio-item{background:var(--blanco);border:1px solid var(--gris-borde);border-radius:10px;padding:18px 20px;margin-bottom:14px;}
+  .ejercicio-item.correct{border-color:var(--verde);background:var(--verde-claro);}
+  .ejercicio-item.incorrect{border-color:var(--rojo);background:var(--rojo-claro);}
+  .ejercicio-item .item-num{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--texto-suave);margin-bottom:8px;}
+  .ejercicio-item .item-text{font-weight:600;margin-bottom:12px;font-size:0.97rem;}
+  .options-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .opt-btn{border:2px solid var(--gris-borde);background:var(--blanco);border-radius:6px;padding:7px 14px;cursor:pointer;font-family:'Source Sans 3',sans-serif;font-size:0.88rem;transition:all 0.2s;}
+  .opt-btn:hover{border-color:var(--azul);background:var(--gris-claro);}
+  .opt-btn.selected{border-color:var(--azul);background:var(--azul);color:var(--blanco);}
+  .opt-btn.correct-answer{border-color:var(--verde);background:var(--verde);color:var(--blanco);}
+  .opt-btn.wrong-answer{border-color:var(--rojo);background:var(--rojo);color:var(--blanco);}
+  .opt-btn:disabled{cursor:default;}
+  .feedback-text{margin-top:10px;font-size:0.88rem;padding:8px 12px;border-radius:6px;display:none;}
+  .feedback-text.show{display:block;}
+  .feedback-text.ok{background:#e8f5ee;color:#1a5c38;}
+  .feedback-text.fail{background:var(--rojo-claro);color:#7b2020;}
+
+  /* QUIZ */
+  .quiz-item{background:var(--blanco);border:1px solid var(--gris-borde);border-radius:10px;padding:18px 20px;margin-bottom:16px;}
+  .quiz-item.correct{border-left:5px solid var(--verde);}
+  .quiz-item.incorrect{border-left:5px solid var(--rojo);}
+  .quiz-badge{display:inline-block;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;border-radius:12px;padding:3px 10px;font-weight:700;margin-bottom:10px;}
+  .quiz-badge.teorica{background:#e8f0fe;color:#1a56a3;}
+  .quiz-badge.analisis{background:var(--rojo-claro);color:var(--rojo);}
+  .quiz-q{font-weight:700;font-size:0.97rem;margin-bottom:14px;}
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-opt{border:2px solid var(--gris-borde);background:var(--blanco);border-radius:6px;padding:9px 14px;cursor:pointer;font-family:'Source Sans 3',sans-serif;font-size:0.9rem;text-align:left;transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--azul);background:var(--gris-claro);}
+  .quiz-opt.selected{border-color:var(--azul);background:var(--azul);color:var(--blanco);}
+  .quiz-opt.correct-answer{border-color:var(--verde);background:var(--verde);color:var(--blanco);}
+  .quiz-opt.wrong-answer{border-color:var(--rojo);background:var(--rojo);color:var(--blanco);}
+  .quiz-opt:disabled{cursor:default;}
+
+  /* BUTTONS & RESULTS */
+  .btn-verify{background:var(--azul);color:var(--blanco);border:none;border-radius:8px;padding:12px 28px;font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;margin-top:16px;transition:background 0.2s;}
+  .btn-verify:hover{background:#004d99;}
+  .btn-reset{background:transparent;color:var(--azul);border:2px solid var(--azul);border-radius:8px;padding:10px 24px;font-family:'Source Sans 3',sans-serif;font-size:0.97rem;font-weight:600;cursor:pointer;margin-top:12px;margin-left:12px;transition:all 0.2s;}
+  .btn-reset:hover{background:var(--azul);color:var(--blanco);}
+  .result-panel{background:var(--blanco);border:2px solid var(--azul);border-radius:12px;padding:24px;margin-top:20px;display:none;text-align:center;}
+  .result-panel.show{display:block;}
+  .result-score{font-family:'Lora',serif;font-size:2.5rem;color:var(--azul);font-weight:700;}
+  .result-pct{font-size:1.2rem;color:var(--texto-suave);margin:4px 0 16px;}
+  .progress-bar{width:100%;background:var(--gris-borde);border-radius:20px;height:14px;overflow:hidden;margin:12px 0;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--azul),#0077cc);border-radius:20px;transition:width 0.8s ease;}
+  .result-msg{font-size:1.1rem;margin-top:14px;font-weight:600;}
+  .result-emoji{font-size:2.5rem;}
+
+  /* IA */
+  .ia-card{background:linear-gradient(135deg,#001a33,#003366);color:var(--blanco);border-radius:14px;padding:28px;margin-bottom:24px;}
+  .ia-card h3{color:var(--blanco);font-size:1.25rem;margin-top:0;margin-bottom:12px;}
+  .ia-card p{opacity:0.9;font-size:0.96rem;}
+  .ia-tool-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:6px 16px;font-size:0.85rem;font-weight:600;margin-top:14px;}
+  .prompt-box{background:#0d1117;color:#58d68d;border-radius:10px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.88rem;margin:16px 0;border:1px solid #2d4a2d;white-space:pre-wrap;line-height:1.6;}
+  .ia-step{background:var(--blanco);border-radius:8px;padding:14px 18px;margin:12px 0;border-left:4px solid var(--celeste);font-size:0.93rem;}
+  .ia-step strong{color:var(--azul);}
+
+  /* REFLEXIÓN & BIBLIO */
+  .reflexion-item{background:var(--blanco);border:1px solid var(--gris-borde);border-left:5px solid var(--dorado);border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:16px;}
+  .reflexion-item .r-num{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--dorado);font-weight:700;margin-bottom:6px;}
+  .ref-card{background:var(--blanco);border:1px solid var(--gris-borde);border-radius:10px;padding:16px 20px;margin-bottom:14px;display:flex;gap:14px;align-items:flex-start;}
+  .ref-num{background:var(--azul);color:var(--blanco);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;flex-shrink:0;}
+  .ref-text{font-size:0.9rem;line-height:1.6;}
+  .bib-note{background:var(--dorado-claro);border-left:4px solid var(--dorado);border-radius:0 8px 8px 0;padding:12px 16px;margin-top:20px;font-size:0.88rem;}
+
+  /* MORIN PENSAMIENTO COMPLEJO */
+  .morin-card{background:linear-gradient(135deg,#1a0533,var(--morado));color:var(--blanco);border-radius:12px;padding:22px;margin:20px 0;}
+  .morin-card h4{color:var(--blanco);font-size:1.05rem;margin:0 0 10px;}
+  .morin-card p{font-size:0.9rem;opacity:0.92;margin:0;}
+  .principio-morin{background:rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.88rem;}
+  .principio-morin strong{color:#e0c8ff;}
+
+  /* RESPONSIVE */
+  @media(max-width:640px){
+    .two-col,.three-col{grid-template-columns:1fr;}
+    .header-badges{display:none;}
+    .tab-content{padding:20px 16px;}
+    .cards-grid{grid-template-columns:1fr;}
+    .options-row{flex-direction:column;}
+    .disciplinas-bar{flex-direction:column;}
+    .complejidad-ring{gap:8px;}
+    .ring-item{width:90px;height:90px;font-size:0.72rem;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-logo">
+    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="30" cy="30" r="28" fill="#003366"/>
+      <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="18" font-family="serif" font-weight="bold">UG</text>
+    </svg>
+  </div>
+  <div class="header-info">
+    <h1>Universidad de Guayaquil</h1>
+    <p>Facultad de Ciencias Administrativas &nbsp;|&nbsp; Carrera en Contabilidad y Auditoría</p>
+    <p style="margin-top:4px;font-size:0.78rem;opacity:0.7;">Metodología de la Investigación &nbsp;·&nbsp; Primer Semestre</p>
+  </div>
+  <div class="header-badges">
+    <span class="badge">Unidad I</span>
+    <span class="badge">Semana 4</span>
+    <span class="badge">Modalidad Virtual</span>
+  </div>
+</header>
+
+<!-- SEMANA INFO -->
+<div class="semana-info">
+  <div class="semana-tag">
+    <div class="num">04</div>
+    <div class="lbl">Semana</div>
+  </div>
+  <div class="semana-titulo">
+    <h2>Unidad I — Introducción a la Investigación Científica</h2>
+    <p>Complejidad e interdisciplinariedad · Epistemología: definición y epistemologías regionales · Problemas que le competen a la epistemología</p>
+  </div>
+</div>
+
+<!-- NAVEGACIÓN -->
+<nav class="tabs-nav">
+  <button class="tab-btn active" onclick="showTab('repaso',this)">📋 Repaso</button>
+  <button class="tab-btn" onclick="showTab('t1',this)">1 · Complejidad e interdisciplinariedad</button>
+  <button class="tab-btn" onclick="showTab('t2',this)">2 · Epistemología: definición y regionales</button>
+  <button class="tab-btn" onclick="showTab('t3',this)">3 · Problemas de la epistemología</button>
+  <button class="tab-btn" onclick="showTab('t4',this)">4 · Pensamiento complejo de Morin</button>
+  <button class="tab-btn" onclick="showTab('ejercicio',this)">⚡ Ejercicio Interactivo</button>
+  <button class="tab-btn" onclick="showTab('cuestionario',this)">📝 Cuestionario</button>
+  <button class="tab-btn" onclick="showTab('ia',this)">🤖 Actividad con IA</button>
+  <button class="tab-btn" onclick="showTab('reflexion',this)">💭 Reflexión</button>
+  <button class="tab-btn" onclick="showTab('biblio',this)">📚 Bibliografía</button>
+</nav>
+
+<!-- ============================= CONTENIDOS ============================= -->
+
+<!-- REPASO -->
+<div class="tab-content active" id="repaso">
+  <h2 class="section-title">📋 Repaso — Semanas 1–3 · Hacia el cierre de la Unidad I</h2>
+  <p class="subtitle">Esta es la última semana de la Unidad I. Consolidamos todo el fundamento epistemológico</p>
+
+  <div class="repaso-card">
+    <h3>🔁 La ruta recorrida hasta aquí</h3>
+    <p>En cuatro semanas hemos construido un edificio conceptual sólido. Repasemos los pisos:</p>
+    <div class="repaso-item">🧱 <strong>Semana 1 — Los cimientos:</strong> Tipos de conocimiento · Ciencias formales y empíricas · Método científico · Conceptos, teorías, axiomas, leyes.</div>
+    <div class="repaso-item">🌐 <strong>Semana 2 — La perspectiva:</strong> Paradigmas cuantitativo y cualitativo · Elementos de investigación · Alcances (explorar → explicar) · Sesgos y validez.</div>
+    <div class="repaso-item">🔍 <strong>Semana 3 — El rigor:</strong> 12 características de la investigación científica · Objeto y campo · Ética científica · Epistemología: definición y corrientes filosóficas.</div>
+    <div class="repaso-item">🌀 <strong>Semana 4 — La profundidad:</strong> Complejidad e interdisciplinariedad · Epistemologías regionales (aplicadas a disciplinas específicas) · Los grandes problemas que la epistemología debe resolver.</div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-title">🎯 ¿Por qué importa esta última semana de la Unidad I?</div>
+    <p>Las semanas anteriores nos dieron los conceptos básicos. Esta semana nos invita a ver la ciencia como un <em>sistema complejo</em>, no como una colección de disciplinas aisladas. Un contador del siglo XXI necesita entender que los problemas reales —evasión tributaria, corrupción, crisis financieras— no respetan fronteras disciplinares. Para entenderlos y resolverlos, necesita miradas múltiples: económica, jurídica, sociológica, psicológica. Eso es la complejidad. Y la epistemología regional le da las herramientas para pensar con rigor dentro de su propia disciplina.</p>
+  </div>
+
+  <h3>🗺️ Mapa de la Semana 4</h3>
+  <div class="cards-grid">
+    <div class="card" style="border-top-color:var(--morado);">
+      <div class="card-icon">🌀</div>
+      <h4>Tema 1 — Complejidad e interdisciplinariedad</h4>
+      <p>¿Por qué los problemas reales no caben en una sola disciplina? El pensamiento complejo como respuesta epistemológica a la fragmentación del conocimiento.</p>
+    </div>
+    <div class="card" style="border-top-color:var(--teal);">
+      <div class="card-icon">🔬</div>
+      <h4>Tema 2 — Epistemologías regionales</h4>
+      <p>Cada disciplina científica tiene sus propios fundamentos epistemológicos. ¿Cuáles son los de la Contabilidad, la Auditoría y las Ciencias Sociales?</p>
+    </div>
+    <div class="card" style="border-top-color:var(--naranja);">
+      <div class="card-icon">❓</div>
+      <h4>Tema 3 — Problemas de la epistemología</h4>
+      <p>Las grandes preguntas que la epistemología intenta responder: el problema de la verdad, la demarcación, el relativismo, el progreso científico.</p>
+    </div>
+    <div class="card" style="border-top-color:#c0392b;">
+      <div class="card-icon">🧠</div>
+      <h4>Tema 4 — Pensamiento complejo (Morin)</h4>
+      <p>Edgar Morin y su propuesta de un pensamiento que une, que relaciona, que piensa la totalidad sin perder los detalles. Los siete principios del pensamiento complejo.</p>
+    </div>
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea motivadora de la semana</div>
+    <p>La ciencia del siglo XIX creía que dividiendo suficientemente el conocimiento llegaríamos a entender todo. La ciencia del siglo XXI descubrió que los fenómenos más importantes —las crisis económicas, el cambio climático, la corrupción sistémica— solo se comprenden cuando <em>integramos</em> perspectivas múltiples. Esta semana aprendemos a pensar en sistemas, no en fragmentos. Es una de las habilidades más valiosas que puedes desarrollar como futuro profesional.</p>
+  </div>
+</div>
+
+<!-- TEMA 1: COMPLEJIDAD E INTERDISCIPLINARIEDAD -->
+<div class="tab-content" id="t1">
+  <h2 class="section-title">1 · Complejidad e interdisciplinariedad de la ciencia</h2>
+  <p class="subtitle">¿Por qué los problemas reales no caben en una sola disciplina?</p>
+
+  <p class="content-p">Durante siglos, la ciencia avanzó especializándose: cada disciplina se ocupaba de su parcela de la realidad y procuraba no meterse en los asuntos de las demás. Este enfoque fue extraordinariamente productivo, pero tiene un límite: los problemas reales del mundo no respetan fronteras disciplinares.</p>
+
+  <h3>1.1 El problema de la fragmentación del conocimiento</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 El paradigma de la simplificación</div>
+    <p>El <strong>paradigma de la simplificación</strong> es la tendencia histórica de la ciencia a abordar la realidad dividiéndola en partes cada vez más pequeñas, estudiando cada parte en aislamiento. Este enfoque generó avances extraordinarios en muchas áreas, pero tiene una limitación fundamental: al aislar las partes, pierde de vista cómo interactúan entre sí y cómo esa interacción produce propiedades que ninguna parte tiene por sí sola.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="example-title">🇪🇨 El problema de la evasión tributaria — Un ejemplo de complejidad</div>
+    <p>Imagine que el gobierno de Ecuador quiere entender y combatir la evasión tributaria. ¿Qué disciplina debe abordar el problema?</p>
+    <ul style="margin-top:8px;padding-left:20px;font-size:0.92rem;">
+      <li>La <strong>Contabilidad</strong> analiza cómo se distorsionan los registros financieros.</li>
+      <li>La <strong>Economía</strong> modela el incentivo racional para evadir frente al costo de ser detectado.</li>
+      <li>El <strong>Derecho</strong> define qué es delito y cuáles son las sanciones aplicables.</li>
+      <li>La <strong>Sociología</strong> estudia las normas culturales que toleran o condenan la evasión.</li>
+      <li>La <strong>Psicología</strong> explora cómo la percepción de injusticia tributaria motiva la evasión.</li>
+      <li>La <strong>Informática</strong> diseña los sistemas de detección y cruce de datos del SRI.</li>
+    </ul>
+    <p style="margin-top:8px;"><strong>Ninguna disciplina por sí sola puede entender el fenómeno completo.</strong> Se necesita un enfoque interdisciplinario que integre todas estas perspectivas.</p>
+  </div>
+
+  <h3>1.2 Niveles de articulación entre disciplinas</h3>
+
+  <div class="disciplinas-bar">
+    <div class="disc-seg d1">
+      <strong>Multidisciplinariedad</strong>
+      <span>Varias disciplinas estudian el mismo problema de forma paralela, sin integración. Cada una mantiene su método y sus conclusiones separadas.</span>
+    </div>
+    <div class="disc-seg d2">
+      <strong>Pluridisciplinariedad</strong>
+      <span>Varias disciplinas cooperan en torno a un tema común, compartiendo información, aunque mantienen sus propias perspectivas.</span>
+    </div>
+    <div class="disc-seg d3">
+      <strong>Interdisciplinariedad</strong>
+      <span>Las disciplinas interactúan activamente, transfieren métodos entre sí y producen conocimiento que ninguna podría generar sola.</span>
+    </div>
+    <div class="disc-seg d4">
+      <strong>Transdisciplinariedad</strong>
+      <span>Va más allá de las disciplinas: crea un marco conceptual unificador que trasciende todas las disciplinas individuales. Es el nivel más integrado.</span>
+    </div>
+  </div>
+
+  <h3>1.3 ¿Qué es la complejidad?</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición</div>
+    <p>La <strong>complejidad</strong> (del latín <em>complexus</em>: lo que está tejido junto) designa la condición de los sistemas y fenómenos que no pueden ser comprendidos analizando solo sus partes aisladamente. Un sistema complejo es más que la suma de sus partes porque la interacción entre ellas genera propiedades <em>emergentes</em> que ninguna parte posee individualmente.</p>
+  </div>
+
+  <p class="content-p">Las características de los sistemas complejos son:</p>
+
+  <div class="complejidad-ring">
+    <div class="ring-item"><div class="ring-icon">🔗</div>Interdependencia entre elementos</div>
+    <div class="ring-item"><div class="ring-icon">🌊</div>No linealidad (pequeña causa, gran efecto)</div>
+    <div class="ring-item"><div class="ring-icon">✨</div>Emergencia (el todo es más que sus partes)</div>
+    <div class="ring-item"><div class="ring-icon">🔄</div>Retroalimentación (bucles causa-efecto)</div>
+    <div class="ring-item"><div class="ring-icon">🌀</div>Autoorganización espontánea</div>
+    <div class="ring-item"><div class="ring-icon">⚡</div>Sensibilidad a condiciones iniciales</div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-title">💼 La complejidad en el mundo contable y financiero</div>
+    <p>La crisis financiera global de 2008 fue un fenómeno de complejidad máxima. Comenzó con hipotecas de alto riesgo en EE.UU. (un problema contable y financiero local) que a través de instrumentos derivados complejos (CDO, swaps) se propagó globalmente en semanas, colapsando bancos, eliminando empleos y afectando economías como la ecuatoriana. Nadie lo predijo completamente porque nadie tenía el modelo para entender la interacción de todos los factores. Eso es complejidad.</p>
+  </div>
+
+  <h3>1.4 Interdisciplinariedad en Contabilidad y Auditoría</h3>
+
+  <p class="content-p">La Contabilidad y la Auditoría modernas son disciplinas fundamentalmente interdisciplinarias. Para ejercer con excelencia, un contador o auditor del siglo XXI necesita conocimientos de:</p>
+
+  <div class="three-col">
+    <div class="card" style="border-top-color:#1a56a3;">
+      <div class="card-icon">⚖️</div>
+      <h4>Derecho</h4>
+      <p>Contratos, legislación tributaria, derecho mercantil, normas de la Superintendencia de Compañías y la Contraloría General.</p>
+    </div>
+    <div class="card" style="border-top-color:var(--verde);">
+      <div class="card-icon">📊</div>
+      <h4>Estadística e Informática</h4>
+      <p>Análisis de datos masivos, auditoría asistida por computadora (CAAT), inteligencia artificial para detección de fraude.</p>
+    </div>
+    <div class="card" style="border-top-color:var(--naranja);">
+      <div class="card-icon">🧠</div>
+      <h4>Psicología y Sociología</h4>
+      <p>Comportamiento organizacional, ética empresarial, dinámica de grupos, cultura corporativa y su influencia en el control interno.</p>
+    </div>
+  </div>
+
+  <div class="alert-info">
+    <strong>🔗 Conexión con semanas anteriores:</strong> En la Semana 2 vimos el método mixto como integración de paradigmas cuantitativo y cualitativo. El método mixto es, en esencia, una respuesta metodológica a la complejidad: usamos múltiples perspectivas porque ninguna sola captura la realidad completa.
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea clave del Tema 1</div>
+    <p>La interdisciplinariedad no es una moda académica: es una respuesta necesaria a la complejidad del mundo real. Los problemas que enfrentará como contador o auditor —fraude corporativo, evasión tributaria, crisis de liquidez, quiebras empresariales— son inherentemente complejos e interdisciplinarios. Quien solo sepa de su propia disciplina estará siempre en desventaja frente a quien sepa integrar perspectivas múltiples.</p>
+  </div>
+</div>
+
+<!-- TEMA 2: EPISTEMOLOGÍAS REGIONALES -->
+<div class="tab-content" id="t2">
+  <h2 class="section-title">2 · Epistemología: definición ampliada y epistemologías regionales</h2>
+  <p class="subtitle">¿Cada disciplina tiene su propia forma de construir conocimiento válido?</p>
+
+  <p class="content-p">En la Semana 3 definimos la epistemología como la ciencia que estudia el conocimiento científico en general. Pero existe un nivel de análisis más específico: las <strong>epistemologías regionales</strong>, que estudian los fundamentos del conocimiento en disciplinas particulares.</p>
+
+  <h3>2.1 De la epistemología general a las epistemologías regionales</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Epistemología general vs. epistemologías regionales</div>
+    <p>La <strong>epistemología general</strong> reflexiona sobre el conocimiento científico en todas las disciplinas: ¿qué es la verdad?, ¿cómo se justifica el conocimiento?, ¿cuáles son los límites de lo que podemos saber?<br><br>
+    Las <strong>epistemologías regionales</strong> (también llamadas epistemologías disciplinares o especiales) aplican estas preguntas al conocimiento producido dentro de una disciplina específica: ¿qué significa "conocer bien" en Contabilidad? ¿Qué cuenta como evidencia válida en Auditoría? ¿Cuáles son las categorías conceptuales fundamentales de las Ciencias Económicas?</p>
+  </div>
+
+  <h3>2.2 ¿Por qué necesitamos epistemologías regionales?</h3>
+
+  <p class="content-p">Porque cada disciplina tiene sus propios objetos de estudio, sus propios métodos legítimos, sus propios criterios de verdad y sus propias limitaciones. Lo que cuenta como evidencia suficiente en Química (reproducibilidad de un experimento en laboratorio) es diferente a lo que cuenta como evidencia en Auditoría (documentación suficiente y adecuada según las NIA) o en Historia (fuentes primarias corroboradas por múltiples documentos).</p>
+
+  <h3>2.3 Epistemología regional de la Contabilidad</h3>
+
+  <div class="regional-card rc-contabilidad">
+    <h4>📊 ¿Qué es conocer en Contabilidad?</h4>
+    <p>La Contabilidad tiene como objeto de estudio las transacciones económicas de las entidades y su representación fidedigna. Su epistemología regional plantea preguntas como: ¿puede la Contabilidad ser completamente objetiva? ¿Qué es la "imagen fiel" de la realidad financiera? ¿Las normas contables (NIIF) construyen o reflejan la realidad económica? ¿Es la Contabilidad una ciencia, una técnica o ambas?</p>
+    <p style="margin-top:8px;"><strong>Debate clave:</strong> Las NIIF usan el "valor razonable" (valor de mercado) como criterio de medición. ¿Es este criterio más objetivo que el costo histórico? Epistemológicamente, ambos son constructos: reflejan diferentes suposiciones sobre qué es "la realidad" económica.</p>
+  </div>
+
+  <h3>2.4 Epistemología regional de la Auditoría</h3>
+
+  <div class="regional-card rc-auditoria">
+    <h4>🔍 ¿Qué es conocer en Auditoría?</h4>
+    <p>La epistemología de la Auditoría pregunta: ¿qué tipo de certeza puede alcanzar el auditor? ¿Qué es "evidencia suficiente y adecuada"? ¿Por qué el dictamen de auditoría nunca garantiza certeza absoluta sino solo "seguridad razonable"? ¿Cómo influye el juicio profesional (subjetividad) en un proceso que aspira a ser objetivo?</p>
+    <p style="margin-top:8px;"><strong>Respuesta epistemológica:</strong> La auditoría opera bajo una epistemología de "seguridad razonable, no absoluta", reconociendo que el conocimiento auditor siempre tiene límites: se trabaja con muestras, no con la totalidad; con declaraciones, no con certezas; con juicio, no con algoritmos.</p>
+  </div>
+
+  <h3>2.5 Epistemología regional de las Ciencias Económicas</h3>
+
+  <div class="regional-card rc-economia">
+    <h4>📈 ¿Qué es conocer en Economía?</h4>
+    <p>La economía enfrenta el desafío de estudiar fenómenos sociales con aspiraciones de precisión matemática. Sus preguntas epistemológicas: ¿los modelos económicos reflejan la realidad o la simplifican hasta la irrelevancia? ¿Es el ser humano realmente "racional" como asume la economía neoclásica? ¿Pueden hacerse predicciones confiables en sistemas sociales abiertos? La economía conductual (Kahneman, Thaler) surgió como respuesta crítica a los supuestos epistemológicos de la economía neoclásica.</p>
+  </div>
+
+  <h3>2.6 Epistemología regional del Derecho</h3>
+
+  <div class="regional-card rc-derecho">
+    <h4>⚖️ ¿Qué es conocer en Derecho?</h4>
+    <p>La epistemología jurídica pregunta: ¿qué hace que una interpretación legal sea correcta? ¿La ley descubre verdades preexistentes o las crea? ¿Puede haber una sola respuesta correcta a un problema jurídico? ¿Cómo deben los jueces resolver casos donde la ley es ambigua o contradictoria? Estas preguntas son fundamentales para el contador y auditor forense que debe interpretar normas tributarias y su aplicación a casos concretos.</p>
+  </div>
+
+  <h3>2.7 Las epistemologías regionales en acción — Caso integrador</h3>
+
+  <div class="example-box">
+    <div class="example-title">🇪🇨 Auditoría forense en un caso de lavado de activos en Ecuador</div>
+    <p>Un equipo interdisciplinario investiga una empresa constructora sospechosa de lavar dinero del narcotráfico en Guayaquil. Cada especialista aplica su propia epistemología regional:</p>
+    <ul style="margin-top:8px;padding-left:20px;font-size:0.91rem;">
+      <li><strong>El auditor</strong> aplica epistemología auditora: ¿qué evidencia documental es suficiente y adecuada para fundamentar el hallazgo?</li>
+      <li><strong>El contador forense</strong> aplica epistemología contable: ¿cómo se construyó el registro financiero? ¿Qué criterios de reconocimiento se violaron?</li>
+      <li><strong>El economista</strong> aplica epistemología económica: ¿son las transacciones consistentes con los incentivos y el comportamiento normal del mercado?</li>
+      <li><strong>El abogado</strong> aplica epistemología jurídica: ¿qué tipo de prueba es admisible en el proceso penal?</li>
+    </ul>
+    <p style="margin-top:8px;">Solo integrando estas cuatro perspectivas epistemológicas puede el equipo construir un caso sólido. Eso es interdisciplinariedad epistemológica en la práctica.</p>
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea clave del Tema 2</div>
+    <p>Las epistemologías regionales nos recuerdan que no existe UN solo método científico válido para todas las disciplinas. Cada campo tiene sus propias reglas del juego epistemológico. Conocer las de tu disciplina no es un lujo académico: es lo que te permite entender cuándo tu conocimiento es sólido y cuándo está en terreno inseguro.</p>
+  </div>
+</div>
+
+<!-- TEMA 3: PROBLEMAS DE LA EPISTEMOLOGÍA -->
+<div class="tab-content" id="t3">
+  <h2 class="section-title">3 · Problemas que le competen a la epistemología</h2>
+  <p class="subtitle">Las grandes preguntas que la epistemología todavía no ha resuelto — y por qué importan</p>
+
+  <p class="content-p">La epistemología no es solo un conjunto de definiciones: es un campo de debate vivo, con problemas sin resolver que afectan directamente cómo hacemos ciencia y cómo evaluamos el conocimiento. Estos son los problemas centrales:</p>
+
+  <div class="problema-item">
+    <div class="prob-num">1</div>
+    <div class="prob-content">
+      <h4>El problema de la verdad: ¿qué significa que algo sea "verdadero"?</h4>
+      <p>¿Es la verdad una correspondencia entre el enunciado y la realidad (teoría de la correspondencia)? ¿O es la coherencia interna de un sistema de creencias (teoría de la coherencia)? ¿O simplemente aquello que funciona en la práctica (teoría pragmatista)? <em>Aplicación contable:</em> cuando los estados financieros presentan "razonablemente" la situación financiera, ¿qué concepto de verdad están usando? No es la verdad absoluta, sino la razonabilidad bajo normas acordadas —una verdad pragmática y coherente.</p>
+    </div>
+  </div>
+
+  <div class="problema-item">
+    <div class="prob-num">2</div>
+    <div class="prob-content">
+      <h4>El problema de la demarcación: ¿qué separa la ciencia de la no-ciencia?</h4>
+      <p>¿Cómo distinguimos el conocimiento científico genuino de las pseudociencias (astrología, homeopatía, esoterismo)? Popper propuso la falsabilidad como criterio: una afirmación es científica si puede en principio ser refutada por evidencia empírica. Lakatos propuso los "programas de investigación". Feyerabend llegó al extremo de argumentar que no existe un único método científico legítimo ("todo vale"). <em>Aplicación:</em> un "estudio" que afirma que "el feng shui mejora la contabilidad" ¿es conocimiento legítimo para basar decisiones empresariales?</p>
+    </div>
+  </div>
+
+  <div class="problema-item">
+    <div class="prob-num">3</div>
+    <div class="prob-content">
+      <h4>El problema del relativismo: ¿es el conocimiento universal o dependiente del contexto?</h4>
+      <p>El relativismo epistémico sostiene que el conocimiento es siempre relativo al contexto cultural, histórico o personal del observador: no hay verdades absolutas universales, solo perspectivas. El realismo científico responde que existen verdades sobre el mundo natural que son independientes del observador. <em>Tensión en ciencias sociales:</em> ¿las normas contables son construcciones culturales arbitrarias o reflejan verdades económicas universales? La adopción de NIIF en Ecuador es un debate entre el universalismo contable y el contextualismo local.</p>
+    </div>
+  </div>
+
+  <div class="problema-item">
+    <div class="prob-num">4</div>
+    <div class="prob-content">
+      <h4>El problema del progreso científico: ¿el conocimiento realmente avanza?</h4>
+      <p>¿La ciencia acumula conocimiento verdadero de forma lineal y progresiva? Kuhn mostró que la ciencia no avanza solo acumulando sino también mediante "revoluciones científicas" que reemplazan un paradigma por otro incompatible. ¿Abandonar la contabilidad de costo histórico por el valor razonable (NIIF) es "progreso" o un cambio de paradigma contable que tiene sus propias limitaciones? ¿Cómo evaluamos el progreso cuando cambian los criterios de éxito?</p>
+    </div>
+  </div>
+
+  <div class="problema-item">
+    <div class="prob-num">5</div>
+    <div class="prob-content">
+      <h4>El problema de la inducción (de Hume): ¿podemos generalizar de casos particulares?</h4>
+      <p>David Hume señaló que la inducción —razonar de casos particulares a leyes generales— nunca puede justificarse lógicamente: no importa cuántos cisnes blancos hayamos visto, no podemos concluir con certeza lógica que "todos los cisnes son blancos" (hasta que alguien descubra un cisne negro). <em>Aplicación auditoría:</em> el auditor revisa una muestra y generaliza sobre el todo. ¿Cuánta muestra es suficiente? ¿Cuándo el riesgo de generalización errónea es aceptable? El problema de Hume nunca tiene respuesta definitiva; solo maneras de gestionarlo mejor.</p>
+    </div>
+  </div>
+
+  <div class="problema-item">
+    <div class="prob-num">6</div>
+    <div class="prob-content">
+      <h4>El problema de la carga teórica de la observación: ¿podemos observar sin teorizar?</h4>
+      <p>Hanson y Kuhn demostraron que no existe observación "pura" libre de teoría: siempre observamos a través de nuestros conceptos, categorías y supuestos previos. Un médico y un paciente mirando la misma radiografía "ven" cosas diferentes. <em>Aplicación contable:</em> el auditor que llega a una empresa "sabiendo" que existe fraude, ¿puede hacer una revisión realmente imparcial? Sus suposiciones previas influirán en qué busca y qué ignora. Ese es el sesgo de confirmación epistemológicamente fundamentado.</p>
+    </div>
+  </div>
+
+  <div class="problema-item">
+    <div class="prob-num">7</div>
+    <div class="prob-content">
+      <h4>El problema de la infradeterminación: datos insuficientes para una sola conclusión</h4>
+      <p>La misma evidencia empírica puede ser compatible con múltiples teorías diferentes (el filósofo Quine lo llamó "infradeterminación de la teoría por los datos"). <em>Aplicación:</em> los mismos estados financieros pueden interpretarse de maneras radicalmente distintas según el marco teórico que use el analista. Dos auditores con los mismos datos pueden llegar a conclusiones diferentes sobre el riesgo de una empresa. Eso no significa que ambos tengan razón; significa que la evidencia sola no siempre dicta una única interpretación correcta.</p>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Problema epistemológico</th><th>Pregunta central</th><th>Relevancia en Contabilidad / Auditoría</th></tr></thead>
+      <tbody>
+        <tr><td><strong>La verdad</strong></td><td>¿Qué significa que algo sea verdadero?</td><td>¿Qué significa "presentación razonable" de estados financieros?</td></tr>
+        <tr><td><strong>La demarcación</strong></td><td>¿Qué distingue ciencia de pseudociencia?</td><td>¿Qué métodos de auditoría son científicamente válidos?</td></tr>
+        <tr><td><strong>El relativismo</strong></td><td>¿El conocimiento es universal o contextual?</td><td>¿Las NIIF son universales o culturalmente construidas?</td></tr>
+        <tr><td><strong>El progreso</strong></td><td>¿La ciencia avanza linealmente?</td><td>¿La adopción de NIIF es progreso contable o cambio de paradigma?</td></tr>
+        <tr><td><strong>La inducción</strong></td><td>¿Podemos generalizar de muestras?</td><td>¿Cuánta muestra de auditoría es suficiente?</td></tr>
+        <tr><td><strong>La carga teórica</strong></td><td>¿Podemos observar sin teorías previas?</td><td>¿Puede el auditor ser completamente imparcial?</td></tr>
+        <tr><td><strong>La infradeterminación</strong></td><td>¿Hay siempre una sola conclusión posible?</td><td>¿Por qué dos auditores pueden diferir sobre el mismo caso?</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea clave del Tema 3</div>
+    <p>Estos problemas no tienen soluciones definitivas —llevan siglos siendo debatidos— pero conocerlos nos hace mejores investigadores y mejores profesionales. Un contador que sabe que la observación está "cargada de teoría" será más cuidadoso con sus suposiciones previas. Un auditor que entiende el problema de la inducción planificará mejor el tamaño de su muestra. La epistemología no complica la práctica: la hace más honesta.</p>
+  </div>
+</div>
+
+<!-- TEMA 4: PENSAMIENTO COMPLEJO DE MORIN -->
+<div class="tab-content" id="t4">
+  <h2 class="section-title">4 · El pensamiento complejo de Edgar Morin</h2>
+  <p class="subtitle">Una nueva forma de pensar para un mundo que no se deja simplificar</p>
+
+  <p class="content-p">Edgar Morin (Francia, 1921) es el filósofo y sociólogo que con mayor profundidad ha desarrollado el concepto de <em>pensamiento complejo</em> como alternativa al paradigma de la simplificación que ha dominado la ciencia occidental. Su propuesta no rechaza el análisis ni la especialización, sino que los subordina a una visión más amplia e integradora.</p>
+
+  <div class="morin-card">
+    <h4>🧠 Edgar Morin — Pensamiento complejo</h4>
+    <p>Para Morin, el pensamiento complejo no es el pensamiento que acumula la máxima cantidad de información. Es el pensamiento que <em>sabe articular</em> lo que el pensamiento simplificante separa y fragmenta. Es un pensamiento que une sin confundir, distingue sin separar, relaciona sin reducir.</p>
+  </div>
+
+  <h3>4.1 Los siete principios del pensamiento complejo (Morin)</h3>
+
+  <div class="problema-item" style="border-left-color:var(--morado);">
+    <div class="prob-num" style="background:var(--morado);">1</div>
+    <div class="prob-content">
+      <h4>Principio sistémico u organizacional</h4>
+      <p>El todo es más que la suma de sus partes, pero también el todo es menos que la suma de sus partes (porque la organización inhibe ciertas posibilidades de los elementos). Una empresa no es solo la suma de sus empleados: la organización misma genera capacidades que ningun empleado individual tiene. <em>Aplicación:</em> los estados financieros de una empresa expresan algo que no está en ninguna cuenta individual.</p>
+    </div>
+  </div>
+
+  <div class="problema-item" style="border-left-color:var(--morado);">
+    <div class="prob-num" style="background:var(--morado);">2</div>
+    <div class="prob-content">
+      <h4>Principio hologramático</h4>
+      <p>Cada parte contiene al todo, y el todo contiene a cada parte. Como en un holograma: cada fragmento contiene la imagen completa. <em>Aplicación:</em> en una cultura organizacional corrupta, cada empleado (la parte) refleja y reproduce la corrupción del sistema (el todo), y la corrupción del sistema se construye con las acciones de cada individuo.</p>
+    </div>
+  </div>
+
+  <div class="problema-item" style="border-left-color:var(--morado);">
+    <div class="prob-num" style="background:var(--morado);">3</div>
+    <div class="prob-content">
+      <h4>Principio del bucle retroactivo</h4>
+      <p>La causa actúa sobre el efecto y el efecto retroactúa sobre la causa. La causalidad no es lineal sino circular. <em>Aplicación:</em> una mala auditoría que no detecta fraude genera más fraude (porque los defraudadores aprenden que no serán detectados), lo que hace más difícil la siguiente auditoría. Causa y efecto se retroalimentan.</p>
+    </div>
+  </div>
+
+  <div class="problema-item" style="border-left-color:var(--morado);">
+    <div class="prob-num" style="background:var(--morado);">4</div>
+    <div class="prob-content">
+      <h4>Principio del bucle recursivo</h4>
+      <p>Los productos y los efectos son a la vez causas y productores de lo que los produce. La sociedad produce a los individuos que producen la sociedad. <em>Aplicación:</em> las normas contables (NIIF) fueron creadas por contadores para describir la realidad económica, pero a su vez modifican cómo los contadores perciben y registran esa realidad. Las herramientas que creamos nos reconfiguran a nosotros.</p>
+    </div>
+  </div>
+
+  <div class="problema-item" style="border-left-color:var(--morado);">
+    <div class="prob-num" style="background:var(--morado);">5</div>
+    <div class="prob-content">
+      <h4>Principio dialógico</h4>
+      <p>Asociar nociones contradictorias que se necesitan mutuamente para comprender la realidad. Orden y desorden no se excluyen: los sistemas vivos necesitan cierto grado de desorden para evolucionar. <em>Aplicación:</em> en la auditoría, la independencia (separación del auditor) y el conocimiento profundo del cliente (involucración) parecen contradictorias pero ambas son necesarias para un buen dictamen.</p>
+    </div>
+  </div>
+
+  <div class="problema-item" style="border-left-color:var(--morado);">
+    <div class="prob-num" style="background:var(--morado);">6</div>
+    <div class="prob-content">
+      <h4>Principio de reintroducción del cognoscente</h4>
+      <p>Todo conocimiento es una reconstrucción/traducción hecha por una mente/cerebro en una cultura y tiempo determinados. El observador siempre forma parte de lo observado. <em>Aplicación:</em> el auditor que evalúa el control interno de una empresa no es un observador neutral: su formación, sus sesgos, su experiencia y sus relaciones influyen en lo que "ve" y cómo lo interpreta.</p>
+    </div>
+  </div>
+
+  <div class="problema-item" style="border-left-color:var(--morado);">
+    <div class="prob-num" style="background:var(--morado);">7</div>
+    <div class="prob-content">
+      <h4>Principio de ecología de la acción</h4>
+      <p>Toda acción se convierte en autónoma una vez lanzada, escapa a la intención de su autor e interactúa con el ambiente de manera impredecible. <em>Aplicación:</em> una nueva norma contable diseñada para mejorar la transparencia puede generar comportamientos evasivos no previstos por quienes la redactaron.</p>
+    </div>
+  </div>
+
+  <h3>4.2 ¿Por qué el pensamiento complejo importa para la investigación en Contabilidad?</h3>
+
+  <div class="example-box">
+    <div class="example-title">🇪🇨 Pensamiento complejo aplicado — El colapso de Filanbanco (Ecuador, 1998–1999)</div>
+    <p>El colapso de Filanbanco y el sistema financiero ecuatoriano en 1999 (que llevó a la dolarización) no puede explicarse desde una sola disciplina. Un análisis complejo requiere:</p>
+    <ul style="margin-top:8px;padding-left:20px;font-size:0.91rem;">
+      <li><strong>Contabilidad:</strong> registros manipulados, créditos vinculados no revelados (principio hologramático — la parte refleja el todo corrupto).</li>
+      <li><strong>Economía:</strong> crisis de la deuda, caída del precio del petróleo, El Niño (bucle retroactivo — el efecto amplifica la causa).</li>
+      <li><strong>Política:</strong> captura del regulador, laxitud del control estatal (principio sistémico — el todo es más que la suma).</li>
+      <li><strong>Sociología:</strong> pánico bancario, comportamiento colectivo irracional (principio dialógico — orden y desorden coexisten).</li>
+    </ul>
+    <p style="margin-top:8px;">Quien solo analizó los estados financieros de los bancos no vio venir el colapso. Quien aplicó pensamiento complejo podría haber detectado las señales de alarma sistémicas.</p>
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea clave del Tema 4</div>
+    <p>El pensamiento complejo no es una teoría más que memorizar: es una actitud epistemológica. Es la disposición a resistir la tentación de respuestas simples a preguntas complejas. Es la capacidad de sostener la contradicción sin resolverla artificialmente. Es la humildad de reconocer que el todo siempre es mayor que nuestra comprensión de sus partes. Como futuro contador o auditor, esta actitud puede ser la diferencia entre un dictamen superficial y uno verdaderamente riguroso.</p>
+  </div>
+</div>
+
+<!-- EJERCICIO INTERACTIVO -->
+<div class="tab-content" id="ejercicio">
+  <h2 class="section-title">⚡ Ejercicio Interactivo — Identifica el concepto</h2>
+  <p class="subtitle">Tipo: Selección múltiple contextualizada · 8 ítems · Responde todo antes de verificar</p>
+
+  <div class="ejercicio-intro">
+    <strong>Instrucciones:</strong> Lee cada situación o pregunta y selecciona la opción que mejor la describe o responde. Completa todos los ítems antes de presionar "Verificar". Recibirás retroalimentación detallada para cada uno.
+  </div>
+
+  <div id="ejercicioContainer">
+
+    <div class="ejercicio-item" id="ei1">
+      <div class="item-num">Ítem 1 de 8</div>
+      <div class="item-text">Un equipo de investigación estudia el impacto de la informalidad laboral en el Ecuador, integrando datos estadísticos del INEC, entrevistas a trabajadores informales, análisis legal de la legislación laboral y modelos económicos de mercado de trabajo. ¿Qué nivel de articulación entre disciplinas representa mejor este trabajo?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e1','A',this)">A. Interdisciplinariedad</button>
+        <button class="opt-btn" onclick="selectOpt('e1','B',this)">B. Multidisciplinariedad</button>
+        <button class="opt-btn" onclick="selectOpt('e1','C',this)">C. Especialización disciplinar</button>
+        <button class="opt-btn" onclick="selectOpt('e1','D',this)">D. Metodología cuantitativa pura</button>
+      </div>
+      <div class="feedback-text" id="fb-e1"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei2">
+      <div class="item-num">Ítem 2 de 8</div>
+      <div class="item-text">La pregunta "¿puede la Contabilidad producir conocimiento verdaderamente objetivo, o siempre refleja las elecciones y valores de quienes diseñan las normas?" corresponde a la reflexión de:</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e2','A',this)">A. La epistemología regional de la Contabilidad</button>
+        <button class="opt-btn" onclick="selectOpt('e2','B',this)">B. La metodología cuantitativa de investigación</button>
+        <button class="opt-btn" onclick="selectOpt('e2','C',this)">C. El alcance descriptivo de un estudio contable</button>
+        <button class="opt-btn" onclick="selectOpt('e2','D',this)">D. El sesgo de confirmación del investigador</button>
+      </div>
+      <div class="feedback-text" id="fb-e2"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei3">
+      <div class="item-num">Ítem 3 de 8</div>
+      <div class="item-text">El dictamen de auditoría afirma que los estados financieros presentan "razonablemente" la situación financiera, pero nunca garantiza certeza absoluta. ¿A qué problema epistemológico está respondiendo implícitamente esta limitación?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e3','A',this)">A. Al problema de la inducción: la auditoría trabaja con muestras, no con la totalidad de transacciones</button>
+        <button class="opt-btn" onclick="selectOpt('e3','B',this)">B. Al problema del relativismo: cada auditor tiene una visión diferente de la realidad</button>
+        <button class="opt-btn" onclick="selectOpt('e3','C',this)">C. Al problema de la demarcación: no se puede distinguir una auditoría científica de una no científica</button>
+        <button class="opt-btn" onclick="selectOpt('e3','D',this)">D. Al problema del progreso: las normas de auditoría cambian constantemente</button>
+      </div>
+      <div class="feedback-text" id="fb-e3"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei4">
+      <div class="item-num">Ítem 4 de 8</div>
+      <div class="item-text">Sofía diseña su tesis y descubre que el mismo conjunto de datos financieros de una empresa puede interpretarse como "señal de fraude" por un auditor experimentado y como "variación estacional normal" por otro. ¿A qué problema epistemológico corresponde esta situación?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e4','A',this)">A. Infradeterminación: los mismos datos son compatibles con múltiples interpretaciones teóricas</button>
+        <button class="opt-btn" onclick="selectOpt('e4','B',this)">B. Falsabilidad: las hipótesis de auditoría no pueden refutarse</button>
+        <button class="opt-btn" onclick="selectOpt('e4','C',this)">C. Problema del progreso: los métodos de auditoría son obsoletos</button>
+        <button class="opt-btn" onclick="selectOpt('e4','D',this)">D. Relativismo extremo: no existe ninguna interpretación correcta posible</button>
+      </div>
+      <div class="feedback-text" id="fb-e4"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei5">
+      <div class="item-num">Ítem 5 de 8</div>
+      <div class="item-text">El principio dialógico de Morin sostiene que debemos asociar nociones aparentemente contradictorias. ¿Cuál de las siguientes situaciones ilustra mejor este principio en el contexto de la auditoría?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e5','A',this)">A. El auditor necesita independencia del cliente (para ser objetivo) Y conocimiento profundo del cliente (para detectar irregularidades), aunque ambas exigencias parezcan contradictorias</button>
+        <button class="opt-btn" onclick="selectOpt('e5','B',this)">B. El auditor debe elegir entre usar métodos cualitativos o cuantitativos, pero nunca los dos a la vez</button>
+        <button class="opt-btn" onclick="selectOpt('e5','C',this)">C. La contabilidad de costo histórico y el valor razonable son incompatibles y deben usarse por separado</button>
+        <button class="opt-btn" onclick="selectOpt('e5','D',this)">D. Los auditores internos son objetivos y los externos son subjetivos, y no pueden colaborar</button>
+      </div>
+      <div class="feedback-text" id="fb-e5"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei6">
+      <div class="item-num">Ítem 6 de 8</div>
+      <div class="item-text">Una crisis financiera que comenzó con préstamos hipotecarios en EE.UU. se propagó globalmente a través de instrumentos derivados y colapsó economías en todo el mundo. ¿Qué característica de los sistemas complejos ilustra mejor este fenómeno?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e6','A',this)">A. No linealidad: una causa relativamente pequeña (hipotecas de alto riesgo) generó un efecto desproporcionadamente grande (colapso financiero global)</button>
+        <button class="opt-btn" onclick="selectOpt('e6','B',this)">B. Especialización: cada institución financiera actuó dentro de su área de competencia</button>
+        <button class="opt-btn" onclick="selectOpt('e6','C',this)">C. Verificabilidad: todos los datos de la crisis estaban disponibles para cualquier investigador</button>
+        <button class="opt-btn" onclick="selectOpt('e6','D',this)">D. Sistematicidad: el sistema financiero siguió procedimientos ordenados y planificados</button>
+      </div>
+      <div class="feedback-text" id="fb-e6"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei7">
+      <div class="item-num">Ítem 7 de 8</div>
+      <div class="item-text">La adopción de NIIF (Normas Internacionales de Información Financiera) en Ecuador generó que muchas empresas comenzaran a registrar activos a "valor razonable" en lugar de costo histórico, lo que cambió la percepción de los gerentes sobre el valor de sus propios activos. ¿Qué principio de Morin describe mejor este fenómeno?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e7','A',this)">A. Bucle recursivo: las herramientas que creamos (las NIIF) nos reconfiguran a nosotros (cambian cómo pensamos y actuamos)</button>
+        <button class="opt-btn" onclick="selectOpt('e7','B',this)">B. Principio hologramático: cada norma contiene el espíritu de todo el sistema NIIF</button>
+        <button class="opt-btn" onclick="selectOpt('e7','C',this)">C. Principio sistémico: el IASB es más que la suma de sus miembros</button>
+        <button class="opt-btn" onclick="selectOpt('e7','D',this)">D. Ecología de la acción: las NIIF tienen efectos imprevisibles sobre los mercados financieros</button>
+      </div>
+      <div class="feedback-text" id="fb-e7"></div>
+    </div>
+
+    <div class="ejercicio-item" id="ei8">
+      <div class="item-num">Ítem 8 de 8</div>
+      <div class="item-text">Un auditor llega a una empresa con la sospecha previa de que existe fraude en el departamento de tesorería. Según la epistemología, ¿cuál es el riesgo metodológico principal de esta situación?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e8','A',this)">A. La carga teórica de la observación: sus suposiciones previas influirán en qué busca, qué nota y cómo interpreta los datos, comprometiendo la imparcialidad</button>
+        <button class="opt-btn" onclick="selectOpt('e8','B',this)">B. El problema de la inducción: con una sospecha previa no puede generalizarse a toda la empresa</button>
+        <button class="opt-btn" onclick="selectOpt('e8','C',this)">C. El relativismo: cada auditor tiene derecho a su propia interpretación de los datos</button>
+        <button class="opt-btn" onclick="selectOpt('e8','D',this)">D. La demarcación: una auditoría con hipótesis previa ya no es científicamente válida</button>
+      </div>
+      <div class="feedback-text" id="fb-e8"></div>
+    </div>
+
+  </div>
+
+  <button class="btn-verify" onclick="verificarEjercicio()">✔ Verificar respuestas</button>
+  <button class="btn-reset" onclick="resetEjercicio()" id="btnResetEj" style="display:none">↺ Reiniciar</button>
+
+  <div class="result-panel" id="resultEj">
+    <div class="result-emoji" id="emojiEj"></div>
+    <div class="result-score" id="scoreEj"></div>
+    <div class="result-pct" id="pctEj"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progEj" style="width:0%"></div></div>
+    <div class="result-msg" id="msgEj"></div>
+  </div>
+</div>
+
+<!-- CUESTIONARIO -->
+<div class="tab-content" id="cuestionario">
+  <h2 class="section-title">📝 Cuestionario — Semana 4</h2>
+  <p class="subtitle">10 preguntas · 7 teóricas + 3 de análisis · Responde todo antes de verificar</p>
+
+  <div id="quizContainer">
+
+    <div class="quiz-item" id="qi1">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">1. ¿Cuál es la diferencia fundamental entre INTERDISCIPLINARIEDAD y MULTIDISCIPLINARIEDAD?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q1','A',this)">A. La multidisciplinariedad reúne varias disciplinas que trabajan en paralelo sin integración real; la interdisciplinariedad implica una interacción activa donde los métodos y hallazgos se transfieren entre disciplinas para producir conocimiento que ninguna podría generar sola</button>
+        <button class="quiz-opt" onclick="selectQuiz('q1','B',this)">B. La interdisciplinariedad usa solo métodos cualitativos mientras la multidisciplinariedad usa solo cuantitativos</button>
+        <button class="quiz-opt" onclick="selectQuiz('q1','C',this)">C. La multidisciplinariedad es más avanzada que la interdisciplinariedad porque involucra más disciplinas</button>
+        <button class="quiz-opt" onclick="selectQuiz('q1','D',this)">D. Solo la transdisciplinariedad es metodológicamente válida; las demás son informales</button>
+      </div>
+      <div class="feedback-text" id="fb-q1"></div>
+    </div>
+
+    <div class="quiz-item" id="qi2">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">2. ¿Qué significa que un sistema tenga la propiedad de EMERGENCIA?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q2','A',this)">A. Que el sistema posee propiedades o comportamientos que no existen en ninguno de sus componentes individuales y que solo aparecen como resultado de la interacción entre ellos</button>
+        <button class="quiz-opt" onclick="selectQuiz('q2','B',this)">B. Que el sistema es nuevo y recientemente creado, por eso emerge o surge en el tiempo</button>
+        <button class="quiz-opt" onclick="selectQuiz('q2','C',this)">C. Que el sistema puede predecirse completamente conociendo todas sus partes</button>
+        <button class="quiz-opt" onclick="selectQuiz('q2','D',this)">D. Que el sistema es caótico y no tiene estructura interna reconocible</button>
+      </div>
+      <div class="feedback-text" id="fb-q2"></div>
+    </div>
+
+    <div class="quiz-item" id="qi3">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">3. Las "epistemologías regionales" se diferencian de la epistemología general en que:</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q3','A',this)">A. Las epistemologías regionales aplican las preguntas epistemológicas (sobre la naturaleza, validez y límites del conocimiento) a disciplinas específicas, mientras la epistemología general reflexiona sobre el conocimiento científico en su conjunto</button>
+        <button class="quiz-opt" onclick="selectQuiz('q3','B',this)">B. Las epistemologías regionales son exclusivas de países en desarrollo y la epistemología general corresponde a países desarrollados</button>
+        <button class="quiz-opt" onclick="selectQuiz('q3','C',this)">C. La epistemología regional se ocupa de la práctica cotidiana y la general solo de la filosofía abstracta</button>
+        <button class="quiz-opt" onclick="selectQuiz('q3','D',this)">D. Las epistemologías regionales son menos rigurosas porque se limitan a un solo campo</button>
+      </div>
+      <div class="feedback-text" id="fb-q3"></div>
+    </div>
+
+    <div class="quiz-item" id="qi4">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">4. El "problema de la demarcación" en epistemología se refiere a:</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q4','A',this)">A. El desafío de establecer criterios claros que permitan distinguir el conocimiento científico genuino de la pseudociencia o de las creencias no científicas</button>
+        <button class="quiz-opt" onclick="selectQuiz('q4','B',this)">B. El proceso de delimitar el campo de investigación de una tesis doctoral</button>
+        <button class="quiz-opt" onclick="selectQuiz('q4','C',this)">C. La dificultad de comunicar resultados científicos al público general no especializado</button>
+        <button class="quiz-opt" onclick="selectQuiz('q4','D',this)">D. La distinción entre ciencias naturales y ciencias sociales establecida por Dilthey</button>
+      </div>
+      <div class="feedback-text" id="fb-q4"></div>
+    </div>
+
+    <div class="quiz-item" id="qi5">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">5. Según Morin, ¿qué significa el principio hologramático aplicado al conocimiento?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q5','A',this)">A. Que cada parte de un sistema contiene información sobre el todo, y el todo no puede entenderse sin las partes; cada componente refleja y reproduce la estructura del sistema completo</button>
+        <button class="quiz-opt" onclick="selectQuiz('q5','B',this)">B. Que el conocimiento debe presentarse en formatos visuales tridimensionales para ser completamente comprendido</button>
+        <button class="quiz-opt" onclick="selectQuiz('q5','C',this)">C. Que la realidad social es una ilusión construida por los medios de comunicación</button>
+        <button class="quiz-opt" onclick="selectQuiz('q5','D',this)">D. Que cada disciplina científica debe estudiar por separado su propia porción de la realidad</button>
+      </div>
+      <div class="feedback-text" id="fb-q5"></div>
+    </div>
+
+    <div class="quiz-item" id="qi6">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">6. El problema filosófico conocido como "el problema de Hume" o "el problema de la inducción" plantea que:</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q6','A',this)">A. Por más casos particulares que hayamos observado, no podemos justificar lógicamente la generalización a todos los casos posibles; siempre existe la posibilidad de que el próximo caso sea diferente</button>
+        <button class="quiz-opt" onclick="selectQuiz('q6','B',this)">B. La inducción es el único método científico válido y la deducción es prescientífica</button>
+        <button class="quiz-opt" onclick="selectQuiz('q6','C',this)">C. El filósofo Hume demostró que la ciencia no puede producir conocimiento verdadero bajo ninguna circunstancia</button>
+        <button class="quiz-opt" onclick="selectQuiz('q6','D',this)">D. Las generalizaciones inductivas son siempre más confiables que las deducciones teóricas</button>
+      </div>
+      <div class="feedback-text" id="fb-q6"></div>
+    </div>
+
+    <div class="quiz-item" id="qi7">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">7. La "carga teórica de la observación" (Hanson, Kuhn) implica que:</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q7','A',this)">A. Toda observación está influenciada por las teorías, conceptos y supuestos previos del observador; no existe observación pura o neutral completamente libre de interpretación</button>
+        <button class="quiz-opt" onclick="selectQuiz('q7','B',this)">B. Los observadores deben cargar (transportar) su teoría escrita consigo durante la investigación de campo</button>
+        <button class="quiz-opt" onclick="selectQuiz('q7','C',this)">C. Las teorías científicas son tan pesadas conceptualmente que impiden una observación eficiente</button>
+        <button class="quiz-opt" onclick="selectQuiz('q7','D',this)">D. Solo los investigadores con formación teórica avanzada pueden hacer observaciones científicamente válidas</button>
+      </div>
+      <div class="feedback-text" id="fb-q7"></div>
+    </div>
+
+    <div class="quiz-item" id="qi8">
+      <span class="quiz-badge analisis">Análisis de Caso</span>
+      <div class="quiz-q">8. <strong>Caso:</strong> La Superintendencia de Compañías del Ecuador detecta que varias empresas del mismo sector industrial presentan estados financieros muy similares en estructura pero con diferencias inexplicables en sus resultados. Un economista dice que es por incentivos del mercado; un contador forense cree que hay maquillaje contable; un sociólogo señala dinámicas de "imitación sectorial". ¿Qué enfoque metodológico es el más adecuado para investigar este fenómeno?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q8','A',this)">A. Un enfoque interdisciplinario que integre el análisis económico, el forense-contable y el sociológico, reconociendo que el fenómeno es complejo y no puede explicarse desde una sola perspectiva</button>
+        <button class="quiz-opt" onclick="selectQuiz('q8','B',this)">B. Elegir solo una de las tres perspectivas (la contable forense) porque tiene mayor rigor técnico que las otras</button>
+        <button class="quiz-opt" onclick="selectQuiz('q8','C',this)">C. Aplicar solo métodos cuantitativos porque los datos financieros son numéricos y no requieren interpretación</button>
+        <button class="quiz-opt" onclick="selectQuiz('q8','D',this)">D. Dejar que cada especialista publique su propio informe por separado y no integrar las perspectivas</button>
+      </div>
+      <div class="feedback-text" id="fb-q8"></div>
+    </div>
+
+    <div class="quiz-item" id="qi9">
+      <span class="quiz-badge analisis">Análisis de Caso</span>
+      <div class="quiz-q">9. <strong>Caso:</strong> Ecuador adopta una nueva norma tributaria que obliga a las empresas a revelar más información sobre sus transacciones con partes relacionadas. Inicialmente, la norma busca aumentar la transparencia. Sin embargo, seis meses después, los asesores fiscales han encontrado formas de cumplir formalmente con la norma mientras minimizan la información sustancial revelada. ¿Qué principio del pensamiento complejo de Morin describe mejor este fenómeno?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q9','A',this)">A. Ecología de la acción: una vez lanzada, la norma se volvió autónoma y sus efectos reales escaparon a la intención de sus creadores al interactuar con el ambiente empresarial real</button>
+        <button class="quiz-opt" onclick="selectQuiz('q9','B',this)">B. Principio hologramático: cada empresa refleja el espíritu de toda la normativa tributaria ecuatoriana</button>
+        <button class="quiz-opt" onclick="selectQuiz('q9','C',this)">C. Principio sistémico: el sistema tributario es más que la suma de las empresas que lo componen</button>
+        <button class="quiz-opt" onclick="selectQuiz('q9','D',this)">D. Principio dialógico: la transparencia y la confidencialidad son contradictorias y por eso la norma fracasó</button>
+      </div>
+      <div class="feedback-text" id="fb-q9"></div>
+    </div>
+
+    <div class="quiz-item" id="qi10">
+      <span class="quiz-badge analisis">Análisis de Caso</span>
+      <div class="quiz-q">10. <strong>Caso:</strong> Un investigador afirma: "He auditado 200 empresas del sector comercio en Guayaquil y ninguna usa correctamente la NIC 2 (inventarios). Por lo tanto, ninguna empresa del Ecuador aplica bien esta norma." ¿Qué problemas epistemológicos presenta esta afirmación?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q10','A',this)">A. Falla en el problema de la inducción (generaliza sin justificación lógica de 200 casos a todo el país) y en el sesgo de selección (solo estudió un sector en una ciudad, lo cual no es representativo de todo Ecuador)</button>
+        <button class="quiz-opt" onclick="selectQuiz('q10','B',this)">B. El investigador tiene razón porque 200 empresas es una muestra estadísticamente grande para cualquier generalización</button>
+        <button class="quiz-opt" onclick="selectQuiz('q10','C',this)">C. El único problema es que debería haber usado un método cualitativo en lugar de cuantitativo</button>
+        <button class="quiz-opt" onclick="selectQuiz('q10','D',this)">D. No hay ningún problema epistemológico: si auditó 200 empresas, tiene suficiente evidencia para cualquier conclusión</button>
+      </div>
+      <div class="feedback-text" id="fb-q10"></div>
+    </div>
+
+  </div>
+
+  <button class="btn-verify" onclick="verificarQuiz()">✔ Verificar respuestas</button>
+  <button class="btn-reset" onclick="resetQuiz()" id="btnResetQ" style="display:none">↺ Reiniciar cuestionario</button>
+
+  <div class="result-panel" id="resultQ">
+    <div class="result-emoji" id="emojiQ"></div>
+    <div class="result-score" id="scoreQ"></div>
+    <div class="result-pct" id="pctQ"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progQ" style="width:0%"></div></div>
+    <div class="result-msg" id="msgQ"></div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD IA -->
+<div class="tab-content" id="ia">
+  <h2 class="section-title">🤖 Actividad con Inteligencia Artificial</h2>
+  <p class="subtitle">Pensamiento complejo e interdisciplinariedad · Herramienta recomendada: Claude (claude.ai)</p>
+
+  <div class="ia-card">
+    <h3>🎯 Objetivo de la actividad</h3>
+    <p>Esta semana usaremos la IA para explorar un problema real de la economía ecuatoriana desde múltiples perspectivas disciplinares, practicando el pensamiento complejo e interdisciplinario. El desafío es que tú aportes la conexión crítica entre las respuestas de la IA y los conceptos de la semana.</p>
+    <div class="ia-tool-tag">⭐ Herramienta recomendada: <strong>Claude — claude.ai</strong> (gratuito) | También: ChatGPT o Gemini</div>
+  </div>
+
+  <h3>📋 Actividad: "Diseccionando la complejidad ecuatoriana"</h3>
+
+  <div class="ia-step">
+    <strong>Paso 1 — Presenta el problema a la IA.</strong> Abre <a href="https://claude.ai" target="_blank" style="color:var(--azul);">claude.ai</a> y copia el siguiente prompt:
+  </div>
+
+  <div class="prompt-box">Actúa como un equipo interdisciplinario de expertos analizando el siguiente problema desde CINCO perspectivas diferentes. Para cada perspectiva, presenta un análisis de 3–4 oraciones concreto y específico para el contexto ecuatoriano.
+
+PROBLEMA: La alta tasa de informalidad empresarial en Ecuador (se estima que más del 40% de las empresas operan en la informalidad, sin registro formal, sin contabilidad adecuada y evadiendo impuestos).
+
+Perspectivas requeridas:
+1. CONTABILIDAD Y AUDITORÍA: ¿Qué implicaciones tiene la informalidad para el registro contable, los estados financieros y la fiscalización? ¿Qué herramientas tiene el SRI para detectarla?
+2. ECONOMÍA: ¿Qué incentivos económicos llevan a un empresario a preferir la informalidad? ¿Qué costo-beneficio está calculando?
+3. DERECHO: ¿Qué marco legal regula la formalización empresarial en Ecuador? ¿Cuáles son las consecuencias jurídicas de la informalidad?
+4. SOCIOLOGÍA: ¿Qué factores culturales y sociales en Ecuador favorecen la aceptación social de la informalidad empresarial?
+5. PENSAMIENTO COMPLEJO (Morin): ¿Cómo interactúan estas cuatro perspectivas entre sí? ¿Qué propiedades emergentes tiene el sistema de informalidad que ninguna perspectiva individual puede ver?
+
+Al final, sintetiza: ¿por qué ninguna política pública que ataque solo uno de estos factores puede resolver el problema de la informalidad?</div>
+
+  <div class="ia-step">
+    <strong>Paso 2 — Analiza la respuesta con ojos críticos.</strong> Después de leer el análisis de la IA, responde estas preguntas:
+    <ul style="margin-top:8px;padding-left:20px;font-size:0.92rem;">
+      <li>¿Cuál de las cinco perspectivas desarrolló con más profundidad la IA? ¿Cuál fue más superficial?</li>
+      <li>¿La síntesis de "pensamiento complejo" realmente integró las perspectivas o las listó simplemente una tras otra?</li>
+      <li>¿Hay alguna perspectiva importante que la IA omitió (psicológica, tecnológica, histórica)?</li>
+    </ul>
+  </div>
+
+  <div class="ia-step">
+    <strong>Paso 3 — Profundiza con la epistemología regional.</strong> Escríbele a la IA: <em>"Desde la epistemología regional de la Contabilidad, ¿qué significa 'conocer' la informalidad empresarial? ¿Qué limitaciones tiene el conocimiento contable para capturar este fenómeno? ¿Qué no puede ver un contador que sí puede ver un sociólogo?"</em>
+  </div>
+
+  <div class="ia-step">
+    <strong>Paso 4 — Aplica un principio de Morin.</strong> Identifica cuál de los 7 principios del pensamiento complejo de Morin crees que mejor explica POR QUÉ la informalidad persiste en Ecuador a pesar de décadas de políticas públicas en su contra. Escríbele tu análisis a la IA y pídele que lo cuestione: <em>"Creo que el principio [X] de Morin explica mejor la persistencia de la informalidad porque [tu argumento]. ¿Estás de acuerdo o crees que hay un principio más apropiado?"</em>
+  </div>
+
+  <div class="ia-step">
+    <strong>Paso 5 — Entregable (350–450 palabras).</strong> Redacta un análisis que incluya:
+    <ul style="margin-top:6px;padding-left:18px;font-size:0.91rem;">
+      <li>Cuál perspectiva disciplinar consideras más importante para atacar la informalidad y por qué.</li>
+      <li>Un principio de Morin que explique la persistencia del problema.</li>
+      <li>Al menos una crítica fundamentada a la respuesta de la IA (algo que no vio o que analizó superficialmente).</li>
+      <li>Una propuesta de política pública interdisciplinaria que integre al menos tres perspectivas.</li>
+    </ul>
+  </div>
+
+  <div class="concept-box" style="margin-top:20px;">
+    <div class="label">📊 Criterio de evaluación</div>
+    <p><strong>✅ Pensamiento complejo (nota alta):</strong> El estudiante integra perspectivas, identifica emergencias del sistema, critica la IA con argumentos propios y propone una solución genuinamente interdisciplinaria.<br><br>
+    <strong>⚠️ Pensamiento simplificado (nota baja):</strong> El estudiante elige una sola perspectiva y la desarrolla ignorando las demás, o simplemente transcribe la respuesta de la IA sin análisis.</p>
+  </div>
+</div>
+
+<!-- REFLEXIÓN -->
+<div class="tab-content" id="reflexion">
+  <h2 class="section-title">💭 Preguntas Reflexivas</h2>
+  <p class="subtitle">Complejidad, interdisciplinariedad y epistemología en tu vida cotidiana</p>
+
+  <div class="concept-box" style="margin-bottom:24px;">
+    <div class="label">🎯 Propósito — Cierre de la Unidad I</div>
+    <p>Esta es la última semana de la Unidad I. Las preguntas de hoy buscan que integres todo lo aprendido en cuatro semanas y lo conectes con tu experiencia personal. No hay respuestas correctas ni incorrectas; hay reflexiones más o menos profundas.</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 1 · Tu propia complejidad</div>
+    <p>Eres un sistema complejo: biológico, psicológico, social, familiar, cultural. ¿Puedes pensar en una decisión que tomaste en tu vida que solo puede entenderse considerando múltiples factores simultáneos (económicos, emocionales, relacionales, culturales)? ¿Qué habría visto solo cada perspectiva por separado? ¿Qué emerge al verlas todas juntas?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 2 · ¿Qué disciplina te "habla" más?</div>
+    <p>De las disciplinas que integra la Contabilidad y Auditoría modernas (economía, derecho, psicología, sociología, informática), ¿cuál te parece más inesperada o sorprendente? ¿Por qué crees que no se enseña más explícitamente en la carrera? ¿Cómo podría enriquecer tu práctica profesional conocer más de esa disciplina?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 3 · El principio de Morin que más te resuena</div>
+    <p>De los siete principios del pensamiento complejo de Morin, ¿cuál encontraste más difícil de entender? ¿Cuál te parece más obvio o intuitivo? ¿Y cuál crees que sería más útil para tu vida personal o profesional? ¿Puedes dar un ejemplo concreto de cada uno que hayas vivido tú mismo?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 4 · El problema epistemológico que más te incomoda</div>
+    <p>De los siete problemas epistemológicos estudiados (verdad, demarcación, relativismo, progreso, inducción, carga teórica, infradeterminación), ¿cuál te genera más incomodidad intelectual? ¿Por qué? ¿Hay alguno que hayas experimentado en tu propia vida sin saberle dar nombre hasta hoy?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 5 · Cierre de la Unidad I — ¿Qué cambió?</div>
+    <p>Antes de estas cuatro semanas, ¿qué creías que era la investigación científica? ¿Cómo era tu imagen mental de "un investigador"? Ahora que has estudiado paradigmas, epistemología, complejidad, ética y características de la investigación, ¿qué es lo que más cambió en tu forma de entender la ciencia? ¿Y en tu forma de entender tu propia carrera?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 6 · Mirando hacia la Unidad II</div>
+    <p>La Unidad II tratará sobre enfoques y diseños de investigación (cuantitativo, cualitativo, mixto). Sabiendo ahora todo lo que sabes sobre epistemología y paradigmas, ¿con qué paradigma te identificas más naturalmente como futuro/a investigador? ¿Qué te haría elegir uno u otro para un estudio concreto sobre la realidad empresarial ecuatoriana?</p>
+  </div>
+</div>
+
+<!-- BIBLIOGRAFÍA -->
+<div class="tab-content" id="biblio">
+  <h2 class="section-title">📚 Bibliografía de Referencia</h2>
+  <p class="subtitle">Formato APA 7.ª edición · Semana 4 — Complejidad, Interdisciplinariedad y Epistemología Regional</p>
+
+  <div class="ref-card">
+    <div class="ref-num">1</div>
+    <div class="ref-text">Morin, E. (1990). <em>Introducción al pensamiento complejo</em>. Gedisa Editorial.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">2</div>
+    <div class="ref-text">Morin, E. (1999). <em>Los siete saberes necesarios para la educación del futuro</em>. UNESCO.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">3</div>
+    <div class="ref-text">Bunge, M. (1977). <em>La ciencia: Su método y su filosofía</em>. Ediciones Siglo Veinte.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">4</div>
+    <div class="ref-text">Kuhn, T. S. (1971). <em>La estructura de las revoluciones científicas</em>. Fondo de Cultura Económica. (Obra original publicada en 1962)</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">5</div>
+    <div class="ref-text">Popper, K. R. (1962). <em>La lógica de la investigación científica</em>. Editorial Tecnos. (Obra original publicada en 1934)</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">6</div>
+    <div class="ref-text">Hernández Sampieri, R., Fernández Collado, C., y Baptista Lucio, P. (2014). <em>Metodología de la investigación</em> (6.ª ed.). McGraw-Hill Education.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">7</div>
+    <div class="ref-text">Nicolescu, B. (1996). <em>La transdisciplinariedad: Manifiesto</em>. Éditions du Rocher. (Versión en español disponible en el repositorio del CIRET)</div>
+  </div>
+
+  <div class="bib-note">
+    📌 <strong>Nota importante:</strong> Se recomienda verificar cada referencia en Google Scholar (<a href="https://scholar.google.com" target="_blank">scholar.google.com</a>) o en el repositorio institucional de la Universidad de Guayaquil antes de citar en trabajos académicos.
+  </div>
+</div>
+
+<!-- ======================== JAVASCRIPT ======================== -->
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===== EJERCICIO =====
+const ejAnswers={
+  e1:{correct:'A',feedback:{
+    A:'✅ Correcto. El equipo integra activamente metodologías y hallazgos de múltiples disciplinas (estadística cuantitativa + entrevistas cualitativas + análisis legal + modelos económicos) para producir conocimiento que ninguna disciplina podría generar sola. Eso es interdisciplinariedad.',
+    B:'❌ Incorrecto. La multidisciplinariedad sería si cada disciplina trabajara en paralelo sin integración: el economista por un lado, el abogado por otro, el sociólogo por otro, sin que sus hallazgos se retroalimenten mutuamente.',
+    C:'❌ Incorrecto. La especialización disciplinar implicaría que solo una disciplina aborda el problema. Aquí hay integración explícita de múltiples campos.',
+    D:'❌ Incorrecto. El uso de datos estadísticos del INEC es solo uno de los componentes. La metodología combina múltiples enfoques, lo que la clasifica como interdisciplinaria, no como cuantitativa pura.'
+  }},
+  e2:{correct:'A',feedback:{
+    A:'✅ Correcto. La pregunta "¿puede la Contabilidad ser completamente objetiva?" es precisamente el tipo de reflexión que corresponde a la epistemología regional de la Contabilidad: examina los fundamentos, límites y naturaleza del conocimiento que produce esa disciplina específica.',
+    B:'❌ Incorrecto. La metodología cuantitativa de investigación responde al "cómo medir", no al "puede el conocimiento contable ser objetivo". Esta última es una pregunta filosófica sobre los fundamentos del conocimiento contable.',
+    C:'❌ Incorrecto. El alcance descriptivo de un estudio define qué tan profundo llega el análisis. No tiene relación con la reflexión filosófica sobre la objetividad del conocimiento contable.',
+    D:'❌ Incorrecto. El sesgo de confirmación es una amenaza metodológica específica al proceso de investigación. La pregunta sobre la objetividad de la Contabilidad es una reflexión epistemológica más amplia sobre toda la disciplina.'
+  }},
+  e3:{correct:'A',feedback:{
+    A:'✅ Correcto. La "seguridad razonable, no absoluta" del dictamen de auditoría refleja directamente el problema de la inducción: el auditor trabaja con muestras (no con el 100% de transacciones), y por lo tanto nunca puede garantizar certeza absoluta sobre el universo completo. La auditoría acepta explícitamente esta limitación epistemológica.',
+    B:'❌ Incorrecto. El relativismo epistemológico sugeriría que diferentes auditores podrían llegar a conclusiones completamente diferentes sin que ninguna sea "más correcta". El problema del dictamen con "seguridad razonable" es la limitación por muestreo, no por relativismo de perspectivas.',
+    C:'❌ Incorrecto. El problema de la demarcación distingue la ciencia de la no-ciencia. La auditoría claramente es un proceso metódico y verificable; su limitación no es de legitimidad científica sino de alcance (trabaja con muestras).',
+    D:'❌ Incorrecto. El problema del progreso científico se refiere a si el conocimiento avanza linealmente o por revoluciones. No es pertinente para explicar por qué el dictamen de auditoría no garantiza certeza absoluta.'
+  }},
+  e4:{correct:'A',feedback:{
+    A:'✅ Correcto. La infradeterminación significa que los mismos datos empíricos son compatibles con múltiples teorías o interpretaciones. Dos auditores expertos mirando los mismos datos financieros pueden llegar a conclusiones opuestas porque sus marcos teóricos, experiencias y supuestos previos los llevan a "ver" cosas diferentes en los mismos números.',
+    B:'❌ Incorrecto. La falsabilidad se refiere a si una hipótesis puede ser refutada por evidencia. El problema de Sofía no es que las hipótesis sean irrefutables, sino que los mismos datos apoyan hipótesis diferentes y contrapuestas.',
+    C:'❌ Incorrecto. El problema del progreso científico examina si el conocimiento avanza linealmente. No explica por qué dos auditores con los mismos datos llegan a conclusiones diferentes.',
+    D:'❌ Incorrecto. El relativismo extremo negaría que haya alguna interpretación más correcta. Pero la infradeterminación no niega que haya una respuesta correcta; solo reconoce que los datos solos no nos dicen cuál es.'
+  }},
+  e5:{correct:'A',feedback:{
+    A:'✅ Correcto. El principio dialógico de Morin sostiene que debemos asociar y sostener nociones aparentemente contradictorias que se necesitan mutuamente. La independencia y el conocimiento profundo del cliente parecen opuestos, pero ambos son necesarios para una buena auditoría. Ninguno puede eliminarse en favor del otro.',
+    B:'❌ Incorrecto. Esto sería una simplificación que fuerza una elección excluyente entre dos métodos. El principio dialógico propone sostener la tensión entre opuestos, no resolverla eligiendo uno.',
+    C:'❌ Incorrecto. Presentar el costo histórico y el valor razonable como completamente incompatibles sería simplificación. El principio dialógico vería cómo ambos criterios capturan aspectos complementarios de la realidad económica.',
+    D:'❌ Incorrecto. Esta es una separación rígida que niega la posibilidad de integración. El principio dialógico de Morin busca precisamente superar esas separaciones rígidas.'
+  }},
+  e6:{correct:'A',feedback:{
+    A:'✅ Correcto. La no linealidad de los sistemas complejos significa que pequeñas causas pueden producir efectos desproporcionadamente grandes. Las hipotecas de alto riesgo en un mercado local (causa pequeña en términos relativos) desencadenaron un colapso financiero global (efecto desproporcionado). Eso es no linealidad compleja.',
+    B:'❌ Incorrecto. La especialización describe el comportamiento de cada actor actuando en su dominio. Pero el fenómeno que se pregunta es específicamente la propagación desproporcionada de la crisis, que es una característica del sistema complejo, no de la especialización.',
+    C:'❌ Incorrecto. La verificabilidad es una característica de la investigación científica, no una propiedad de los sistemas complejos. Tampoco explica por qué una crisis local se propagó globalmente.',
+    D:'❌ Incorrecto. El sistema financiero durante la crisis operó de manera caótica y no planificada, lo opuesto a sistematicidad. Además, la sistematicidad es una característica de la investigación científica, no de los sistemas complejos.'
+  }},
+  e7:{correct:'A',feedback:{
+    A:'✅ Correcto. El bucle recursivo de Morin describe cómo los productos de un sistema se convierten en causas que modifican al sistema que los produjo. Las NIIF fueron creadas por la comunidad contable (el sistema), pero al adoptarse, cambian la forma en que los contadores perciben y registran la realidad (se reconvierte a sus creadores). Es un bucle donde la herramienta reconfigura al usuario.',
+    B:'❌ Incorrecto. El principio hologramático se refiere a que cada parte contiene información sobre el todo. No es la relación adecuada para describir cómo las NIIF cambian la percepción de quienes las aplican.',
+    C:'❌ Incorrecto. El principio sistémico describe la propiedad emergente de los sistemas (el todo es más que la suma de las partes). No captura específicamente la retroalimentación entre la herramienta y su usuario.',
+    D:'❌ Incorrecto. La ecología de la acción describe cómo las consecuencias de una acción escapan a la intención del actor. El ejemplo podría también relacionarse con este principio, pero el bucle recursivo (herramienta que reconfigura a su creador) es la descripción más precisa del fenómeno descrito.'
+  }},
+  e8:{correct:'A',feedback:{
+    A:'✅ Correcto. La "carga teórica de la observación" (Hanson, Kuhn) señala que ningún observador llega a los datos completamente neutral. Un auditor que ya tiene la hipótesis de que existe fraude en tesorería buscará preferentemente evidencia que confirme esa hipótesis (sesgo de confirmación epistemológicamente fundamentado) y podría ignorar o minimizar evidencias contrarias. Sus supuestos previos cargan su observación.',
+    B:'❌ Incorrecto. El problema de la inducción se refiere a la generalización de muestras a universos. El riesgo del auditor con hipótesis previa no es de generalización sino de sesgo en la recolección e interpretación de datos en el momento de la observación.',
+    C:'❌ Incorrecto. El relativismo diría que cualquier interpretación es igualmente válida. El problema del auditor con hipótesis previa es más específico: su observación está sesgada por una suposición concreta, no por un relativismo general.',
+    D:'❌ Incorrecto. La demarcación distingue ciencia de pseudociencia. Una auditoría con hipótesis previa sigue siendo un proceso científico legítimo; el problema no es de legitimidad sino de riesgo de sesgo en la observación.'
+  }}
+};
+
+const ejSelected={};
+function selectOpt(key,val,btn){
+  btn.parentElement.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  ejSelected[key]=val;
+}
+function verificarEjercicio(){
+  const keys=['e1','e2','e3','e4','e5','e6','e7','e8'];
+  const missing=keys.filter(k=>!ejSelected[k]);
+  if(missing.length>0){alert(`⚠️ Responde todos los ítems antes de verificar. Faltan: ${missing.length}.`);return;}
+  let correct=0;
+  keys.forEach((key,i)=>{
+    const ans=ejAnswers[key];
+    const c=document.getElementById('ei'+(i+1));
+    c.querySelectorAll('.opt-btn').forEach(b=>{
+      b.disabled=true;b.classList.remove('selected');
+      const letter=b.textContent.trim().charAt(0);
+      if(letter===ans.correct)b.classList.add('correct-answer');
+      else if(letter===ejSelected[key]&&ejSelected[key]!==ans.correct)b.classList.add('wrong-answer');
+    });
+    const isOk=ejSelected[key]===ans.correct;
+    if(isOk)correct++;
+    c.classList.add(isOk?'correct':'incorrect');
+    const fb=document.getElementById('fb-'+key);
+    fb.textContent=ans.feedback[ejSelected[key]];
+    fb.className='feedback-text show '+(isOk?'ok':'fail');
+  });
+  const pct=Math.round((correct/keys.length)*100);
+  document.getElementById('scoreEj').textContent=correct+' / '+keys.length;
+  document.getElementById('pctEj').textContent=pct+'% de respuestas correctas';
+  setTimeout(()=>{document.getElementById('progEj').style.width=pct+'%';},100);
+  const msgs=[[100,'🏆','¡Perfecto! Dominas la complejidad, epistemología y Morin.'],[80,'🎯','¡Muy bien! Comprensión sólida. Revisa los ítems fallados.'],[60,'📘','Buen avance. Refuerza los temas de mayor dificultad.'],[40,'⚠️','Necesitas repasar el material antes de continuar.'],[0,'📖','Vuelve al contenido de la semana. ¡La perseverancia es la clave!']];
+  const m=msgs.find(([t])=>pct>=t);
+  document.getElementById('emojiEj').textContent=m[1];
+  document.getElementById('msgEj').textContent=m[2];
+  document.getElementById('resultEj').classList.add('show');
+  document.getElementById('btnResetEj').style.display='inline-block';
+  document.getElementById('resultEj').scrollIntoView({behavior:'smooth'});
+}
+function resetEjercicio(){
+  const keys=['e1','e2','e3','e4','e5','e6','e7','e8'];
+  keys.forEach((key,i)=>{
+    delete ejSelected[key];
+    const c=document.getElementById('ei'+(i+1));
+    c.classList.remove('correct','incorrect');
+    c.querySelectorAll('.opt-btn').forEach(b=>{b.disabled=false;b.classList.remove('selected','correct-answer','wrong-answer');});
+    const fb=document.getElementById('fb-'+key);
+    fb.className='feedback-text';fb.textContent='';
+  });
+  document.getElementById('resultEj').classList.remove('show');
+  document.getElementById('progEj').style.width='0%';
+  document.getElementById('btnResetEj').style.display='none';
+}
+
+// ===== CUESTIONARIO =====
+const quizAnswers={
+  q1:{correct:'A',fb:{A:'✅ Correcto. La distinción clave es la integración: la multidisciplinariedad reúne pero no integra; la interdisciplinariedad produce conocimiento nuevo que emerge de la interacción activa entre disciplinas.',B:'❌ Incorrecto. La elección de métodos (cualitativos vs. cuantitativos) no define el nivel de articulación disciplinar. Un equipo interdisciplinario puede usar cualquier combinación metodológica.',C:'❌ Incorrecto. En la jerarquía, la transdisciplinariedad es el nivel más integrado, seguida de la interdisciplinariedad. La multidisciplinariedad no es "más avanzada" que la interdisciplinariedad.',D:'❌ Incorrecto. La transdisciplinariedad tiene su valor específico, pero la multidisciplinariedad, pluridisciplinariedad e interdisciplinariedad también son enfoques legítimos según el problema estudiado.'}},
+  q2:{correct:'A',fb:{A:'✅ Correcto. La emergencia es una propiedad fundamental de los sistemas complejos: el sistema produce características que no pueden predecirse ni explicarse solo desde las propiedades de sus componentes individuales. El todo es cualitativamente diferente de la suma de las partes.',B:'❌ Incorrecto. "Emergencia" en el contexto de sistemas complejos no se refiere a que algo sea nuevo o reciente en el tiempo. Se refiere a propiedades que surgen de las interacciones entre componentes.',C:'❌ Incorrecto. Si el sistema pudiera predecirse completamente desde sus partes, sería un sistema mecánico simple, no un sistema complejo con emergencia. La emergencia implica precisamente que la predicción desde las partes es insuficiente.',D:'❌ Incorrecto. Un sistema complejo tiene estructura interna organizada —a veces muy sofisticada— aunque esa estructura genere comportamientos impredecibles. La emergencia y el caos son conceptos distintos.'}},
+  q3:{correct:'A',fb:{A:'✅ Correcto. Las epistemologías regionales son aplicaciones de las preguntas epistemológicas generales (¿qué es conocer? ¿qué cuenta como evidencia válida? ¿cuáles son los límites del conocimiento?) al contexto específico de una disciplina como la Contabilidad, la Auditoría o el Derecho.',B:'❌ Incorrecto. Las epistemologías regionales son un concepto filosófico aplicable en cualquier contexto geográfico o académico. No tienen relación con el nivel de desarrollo del país donde se practican.',C:'❌ Incorrecto. La distinción no es práctica vs. filosófica. Las epistemologías regionales son reflexiones filosóficas rigurosas sobre disciplinas específicas, no simplemente una guía práctica.',D:'❌ Incorrecto. Limitarse a un campo no hace menos rigurosa una epistemología; al contrario, permite mayor profundidad en las preguntas específicas de esa disciplina.'}},
+  q4:{correct:'A',fb:{A:'✅ Correcto. El problema de la demarcación (Popper, Lakatos) es uno de los centrales en filosofía de la ciencia: ¿qué criterio nos permite decir que la Física es ciencia y la astrología no? ¿Que la Medicina basada en evidencia es ciencia y la homeopatía no?',B:'❌ Incorrecto. La delimitación del campo de investigación de una tesis es un elemento metodológico de diseño de investigación. El problema de la demarcación es una pregunta filosófica más fundamental sobre los criterios que distinguen ciencia de no-ciencia.',C:'❌ Incorrecto. La comunicación científica al público es un tema de divulgación y pedagogía. No tiene relación directa con el problema filosófico de la demarcación entre ciencia y pseudociencia.',D:'❌ Incorrecto. Aunque Dilthey estableció distinciones entre ciencias de la naturaleza y ciencias del espíritu, eso no es el "problema de la demarcación" en sentido epistemológico. El problema de demarcación es sobre criterios de cientificidad, no sobre clasificación de disciplinas.'}},
+  q5:{correct:'A',fb:{A:'✅ Correcto. El holograma es la metáfora que usa Morin: en un holograma real, cada fragmento contiene una imagen completa del todo (aunque con menos resolución). De forma análoga, en sistemas complejos, cada parte lleva información sobre el sistema completo, y el sistema completo solo puede entenderse si se comprenden sus partes.',B:'❌ Incorrecto. El principio hologramático no tiene relación con formatos de presentación visual. Es una metáfora epistemológica sobre la relación parte-todo en sistemas complejos.',C:'❌ Incorrecto. La idea de que la realidad social es una ilusión corresponde a concepciones filosóficas idealistas radicales, no al pensamiento complejo de Morin, que considera la realidad como genuinamente compleja pero no ilusoria.',D:'❌ Incorrecto. Esto describe el paradigma de la simplificación que Morin busca superar. El principio hologramático propone lo opuesto: que partes y todo son inseparables y mutuamente informativos.'}},
+  q6:{correct:'A',fb:{A:'✅ Correcto. Hume señaló que la inducción no tiene justificación lógica deductiva: por más cisnes blancos que hayamos observado, no podemos deducir lógicamente que "todos los cisnes son blancos". Un solo cisne negro lo refuta. Este es uno de los problemas más profundos de la filosofía de la ciencia y no tiene solución definitiva, solo formas de gestionarlo.',B:'❌ Incorrecto. Hume no estableció jerarquías entre métodos. Su problema específico es sobre la justificación lógica de las generalizaciones inductivas, no sobre la superioridad de uno u otro método.',C:'❌ Incorrecto. Hume no demostró que la ciencia no puede producir conocimiento. Planteó un problema sobre la justificación de la inducción, que ha sido respondido pragmáticamente: usamos la inducción porque funciona, aunque no pueda justificarse lógicamente de forma absoluta.',D:'❌ Incorrecto. Esta conclusión no sigue del problema de Hume. La inducción tiene limitaciones pero también tiene virtudes; la deducción también tiene sus propias limitaciones. Ninguna es universalmente superior a la otra.'}},
+  q7:{correct:'A',fb:{A:'✅ Correcto. Hanson ("Patterns of Discovery") y Kuhn ("La estructura de las revoluciones científicas") demostraron que la observación no es un proceso neutral: siempre está mediada por las categorías conceptuales, teorías y supuestos previos del observador. Dos personas con diferentes formaciones "ven" cosas diferentes en los mismos datos.',B:'❌ Incorrecto. La "carga" en esta expresión es metafórica, no física. Significa que las teorías "pesan" sobre la observación al influir en qué se percibe y cómo se interpreta, no que se deba cargar nada físicamente.',C:'❌ Incorrecto. La "carga teórica" no implica que las teorías sean un obstáculo para observar eficientemente. Es una descripción de la condición epistemológica de todo observador, no una crítica a la complejidad de las teorías.',D:'❌ Incorrecto. La carga teórica afecta a todos los observadores, con o sin formación avanzada. De hecho, más formación puede implicar más teorías previas que influyan en la observación.'}},
+  q8:{correct:'A',fb:{A:'✅ Correcto. El fenómeno tiene múltiples dimensiones causales que se retroalimentan mutuamente (complejidad). Ninguna perspectiva individual puede capturarlo completamente. La interdisciplinariedad no es opcional aquí: es la única forma de producir conocimiento completo y útil para diseñar políticas efectivas.',B:'❌ Incorrecto. Elegir solo la perspectiva forense-contable implicaría ignorar los incentivos económicos, las dinámicas sociales de imitación y las causas estructurales. Una política solo técnica (contable) sin entender el contexto económico y social probablemente fracasaría.',C:'❌ Incorrecto. Los datos financieros sí requieren interpretación contextual. Además, el fenómeno tiene dimensiones que no son capturables con datos financieros (cultura sectorial, incentivos de mercado, comportamiento imitativo).',D:'❌ Incorrecto. Informes separados por disciplina es multidisciplinariedad, no interdisciplinariedad. No se produciría el conocimiento integrado necesario para una política pública efectiva.'}},
+  q9:{correct:'A',fb:{A:'✅ Correcto. La ecología de la acción de Morin establece que toda acción, una vez lanzada, se vuelve autónoma e interactúa con el ambiente de maneras que escapan a la intención original. La norma tributaria diseñada para transparencia generó respuestas adaptativas (de los asesores fiscales) que la vaciaron de contenido sustancial — exactamente lo opuesto al propósito inicial.',B:'❌ Incorrecto. El principio hologramático describe la relación parte-todo (cada parte contiene información del todo). No es el más adecuado para describir cómo las consecuencias de una acción escapan a sus creadores.',C:'❌ Incorrecto. El principio sistémico describe la propiedad emergente del sistema (el todo es más que la suma). No captura específicamente la imprevisibilidad de las consecuencias de la norma al interactuar con actores adaptivos.',D:'❌ Incorrecto. El principio dialógico trabaja con tensiones entre opuestos que deben sostenerse simultáneamente. La norma no fracasó por una contradicción entre transparencia y confidencialidad, sino por las consecuencias imprevistas de la interacción con el ambiente.'}},
+  q10:{correct:'A',fb:{A:'✅ Correcto. El problema de la inducción (generalizar de 200 casos a todo Ecuador) es el primero: 200 empresas de un sector en Guayaquil no representan lógicamente a todas las empresas de Ecuador. El sesgo de selección (solo sector comercio en Guayaquil) es el segundo: la muestra no es representativa de la diversidad empresarial ecuatoriana.',B:'❌ Incorrecto. El tamaño de la muestra (200) es solo uno de los criterios de validez. La representatividad (¿de quién es muestra?) es igualmente crucial. 200 casos de un sector en una ciudad no representan a todo el país independientemente del tamaño.',C:'❌ Incorrecto. No es un problema de método (cuantitativo vs. cualitativo). El error es de inferencia: generalizar incorrectamente a una población mucho más amplia que la muestra estudiada.',D:'❌ Incorrecto. Los problemas epistemológicos son reales y graves. La cantidad de evidencia no elimina el problema de representatividad: 200 casos sesgados siguen siendo una muestra sesgada que no permite generalizaciones válidas sobre todo Ecuador.'}}
+};
+
+const quizSelected={};
+function selectQuiz(key,val,btn){
+  btn.parentElement.querySelectorAll('.quiz-opt').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  quizSelected[key]=val;
+}
+function verificarQuiz(){
+  const keys=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+  const missing=keys.filter(k=>!quizSelected[k]);
+  if(missing.length>0){alert(`⚠️ Responde todas las preguntas antes de verificar. Faltan: ${missing.length}.`);return;}
+  let correct=0;
+  keys.forEach((key,i)=>{
+    const ans=quizAnswers[key];
+    const c=document.getElementById('qi'+(i+1));
+    c.querySelectorAll('.quiz-opt').forEach(b=>{
+      b.disabled=true;b.classList.remove('selected');
+      const letter=b.textContent.trim().charAt(0);
+      if(letter===ans.correct)b.classList.add('correct-answer');
+      else if(letter===quizSelected[key]&&quizSelected[key]!==ans.correct)b.classList.add('wrong-answer');
+    });
+    const isOk=quizSelected[key]===ans.correct;
+    if(isOk)correct++;
+    c.classList.add(isOk?'correct':'incorrect');
+    const fb=document.getElementById('fb-'+key);
+    fb.textContent=ans.fb[quizSelected[key]];
+    fb.className='feedback-text show '+(isOk?'ok':'fail');
+  });
+  const pct=Math.round((correct/keys.length)*100);
+  document.getElementById('scoreQ').textContent=correct+' / '+keys.length;
+  document.getElementById('pctQ').textContent=pct+'% de respuestas correctas';
+  setTimeout(()=>{document.getElementById('progQ').style.width=pct+'%';},100);
+  const msgs=[[100,'🏆','¡Puntaje perfecto! Dominas la complejidad, interdisciplinariedad y epistemología.'],[80,'🎯','¡Excelente! Comprensión muy sólida. Revisa los casos que fallaste.'],[60,'📘','Buen avance. Refuerza los conceptos con más dificultad.'],[40,'⚠️','Revisa el contenido con atención. Estos temas requieren repaso.'],[0,'📖','Vuelve al material de la semana. ¡Con esfuerzo lo lograrás!']];
+  const m=msgs.find(([t])=>pct>=t);
+  document.getElementById('emojiQ').textContent=m[1];
+  document.getElementById('msgQ').textContent=m[2];
+  document.getElementById('resultQ').classList.add('show');
+  document.getElementById('btnResetQ').style.display='inline-block';
+  document.getElementById('resultQ').scrollIntoView({behavior:'smooth'});
+}
+function resetQuiz(){
+  const keys=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+  keys.forEach((key,i)=>{
+    delete quizSelected[key];
+    const c=document.getElementById('qi'+(i+1));
+    c.classList.remove('correct','incorrect');
+    c.querySelectorAll('.quiz-opt').forEach(b=>{b.disabled=false;b.classList.remove('selected','correct-answer','wrong-answer');});
+    const fb=document.getElementById('fb-'+key);
+    fb.className='feedback-text';fb.textContent='';
+  });
+  document.getElementById('resultQ').classList.remove('show');
+  document.getElementById('progQ').style.width='0%';
+  document.getElementById('btnResetQ').style.display='none';
+}
+</script>
+</body>
+</html>

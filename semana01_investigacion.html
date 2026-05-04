@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 1 – Introducción a la Investigación Científica | Metodología de la Investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== VARIABLES Y RESET ===== */
+  :root {
+    --azul-oscuro: #003366;
+    --celeste: #87CEEB;
+    --celeste-claro: #d6eef8;
+    --blanco: #ffffff;
+    --gris-claro: #f4f7fb;
+    --gris-borde: #dee2e6;
+    --dorado: #c8960c;
+    --verde: #1a7a4a;
+    --verde-claro: #e8f5ee;
+    --rojo: #c0392b;
+    --rojo-claro: #fdecea;
+    --texto: #1a1a2e;
+    --texto-suave: #4a5568;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #edf2f7;
+    color: var(--texto);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ===== ENCABEZADO INSTITUCIONAL ===== */
+  .header {
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .header-logo {
+    width: 60px;
+    height: 60px;
+    background: var(--blanco);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .header-logo svg { width: 40px; height: 40px; }
+
+  .header-info h1 {
+    font-family: 'Lora', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .header-info p {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin-top: 3px;
+  }
+
+  .header-badges {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  /* ===== INFO DE SEMANA ===== */
+  .semana-info {
+    background: linear-gradient(135deg, #004080, #0066cc);
+    color: var(--blanco);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .semana-tag {
+    background: rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 8px 18px;
+    text-align: center;
+  }
+
+  .semana-tag .num {
+    font-family: 'Lora', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .semana-tag .lbl {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+  }
+
+  .semana-titulo h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .semana-titulo p {
+    font-size: 0.82rem;
+    opacity: 0.8;
+    margin-top: 3px;
+  }
+
+  /* ===== NAVEGACIÓN DE PESTAÑAS ===== */
+  .tabs-nav {
+    background: var(--celeste);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    border-bottom: 3px solid var(--azul-oscuro);
+    padding: 0 8px;
+  }
+
+  .tab-btn {
+    border: none;
+    background: transparent;
+    padding: 12px 18px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: #1a1a2e;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .tab-btn:hover {
+    background: rgba(255,255,255,0.5);
+  }
+
+  .tab-btn.active {
+    background: var(--blanco);
+    color: var(--azul-oscuro);
+    font-weight: 700;
+    border-bottom: 3px solid var(--azul-oscuro);
+  }
+
+  /* ===== CONTENIDO DE PESTAÑAS ===== */
+  .tab-content { display: none; padding: 32px; max-width: 960px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* ===== COMPONENTES DE CONTENIDO ===== */
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    color: var(--azul-oscuro);
+    font-weight: 700;
+    margin-bottom: 8px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--celeste);
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+    margin-bottom: 24px;
+  }
+
+  .concept-box {
+    border-left: 5px solid var(--azul-oscuro);
+    background: var(--gris-claro);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+  }
+
+  .concept-box .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--azul-oscuro);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .concept-box p {
+    font-size: 0.97rem;
+    color: var(--texto);
+  }
+
+  .example-box {
+    background: var(--celeste-claro);
+    border: 1px solid var(--celeste);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+
+  .example-box .example-title {
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .key-idea {
+    background: linear-gradient(135deg, #e8f0fe, #d2e3fc);
+    border: 1px solid #93b4e8;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 24px 0;
+  }
+
+  .key-idea .ki-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #1a56a3;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .key-idea p { font-size: 0.97rem; color: var(--texto); }
+
+  .content-p { margin: 14px 0; font-size: 0.97rem; }
+
+  h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.15rem;
+    color: var(--azul-oscuro);
+    margin: 28px 0 12px;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin: 20px 0 8px;
+  }
+
+  /* ===== TABLA COMPARATIVA ===== */
+  .table-wrap { overflow-x: auto; margin: 20px 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  thead tr {
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+  }
+
+  thead th {
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  tbody tr:nth-child(even) { background: var(--gris-claro); }
+  tbody tr:nth-child(odd) { background: var(--blanco); }
+
+  tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--gris-borde);
+    vertical-align: top;
+  }
+
+  /* ===== TARJETAS DE CARACTERÍSTICAS ===== */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card {
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-top: 4px solid var(--azul-oscuro);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .card-icon { font-size: 1.8rem; margin-bottom: 10px; }
+
+  .card h4 {
+    font-size: 0.95rem;
+    color: var(--azul-oscuro);
+    margin: 0 0 8px;
+    font-weight: 700;
+  }
+
+  .card p { font-size: 0.87rem; color: var(--texto-suave); line-height: 1.5; }
+
+  /* ===== LISTA ESTILIZADA ===== */
+  .styled-list {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0;
+  }
+
+  .styled-list li {
+    padding: 8px 0 8px 28px;
+    position: relative;
+    border-bottom: 1px solid var(--gris-borde);
+    font-size: 0.96rem;
+  }
+
+  .styled-list li:last-child { border-bottom: none; }
+
+  .styled-list li::before {
+    content: "▸";
+    position: absolute;
+    left: 8px;
+    color: var(--azul-oscuro);
+    font-weight: 700;
+  }
+
+  /* ===== PASOS DEL MÉTODO CIENTÍFICO ===== */
+  .steps-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 20px 0;
+  }
+
+  .step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px;
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    position: relative;
+  }
+
+  .step-num {
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .step-content h4 { margin: 0 0 4px; font-size: 0.97rem; color: var(--azul-oscuro); }
+  .step-content p { font-size: 0.88rem; color: var(--texto-suave); margin: 0; }
+
+  /* ===== ALERT / NOTA ===== */
+  .alert-info {
+    background: #fff8e1;
+    border-left: 5px solid var(--dorado);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 0.92rem;
+  }
+
+  /* ===== SECCIÓN REPASO ===== */
+  .repaso-intro {
+    background: linear-gradient(135deg, #003366, #0052a0);
+    color: var(--blanco);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .repaso-intro h3 { color: var(--blanco); font-size: 1.2rem; margin-top: 0; }
+  .repaso-intro p { opacity: 0.9; font-size: 0.97rem; }
+
+  /* ===== EJERCICIO INTERACTIVO ===== */
+  .ejercicio-intro {
+    background: var(--celeste-claro);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+  }
+
+  .ejercicio-intro strong { color: var(--azul-oscuro); }
+
+  .ejercicio-item {
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    transition: border-color 0.2s;
+  }
+
+  .ejercicio-item.correct { border-color: var(--verde); background: var(--verde-claro); }
+  .ejercicio-item.incorrect { border-color: var(--rojo); background: var(--rojo-claro); }
+
+  .ejercicio-item .item-num {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--texto-suave);
+    margin-bottom: 8px;
+  }
+
+  .ejercicio-item .item-text { font-weight: 600; margin-bottom: 12px; font-size: 0.97rem; }
+
+  .options-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .opt-btn {
+    border: 2px solid var(--gris-borde);
+    background: var(--blanco);
+    border-radius: 6px;
+    padding: 7px 14px;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    transition: all 0.2s;
+  }
+
+  .opt-btn:hover { border-color: var(--azul-oscuro); background: var(--gris-claro); }
+  .opt-btn.selected { border-color: var(--azul-oscuro); background: var(--azul-oscuro); color: var(--blanco); }
+  .opt-btn.correct-answer { border-color: var(--verde); background: var(--verde); color: var(--blanco); }
+  .opt-btn.wrong-answer { border-color: var(--rojo); background: var(--rojo); color: var(--blanco); }
+  .opt-btn:disabled { cursor: default; }
+
+  .feedback-text {
+    margin-top: 10px;
+    font-size: 0.88rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: none;
+  }
+
+  .feedback-text.show { display: block; }
+  .feedback-text.ok { background: #e8f5ee; color: #1a5c38; }
+  .feedback-text.fail { background: #fdecea; color: #7b2020; }
+
+  .result-icon { font-size: 1.2rem; margin-right: 6px; }
+
+  /* ===== BOTONES ===== */
+  .btn-verify {
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: background 0.2s;
+  }
+
+  .btn-verify:hover { background: #004d99; }
+
+  .btn-reset {
+    background: transparent;
+    color: var(--azul-oscuro);
+    border: 2px solid var(--azul-oscuro);
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.97rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    margin-left: 12px;
+    transition: all 0.2s;
+  }
+
+  .btn-reset:hover { background: var(--azul-oscuro); color: var(--blanco); }
+
+  /* ===== RESULTADO FINAL ===== */
+  .result-panel {
+    background: var(--blanco);
+    border: 2px solid var(--azul-oscuro);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 20px;
+    display: none;
+    text-align: center;
+  }
+
+  .result-panel.show { display: block; }
+
+  .result-score {
+    font-family: 'Lora', serif;
+    font-size: 2.5rem;
+    color: var(--azul-oscuro);
+    font-weight: 700;
+  }
+
+  .result-pct { font-size: 1.2rem; color: var(--texto-suave); margin: 4px 0 16px; }
+
+  .progress-bar {
+    width: 100%;
+    background: var(--gris-borde);
+    border-radius: 20px;
+    height: 14px;
+    overflow: hidden;
+    margin: 12px 0;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--azul-oscuro), #0077cc);
+    border-radius: 20px;
+    transition: width 0.8s ease;
+  }
+
+  .result-msg { font-size: 1.1rem; margin-top: 14px; font-weight: 600; }
+  .result-emoji { font-size: 2.5rem; }
+
+  /* ===== CUESTIONARIO ===== */
+  .quiz-item {
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+
+  .quiz-item.correct { border-left: 5px solid var(--verde); }
+  .quiz-item.incorrect { border-left: 5px solid var(--rojo); }
+
+  .quiz-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 12px;
+    padding: 3px 10px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .quiz-badge.teorica { background: #e8f0fe; color: #1a56a3; }
+  .quiz-badge.analisis { background: #fce8e6; color: #c0392b; }
+
+  .quiz-q { font-weight: 700; font-size: 0.97rem; margin-bottom: 14px; }
+
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+
+  .quiz-opt {
+    border: 2px solid var(--gris-borde);
+    background: var(--blanco);
+    border-radius: 6px;
+    padding: 9px 14px;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    text-align: left;
+    transition: all 0.2s;
+  }
+
+  .quiz-opt:hover { border-color: var(--azul-oscuro); background: var(--gris-claro); }
+  .quiz-opt.selected { border-color: var(--azul-oscuro); background: var(--azul-oscuro); color: var(--blanco); }
+  .quiz-opt.correct-answer { border-color: var(--verde); background: var(--verde); color: var(--blanco); }
+  .quiz-opt.wrong-answer { border-color: var(--rojo); background: var(--rojo); color: var(--blanco); }
+  .quiz-opt:disabled { cursor: default; }
+
+  /* ===== ACTIVIDAD IA ===== */
+  .ia-card {
+    background: linear-gradient(135deg, #001a33, #003366);
+    color: var(--blanco);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+
+  .ia-card h3 { color: var(--blanco); font-size: 1.25rem; margin-top: 0; margin-bottom: 12px; }
+  .ia-card p { opacity: 0.9; font-size: 0.96rem; }
+
+  .ia-tool-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 14px;
+  }
+
+  .prompt-box {
+    background: #0d1117;
+    color: #58d68d;
+    border-radius: 10px;
+    padding: 18px 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    margin: 16px 0;
+    border: 1px solid #2d4a2d;
+    white-space: pre-wrap;
+    line-height: 1.6;
+  }
+
+  .ia-step {
+    background: var(--blanco);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    border-left: 4px solid var(--celeste);
+  }
+
+  .ia-step strong { color: var(--azul-oscuro); }
+
+  /* ===== PREGUNTAS REFLEXIVAS ===== */
+  .reflexion-item {
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-left: 5px solid var(--dorado);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+
+  .reflexion-item .r-num {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--dorado);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .reflexion-item p { font-size: 0.97rem; color: var(--texto); }
+
+  /* ===== BIBLIOGRAFÍA ===== */
+  .ref-card {
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .ref-num {
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .ref-text { font-size: 0.9rem; line-height: 1.6; }
+  .ref-text em { color: var(--azul-oscuro); }
+
+  .bib-note {
+    background: #fff8e1;
+    border-left: 4px solid var(--dorado);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-top: 20px;
+    font-size: 0.88rem;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .header { padding: 16px; flex-wrap: wrap; }
+    .header-badges { display: none; }
+    .tab-content { padding: 20px 16px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .semana-info { padding: 14px 16px; }
+    .options-row { flex-direction: column; }
+  }
+
+  /* ===== DIAGRAMA FLUJO ===== */
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 20px 0;
+  }
+
+  .flow-node {
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-align: center;
+    min-width: 110px;
+  }
+
+  .flow-arrow { color: var(--azul-oscuro); font-size: 1.4rem; font-weight: 700; }
+
+  /* Tipos de métodos */
+  .metodo-card {
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .metodo-card h4 { margin: 0 0 6px; color: var(--azul-oscuro); }
+  .metodo-card p { font-size: 0.9rem; color: var(--texto-suave); margin: 0; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- ===== ENCABEZADO ===== -->
+<header class="header">
+  <div class="header-logo">
+    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="30" cy="30" r="28" fill="#003366"/>
+      <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="18" font-family="serif" font-weight="bold">UG</text>
+    </svg>
+  </div>
+  <div class="header-info">
+    <h1>Universidad de Guayaquil</h1>
+    <p>Facultad de Ciencias Administrativas &nbsp;|&nbsp; Carrera en Contabilidad y Auditoría</p>
+    <p style="margin-top:4px; font-size:0.78rem; opacity:0.7;">Metodología de la Investigación &nbsp;·&nbsp; Primer Semestre</p>
+  </div>
+  <div class="header-badges">
+    <span class="badge">Unidad I</span>
+    <span class="badge">Semana 1</span>
+    <span class="badge">Modalidad Virtual</span>
+  </div>
+</header>
+
+<!-- ===== BARRA DE SEMANA ===== -->
+<div class="semana-info">
+  <div class="semana-tag">
+    <div class="num">01</div>
+    <div class="lbl">Semana</div>
+  </div>
+  <div class="semana-titulo">
+    <h2>Unidad I — Introducción a la Investigación Científica</h2>
+    <p>Corrientes del conocimiento · Conocimiento empírico y científico · Ciencia · Método científico · Conceptos, Teorías, Axiomas, Leyes</p>
+  </div>
+</div>
+
+<!-- ===== NAVEGACIÓN ===== -->
+<nav class="tabs-nav" id="tabsNav">
+  <button class="tab-btn active" onclick="showTab('repaso',this)">📋 Repaso</button>
+  <button class="tab-btn" onclick="showTab('t1',this)">1 · Conocimiento: empírico y científico</button>
+  <button class="tab-btn" onclick="showTab('t2',this)">2 · Ciencia: formal y empírica</button>
+  <button class="tab-btn" onclick="showTab('t3',this)">3 · Investigación científica y método</button>
+  <button class="tab-btn" onclick="showTab('t4',this)">4 · Conceptos, teorías, axiomas, leyes</button>
+  <button class="tab-btn" onclick="showTab('ejercicio',this)">⚡ Ejercicio Interactivo</button>
+  <button class="tab-btn" onclick="showTab('cuestionario',this)">📝 Cuestionario</button>
+  <button class="tab-btn" onclick="showTab('ia',this)">🤖 Actividad con IA</button>
+  <button class="tab-btn" onclick="showTab('reflexion',this)">💭 Reflexión</button>
+  <button class="tab-btn" onclick="showTab('biblio',this)">📚 Bibliografía</button>
+</nav>
+
+<!-- ===== CONTENIDO ===== -->
+
+<!-- REPASO -->
+<div class="tab-content active" id="repaso">
+  <h2 class="section-title">📋 Repaso e Introducción</h2>
+  <p class="subtitle">Bienvenido/a al inicio de tu proceso formativo en Metodología de la Investigación</p>
+
+  <div class="repaso-intro">
+    <h3>🎓 ¿Por qué estudiar investigación si soy de Contabilidad?</h3>
+    <p>Puede parecer que la investigación científica es tema exclusivo de laboratorios y batas blancas. Sin embargo, como futuro/a contador o auditor, tu trabajo consistirá constantemente en <strong>recolectar evidencias, analizar datos, contrastar hipótesis y llegar a conclusiones justificadas</strong>. El método científico no es ajeno a tu carrera: ¡es su columna vertebral!</p>
+  </div>
+
+  <p class="content-p">Esta es la <strong>Semana 1</strong> de la asignatura. No existe repaso de semanas anteriores porque apenas comenzamos nuestro camino juntos. Sin embargo, sí tenemos que partir de algo fundamental: <em>¿cuánto conocemos sobre cómo conocemos?</em></p>
+
+  <div class="example-box">
+    <div class="example-title">🇪🇨 Escenario de partida — El caso de Sofía</div>
+    <p>Sofía es estudiante de primer semestre de Contabilidad en la Universidad de Guayaquil. Un día, un familiar le dice: <em>"No pagues impuestos al SRI por ese emprendimiento; nadie va a enterarse."</em> Sofía se pregunta: ¿cómo sé si eso es verdad? ¿Qué pruebas hay? ¿Cuántos casos concretos existen? ¿Es una creencia popular o un dato verificable?</p>
+    <p style="margin-top:8px;">Sin saberlo, Sofía está usando el <strong>pensamiento científico</strong>: busca evidencias, no se queda con la primera respuesta. Eso es lo que aprenderemos a potenciar esta semana.</p>
+  </div>
+
+  <h3>📌 Mapa de la Semana 1</h3>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <h4>Tema 1</h4>
+      <p>Principales corrientes del conocimiento. Diferencia entre conocimiento empírico y científico.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔬</div>
+      <h4>Tema 2</h4>
+      <p>La Ciencia: qué es, clasificación en ciencias formales y empíricas (fácticas).</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚙️</div>
+      <h4>Tema 3</h4>
+      <p>La investigación científica y el método científico: características, clasificación y tipos.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📐</div>
+      <h4>Tema 4</h4>
+      <p>Elementos del conocimiento: conceptos, teorías, axiomas y leyes científicas.</p>
+    </div>
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea motivadora de la semana</div>
+    <p><em>"La investigación científica es el instrumento con que cuenta el ser humano para conocer, explicar, interpretar y transformar la realidad."</em> (Monje-Álvarez, 2011). Esta semana entenderás que investigar no es algo reservado a científicos en laboratorios; es una forma de pensar que puedes —y debes— cultivar desde hoy.</p>
+  </div>
+</div>
+
+<!-- TEMA 1 -->
+<div class="tab-content" id="t1">
+  <h2 class="section-title">1 · Conocimiento empírico y científico</h2>
+  <p class="subtitle">¿Cómo llegamos a saber lo que sabemos? Las corrientes del conocimiento humano</p>
+
+  <p class="content-p">Antes de hablar de investigación, necesitamos entender algo más básico: <strong>¿qué es el conocimiento?</strong> y <strong>¿de dónde viene?</strong>. A lo largo de la historia, los seres humanos hemos construido conocimiento a través de diferentes vías o <em>corrientes</em>.</p>
+
+  <h3>1.1 Principales corrientes en la obtención del conocimiento</h3>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🙏</div>
+      <h4>Conocimiento teológico o revelado</h4>
+      <p>Proviene de la fe y la revelación divina. Se acepta como verdad sin necesidad de demostración empírica. Ejemplo: dogmas religiosos.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤔</div>
+      <h4>Conocimiento filosófico</h4>
+      <p>Surge de la reflexión racional y el análisis lógico de la realidad. Busca el sentido último de las cosas. No requiere verificación experimental.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">👁️</div>
+      <h4>Conocimiento empírico</h4>
+      <p>Nace de la experiencia directa, de lo que vivimos y observamos cotidianamente. Es el "saber popular".</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔬</div>
+      <h4>Conocimiento científico</h4>
+      <p>Se obtiene mediante un método sistemático, verificable y riguroso. Va más allá de la experiencia para buscar causas y leyes.</p>
+    </div>
+  </div>
+
+  <h3>1.2 Conocimiento empírico: definición y características</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición</div>
+    <p><strong>Conocimiento empírico</strong> es aquel que adquirimos a través de la experiencia personal y directa con el mundo que nos rodea, sin recurrir a métodos sistemáticos ni a comprobación formal. Es el "saber por haberlo vivido" o "saber porque me lo dijeron siempre".</p>
+  </div>
+
+  <p class="content-p">Las características del conocimiento empírico son:</p>
+  <ul class="styled-list">
+    <li><strong>Subjetivo:</strong> depende de quien lo experimenta y puede variar entre personas.</li>
+    <li><strong>No sistemático:</strong> no sigue un método ordenado de obtención.</li>
+    <li><strong>Irreflexivo:</strong> no necesariamente explica el <em>por qué</em> de los fenómenos.</li>
+    <li><strong>Difícil de verificar:</strong> está basado en percepciones individuales, no en pruebas controladas.</li>
+    <li><strong>Útil en la vida diaria:</strong> aunque no sea "científico", nos permite sobrevivir y tomar decisiones cotidianas.</li>
+  </ul>
+
+  <div class="example-box">
+    <div class="example-title">🇪🇨 Ejemplo ecuatoriano — Conocimiento empírico en Contabilidad</div>
+    <p>Un contador de una microempresa guayaquileña lleva años aplicando ciertos porcentajes de depreciación "por costumbre", porque <em>"así lo hacía mi jefe anterior"</em>. No revisó la normativa vigente de la Superintendencia de Compañías ni las NIIF aplicables. Eso es conocimiento empírico: funcional en la práctica, pero sin respaldo metodológico ni verificación formal.</p>
+  </div>
+
+  <h3>1.3 Conocimiento científico: definición y características</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición</div>
+    <p><strong>Conocimiento científico</strong> es aquel que se obtiene mediante un proceso de investigación sistemática, metódica, verificable y crítica. Va más allá del fenómeno observable: busca explicar sus causas, establecer leyes y construir teorías. Es <em>objetivo, racional, sistemático, general, falible y metódico</em> (Dirección Nacional de Innovación Académica, 2007).</p>
+  </div>
+
+  <p class="content-p">Según Bunge (1997), el conocimiento científico posee las siguientes características fundamentales:</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Característica</th>
+          <th>¿Qué significa?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Fáctico</strong></td><td>Parte de los hechos reales, los respeta y vuelve a ellos para verificar.</td></tr>
+        <tr><td><strong>Trasciende los hechos</strong></td><td>No se limita a describir; explica mediante hipótesis y teorías.</td></tr>
+        <tr><td><strong>Analítico</strong></td><td>Descompone los problemas en partes para entender su integración.</td></tr>
+        <tr><td><strong>Claro y preciso</strong></td><td>Define sus conceptos y utiliza lenguajes formales (matemático, lógico).</td></tr>
+        <tr><td><strong>Comunicable</strong></td><td>No es privado; puede ser compartido, discutido y evaluado por otros.</td></tr>
+        <tr><td><strong>Verificable</strong></td><td>Sus hipótesis deben poder comprobarse empíricamente.</td></tr>
+        <tr><td><strong>Metódico</strong></td><td>No es errático; sigue un plan y procedimientos establecidos.</td></tr>
+        <tr><td><strong>Sistemático</strong></td><td>Las ideas están conectadas lógicamente, no son información suelta.</td></tr>
+        <tr><td><strong>General</strong></td><td>Ubica los hechos particulares en pautas o leyes generales.</td></tr>
+        <tr><td><strong>Explicativo</strong></td><td>Responde al <em>¿por qué?</em>, no solo al <em>¿qué?</em></td></tr>
+        <tr><td><strong>Abierto</strong></td><td>No es dogmático; puede revisarse y modificarse con nuevas evidencias.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>1.4 Objetividad y subjetividad del conocimiento</h3>
+
+  <div class="two-col">
+    <div class="card" style="border-top-color: var(--verde);">
+      <h4>✅ Conocimiento objetivo</h4>
+      <p>Describe la realidad independientemente de quien la observa. Sus afirmaciones pueden ser verificadas por cualquier persona usando el mismo método. <em>Ej.: la tasa de inflación del Ecuador en 2023 fue del 2,22% según el INEC.</em></p>
+    </div>
+    <div class="card" style="border-top-color: var(--rojo);">
+      <h4>⚠️ Conocimiento subjetivo</h4>
+      <p>Depende de las percepciones, emociones o interpretaciones personales del observador. <em>Ej.: "El sistema tributario del Ecuador es injusto" — esto varía según la perspectiva de cada ciudadano.</em></p>
+    </div>
+  </div>
+
+  <div class="alert-info">
+    <strong>⚠️ Atención:</strong> La ciencia no elimina totalmente la subjetividad (el investigador siempre elige qué estudiar), pero usa métodos que minimizan su influencia en los resultados. Esto se llama <em>intersubjetividad</em>: múltiples observadores deben llegar a resultados similares.
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea clave del Tema 1</div>
+    <p>El conocimiento empírico y el científico no son enemigos; el segundo surge del primero y lo supera. Un buen investigador parte de lo que observa en su experiencia, pero no se queda ahí: busca explicar, verificar y generalizar. Como futuro/a contador o auditor, esta distinción es vital: la diferencia entre una "suposición contable" y una "conclusión de auditoría" es exactamente la misma que entre conocimiento empírico y científico.</p>
+  </div>
+</div>
+
+<!-- TEMA 2 -->
+<div class="tab-content" id="t2">
+  <h2 class="section-title">2 · La Ciencia: formal y empírica</h2>
+  <p class="subtitle">¿Qué es la ciencia y cómo se clasifica?</p>
+
+  <p class="content-p">Todos usamos la palabra "ciencia" cotidianamente, pero ¿qué significa realmente? Para Tamayo (2003), <em>"la base y punto de partida del científico es la realidad, que mediante la investigación le permite llegar a la ciencia"</em>. La ciencia no es un conjunto fijo de verdades; es un <strong>proceso continuo</strong> de construcción del conocimiento sobre la realidad.</p>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición de Ciencia</div>
+    <p>La <strong>ciencia</strong> es un sistema de conocimientos sobre la realidad natural y social, obtenidos mediante métodos rigurosos, organizados de forma sistemática y en continuo proceso de desarrollo y revisión (Jiménez-Paneque, 1998). Se puede entender como <em>contenido</em> (el conjunto de conocimientos acumulados) o como <em>proceso</em> (la actividad de investigar).</p>
+  </div>
+
+  <h3>2.1 Clasificación de las ciencias</h3>
+
+  <p class="content-p">Según Tamayo (2003) y Bunge (1997), las ciencias se clasifican en dos grandes categorías:</p>
+
+  <div class="two-col">
+    <div class="concept-box" style="border-left-color: #1a7a4a; margin: 0;">
+      <div class="label" style="color: #1a7a4a;">CIENCIAS FORMALES (puras)</div>
+      <p><strong>Objeto de estudio:</strong> ideas y estructuras abstractas (no hechos concretos).<br>
+      <strong>Método:</strong> deducción lógica, demostración.<br>
+      <strong>Criterio de verdad:</strong> coherencia lógica, no verificación empírica.<br>
+      <strong>Ejemplos:</strong> Lógica, Matemáticas.<br>
+      <strong>Comprobación:</strong> mediante razonamiento puro.</p>
+    </div>
+    <div class="concept-box" style="border-left-color: #0066cc; margin: 0;">
+      <div class="label" style="color: #0066cc;">CIENCIAS EMPÍRICAS o FÁCTICAS (aplicadas)</div>
+      <p><strong>Objeto de estudio:</strong> hechos concretos y verificables de la realidad.<br>
+      <strong>Método:</strong> observación, experimentación, método científico.<br>
+      <strong>Criterio de verdad:</strong> verificación con la realidad.<br>
+      <strong>Ejemplos:</strong> Física, Química, Economía, Contabilidad, Auditoría.<br>
+      <strong>Comprobación:</strong> en la práctica.</p>
+    </div>
+  </div>
+
+  <h3>2.2 Subdivisión de las ciencias empíricas o fácticas</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Subdivisión</th>
+          <th>Ejemplos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Ciencias Naturales</strong></td>
+          <td>Estudian la naturaleza no humana</td>
+          <td>Física, Química, Biología, Psicología individual</td>
+        </tr>
+        <tr>
+          <td><strong>Ciencias Biosociales</strong></td>
+          <td>Intersección entre biología y sociedad</td>
+          <td>Antropología, Demografía, Psicología social, Bioeconomía</td>
+        </tr>
+        <tr>
+          <td><strong>Ciencias Sociales</strong></td>
+          <td>Estudian la sociedad humana</td>
+          <td>Sociología, Economía, Ciencia política, Historia, <strong>Contabilidad y Auditoría</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <div class="example-title">🇪🇨 ¿En qué categoría entra la Contabilidad y Auditoría?</div>
+    <p>La Contabilidad y la Auditoría son <strong>ciencias sociales empíricas</strong>. Sus objetos de estudio son hechos concretos: transacciones económicas, estados financieros, flujos de caja, evidencias de auditoría. Sus conclusiones se verifican con datos reales (no con razonamiento puro). Por eso, el método científico —que aprenderás esta semana— es completamente aplicable a tu carrera profesional.</p>
+  </div>
+
+  <h3>2.3 Comparativa: ciencia formal vs. ciencia empírica</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Criterio</th>
+          <th>Ciencia Formal</th>
+          <th>Ciencia Empírica (Fáctica)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Objeto de estudio</td><td>Ideas, formas abstractas</td><td>Hechos concretos y observables</td></tr>
+        <tr><td>Representación</td><td>Símbolos y signos formales</td><td>Palabras y datos empíricos</td></tr>
+        <tr><td>Método de análisis</td><td>Inducción, deducción, lógica</td><td>Método científico</td></tr>
+        <tr><td>Criterio de verdad</td><td>Demostración lógica (coherencia)</td><td>Verificación con la realidad</td></tr>
+        <tr><td>Comprobación</td><td>Razonamiento puro</td><td>En la práctica experimental</td></tr>
+        <tr><td>Ejemplos</td><td>Lógica, Matemáticas</td><td>Física, Economía, Auditoría</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert-info">
+    <strong>🔗 Conexión importante:</strong> La Matemática (ciencia formal) es una herramienta fundamental para las ciencias empíricas. La Contabilidad usa matemáticas para cuantificar hechos económicos, pero lo que investiga no son los números en sí, sino la realidad económica que representan.
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea clave del Tema 2</div>
+    <p>Clasificar la ciencia no es un ejercicio académico sin propósito: entender que la Contabilidad y la Auditoría son ciencias empíricas nos dice <em>cómo</em> debemos generar conocimiento en ellas — partiendo de hechos, verificando con datos reales, y aplicando método científico. Eso es exactamente lo que hace un auditor cuando recopila evidencias para formular su dictamen.</p>
+  </div>
+</div>
+
+<!-- TEMA 3 -->
+<div class="tab-content" id="t3">
+  <h2 class="section-title">3 · La investigación científica y el método científico</h2>
+  <p class="subtitle">El método científico: características, clasificación y tipos</p>
+
+  <h3>3.1 La investigación científica</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición</div>
+    <p>La <strong>investigación científica</strong> es el proceso sistemático mediante el cual el ser humano busca conocer, explicar, interpretar y transformar la realidad, generando nuevos conocimientos con rigor, objetividad y verificabilidad (Monje-Álvarez, 2011).</p>
+  </div>
+
+  <p class="content-p">Sus objetivos principales (Ñaupas-Paitán et al., 2014) son:</p>
+  <ul class="styled-list">
+    <li><strong>Describir, explicar y predecir</strong> hechos, fenómenos y eventos de la naturaleza y la sociedad.</li>
+    <li><strong>Verificar o dilucidar</strong> hipótesis o teorías científicas.</li>
+    <li><strong>Descubrir leyes</strong> que expliquen relaciones constantes entre elementos de un sistema.</li>
+    <li><strong>Ampliar las fronteras</strong> del conocimiento en las ciencias naturales y sociales.</li>
+  </ul>
+
+  <h3>3.2 ¿Qué es el método científico?</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición</div>
+    <p>El <strong>método científico</strong> es el procedimiento o conjunto de procedimientos que se utilizan para comprender, explicar, describir o predecir un fenómeno. Es el camino sistemático que conecta la investigación científica con el conocimiento científico (Tamayo, 2003; Sabino, 2002).</p>
+  </div>
+
+  <div class="flow-diagram">
+    <div class="flow-node">Conocimiento<br>Científico</div>
+    <div class="flow-arrow">⟵</div>
+    <div class="flow-node" style="background:#0077cc;">Método<br>Científico</div>
+    <div class="flow-arrow">⟵</div>
+    <div class="flow-node">Investigación<br>Científica</div>
+  </div>
+
+  <div class="alert-info">
+    <strong>🔑 Distinción clave:</strong><br>
+    • <strong>Método</strong> = el camino, el procedimiento (¿cómo lo hacemos?).<br>
+    • <strong>Metodología</strong> = el estudio y justificación del método (¿por qué usamos este camino?).<br>
+    • <strong>Técnica</strong> = los instrumentos prácticos para recoger datos (encuestas, entrevistas, observación).
+  </div>
+
+  <h3>3.3 Etapas del método científico</h3>
+
+  <div class="steps-flow">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Observación</h4>
+        <p>Percepción sistemática y dirigida de un fenómeno de la realidad. Se registra lo que ocurre, sin alterar el fenómeno.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Planteamiento del problema</h4>
+        <p>Identificación de lo que no se sabe o lo que se quiere explicar. Se formula en forma de pregunta.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Formulación de hipótesis</h4>
+        <p>Respuesta tentativa y provisional al problema. Es una afirmación que puede comprobarse o refutarse.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Experimentación / Recolección de datos</h4>
+        <p>Prueba sistemática de la hipótesis mediante experimentos u observaciones controladas. Se recopilan evidencias.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Análisis de resultados</h4>
+        <p>Procesamiento e interpretación de los datos recolectados. Se verifica si apoyan o contradicen la hipótesis.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h4>Conclusión / Confirmación o refutación</h4>
+        <p>Se determina si la hipótesis es válida. Si se confirma, contribuye a construir teorías y leyes. Si se refuta, se replantea el proceso.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>3.4 Características del método científico</h3>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🎯</div>
+      <h4>Tentativo</h4>
+      <p>Sus conclusiones son provisionales; siempre pueden ser revisadas con nuevas evidencias.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">✅</div>
+      <h4>Verificable</h4>
+      <p>Todo resultado puede ser comprobado por otros investigadores usando el mismo procedimiento.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧮</div>
+      <h4>Riguroso</h4>
+      <p>Sigue procedimientos establecidos con precisión; no acepta la improvisación o el azar.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">👁️</div>
+      <h4>Empírico</h4>
+      <p>Se basa en la observación y la experiencia controlada, no solo en la especulación.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h4>Planificado</h4>
+      <p>No es errático; responde a un diseño metodológico previo con objetivos claros.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h4>Auto-correctivo</h4>
+      <p>Puede detectar y corregir sus propios errores a través de la refutación y la revisión.</p>
+    </div>
+  </div>
+
+  <h3>3.5 Tipos de métodos científicos</h3>
+
+  <div class="metodo-card">
+    <h4>🔼 Método Inductivo</h4>
+    <p>Va de casos <em>particulares</em> hacia conclusiones <em>generales</em>. Observo muchos casos individuales y de ellos extraigo una regla general. Ejemplo: analizo 500 estados financieros de microempresas guayaquileñas y concluyo que el 70% no aplica correctamente la depreciación según NIIF.</p>
+  </div>
+  <div class="metodo-card">
+    <h4>🔽 Método Deductivo</h4>
+    <p>Va de principios o leyes <em>generales</em> hacia conclusiones <em>particulares</em>. Parto de una norma contable general (ley) y la aplico a un caso concreto. Ejemplo: la NIIF para PYMES establece ciertos requisitos → aplico esa norma para auditar a una empresa específica.</p>
+  </div>
+  <div class="metodo-card">
+    <h4>🔁 Método Hipotético-Deductivo</h4>
+    <p>Parte de una hipótesis, deduce consecuencias observables y las verifica empíricamente. Es el método más utilizado en ciencias sociales y exactas. Ej.: "Hipótesis: las empresas que usan contabilidad de costos tienen mayor rentabilidad → recopilo datos → verifico si es verdad."</p>
+  </div>
+  <div class="metodo-card">
+    <h4>📊 Método Analítico-Sintético</h4>
+    <p>Primero descompone el fenómeno en sus partes (análisis), luego las integra para entender el todo (síntesis). Es fundamental en auditoría: se analizan cuentas individuales para luego emitir una opinión sobre los estados financieros completos.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="example-title">🇪🇨 El método científico en la auditoría ecuatoriana</div>
+    <p>Un auditor del SRI que investiga posible evasión tributaria aplica el método científico sin saberlo: <strong>observa</strong> inconsistencias en las declaraciones → <strong>formula una hipótesis</strong> ("la empresa subdeclara ingresos") → <strong>recolecta evidencias</strong> (facturas, contratos, movimientos bancarios) → <strong>analiza</strong> los datos → <strong>concluye</strong> si hay o no infracción. ¡Eso es método científico aplicado!</p>
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea clave del Tema 3</div>
+    <p>El método científico no es una fórmula rígida; es una <em>actitud ante el conocimiento</em>: observar con rigor, cuestionar, formular explicaciones provisionales, verificar con evidencias y estar dispuesto a cambiar de opinión si los datos lo exigen. Esta actitud es exactamente la que necesita un auditor íntegro y un contador confiable.</p>
+  </div>
+</div>
+
+<!-- TEMA 4 -->
+<div class="tab-content" id="t4">
+  <h2 class="section-title">4 · Conceptos, teorías, axiomas y leyes</h2>
+  <p class="subtitle">Los elementos básicos con los que la ciencia construye conocimiento</p>
+
+  <p class="content-p">La ciencia no trabaja con ideas vagas o imprecisas. Construye su edificio conceptual con bloques muy bien definidos. Esta sección explica cuáles son esos bloques y para qué sirve cada uno.</p>
+
+  <h3>4.1 Conceptos</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición</div>
+    <p>Un <strong>concepto</strong> es una representación mental abstracta y general de un objeto, fenómeno o relación. Es la unidad básica del pensamiento científico: sin conceptos precisos, no es posible investigar ni comunicar con claridad.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="example-title">💼 Conceptos en Contabilidad y Auditoría</div>
+    <p>Términos como <em>"activo", "pasivo", "materialidad", "devengado", "evidencia de auditoría"</em> son conceptos: palabras que tienen una definición técnica precisa que todos los profesionales del área deben compartir para entenderse. Sin esa precisión conceptual, un balance sería ambiguo e inútil.</p>
+  </div>
+
+  <h3>4.2 Teorías</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición</div>
+    <p>Una <strong>teoría científica</strong> es un conjunto organizado y sistemático de conceptos, hipótesis verificadas y principios que explican un amplio conjunto de fenómenos. Las teorías no son meras "opiniones"; son explicaciones sólidamente respaldadas por evidencias acumuladas.</p>
+  </div>
+
+  <div class="alert-info">
+    <strong>⚠️ Error frecuente:</strong> En el lenguaje cotidiano, "teoría" suele significar algo incierto ("eso es solo una teoría"). En ciencia, una teoría es la explicación más sólida y probada disponible. La Teoría de la Relatividad de Einstein no es una suposición; es una explicación verificada miles de veces.
+  </div>
+
+  <div class="example-box">
+    <div class="example-title">📊 Ejemplo: Teoría de Agencia en Auditoría</div>
+    <p>La <strong>Teoría de Agencia</strong> explica la relación entre los accionistas (principales) y los administradores (agentes) de una empresa, y por qué existe el riesgo de conflictos de interés. Esta teoría fundamenta la necesidad de la auditoría externa como mecanismo de control. Es una teoría porque integra múltiples conceptos (asimetría de información, riesgo moral, costos de agencia) y ha sido verificada en miles de estudios.</p>
+  </div>
+
+  <h3>4.3 Axiomas</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición</div>
+    <p>Un <strong>axioma</strong> (también llamado postulado) es una proposición que se acepta como verdadera sin necesidad de demostración, porque es tan evidente o fundamental que sirve como punto de partida para deducir otras verdades. Los axiomas son más comunes en ciencias formales (lógica, matemáticas), pero también existen en disciplinas aplicadas.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="example-title">🧮 Axiomas en Contabilidad</div>
+    <p>La ecuación fundamental de la contabilidad — <strong>Activo = Pasivo + Patrimonio</strong> — funciona como un axioma contable: se acepta como una verdad básica del sistema, a partir de la cual se construye toda la lógica de la partida doble. No se "demuestra" en cada transacción; se asume como fundamento.</p>
+  </div>
+
+  <h3>4.4 Leyes científicas</h3>
+
+  <div class="concept-box">
+    <div class="label">📖 Definición</div>
+    <p>Una <strong>ley científica</strong> es una relación constante, necesaria y verificable entre fenómenos o variables, expresada de forma precisa (frecuentemente matemática). Las leyes describen <em>cómo</em> se comporta la realidad de manera repetible y predecible.</p>
+  </div>
+
+  <p class="content-p">Las leyes científicas se distinguen por ser:</p>
+  <ul class="styled-list">
+    <li><strong>Universales:</strong> válidas en cualquier lugar o momento bajo las mismas condiciones.</li>
+    <li><strong>Necesarias:</strong> no son casuales; reflejan una relación intrínseca entre fenómenos.</li>
+    <li><strong>Verificables:</strong> pueden comprobarse repetidamente con resultados consistentes.</li>
+    <li><strong>Precisas:</strong> expresadas con claridad, evitando ambigüedades.</li>
+  </ul>
+
+  <div class="example-box">
+    <div class="example-title">📈 Leyes en Economía y Contabilidad</div>
+    <p>La <strong>Ley de la oferta y la demanda</strong> establece que cuando el precio de un bien sube, la cantidad demandada disminuye (ceteris paribus). Esta ley es fundamental para que un contador analice precios de transferencia o un auditor evalúe si las valoraciones de inventarios son razonables en el mercado ecuatoriano.</p>
+  </div>
+
+  <h3>4.5 Relación entre estos elementos</h3>
+
+  <div class="flow-diagram" style="flex-wrap:wrap;">
+    <div class="flow-node">Conceptos<br><small>(unidades básicas)</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">Hipótesis<br><small>(afirmaciones tentativas)</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">Leyes<br><small>(relaciones verificadas)</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">Teorías<br><small>(sistemas explicativos)</small></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Elemento</th>
+          <th>¿Qué es?</th>
+          <th>¿Cómo se prueba?</th>
+          <th>Ejemplo en Contabilidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Concepto</strong></td>
+          <td>Representación mental precisa</td>
+          <td>Definición consensuada</td>
+          <td>"Activo corriente"</td>
+        </tr>
+        <tr>
+          <td><strong>Axioma</strong></td>
+          <td>Verdad aceptada sin demostración</td>
+          <td>No requiere prueba; es fundamento</td>
+          <td>A = P + Pat</td>
+        </tr>
+        <tr>
+          <td><strong>Ley</strong></td>
+          <td>Relación constante y verificada</td>
+          <td>Experimentación replicable</td>
+          <td>Ley de oferta y demanda</td>
+        </tr>
+        <tr>
+          <td><strong>Teoría</strong></td>
+          <td>Sistema explicativo integrado</td>
+          <td>Múltiples evidencias acumuladas</td>
+          <td>Teoría de Agencia</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="key-idea">
+    <div class="ki-label">💡 Idea clave del Tema 4</div>
+    <p>La ciencia construye conocimiento de manera acumulativa: parte de conceptos precisos, formula hipótesis, las verifica hasta establecer leyes, y agrupa las leyes en teorías que explican conjuntos de fenómenos. Este proceso no termina jamás: toda teoría puede ser revisada si aparecen nuevas evidencias. Eso es lo que hace a la ciencia honesta y confiable.</p>
+  </div>
+</div>
+
+<!-- EJERCICIO INTERACTIVO -->
+<div class="tab-content" id="ejercicio">
+  <h2 class="section-title">⚡ Ejercicio Interactivo — Clasifica el conocimiento</h2>
+  <p class="subtitle">Tipo: Selección múltiple con retroalimentación · 8 ítems</p>
+
+  <div class="ejercicio-intro">
+    <strong>Instrucciones:</strong> Lee cada situación y selecciona la opción correcta. Responde <em>todos</em> los ítems antes de presionar "Verificar respuestas". Al finalizar verás tu calificación, la explicación de cada ítem y podrás reiniciar si deseas mejorar tu puntaje.
+  </div>
+
+  <div id="ejercicioContainer">
+
+    <!-- Ítem 1 -->
+    <div class="ejercicio-item" id="ei1">
+      <div class="item-num">Ítem 1 de 8</div>
+      <div class="item-text">Un agricultor de la Sierra ecuatoriana sabe que "si el cielo está rojizo al atardecer, mañana habrá buen tiempo". Lo aprendió de su abuelo y lo ha visto funcionar muchas veces. ¿Qué tipo de conocimiento es este?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e1','A',this)">A. Empírico</button>
+        <button class="opt-btn" onclick="selectOpt('e1','B',this)">B. Científico</button>
+        <button class="opt-btn" onclick="selectOpt('e1','C',this)">C. Filosófico</button>
+        <button class="opt-btn" onclick="selectOpt('e1','D',this)">D. Teológico</button>
+      </div>
+      <div class="feedback-text" id="fb-e1"></div>
+    </div>
+
+    <!-- Ítem 2 -->
+    <div class="ejercicio-item" id="ei2">
+      <div class="item-num">Ítem 2 de 8</div>
+      <div class="item-text">Una investigadora del IESS (Instituto Ecuatoriano de Seguridad Social) recolecta datos de 10.000 afiliados, formula una hipótesis sobre tasas de enfermedad, la prueba estadísticamente y publica sus resultados. ¿Qué tipo de conocimiento genera?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e2','A',this)">A. Científico</button>
+        <button class="opt-btn" onclick="selectOpt('e2','B',this)">B. Empírico</button>
+        <button class="opt-btn" onclick="selectOpt('e2','C',this)">C. Filosófico</button>
+        <button class="opt-btn" onclick="selectOpt('e2','D',this)">D. Teológico</button>
+      </div>
+      <div class="feedback-text" id="fb-e2"></div>
+    </div>
+
+    <!-- Ítem 3 -->
+    <div class="ejercicio-item" id="ei3">
+      <div class="item-num">Ítem 3 de 8</div>
+      <div class="item-text">La Matemática es clasificada como una ciencia formal porque…</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e3','A',this)">A. Su objeto de estudio son ideas abstractas y se verifica por demostración lógica</button>
+        <button class="opt-btn" onclick="selectOpt('e3','B',this)">B. Usa experimentos de laboratorio para comprobar sus resultados</button>
+        <button class="opt-btn" onclick="selectOpt('e3','C',this)">C. Estudia hechos concretos de la sociedad</button>
+        <button class="opt-btn" onclick="selectOpt('e3','D',this)">D. Es la ciencia más importante de todas</button>
+      </div>
+      <div class="feedback-text" id="fb-e3"></div>
+    </div>
+
+    <!-- Ítem 4 -->
+    <div class="ejercicio-item" id="ei4">
+      <div class="item-num">Ítem 4 de 8</div>
+      <div class="item-text">Un contador dice: "creo que si una empresa implementa controles internos, reduce el riesgo de fraude". Hasta este momento, ¿en qué etapa del método científico se encuentra?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e4','A',this)">A. Formulación de hipótesis</button>
+        <button class="opt-btn" onclick="selectOpt('e4','B',this)">B. Observación de resultados</button>
+        <button class="opt-btn" onclick="selectOpt('e4','C',this)">C. Conclusión final</button>
+        <button class="opt-btn" onclick="selectOpt('e4','D',this)">D. Análisis estadístico</button>
+      </div>
+      <div class="feedback-text" id="fb-e4"></div>
+    </div>
+
+    <!-- Ítem 5 -->
+    <div class="ejercicio-item" id="ei5">
+      <div class="item-num">Ítem 5 de 8</div>
+      <div class="item-text">La ecuación Activo = Pasivo + Patrimonio, usada como base inamovible de la partida doble, corresponde a la categoría de:</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e5','A',this)">A. Axioma</button>
+        <button class="opt-btn" onclick="selectOpt('e5','B',this)">B. Teoría</button>
+        <button class="opt-btn" onclick="selectOpt('e5','C',this)">C. Ley empírica</button>
+        <button class="opt-btn" onclick="selectOpt('e5','D',this)">D. Hipótesis</button>
+      </div>
+      <div class="feedback-text" id="fb-e5"></div>
+    </div>
+
+    <!-- Ítem 6 -->
+    <div class="ejercicio-item" id="ei6">
+      <div class="item-num">Ítem 6 de 8</div>
+      <div class="item-text">El conocimiento científico se distingue del empírico principalmente porque el primero…</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e6','A',this)">A. Es sistemático, verificable y busca explicar las causas de los fenómenos</button>
+        <button class="opt-btn" onclick="selectOpt('e6','B',this)">B. Es siempre más útil en la práctica cotidiana</button>
+        <button class="opt-btn" onclick="selectOpt('e6','C',this)">C. Proviene de la experiencia directa del investigador</button>
+        <button class="opt-btn" onclick="selectOpt('e6','D',this)">D. Requiere menos tiempo para obtenerse</button>
+      </div>
+      <div class="feedback-text" id="fb-e6"></div>
+    </div>
+
+    <!-- Ítem 7 -->
+    <div class="ejercicio-item" id="ei7">
+      <div class="item-num">Ítem 7 de 8</div>
+      <div class="item-text">La Auditoría y la Contabilidad pertenecen a las ciencias:</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e7','A',this)">A. Sociales empíricas (fácticas)</button>
+        <button class="opt-btn" onclick="selectOpt('e7','B',this)">B. Formales puras</button>
+        <button class="opt-btn" onclick="selectOpt('e7','C',this)">C. Naturales experimentales</button>
+        <button class="opt-btn" onclick="selectOpt('e7','D',this)">D. Teológicas aplicadas</button>
+      </div>
+      <div class="feedback-text" id="fb-e7"></div>
+    </div>
+
+    <!-- Ítem 8 -->
+    <div class="ejercicio-item" id="ei8">
+      <div class="item-num">Ítem 8 de 8</div>
+      <div class="item-text">¿Cuál de las siguientes afirmaciones describe mejor a una TEORÍA científica?</div>
+      <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt('e8','A',this)">A. Un sistema explicativo integrado, respaldado por múltiples evidencias y capaz de predecir fenómenos</button>
+        <button class="opt-btn" onclick="selectOpt('e8','B',this)">B. Una suposición sin probar que puede ser correcta o incorrecta</button>
+        <button class="opt-btn" onclick="selectOpt('e8','C',this)">C. Una verdad aceptada sin necesidad de demostración</button>
+        <button class="opt-btn" onclick="selectOpt('e8','D',this)">D. Una relación matemática constante entre dos variables</button>
+      </div>
+      <div class="feedback-text" id="fb-e8"></div>
+    </div>
+
+  </div>
+
+  <button class="btn-verify" onclick="verificarEjercicio()">✔ Verificar respuestas</button>
+  <button class="btn-reset" onclick="resetEjercicio()" id="btnResetEj" style="display:none">↺ Reiniciar</button>
+
+  <div class="result-panel" id="resultEj">
+    <div class="result-emoji" id="emojiEj"></div>
+    <div class="result-score" id="scoreEj"></div>
+    <div class="result-pct" id="pctEj"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progEj" style="width:0%"></div></div>
+    <div class="result-msg" id="msgEj"></div>
+  </div>
+</div>
+
+<!-- CUESTIONARIO -->
+<div class="tab-content" id="cuestionario">
+  <h2 class="section-title">📝 Cuestionario — Semana 1</h2>
+  <p class="subtitle">10 preguntas · 7 teóricas + 3 de análisis de caso · Responde todo antes de verificar</p>
+
+  <div id="quizContainer">
+
+    <!-- Q1 -->
+    <div class="quiz-item" id="qi1">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">1. ¿Cuál de las siguientes opciones describe con mayor precisión el conocimiento EMPÍRICO?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q1','A',this)">A. Conocimiento adquirido mediante la experiencia directa y la observación cotidiana, sin método sistemático</button>
+        <button class="quiz-opt" onclick="selectQuiz('q1','B',this)">B. Conocimiento obtenido a través de experimentos de laboratorio controlados</button>
+        <button class="quiz-opt" onclick="selectQuiz('q1','C',this)">C. Conocimiento basado en la revelación divina y la fe</button>
+        <button class="quiz-opt" onclick="selectQuiz('q1','D',this)">D. Conocimiento que solo puede ser generado por científicos titulados</button>
+      </div>
+      <div class="feedback-text" id="fb-q1"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-item" id="qi2">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">2. Según Bunge (1997), ¿cuál de las siguientes NO es una característica del conocimiento científico?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q2','A',this)">A. Dogmático: sus verdades son definitivas e inamovibles</button>
+        <button class="quiz-opt" onclick="selectQuiz('q2','B',this)">B. Sistemático: las ideas están lógicamente conectadas</button>
+        <button class="quiz-opt" onclick="selectQuiz('q2','C',this)">C. Verificable: sus hipótesis pueden comprobarse empíricamente</button>
+        <button class="quiz-opt" onclick="selectQuiz('q2','D',this)">D. Comunicable: puede compartirse y evaluarse por otros investigadores</button>
+      </div>
+      <div class="feedback-text" id="fb-q2"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-item" id="qi3">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">3. Las ciencias FORMALES se diferencian de las ciencias empíricas principalmente en que:</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q3','A',this)">A. Su criterio de verdad es la coherencia lógica, no la verificación experimental con hechos reales</button>
+        <button class="quiz-opt" onclick="selectQuiz('q3','B',this)">B. Son más importantes y rigurosas que las ciencias empíricas</button>
+        <button class="quiz-opt" onclick="selectQuiz('q3','C',this)">C. Estudian exclusivamente fenómenos sociales</button>
+        <button class="quiz-opt" onclick="selectQuiz('q3','D',this)">D. No tienen aplicaciones prácticas en ningún campo profesional</button>
+      </div>
+      <div class="feedback-text" id="fb-q3"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-item" id="qi4">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">4. El método INDUCTIVO se caracteriza por:</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q4','A',this)">A. Partir de casos particulares observados para llegar a conclusiones o principios generales</button>
+        <button class="quiz-opt" onclick="selectQuiz('q4','B',this)">B. Aplicar una ley general a un caso particular específico</button>
+        <button class="quiz-opt" onclick="selectQuiz('q4','C',this)">C. Formular hipótesis sin ningún tipo de observación previa</button>
+        <button class="quiz-opt" onclick="selectQuiz('q4','D',this)">D. Rechazar cualquier tipo de generalización científica</button>
+      </div>
+      <div class="feedback-text" id="fb-q4"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-item" id="qi5">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">5. ¿Cuál es la diferencia fundamental entre una LEY científica y una TEORÍA científica?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q5','A',this)">A. La ley describe una relación constante y verificable entre variables; la teoría es un sistema explicativo más amplio que integra múltiples leyes y conceptos</button>
+        <button class="quiz-opt" onclick="selectQuiz('q5','B',this)">B. La teoría es más segura que la ley porque ha sido más veces comprobada</button>
+        <button class="quiz-opt" onclick="selectQuiz('q5','C',this)">C. Las leyes son opiniones de expertos y las teorías son hechos comprobados</button>
+        <button class="quiz-opt" onclick="selectQuiz('q5','D',this)">D. No existe ninguna diferencia relevante entre ambos conceptos</button>
+      </div>
+      <div class="feedback-text" id="fb-q5"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-item" id="qi6">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">6. En la relación entre investigación científica, método científico y conocimiento científico, ¿cuál es el papel del método científico?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q6','A',this)">A. Es el puente que conecta la investigación con el conocimiento: el procedimiento que transforma la investigación en conocimiento verificable</button>
+        <button class="quiz-opt" onclick="selectQuiz('q6','B',this)">B. Es idéntico a la investigación científica; ambos términos son sinónimos</button>
+        <button class="quiz-opt" onclick="selectQuiz('q6','C',this)">C. Viene después del conocimiento científico, como una forma de difundirlo</button>
+        <button class="quiz-opt" onclick="selectQuiz('q6','D',this)">D. Solo aplica a ciencias naturales, no a ciencias sociales</button>
+      </div>
+      <div class="feedback-text" id="fb-q6"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="quiz-item" id="qi7">
+      <span class="quiz-badge teorica">Teórica</span>
+      <div class="quiz-q">7. La "objetividad" del conocimiento científico significa que:</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q7','A',this)">A. Los resultados deben poder ser reproducidos por otros investigadores con el mismo método, reduciendo la influencia de percepciones personales</button>
+        <button class="quiz-opt" onclick="selectQuiz('q7','B',this)">B. El investigador no tiene ningún tipo de influencia sobre su investigación</button>
+        <button class="quiz-opt" onclick="selectQuiz('q7','C',this)">C. La ciencia elimina completamente toda subjetividad humana</button>
+        <button class="quiz-opt" onclick="selectQuiz('q7','D',this)">D. Solo los científicos con doctorado pueden generar conocimiento objetivo</button>
+      </div>
+      <div class="feedback-text" id="fb-q7"></div>
+    </div>
+
+    <!-- Q8 ANÁLISIS -->
+    <div class="quiz-item" id="qi8">
+      <span class="quiz-badge analisis">Análisis de Caso</span>
+      <div class="quiz-q">8. <strong>Caso:</strong> Carmen trabaja como contadora en una empresa importadora de Guayaquil. Ante una consulta del gerente sobre si conviene solicitar un crédito bancario, Carmen responde: "En mi experiencia, las tasas del Banco X siempre han sido más convenientes para empresas como la nuestra." ¿Qué tipo de razonamiento está usando Carmen y cuál sería el enfoque más adecuado para una decisión financiera rigurosa?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q8','A',this)">A. Carmen usa razonamiento empírico; el enfoque más riguroso requeriría comparar datos actuales de tasas de diferentes bancos, condiciones de crédito y proyecciones financieras de la empresa</button>
+        <button class="quiz-opt" onclick="selectQuiz('q8','B',this)">B. Carmen usa razonamiento científico adecuado; la experiencia personal es suficiente para decisiones financieras</button>
+        <button class="quiz-opt" onclick="selectQuiz('q8','C',this)">C. La experiencia de Carmen es más valiosa que cualquier análisis de datos porque es directa y confiable</button>
+        <button class="quiz-opt" onclick="selectQuiz('q8','D',this)">D. Carmen está aplicando el método hipotético-deductivo correctamente</button>
+      </div>
+      <div class="feedback-text" id="fb-q8"></div>
+    </div>
+
+    <!-- Q9 ANÁLISIS -->
+    <div class="quiz-item" id="qi9">
+      <span class="quiz-badge analisis">Análisis de Caso</span>
+      <div class="quiz-q">9. <strong>Caso:</strong> El SRI del Ecuador publica un estudio donde indica que "las empresas que facturan más de 500.000 USD anuales y no tienen auditoría externa tienen un 35% más de probabilidad de cometer inconsistencias tributarias, según datos de 8.000 empresas analizadas entre 2018–2022." ¿Cuál de las categorías del conocimiento científico representa mejor este hallazgo?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q9','A',this)">A. Es un resultado científico porque es sistemático, verificable, basado en datos reales y comunicable; contribuye a construir una ley estadística sobre el comportamiento tributario</button>
+        <button class="quiz-opt" onclick="selectQuiz('q9','B',this)">B. Es conocimiento empírico porque proviene de observaciones directas del SRI</button>
+        <button class="quiz-opt" onclick="selectQuiz('q9','C',this)">C. Es un axioma contable porque parte de principios fundamentales</button>
+        <button class="quiz-opt" onclick="selectQuiz('q9','D',this)">D. No es conocimiento científico porque solo estudia Ecuador y no es universal</button>
+      </div>
+      <div class="feedback-text" id="fb-q9"></div>
+    </div>
+
+    <!-- Q10 ANÁLISIS -->
+    <div class="quiz-item" id="qi10">
+      <span class="quiz-badge analisis">Análisis de Caso</span>
+      <div class="quiz-q">10. <strong>Caso:</strong> Un profesor afirma en clase: "La Teoría de la Relatividad de Einstein es 'solo' una teoría, así que no deberíamos tomárnosla tan en serio." Un estudiante de Contabilidad replica que eso es un error. ¿Quién tiene razón y por qué?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuiz('q10','A',this)">A. El estudiante tiene razón: en ciencia, "teoría" no significa especulación, sino el sistema explicativo más sólido y verificado disponible; la Relatividad ha sido comprobada miles de veces</button>
+        <button class="quiz-opt" onclick="selectQuiz('q10','B',this)">B. El profesor tiene razón: las teorías son siempre inciertas y provisionales en todos los sentidos</button>
+        <button class="quiz-opt" onclick="selectQuiz('q10','C',this)">C. Ambos tienen razón porque la palabra "teoría" tiene el mismo significado en ciencia y en lenguaje cotidiano</button>
+        <button class="quiz-opt" onclick="selectQuiz('q10','D',this)">D. Ninguno tiene razón porque Einstein era solo un físico, no un científico reconocido</button>
+      </div>
+      <div class="feedback-text" id="fb-q10"></div>
+    </div>
+
+  </div>
+
+  <button class="btn-verify" onclick="verificarQuiz()">✔ Verificar respuestas</button>
+  <button class="btn-reset" onclick="resetQuiz()" id="btnResetQ" style="display:none">↺ Reiniciar cuestionario</button>
+
+  <div class="result-panel" id="resultQ">
+    <div class="result-emoji" id="emojiQ"></div>
+    <div class="result-score" id="scoreQ"></div>
+    <div class="result-pct" id="pctQ"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progQ" style="width:0%"></div></div>
+    <div class="result-msg" id="msgQ"></div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD CON IA -->
+<div class="tab-content" id="ia">
+  <h2 class="section-title">🤖 Actividad con Inteligencia Artificial</h2>
+  <p class="subtitle">Pensamiento crítico asistido por IA · Herramienta recomendada: Claude (claude.ai)</p>
+
+  <div class="ia-card">
+    <h3>🎯 Objetivo de la actividad</h3>
+    <p>Usar la inteligencia artificial como <em>interlocutor de pensamiento crítico</em> para comprender la diferencia entre conocimiento empírico y científico en el contexto de la Contabilidad y Auditoría ecuatoriana. La IA no es el destino; es el punto de partida de tu reflexión.</p>
+    <div class="ia-tool-tag">
+      ⭐ Herramienta recomendada: <strong>Claude — claude.ai</strong> (gratuito) | También: ChatGPT o Gemini
+    </div>
+  </div>
+
+  <h3>📋 Actividad: "¿Empírico o científico? Tú decides"</h3>
+
+  <div class="ia-step">
+    <strong>Paso 1 — Prepara el contexto.</strong> Abre <a href="https://claude.ai" target="_blank">claude.ai</a> y copia exactamente el siguiente prompt en la ventana de conversación:
+  </div>
+
+  <div class="prompt-box">Actúa como un experto en Metodología de la Investigación con experiencia en ciencias contables y auditoría en Ecuador. Necesito que me des 5 situaciones concretas del trabajo cotidiano de un contador o auditor ecuatoriano, donde se pueda debatir si el profesional está usando conocimiento EMPÍRICO o conocimiento CIENTÍFICO.
+
+Para cada situación debes:
+1. Describir la situación de forma breve y realista (menciona organismos ecuatorianos reales como SRI, Superintendencia de Compañías, IESS cuando aplique).
+2. Indicar qué tipo de conocimiento está usando el profesional y por qué.
+3. Proponer cómo podría transformarse ese conocimiento empírico en científico (si aplica).
+
+Sé específico, práctico y usa ejemplos que un estudiante universitario de primer semestre de Contabilidad pueda entender.</div>
+
+  <div class="ia-step">
+    <strong>Paso 2 — Analiza la respuesta.</strong> Lee cuidadosamente las 5 situaciones que la IA te proporcione. No copies la respuesta; análizala:
+    <ul style="margin-top:8px; padding-left:20px; font-size:0.92rem;">
+      <li>¿Estás de acuerdo con la clasificación que hace la IA?</li>
+      <li>¿Hay alguna situación donde creas que la IA se equivocó o podría discutirse?</li>
+      <li>¿Puedes identificar una 6.ª situación que la IA no incluyó?</li>
+    </ul>
+  </div>
+
+  <div class="ia-step">
+    <strong>Paso 3 — Dialoga con la IA.</strong> Elige UNA de las situaciones con la que estés en desacuerdo o quieras profundizar, y escríbele a la IA algo como: <em>"En la situación N°X, yo creo que no es tan claro porque… ¿podrías rebatir mi punto de vista?"</em>. Observa cómo la IA argumenta.
+  </div>
+
+  <div class="ia-step">
+    <strong>Paso 4 — Produce tu entregable.</strong> Redacta un texto de 300 a 400 palabras donde:
+    <ul style="margin-top:8px; padding-left:20px; font-size:0.92rem;">
+      <li>Presentes brevemente la situación que elegiste para debatir.</li>
+      <li>Expliques la posición de la IA y tu posición personal.</li>
+      <li>Concluyas con una reflexión sobre por qué esta distinción importa en tu futura carrera.</li>
+    </ul>
+  </div>
+
+  <div class="concept-box" style="margin-top:24px;">
+    <div class="label">📊 Criterio de evaluación</div>
+    <p>
+      <strong>✅ Pensamiento crítico (nota alta):</strong> El estudiante identifica matices, cuestiona a la IA, aporta su propio ejemplo y refleja comprensión conceptual genuina.<br><br>
+      <strong>⚠️ Copia sin análisis (nota baja):</strong> El estudiante simplemente reproduce la respuesta de la IA sin agregar ningún análisis propio, opinión o cuestionamiento.<br><br>
+      <em>La clave es que la IA sea tu punto de partida, no tu punto de llegada.</em>
+    </p>
+  </div>
+
+  <div class="alert-info">
+    <strong>💡 Consejo:</strong> Claude es especialmente bueno para mantener debates académicos y para pedirle que argumente el lado contrario de una posición. Aprovecha eso: pídele que te contradiga, te dé contraejemplos, o te explique por qué tu opinión podría estar equivocada. Eso desarrolla pensamiento crítico mucho mejor que simplemente pedir respuestas.
+  </div>
+</div>
+
+<!-- REFLEXIÓN -->
+<div class="tab-content" id="reflexion">
+  <h2 class="section-title">💭 Preguntas Reflexivas</h2>
+  <p class="subtitle">Conecta la metodología con tu vida cotidiana · No hay respuestas correctas ni incorrectas</p>
+
+  <div class="concept-box" style="margin-bottom:24px;">
+    <div class="label">🎯 Propósito de esta sección</div>
+    <p>La investigación no es algo que ocurre solo en universidades o laboratorios. Ocurre cada vez que te preguntas <em>¿por qué?</em>, cada vez que verificas algo antes de creérselo, cada vez que cambias de opinión con base en evidencias. Estas preguntas buscan que descubras que ya investigas; solo necesitas hacerlo con más rigor.</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 1 · Conocimiento cotidiano</div>
+    <p>Esta semana, ¿tomaste alguna decisión basada en algo que "siempre has hecho así" o "todo el mundo dice que funciona"? ¿Podrías haberla tomado de forma más rigurosa? ¿Cómo?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 2 · Redes sociales y "conocimiento"</div>
+    <p>Cuando ves una noticia o afirmación viral en TikTok, Instagram o WhatsApp, ¿cómo decides si es verdad o no? ¿Qué características del conocimiento científico aplicarías para verificarla?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 3 · Empírico en casa</div>
+    <p>Piensa en algún remedio casero, costumbre o "consejo de abuela" que usas o has visto usar en tu familia. ¿Ese conocimiento es empírico o científico? ¿Cómo lo transformarías en conocimiento científico?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 4 · El método en decisiones personales</div>
+    <p>¿Has tomado alguna decisión importante en tu vida (elegir una carrera, cambiar de trabajo, hacer una compra grande) usando algo parecido al método científico — es decir, observando, hipótesis, buscando datos, analizando y concluyendo? Descríbelo.</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 5 · Futuro profesional</div>
+    <p>Si fueras auditor/a y un colega te dijera: "Esa cuenta siempre ha estado bien; no necesitas revisarla", ¿cómo responderías usando los principios del conocimiento científico que aprendiste hoy?</p>
+  </div>
+
+  <div class="reflexion-item">
+    <div class="r-num">Reflexión 6 · ¿Cambio de perspectiva?</div>
+    <p>Antes de esta semana, ¿creías que la investigación científica era algo relevante para la Contabilidad y Auditoría? Después de lo que aprendiste hoy, ¿cambió tu perspectiva? ¿En qué sentido?</p>
+  </div>
+
+  <div class="alert-info">
+    <strong>📝 Sugerencia:</strong> Anota brevemente tu respuesta a al menos 2 de estas preguntas en tu cuaderno o en un documento personal. Vuelve a leerlas al finalizar el semestre: verás cuánto habrá cambiado tu forma de pensar.
+  </div>
+</div>
+
+<!-- BIBLIOGRAFÍA -->
+<div class="tab-content" id="biblio">
+  <h2 class="section-title">📚 Bibliografía de Referencia</h2>
+  <p class="subtitle">Formato APA 7.ª edición · Semana 1 — Introducción a la Investigación Científica</p>
+
+  <div class="ref-card">
+    <div class="ref-num">1</div>
+    <div class="ref-text">
+      Bunge, M. (1997). <em>La ciencia, su método y su filosofía</em>. Editorial Sudamericana. (Obra original publicada en 1960)
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">2</div>
+    <div class="ref-text">
+      Hernández Sampieri, R., Fernández Collado, C., y Baptista Lucio, P. (2014). <em>Metodología de la investigación</em> (6.ª ed.). McGraw-Hill Education.
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">3</div>
+    <div class="ref-text">
+      Tamayo y Tamayo, M. (2003). <em>El proceso de la investigación científica</em> (4.ª ed.). Limusa.
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">4</div>
+    <div class="ref-text">
+      Kerlinger, F. N., y Lee, H. B. (2002). <em>Investigación del comportamiento: Métodos de investigación en ciencias sociales</em> (4.ª ed.). McGraw-Hill.
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">5</div>
+    <div class="ref-text">
+      Sabino, C. (2002). <em>El proceso de investigación</em>. Editorial Panapo.
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">6</div>
+    <div class="ref-text">
+      Monje Álvarez, C. A. (2011). <em>Metodología de la investigación cuantitativa y cualitativa: Guía didáctica</em>. Universidad Surcolombiana.
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">7</div>
+    <div class="ref-text">
+      Ñaupas Paitán, H., Mejía Mejía, E., Novoa Ramírez, E., y Villagómez Paucar, A. (2014). <em>Metodología de la investigación: Cuantitativa, cualitativa y redacción de la tesis</em> (4.ª ed.). Ediciones de la U.
+    </div>
+  </div>
+
+  <div class="bib-note">
+    📌 <strong>Nota importante:</strong> Se recomienda verificar cada referencia en Google Scholar (<a href="https://scholar.google.com" target="_blank">scholar.google.com</a>) o en el repositorio institucional de la Universidad de Guayaquil antes de citar en trabajos académicos. Las ediciones y datos pueden variar según la versión consultada.
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// ===== NAVEGACIÓN DE PESTAÑAS =====
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== EJERCICIO INTERACTIVO =====
+const ejAnswers = {
+  e1: { correct: 'A', feedback: { A: '✅ Correcto. El saber del agricultor es empírico: proviene de la experiencia y la observación directa, transmitido de generación en generación, sin un método sistemático de verificación.', B: '❌ Incorrecto. El conocimiento científico requiere método sistemático, hipótesis verificables y generalización controlada; ninguna de esas condiciones está presente aquí.', C: '❌ Incorrecto. El conocimiento filosófico surge de la reflexión racional y analítica sobre el ser y la existencia, no de la observación climática cotidiana.', D: '❌ Incorrecto. El conocimiento teológico proviene de la fe y la revelación divina, no de la experiencia cotidiana con fenómenos naturales.' }},
+  e2: { correct: 'A', feedback: { A: '✅ Correcto. El estudio es sistemático (1.000 casos), metódico (usa estadística), verificable (puede replicarse) y sus resultados son comunicables. Todas son características del conocimiento científico.', B: '❌ Incorrecto. Aunque la base de datos proviene de la experiencia real, el proceso de obtención del conocimiento es científico, no meramente empírico.', C: '❌ Incorrecto. El conocimiento filosófico no usa datos estadísticos ni verificación experimental; este estudio sí lo hace.', D: '❌ Incorrecto. El conocimiento teológico no depende de datos institucionales; se basa en la revelación o la fe.' }},
+  e3: { correct: 'A', feedback: { A: '✅ Correcto. Las ciencias formales (como la Matemática) trabajan con objetos ideales (números, estructuras lógicas) cuya verdad se demuestra mediante coherencia interna, sin necesidad de confrontar con hechos del mundo real.', B: '❌ Incorrecto. Las ciencias formales precisamente NO usan experimentos de laboratorio; esa característica corresponde a las ciencias empíricas.', C: '❌ Incorrecto. Las ciencias sociales son empíricas (fácticas), no formales; estudian hechos sociales concretos.', D: '❌ Incorrecto. Las ciencias formales (lógica, matemática) tienen innumerables aplicaciones en otras ciencias y en tecnología.' }},
+  e4: { correct: 'A', feedback: { A: '✅ Correcto. Afirmar que "creo que si... entonces..." es formular una hipótesis: una respuesta tentativa y provisional a un problema, que todavía debe verificarse con datos.', B: '❌ Incorrecto. Observar resultados ocurre después de recolectar y analizar datos; el contador aún no ha hecho eso.', C: '❌ Incorrecto. La conclusión es el último paso del método científico; requiere haber verificado la hipótesis previamente.', D: '❌ Incorrecto. El análisis estadístico ocurre luego de recolectar datos; el contador apenas está formulando su suposición.' }},
+  e5: { correct: 'A', feedback: { A: '✅ Correcto. Un axioma (o postulado) es una proposición aceptada como verdad fundamental sin necesidad de demostración. La ecuación contable es el fundamento inamovible sobre el que se construye toda la lógica de la partida doble.', B: '❌ Incorrecto. Una teoría es un sistema explicativo amplio que integra múltiples conceptos y evidencias; la ecuación contable es un principio puntual, no un sistema explicativo completo.', C: '❌ Incorrecto. Una ley empírica describe una relación verificada entre variables observables; la ecuación contable no se verifica experimentalmente: se acepta como fundamento lógico del sistema.', D: '❌ Incorrecto. Una hipótesis es una afirmación provisional que requiere verificación; la ecuación contable no es provisional, es fundacional.' }},
+  e6: { correct: 'A', feedback: { A: '✅ Correcto. La sistematicidad, verificabilidad y la búsqueda de causas (no solo descripción de hechos) son las diferencias esenciales del conocimiento científico respecto al empírico.', B: '❌ Incorrecto. El conocimiento empírico suele ser más inmediatamente útil en la vida cotidiana; el científico es más útil para tomar decisiones bien fundamentadas.', C: '❌ Incorrecto. Eso describe precisamente al conocimiento empírico, no al científico.', D: '❌ Incorrecto. El conocimiento científico generalmente requiere más tiempo que el empírico; la rigurosidad tiene un costo en tiempo.' }},
+  e7: { correct: 'A', feedback: { A: '✅ Correcto. La Contabilidad y la Auditoría son ciencias sociales empíricas (fácticas): estudian hechos económicos concretos y reales, se verifican con datos, y aplican el método científico.', B: '❌ Incorrecto. Las ciencias formales puras (Lógica, Matemáticas) trabajan con ideas abstractas, no con transacciones económicas reales.', C: '❌ Incorrecto. Las ciencias naturales estudian fenómenos físicos, químicos o biológicos, no relaciones económicas y financieras entre personas o empresas.', D: '❌ Incorrecto. Las ciencias teológicas se basan en la fe y la revelación divina; la Contabilidad se basa en datos verificables y normas técnicas.' }},
+  e8: { correct: 'A', feedback: { A: '✅ Correcto. Una teoría científica no es una "suposición"; es el sistema explicativo más sólido disponible, construido sobre múltiples evidencias verificadas y capaz de predecir fenómenos aún no observados.', B: '❌ Incorrecto. Esta es la confusión del lenguaje cotidiano con el lenguaje científico. En ciencia, "teoría" no significa incertidumbre; significa explicación verificada y robusta.', C: '❌ Incorrecto. Esa es la definición de AXIOMA, no de teoría. Los axiomas se aceptan sin demostración; las teorías se construyen con evidencias.', D: '❌ Incorrecto. Esa es la definición de LEY científica. Las leyes describen relaciones constantes; las teorías las explican e integran en un sistema más amplio.' }}
+};
+
+const ejSelected = {};
+
+function selectOpt(key, val, btn) {
+  const allBtns = btn.parentElement.querySelectorAll('.opt-btn');
+  allBtns.forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  ejSelected[key] = val;
+}
+
+function verificarEjercicio() {
+  const keys = ['e1','e2','e3','e4','e5','e6','e7','e8'];
+  const missing = keys.filter(k => !ejSelected[k]);
+  if (missing.length > 0) {
+    alert(`⚠️ Por favor responde todos los ítems antes de verificar. Te faltan ${missing.length} respuesta(s).`);
+    return;
+  }
+  let correct = 0;
+  const items = ['ei1','ei2','ei3','ei4','ei5','ei6','ei7','ei8'];
+  keys.forEach((key, i) => {
+    const ans = ejAnswers[key];
+    const container = document.getElementById(items[i]);
+    const allBtns = container.querySelectorAll('.opt-btn');
+    const fb = document.getElementById('fb-'+key);
+    allBtns.forEach(b => {
+      b.disabled = true;
+      b.classList.remove('selected');
+      const letter = b.textContent.trim().charAt(0);
+      if (letter === ans.correct) b.classList.add('correct-answer');
+      else if (letter === ejSelected[key] && ejSelected[key] !== ans.correct) b.classList.add('wrong-answer');
+    });
+    const isOk = ejSelected[key] === ans.correct;
+    if (isOk) correct++;
+    container.classList.add(isOk ? 'correct' : 'incorrect');
+    fb.textContent = ans.feedback[ejSelected[key]];
+    fb.className = 'feedback-text show ' + (isOk ? 'ok' : 'fail');
+  });
+  const pct = Math.round((correct / keys.length) * 100);
+  const panel = document.getElementById('resultEj');
+  document.getElementById('scoreEj').textContent = correct + ' / ' + keys.length;
+  document.getElementById('pctEj').textContent = pct + '% de respuestas correctas';
+  setTimeout(() => { document.getElementById('progEj').style.width = pct + '%'; }, 100);
+  const msgs = [
+    [100, '🏆', '¡Perfecto! Dominas completamente los conceptos de esta semana.'],
+    [80, '🎯', '¡Muy bien! Tienes una comprensión sólida. Revisa los ítems incorrectos.'],
+    [60, '📘', 'Bien encaminado/a. Repasa los temas donde tuviste dudas.'],
+    [40, '⚠️', 'Necesitas reforzar. Vuelve a los temas de contenido antes de continuar.'],
+    [0, '📖', 'Es momento de repasar el material desde el inicio. ¡Ánimo, puedes lograrlo!']
+  ];
+  const m = msgs.find(([t]) => pct >= t);
+  document.getElementById('emojiEj').textContent = m[1];
+  document.getElementById('msgEj').textContent = m[2];
+  panel.classList.add('show');
+  document.getElementById('btnResetEj').style.display = 'inline-block';
+  panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetEjercicio() {
+  const keys = ['e1','e2','e3','e4','e5','e6','e7','e8'];
+  const items = ['ei1','ei2','ei3','ei4','ei5','ei6','ei7','ei8'];
+  keys.forEach((key, i) => {
+    delete ejSelected[key];
+    const container = document.getElementById(items[i]);
+    container.classList.remove('correct','incorrect');
+    container.querySelectorAll('.opt-btn').forEach(b => {
+      b.disabled = false;
+      b.classList.remove('selected','correct-answer','wrong-answer');
+    });
+    const fb = document.getElementById('fb-'+key);
+    fb.className = 'feedback-text';
+    fb.textContent = '';
+  });
+  document.getElementById('resultEj').classList.remove('show');
+  document.getElementById('progEj').style.width = '0%';
+  document.getElementById('btnResetEj').style.display = 'none';
+}
+
+// ===== CUESTIONARIO =====
+const quizAnswers = {
+  q1: { correct: 'A', fb: { A: '✅ Correcto. El conocimiento empírico es el saber cotidiano, basado en la experiencia directa y la observación, sin método sistemático ni verificación rigurosa.', B: '❌ Incorrecto. Los experimentos de laboratorio controlados son propios del conocimiento científico experimental, no del empírico.', C: '❌ Incorrecto. El conocimiento basado en revelación divina y fe corresponde al conocimiento teológico.', D: '❌ Incorrecto. El conocimiento empírico lo puede tener cualquier persona; no requiere titulación científica.' }},
+  q2: { correct: 'A', fb: { A: '✅ Correcto. El conocimiento científico es precisamente lo opuesto al dogmático: es FALIBLE y ABIERTO. Puede ser revisado, modificado o refutado si aparecen nuevas evidencias.', B: '❌ Incorrecto. La sistematicidad SÍ es una característica del conocimiento científico (ideas conectadas lógicamente).', C: '❌ Incorrecto. La verificabilidad SÍ es una característica esencial del conocimiento científico según Bunge.', D: '❌ Incorrecto. La comunicabilidad SÍ es una característica; el conocimiento científico es público, no privado.' }},
+  q3: { correct: 'A', fb: { A: '✅ Correcto. La diferencia central es el criterio de verdad: en ciencias formales es la demostración lógica (coherencia interna); en ciencias empíricas es la verificación con hechos reales del mundo.', B: '❌ Incorrecto. No existe jerarquía de importancia entre ciencias; cada una es rigorosa en su propio dominio.', C: '❌ Incorrecto. Las ciencias sociales son empíricas (fácticas), no formales.', D: '❌ Incorrecto. Las ciencias formales (matemáticas, lógica) tienen aplicaciones en prácticamente todas las ciencias aplicadas y en tecnología.' }},
+  q4: { correct: 'A', fb: { A: '✅ Correcto. Inducción = de lo particular a lo general. Observo múltiples casos individuales y extraigo una conclusión o principio general.', B: '❌ Incorrecto. Eso describe el método DEDUCTIVO: de una ley general aplicada a un caso particular.', C: '❌ Incorrecto. Todos los métodos científicos requieren alguna forma de observación o punto de partida empírico.', D: '❌ Incorrecto. El método inductivo precisamente lleva a generalizaciones, que son sus conclusiones características.' }},
+  q5: { correct: 'A', fb: { A: '✅ Correcto. La LEY describe una relación constante y verificable entre variables. La TEORÍA es un sistema más amplio que integra múltiples conceptos, leyes e hipótesis para explicar un conjunto de fenómenos.', B: '❌ Incorrecto. No se trata de un nivel de certeza mayor; son categorías distintas del conocimiento científico con funciones diferentes.', C: '❌ Incorrecto. Esta confusión es la del lenguaje cotidiano. En ciencia, una teoría sólidamente respaldada es más robusta que muchas leyes individuales.', D: '❌ Incorrecto. Hay diferencias muy relevantes entre ley y teoría; confundirlas conduce a malentendidos sobre cómo se construye el conocimiento.' }},
+  q6: { correct: 'A', fb: { A: '✅ Correcto. Según Tamayo (2003), entre la investigación científica y el conocimiento científico se encuentra el método científico como el puente o procedimiento que transforma una investigación en conocimiento verificado.', B: '❌ Incorrecto. No son sinónimos. La investigación es el proceso; el método es el cómo; el conocimiento es el resultado.', C: '❌ Incorrecto. El método científico viene antes del conocimiento, no después. Es la herramienta para generarlo.', D: '❌ Incorrecto. El método científico es aplicable a todas las ciencias empíricas, incluyendo ciencias sociales como la Economía y la Contabilidad.' }},
+  q7: { correct: 'A', fb: { A: '✅ Correcto. La objetividad científica no elimina al investigador, pero establece procedimientos para que los resultados puedan ser reproducidos por otros. Esto se llama INTERSUBJETIVIDAD: múltiples observadores llegan a resultados similares usando el mismo método.', B: '❌ Incorrecto. El investigador siempre tiene influencia (elige el tema, el método, las variables). Lo que se busca es minimizar esa influencia en los resultados, no eliminarla.', C: '❌ Incorrecto. La subjetividad no se elimina completamente; se controla metodológicamente. La ciencia trabaja con intersubjetividad.', D: '❌ Incorrecto. La objetividad depende del método y el procedimiento, no de la titulación del investigador.' }},
+  q8: { correct: 'A', fb: { A: '✅ Correcto. Carmen usa razonamiento empírico: basa su recomendación en experiencia personal, sin datos actuales comparativos. Un enfoque científico requeriría datos actuales, comparación sistemática de condiciones, y análisis financiero riguroso.', B: '❌ Incorrecto. La experiencia personal no es el mismo que el razonamiento científico; para decisiones financieras relevantes, la intuición profesional debe respaldarse con datos verificables.', C: '❌ Incorrecto. La experiencia directa puede estar sesgada por factores que no se controlan conscientemente; no garantiza la mejor decisión.', D: '❌ Incorrecto. El método hipotético-deductivo requiere formular una hipótesis explícita, recolectar datos y verificarla; Carmen solo usa su memoria de experiencias pasadas.' }},
+  q9: { correct: 'A', fb: { A: '✅ Correcto. El hallazgo del SRI es científico porque es: sistemático (8.000 empresas, período definido), verificable (otros pueden replicarlo con los mismos datos), comunicable (publicado) y basado en hechos reales. Contribuye a construir conocimiento sobre comportamiento tributario.', B: '❌ Incorrecto. Aunque usa observaciones reales, el proceso es científico por su sistematicidad y metodología. El conocimiento empírico no usa muestras representativas ni análisis estadísticos controlados.', C: '❌ Incorrecto. Un axioma se acepta sin demostración; este hallazgo se basa en datos verificados, que es lo opuesto.', D: '❌ Incorrecto. El conocimiento científico no necesita ser universal para ser válido; puede ser específico de un contexto (Ecuador) y seguir siendo científico. Lo que lo define es el método, no la generalidad geográfica.' }},
+  q10: { correct: 'A', fb: { A: '✅ Correcto. El estudiante tiene razón. En ciencia, "teoría" no equivale a "suposición incierta". Es el sistema explicativo más sólido disponible, respaldado por múltiples evidencias. La Teoría de la Relatividad ha superado miles de pruebas empíricas.', B: '❌ Incorrecto. Las teorías son provisionales en el sentido de que pueden revisarse con nuevas evidencias, pero no son "simplemente inciertas". Tienen un enorme respaldo empírico.', C: '❌ Incorrecto. "Teoría" tiene significados distintos en ciencia y en lenguaje cotidiano. Confundirlos lleva a descalificar injustamente el conocimiento científico sólido.', D: '❌ Incorrecto. Albert Einstein es uno de los científicos más reconocidos y verificados de la historia. Sus teorías son fundamento de tecnologías modernas como el GPS.' }}
+};
+
+const quizSelected = {};
+
+function selectQuiz(key, val, btn) {
+  const allBtns = btn.parentElement.querySelectorAll('.quiz-opt');
+  allBtns.forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  quizSelected[key] = val;
+}
+
+function verificarQuiz() {
+  const keys = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+  const missing = keys.filter(k => !quizSelected[k]);
+  if (missing.length > 0) {
+    alert(`⚠️ Responde todas las preguntas antes de verificar. Te faltan ${missing.length} respuesta(s).`);
+    return;
+  }
+  let correct = 0;
+  keys.forEach((key, i) => {
+    const ans = quizAnswers[key];
+    const container = document.getElementById('qi' + (i+1));
+    const allBtns = container.querySelectorAll('.quiz-opt');
+    const fb = document.getElementById('fb-'+key);
+    allBtns.forEach(b => {
+      b.disabled = true;
+      b.classList.remove('selected');
+      const letter = b.textContent.trim().charAt(0);
+      if (letter === ans.correct) b.classList.add('correct-answer');
+      else if (letter === quizSelected[key] && quizSelected[key] !== ans.correct) b.classList.add('wrong-answer');
+    });
+    const isOk = quizSelected[key] === ans.correct;
+    if (isOk) correct++;
+    container.classList.add(isOk ? 'correct' : 'incorrect');
+    fb.textContent = ans.fb[quizSelected[key]];
+    fb.className = 'feedback-text show ' + (isOk ? 'ok' : 'fail');
+  });
+  const pct = Math.round((correct / keys.length) * 100);
+  const panel = document.getElementById('resultQ');
+  document.getElementById('scoreQ').textContent = correct + ' / ' + keys.length;
+  document.getElementById('pctQ').textContent = pct + '% de respuestas correctas';
+  setTimeout(() => { document.getElementById('progQ').style.width = pct + '%'; }, 100);
+  const msgs = [
+    [100, '🏆', '¡Puntaje perfecto! Dominas todos los conceptos de la Semana 1.'],
+    [80, '🎯', '¡Excelente! Comprensión muy sólida. Revisa los casos que fallaste.'],
+    [60, '📘', 'Buen avance. Refuerza los temas teóricos donde tuviste dificultades.'],
+    [40, '⚠️', 'Necesitas consolidar los conceptos. Revisa el contenido con atención.'],
+    [0, '📖', 'Vuelve a estudiar el material de esta semana. ¡La perseverancia es clave!']
+  ];
+  const m = msgs.find(([t]) => pct >= t);
+  document.getElementById('emojiQ').textContent = m[1];
+  document.getElementById('msgQ').textContent = m[2];
+  panel.classList.add('show');
+  document.getElementById('btnResetQ').style.display = 'inline-block';
+  panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetQuiz() {
+  const keys = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+  keys.forEach((key, i) => {
+    delete quizSelected[key];
+    const container = document.getElementById('qi' + (i+1));
+    container.classList.remove('correct','incorrect');
+    container.querySelectorAll('.quiz-opt').forEach(b => {
+      b.disabled = false;
+      b.classList.remove('selected','correct-answer','wrong-answer');
+    });
+    const fb = document.getElementById('fb-'+key);
+    fb.className = 'feedback-text';
+    fb.textContent = '';
+  });
+  document.getElementById('resultQ').classList.remove('show');
+  document.getElementById('progQ').style.width = '0%';
+  document.getElementById('btnResetQ').style.display = 'none';
+}
+</script>
+</body>
+</html>
