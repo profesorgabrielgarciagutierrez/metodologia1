@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 09 | Planteamiento del Problema, Variables e Hipótesis</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ========== RESET & BASE ========== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Sans 3', sans-serif; font-size: 16px; background: #f0f4f8; color: #1a1a2e; min-height: 100vh; }
+
+  /* ========== HEADER ========== */
+  .header { background: #003366; color: #fff; padding: 18px 24px 14px; }
+  .header-top { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .header-logo { width: 52px; height: 52px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .header-logo svg { width: 36px; height: 36px; }
+  .header-text h1 { font-family: 'Lora', serif; font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+  .header-text p { font-size: 0.82rem; opacity: 0.85; margin-top: 2px; }
+  .header-meta { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .badge { background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); border-radius: 20px; padding: 3px 12px; font-size: 0.78rem; color: #fff; }
+  .badge-accent { background: #1a6bbf; border-color: #1a6bbf; }
+
+  /* ========== TAB NAV ========== */
+  .tab-nav-wrapper { background: #87CEEB; overflow-x: auto; white-space: nowrap; border-bottom: 3px solid #003366; }
+  .tab-nav { display: inline-flex; min-width: 100%; }
+  .tab-btn { background: transparent; border: none; padding: 11px 15px; font-family: 'Source Sans 3', sans-serif; font-size: 0.82rem; font-weight: 600; color: #1a1a2e; cursor: pointer; border-right: 1px solid rgba(0,51,102,0.15); white-space: nowrap; transition: background 0.2s, color 0.2s; }
+  .tab-btn:hover { background: rgba(255,255,255,0.5); }
+  .tab-btn.active { background: #fff; color: #003366; font-weight: 700; border-bottom: 3px solid #fff; margin-bottom: -3px; }
+
+  /* ========== CONTENT AREA ========== */
+  .tab-content { display: none; padding: 28px 24px; max-width: 960px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* ========== TYPOGRAPHY ========== */
+  h2 { font-family: 'Lora', serif; font-size: 1.5rem; color: #003366; margin-bottom: 16px; border-bottom: 2px solid #87CEEB; padding-bottom: 8px; }
+  h3 { font-family: 'Lora', serif; font-size: 1.15rem; color: #003366; margin: 22px 0 10px; }
+  h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; color: #003366; font-weight: 700; margin: 14px 0 6px; }
+  p { line-height: 1.75; margin-bottom: 12px; color: #222; }
+  ul, ol { margin: 10px 0 14px 22px; line-height: 1.8; color: #222; }
+  li { margin-bottom: 4px; }
+  strong { color: #003366; }
+
+  /* ========== BOXES ========== */
+  .concept-box { border-left: 5px solid #003366; background: #f7f9fc; padding: 14px 18px; margin: 16px 0; border-radius: 0 8px 8px 0; }
+  .concept-box .label { font-size: 0.72rem; font-weight: 700; color: #003366; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .example-box { background: #e3f0fb; border: 1px solid #b3d4f0; border-radius: 8px; padding: 14px 18px; margin: 16px 0; }
+  .example-box .label { font-size: 0.72rem; font-weight: 700; color: #1a6bbf; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .key-box { background: #003366; color: #fff; border-radius: 8px; padding: 14px 18px; margin: 20px 0; }
+  .key-box .label { font-size: 0.72rem; font-weight: 700; color: #87CEEB; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .key-box p { color: #e8f0fa; margin-bottom: 0; }
+  .warning-box { background: #fff8e1; border-left: 5px solid #f59e0b; border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0; }
+  .warning-box .label { font-size: 0.72rem; font-weight: 700; color: #b45309; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+
+  /* ========== TABLE ========== */
+  .table-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th { background: #003366; color: #fff; padding: 10px 12px; text-align: left; font-family: 'Source Sans 3', sans-serif; font-weight: 600; }
+  td { padding: 9px 12px; border-bottom: 1px solid #dde3ea; vertical-align: top; }
+  tr:nth-child(even) td { background: #f0f4f8; }
+  tr:hover td { background: #e3f0fb; }
+
+  /* ========== STEP BOXES ========== */
+  .steps { counter-reset: step; margin: 16px 0; }
+  .step { display: flex; gap: 14px; margin-bottom: 14px; align-items: flex-start; }
+  .step-num { background: #003366; color: #fff; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; margin-top: 2px; }
+  .step-content { flex: 1; }
+
+  /* ========== REPASO CARDS ========== */
+  .repaso-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 16px 0; }
+  .repaso-card { background: #fff; border: 1px solid #b3d4f0; border-top: 4px solid #003366; border-radius: 8px; padding: 14px; }
+  .repaso-card .week { font-size: 0.72rem; font-weight: 700; color: #1a6bbf; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .repaso-card h4 { font-size: 0.92rem; color: #003366; margin: 0 0 6px; }
+  .repaso-card p { font-size: 0.84rem; color: #444; margin: 0; line-height: 1.6; }
+
+  /* ========== INTERACTIVE EXERCISE ========== */
+  .exercise-item { background: #fff; border: 1px solid #dde3ea; border-radius: 8px; padding: 16px; margin-bottom: 14px; }
+  .exercise-item .q-num { font-size: 0.75rem; font-weight: 700; color: #1a6bbf; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .exercise-item p { margin-bottom: 10px; font-weight: 600; color: #1a1a2e; }
+  .options-grid { display: grid; gap: 8px; }
+  .option-label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; padding: 8px 12px; border: 1px solid #dde3ea; border-radius: 6px; transition: background 0.15s, border-color 0.15s; font-size: 0.9rem; }
+  .option-label:hover { background: #e3f0fb; border-color: #87CEEB; }
+  .option-label input { margin-top: 3px; flex-shrink: 0; accent-color: #003366; }
+  .feedback { display: none; margin-top: 10px; padding: 10px 14px; border-radius: 6px; font-size: 0.88rem; line-height: 1.55; }
+  .feedback.correct { background: #d1fae5; border-left: 4px solid #059669; color: #065f46; display: block; }
+  .feedback.incorrect { background: #fee2e2; border-left: 4px solid #dc2626; color: #7f1d1d; display: block; }
+
+  /* ========== QUIZ ========== */
+  .quiz-item { background: #fff; border: 1px solid #dde3ea; border-radius: 8px; padding: 16px; margin-bottom: 14px; }
+  .quiz-item .q-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .quiz-item .q-num { font-size: 0.78rem; font-weight: 700; color: #003366; }
+  .badge-type { font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-teorica { background: #dbeafe; color: #1d4ed8; }
+  .badge-analisis { background: #fef3c7; color: #92400e; }
+  .quiz-item p.question-text { font-weight: 600; color: #1a1a2e; margin-bottom: 10px; }
+
+  /* ========== RESULT SECTION ========== */
+  .result-section { display: none; background: #fff; border: 1px solid #dde3ea; border-radius: 10px; padding: 20px; margin-top: 20px; text-align: center; }
+  .result-section.show { display: block; }
+  .result-score { font-family: 'Lora', serif; font-size: 2.2rem; font-weight: 700; color: #003366; }
+  .result-emoji { font-size: 2.5rem; margin: 8px 0; }
+  .result-msg { font-size: 1rem; color: #444; margin-bottom: 14px; }
+  .progress-bar-wrap { background: #e2e8f0; border-radius: 999px; height: 16px; overflow: hidden; margin: 10px 0; }
+  .progress-bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #003366, #1a6bbf); transition: width 0.8s ease; }
+
+  /* ========== BUTTONS ========== */
+  .btn-primary { background: #003366; color: #fff; border: none; padding: 12px 28px; border-radius: 6px; font-family: 'Source Sans 3', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
+  .btn-primary:hover { background: #1a6bbf; }
+  .btn-secondary { background: #87CEEB; color: #003366; border: none; padding: 10px 24px; border-radius: 6px; font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: background 0.2s; margin-top: 10px; margin-left: 10px; }
+  .btn-secondary:hover { background: #60b8e0; }
+
+  /* ========== AI ACTIVITY ========== */
+  .prompt-box { background: #1a1a2e; color: #e2e8f0; border-radius: 8px; padding: 18px 20px; font-family: monospace; font-size: 0.88rem; line-height: 1.7; margin: 14px 0; white-space: pre-wrap; }
+  .ai-step { background: #fff; border: 1px solid #dde3ea; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; }
+  .ai-step .step-title { font-weight: 700; color: #003366; font-size: 0.95rem; margin-bottom: 6px; }
+
+  /* ========== REFLECTION ========== */
+  .reflection-card { background: #fff; border: 1px solid #b3d4f0; border-left: 5px solid #1a6bbf; border-radius: 0 8px 8px 0; padding: 16px 18px; margin-bottom: 14px; }
+  .reflection-card .q-icon { font-size: 1.4rem; margin-bottom: 8px; }
+  .reflection-card p { color: #1a1a2e; font-size: 0.95rem; margin-bottom: 0; }
+
+  /* ========== BIBLIOGRAPHY ========== */
+  .ref-card { background: #fff; border: 1px solid #dde3ea; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; display: flex; gap: 14px; }
+  .ref-num { background: #003366; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .ref-content p { margin-bottom: 4px; font-size: 0.88rem; line-height: 1.55; color: #333; }
+  .ref-content em { color: #003366; }
+  .ref-note { background: #fff8e1; border: 1px solid #f59e0b; border-radius: 8px; padding: 12px 16px; margin-top: 18px; font-size: 0.85rem; color: #7c4a03; }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 600px) {
+    .header-text h1 { font-size: 0.98rem; }
+    .tab-content { padding: 18px 14px; }
+    h2 { font-size: 1.25rem; }
+    .repaso-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+  <div class="header-top">
+    <div class="header-logo">
+      <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="26" cy="26" r="24" fill="#003366"/>
+        <path d="M14 36 L26 16 L38 36" stroke="#87CEEB" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M18 30 L34 30" stroke="#87CEEB" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="26" cy="13" r="3" fill="#FFD700"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>Universidad de Guayaquil — Facultad de Ciencias Administrativas</h1>
+      <p>Carrera en Contabilidad y Auditoría | Modalidad Virtual</p>
+    </div>
+  </div>
+  <div class="header-meta">
+    <span class="badge">Metodología de la Investigación</span>
+    <span class="badge">Unidad 3</span>
+    <span class="badge badge-accent">Semana 09</span>
+    <span class="badge">Planteamiento del Problema · Variables · Hipótesis</span>
+  </div>
+</header>
+
+<!-- ========== TAB NAVIGATION ========== -->
+<nav class="tab-nav-wrapper">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('repaso')">📚 Repaso</button>
+    <button class="tab-btn" onclick="showTab('tema1')">1. El Problema de Investigación</button>
+    <button class="tab-btn" onclick="showTab('tema2')">2. Planteamiento del Problema</button>
+    <button class="tab-btn" onclick="showTab('tema3')">3. Variables de Investigación</button>
+    <button class="tab-btn" onclick="showTab('tema4')">4. Hipótesis</button>
+    <button class="tab-btn" onclick="showTab('ejercicio')">⚡ Ejercicio Interactivo</button>
+    <button class="tab-btn" onclick="showTab('cuestionario')">📝 Cuestionario</button>
+    <button class="tab-btn" onclick="showTab('ia')">🤖 Actividad con IA</button>
+    <button class="tab-btn" onclick="showTab('reflexion')">💭 Reflexión</button>
+    <button class="tab-btn" onclick="showTab('bibliografia')">📖 Bibliografía</button>
+  </div>
+</nav>
+
+<!-- ========== REPASO ========== -->
+<div id="repaso" class="tab-content active">
+  <h2>📚 Repaso: Lo que hemos construido hasta aquí</h2>
+  <p>Antes de adentrarnos en el corazón metodológico de esta semana, revisemos el camino recorrido. Esta es la <strong>Semana 09</strong> y corresponde al inicio de la <strong>Unidad 3</strong>. Acabamos de superar el primer examen parcial (Semana 08), lo que nos da un momento ideal para consolidar lo aprendido y preparar el terreno para algo nuevo.</p>
+
+  <div class="repaso-grid">
+    <div class="repaso-card">
+      <div class="week">Semanas 01–02</div>
+      <h4>Conocimiento y Ciencia</h4>
+      <p>Distinguimos entre conocimiento empírico (basado en la experiencia) y científico (sistemático, verificable). Exploramos los elementos de la investigación y la clasificación de estudios según su alcance (exploratorio, descriptivo, correlacional, explicativo).</p>
+    </div>
+    <div class="repaso-card">
+      <div class="week">Semanas 03–04</div>
+      <h4>Ética y Epistemología</h4>
+      <p>Profundizamos en los fundamentos filosóficos que sustentan la ciencia: la epistemología (teoría del conocimiento), sus categorías y los problemas que plantea. También analizamos la complejidad e interdisciplinariedad de las ciencias modernas.</p>
+    </div>
+    <div class="repaso-card">
+      <div class="week">Semanas 05–06</div>
+      <h4>Enfoques de Investigación</h4>
+      <p>Diferenciamos el enfoque cuantitativo (medición, estadísticas, objetividad) del cualitativo (comprensión, interpretación, subjetividad) y conocimos los métodos mixtos. También estudiamos los diseños experimentales y no experimentales.</p>
+    </div>
+    <div class="repaso-card">
+      <div class="week">Semana 07</div>
+      <h4>Variables y Diseños Experimentales</h4>
+      <p>Conocimos las variables dependientes e independientes dentro del contexto experimental. Aprendimos sobre manipulación, control, validez interna y externa, y los tipos de diseños experimentales y no experimentales.</p>
+    </div>
+  </div>
+
+  <div class="key-box">
+    <div class="label">🎯 ¿Por qué importa lo anterior para esta semana?</div>
+    <p>Todo lo que hemos aprendido hasta aquí nos prepara para el momento más crítico de cualquier investigación: <strong>formular el problema</strong>. Sin un problema bien planteado, ninguna metodología, ningún diseño y ningún enfoque puede funcionar. Esta semana conectamos el "cómo investigar" con el "qué investigar y por qué".</p>
+  </div>
+
+  <div class="example-box">
+    <div class="label">🧑‍🎓 Sofía nos acompaña esta semana</div>
+    <p>Sofía es una estudiante de Contabilidad y Auditoría de la Universidad de Guayaquil. En semanas anteriores aprendió sobre enfoques y diseños de investigación. Esta semana, su profesora le pide que plantee un problema de investigación para su proyecto de fin de semestre. Sofía se pregunta: <em>"¿Por qué las empresas familiares en Guayaquil tienen tan alta tasa de quiebra en sus primeros cinco años?"</em> A lo largo de esta semana veremos si esa pregunta cumple los criterios de un problema de investigación bien planteado.</p>
+  </div>
+</div>
+
+<!-- ========== TEMA 1: El Problema de Investigación ========== -->
+<div id="tema1" class="tab-content">
+  <h2>1. El Problema de Investigación: punto de partida de toda ciencia</h2>
+
+  <div class="concept-box">
+    <div class="label">📌 Definición Esencial</div>
+    <p>Un <strong>problema de investigación</strong> es una situación de desconocimiento, contradicción, necesidad o brecha en el conocimiento existente, que puede y debe ser estudiada de forma sistemática mediante el método científico. No es simplemente una dificultad cotidiana: es una pregunta científicamente relevante que no tiene respuesta definitiva en la literatura actual.</p>
+  </div>
+
+  <p>Cuando hablamos de "problema" en investigación no nos referimos a algo negativo o a un conflicto. Se trata de un <strong>vacío en el conocimiento</strong>: algo que no se sabe con certeza, que se contradice en distintos estudios, o que cambia según el contexto. Identificar ese vacío y nombrarlo con precisión es el primer y más importante paso de cualquier investigación.</p>
+
+  <h3>¿De dónde surgen los problemas de investigación?</h3>
+  <p>Hernández Sampieri et al. (2014) señalan que los problemas pueden originarse en diversas fuentes. Conocerlas ayuda al investigador —y al futuro contador o auditor— a reconocer oportunidades de investigación en su propio entorno profesional:</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content"><h4>La experiencia personal y profesional</h4><p>Un auditor que trabaja en el SRI (Servicio de Rentas Internas del Ecuador) puede notar que ciertos tipos de empresas reinciden más en infracciones tributarias. Esa observación cotidiana puede transformarse en un problema de investigación.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content"><h4>La revisión de la literatura científica</h4><p>Al leer investigaciones previas, se descubre que no existe ningún estudio sobre cómo la cultura organizacional afecta el cumplimiento tributario en las PYMES del Ecuador. Ese vacío es un problema de investigación.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content"><h4>Necesidades sociales e institucionales</h4><p>La Contraloría General del Estado necesita entender por qué los sistemas de control interno fallan en ciertas instituciones públicas guayaquileñas. Esa necesidad genera problemas investigables.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content"><h4>Teorías existentes que requieren actualización</h4><p>Una teoría contable formulada en los años 80 puede no aplicarse igual en el contexto ecuatoriano del siglo XXI con la adopción de las Normas NIIF. Esa brecha entre teoría y realidad actual es un problema de investigación.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content"><h4>Hallazgos contradictorios en estudios previos</h4><p>Si dos investigaciones concluyen cosas opuestas —una dice que la capacitación contable reduce el fraude, otra dice que no tiene efecto— existe un problema de investigación para resolver esa contradicción.</p></div>
+    </div>
+  </div>
+
+  <h3>Criterios para reconocer un buen problema de investigación</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Criterio</th><th>Descripción</th><th>Ejemplo aplicado</th></tr>
+      <tr><td><strong>Relevancia científica</strong></td><td>Aporta nuevo conocimiento o resuelve una contradicción teórica</td><td>Analizar variables no estudiadas del fraude contable en empresas familiares guayaquileñas</td></tr>
+      <tr><td><strong>Relevancia social</strong></td><td>Sus resultados son útiles para personas, organizaciones o políticas públicas</td><td>El Estado ecuatoriano puede usar los hallazgos para diseñar mejores políticas de control fiscal</td></tr>
+      <tr><td><strong>Viabilidad</strong></td><td>Es posible estudiarlo con los recursos y tiempo disponibles</td><td>Los datos del SRI y la Superintendencia de Compañías son accesibles para el investigador</td></tr>
+      <tr><td><strong>Factibilidad ética</strong></td><td>No viola derechos de los participantes ni principios éticos</td><td>El estudio no expone información confidencial de contribuyentes individuales</td></tr>
+      <tr><td><strong>Verificabilidad empírica</strong></td><td>Puede ser estudiado con evidencia observable</td><td>Se pueden medir estados financieros, registros tributarios, declaraciones de impuestos</td></tr>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <div class="label">🇪🇨 Ejemplo Ecuatoriano: Crisis Bancaria de 1999</div>
+    <p>La <strong>crisis financiera ecuatoriana de 1999</strong> —en la que quebraron 16 bancos y miles de ahorristas perdieron sus depósitos— generó decenas de problemas de investigación que aún hoy se estudian: ¿Fallaron los sistemas de auditoría interna? ¿Las normas contables de la época eran insuficientes? ¿Qué rol tuvo la corrupción institucional? Cada una de esas preguntas es un problema de investigación legítimo con relevancia científica, social y práctica enorme.</p>
+  </div>
+
+  <div class="warning-box">
+    <div class="label">⚠️ Errores comunes al identificar un problema</div>
+    <ul>
+      <li>Confundir un tema general ("la contabilidad") con un problema específico</li>
+      <li>Plantear el problema como una afirmación en lugar de una pregunta o brecha</li>
+      <li>Seleccionar un problema que ya fue resuelto definitivamente</li>
+      <li>Elegir un problema demasiado amplio que no puede abordarse en una sola investigación</li>
+      <li>No verificar que el problema sea viable en cuanto a acceso a datos y recursos</li>
+    </ul>
+  </div>
+
+  <div class="key-box">
+    <div class="label">💡 Idea Clave</div>
+    <p>El problema de investigación <strong>no se inventa</strong>: se <em>descubre</em>. Surge de mirar el mundo con ojos críticos, preguntarse "¿por qué?" ante algo que parece incompleto o contradictorio, y tener la curiosidad para ir más allá de lo que ya se sabe. Para un contador o auditor, esa curiosidad puede convertirse en investigación científica que mejore la profesión.</p>
+  </div>
+</div>
+
+<!-- ========== TEMA 2: Planteamiento del Problema ========== -->
+<div id="tema2" class="tab-content">
+  <h2>2. Planteamiento del Problema de Investigación</h2>
+
+  <div class="concept-box">
+    <div class="label">📌 Definición Esencial</div>
+    <p>El <strong>planteamiento del problema</strong> es el proceso formal mediante el cual el investigador expone, delimita y estructura con precisión el problema que va a estudiar. No es solo "escribir la pregunta": implica contextualizar el problema, justificar su relevancia, demostrar que existe una brecha de conocimiento y formular con claridad las preguntas, objetivos y justificación de la investigación.</p>
+  </div>
+
+  <p>Plantear bien el problema es la habilidad más difícil de desarrollar en investigación —y también la más importante. Un investigador puede tener la mejor metodología del mundo, pero si el problema está mal planteado, toda la investigación será inútil o irrelevante. Hernández Sampieri et al. (2014) afirman que un problema bien planteado es, en sí mismo, la mitad de la solución.</p>
+
+  <h3>Elementos del planteamiento del problema</h3>
+  <p>El planteamiento del problema se construye articulando cinco elementos que deben estar presentes y relacionados entre sí:</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Los objetivos de la investigación</h4>
+        <p>¿Para qué se investiga? Los objetivos señalan con precisión qué pretende alcanzar el estudio. Se dividen en <strong>objetivo general</strong> (la meta amplia) y <strong>objetivos específicos</strong> (los pasos concretos para alcanzarla). Se redactan siempre con un verbo en infinitivo: <em>determinar, analizar, comparar, describir, establecer</em>.</p>
+        <div class="example-box">
+          <div class="label">Ejemplo</div>
+          <p><strong>General:</strong> Determinar la relación entre el nivel de capacitación contable de las PYMES y su cumplimiento tributario ante el SRI en la ciudad de Guayaquil (2022–2024).<br>
+          <strong>Específico 1:</strong> Describir el nivel de capacitación contable de las PYMES encuestadas.<br>
+          <strong>Específico 2:</strong> Analizar el historial de cumplimiento tributario de esas mismas empresas según datos del SRI.</p>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Las preguntas de investigación</h4>
+        <p>¿Qué exactamente se quiere saber? Las preguntas de investigación son la versión interrogativa de los objetivos. Deben ser <strong>precisas, medibles y viables</strong>. No deben responderse con un simple "sí" o "no".</p>
+        <div class="example-box">
+          <div class="label">Ejemplo</div>
+          <p>❌ <strong>Mal planteada:</strong> "¿Las PYMES cumplen con sus impuestos?" (responde sí o no)<br>
+          ✅ <strong>Bien planteada:</strong> "¿Qué relación existe entre el nivel de formación contable de los propietarios de PYMES y la frecuencia de infracciones tributarias registradas por el SRI en Guayaquil entre 2022 y 2024?"</p>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>La justificación de la investigación</h4>
+        <p>¿Por qué vale la pena esta investigación? La justificación debe responder al menos tres de las siguientes cinco preguntas que plantea Hernández Sampieri:</p>
+        <ul>
+          <li><strong>Conveniencia:</strong> ¿Para qué sirve este estudio?</li>
+          <li><strong>Relevancia social:</strong> ¿A quiénes beneficia y cómo?</li>
+          <li><strong>Implicaciones prácticas:</strong> ¿Qué problema real ayuda a resolver?</li>
+          <li><strong>Valor teórico:</strong> ¿Contribuye al cuerpo de conocimiento científico?</li>
+          <li><strong>Utilidad metodológica:</strong> ¿Propone nuevas formas de medir o estudiar un fenómeno?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>La viabilidad o factibilidad</h4>
+        <p>¿Es posible llevar a cabo esta investigación? El investigador debe considerar el <strong>tiempo disponible</strong>, el <strong>acceso a datos</strong> (¿puede acceder a registros del SRI, IESS, Superintendencia de Compañías?), los <strong>recursos económicos</strong> y las <strong>limitaciones éticas</strong>.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Las deficiencias en el conocimiento del problema</h4>
+        <p>¿Qué se sabe hasta ahora y qué no se sabe? El investigador debe demostrar que revisó la literatura existente y que su estudio llena un vacío real. Si el problema ya fue completamente resuelto, no hay justificación para investigarlo de nuevo (salvo que el contexto haya cambiado significativamente).</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Criterios de calidad para un buen planteamiento (Hernández Sampieri)</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Criterio</th><th>Pregunta clave</th></tr>
+      <tr><td>El problema expresa una relación entre variables</td><td>¿Mi pregunta relaciona dos o más conceptos medibles?</td></tr>
+      <tr><td>El problema está formulado como pregunta</td><td>¿Usé forma interrogativa y clara?</td></tr>
+      <tr><td>El problema implica una posibilidad de prueba empírica</td><td>¿Puedo recolectar datos reales para responderlo?</td></tr>
+      <tr><td>El problema delimita el contexto</td><td>¿Especifiqué lugar, tiempo y población?</td></tr>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <div class="label">🧑‍🎓 Sofía plantea su problema</div>
+    <p>Sofía reformula su pregunta inicial siguiendo estos criterios:<br><br>
+    <em>"¿Cuál es la relación entre el nivel de formación académica en gestión financiera de los propietarios de empresas familiares y la tasa de cierre de esas empresas en los primeros cinco años de operación en el cantón Guayaquil, período 2018–2023?"</em><br><br>
+    Esta pregunta: ✅ relaciona dos variables (formación académica y tasa de cierre), ✅ es interrogativa, ✅ es empíricamente verificable con datos de la Superintendencia de Compañías, ✅ delimita lugar (Guayaquil) y tiempo (2018–2023).</p>
+  </div>
+
+  <div class="key-box">
+    <div class="label">💡 Idea Clave</div>
+    <p>El planteamiento del problema <strong>no es un párrafo aislado</strong>: es un sistema de elementos interconectados. Los objetivos guían las preguntas, las preguntas orientan la justificación, y todo el conjunto determina el diseño de investigación que se elegirá después. Tomarse el tiempo de hacer esto bien ahorra semanas de trabajo mal dirigido.</p>
+  </div>
+</div>
+
+<!-- ========== TEMA 3: Variables de Investigación ========== -->
+<div id="tema3" class="tab-content">
+  <h2>3. Variables de Investigación: el lenguaje de la ciencia</h2>
+
+  <div class="concept-box">
+    <div class="label">📌 Definición Esencial</div>
+    <p>Una <strong>variable</strong> es una propiedad, característica o atributo de la realidad que puede cambiar (variar) de un individuo, objeto, grupo, situación o momento a otro, y cuya variación puede ser <strong>observada, medida o manipulada</strong> en una investigación. El término "variable" viene precisamente de su naturaleza: no es fija, varía.</p>
+  </div>
+
+  <p>Las variables son el lenguaje con el que la ciencia traduce la realidad en datos medibles. Si el problema de investigación es "¿Qué relación existe entre la capacitación contable y el cumplimiento tributario?", entonces <em>capacitación contable</em> y <em>cumplimiento tributario</em> son las variables. Todo lo demás en la investigación gira alrededor de ellas: las hipótesis las conectan, los instrumentos las miden y el análisis estadístico las compara.</p>
+
+  <h3>Clasificación principal de variables</h3>
+
+  <h4>1. Según su rol en la investigación (la clasificación más importante)</h4>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Tipo</th><th>Definición</th><th>Símbolo</th><th>Ejemplo contable</th></tr>
+      <tr><td><strong>Variable Independiente (VI)</strong></td><td>Es la causa, el factor que se supone influye o determina a otra variable. En experimentos, es la que el investigador manipula.</td><td>X</td><td>Nivel de capacitación tributaria del contador</td></tr>
+      <tr><td><strong>Variable Dependiente (VD)</strong></td><td>Es el efecto o resultado. Depende de la variable independiente; es lo que se mide como respuesta al cambio en la VI.</td><td>Y</td><td>Número de infracciones tributarias cometidas</td></tr>
+      <tr><td><strong>Variable Interviniente o Moderadora</strong></td><td>Factores ajenos que pueden afectar la relación entre VI y VD, aunque no son el foco del estudio.</td><td>Z</td><td>Tamaño de la empresa, sector económico</td></tr>
+      <tr><td><strong>Variable de Control</strong></td><td>Variables que el investigador mantiene constantes para eliminar su influencia sobre los resultados.</td><td>C</td><td>Que todas las empresas estudiadas sean del mismo sector</td></tr>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <div class="label">🇪🇨 Ejemplo: Caso Odebrecht en Ecuador</div>
+    <p>En la investigación sobre el caso Odebrecht (la empresa brasileña que pagó sobornos en Ecuador para obtener contratos de obra pública), un estudio podría estructurarse así:<br><br>
+    <strong>VI:</strong> Existencia de mecanismos de control interno en la Contraloría General del Estado<br>
+    <strong>VD:</strong> Detección oportuna de irregularidades en contratos públicos<br>
+    <strong>Variable interviniente:</strong> Presión política sobre los auditores, rotación del personal fiscalizador<br><br>
+    Este ejemplo ilustra que las variables no son abstractas: corresponden a realidades concretas que se pueden documentar y medir.</p>
+  </div>
+
+  <h4>2. Según la naturaleza de los datos (nivel de medición)</h4>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Tipo</th><th>Característica</th><th>Ejemplo en Auditoría</th></tr>
+      <tr><td><strong>Nominal</strong></td><td>Categorías sin orden ni jerarquía. Solo identifica grupos.</td><td>Tipo de empresa: pública / privada / mixta</td></tr>
+      <tr><td><strong>Ordinal</strong></td><td>Categorías con orden, pero sin distancias iguales entre ellas.</td><td>Nivel de riesgo: bajo / medio / alto / crítico</td></tr>
+      <tr><td><strong>De intervalo</strong></td><td>Valores numéricos con distancias iguales, pero sin cero absoluto.</td><td>Año de fundación de la empresa (2010, 2015, 2020)</td></tr>
+      <tr><td><strong>De razón</strong></td><td>Valores numéricos con cero absoluto real. Permite todas las operaciones matemáticas.</td><td>Ingresos en dólares, número de empleados</td></tr>
+    </table>
+  </div>
+
+  <h4>3. Según si cambian o no durante el estudio</h4>
+  <ul>
+    <li><strong>Variables activas (manipuladas):</strong> El investigador las modifica deliberadamente en experimentos (Ej.: asignar distintos tipos de capacitación a grupos de contadores).</li>
+    <li><strong>Variables atributivas (no manipuladas):</strong> Son características que ya existen en los sujetos y no pueden cambiarse (Ej.: edad, género, experiencia laboral previa).</li>
+  </ul>
+
+  <h3>Definición conceptual y operacional de una variable</h3>
+  <p>Para que la investigación sea replicable y verificable, cada variable debe definirse de dos maneras:</p>
+
+  <div class="concept-box">
+    <div class="label">Definición Conceptual</div>
+    <p>Es la definición teórica de la variable, basada en la literatura científica. Es el significado que le da la teoría al concepto. Ejemplo: <em>"La evasión tributaria es la acción intencional del contribuyente de reducir o eliminar su carga fiscal mediante medios ilegales"</em> (OCDE, 2017).</p>
+  </div>
+
+  <div class="concept-box">
+    <div class="label">Definición Operacional</div>
+    <p>Establece cómo se va a <strong>medir</strong> la variable en la práctica: qué instrumento se usará, qué indicadores se observarán y cómo se cuantificará. Ejemplo: <em>"La evasión tributaria se medirá mediante el índice de diferencia entre el impuesto declarado y el impuesto calculado según los estados financieros auditados, expresado como porcentaje."</em></p>
+  </div>
+
+  <div class="example-box">
+    <div class="label">🧑‍🎓 Sofía define sus variables</div>
+    <p><strong>Variable Independiente — Definición conceptual:</strong> "El nivel de formación académica en gestión financiera se refiere al grado de conocimiento formal en administración de recursos financieros que posee el propietario o gerente de una empresa" (Hernández Sampieri, 2014).<br><br>
+    <strong>Variable Independiente — Definición operacional:</strong> "Se medirá según el nivel más alto de estudios formales en áreas de contabilidad, finanzas o administración completado por el propietario, categorizado en: ninguno, bachillerato técnico, estudios universitarios incompletos, título universitario, posgrado."<br><br>
+    <strong>Variable Dependiente — Definición operacional:</strong> "Se medirá como el número de años desde la constitución hasta el cierre legal de la empresa, registrado en la Superintendencia de Compañías del Ecuador."</p>
+  </div>
+
+  <div class="key-box">
+    <div class="label">💡 Idea Clave</div>
+    <p>Sin variables bien definidas, la investigación no puede avanzar. La <strong>definición conceptual</strong> garantiza que todos entendemos lo mismo por cada término; la <strong>definición operacional</strong> garantiza que podemos medirlo de la misma manera. Juntas, hacen que la investigación sea rigurosa, replicable y científicamente válida.</p>
+  </div>
+</div>
+
+<!-- ========== TEMA 4: Hipótesis ========== -->
+<div id="tema4" class="tab-content">
+  <h2>4. Hipótesis: la predicción científica</h2>
+
+  <div class="concept-box">
+    <div class="label">📌 Definición Esencial</div>
+    <p>Una <strong>hipótesis de investigación</strong> es una proposición o suposición provisional que el investigador formula para responder tentativa y anticipadamente a la pregunta de investigación. Es una <strong>respuesta esperada, no comprobada aún</strong>, que guía todo el proceso de recolección y análisis de datos. Su función es indicar qué estamos buscando o esperando encontrar.</p>
+  </div>
+
+  <p>La hipótesis es el puente entre la teoría y los datos. Surge de la revisión de la literatura y del análisis del problema, y debe ser verificable mediante evidencia empírica. Una hipótesis no es una opinión personal ni una certeza: es una predicción fundamentada que puede confirmarse o rechazarse con datos.</p>
+
+  <div class="warning-box">
+    <div class="label">⚠️ Importante: No toda investigación requiere hipótesis</div>
+    <p>Los estudios <strong>exploratorios</strong> generalmente no formulan hipótesis formales porque aún no se conoce suficiente sobre el fenómeno. Los estudios <strong>descriptivos</strong> a veces las tienen, pero no siempre. Los estudios <strong>correlacionales y explicativos</strong> casi siempre deben formularlas. Hernández Sampieri et al. (2014) son claros: la presencia de hipótesis depende del alcance y enfoque de la investigación.</p>
+  </div>
+
+  <h3>Características de una buena hipótesis</h3>
+  <ul>
+    <li>✅ <strong>Debe referirse a una situación real:</strong> No puede ser sobre fenómenos inobservables o imposibles de medir.</li>
+    <li>✅ <strong>Debe ser específica:</strong> Debe especificar las variables, la población y el contexto.</li>
+    <li>✅ <strong>Debe ser verificable empíricamente:</strong> Debe poder comprobarse o rechazarse con datos reales.</li>
+    <li>✅ <strong>Debe estar conectada con la teoría:</strong> No surge de la nada; se apoya en investigaciones anteriores.</li>
+    <li>✅ <strong>Debe expresar la relación entre variables:</strong> En la mayoría de investigaciones científicas.</li>
+    <li>❌ <strong>No puede ser un juicio de valor:</strong> "La corrupción es mala" no es una hipótesis científica.</li>
+    <li>❌ <strong>No puede ser una pregunta:</strong> Las preguntas son parte del planteamiento del problema, no hipótesis.</li>
+  </ul>
+
+  <h3>Tipos de hipótesis</h3>
+
+  <h4>1. Hipótesis de Investigación (Hi)</h4>
+  <p>También llamadas <em>hipótesis de trabajo</em>, son las afirmaciones que el investigador espera confirmar. Pueden ser:</p>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Subtipo</th><th>Descripción</th><th>Ejemplo</th></tr>
+      <tr>
+        <td><strong>Descriptivas</strong></td>
+        <td>Predicen el valor de una sola variable en una población, sin relacionarla con otra</td>
+        <td>"El 60% o más de las PYMES guayaquileñas declarará haber recibido capacitación tributaria en el período estudiado"</td>
+      </tr>
+      <tr>
+        <td><strong>Correlacionales</strong></td>
+        <td>Predicen que existe una relación entre dos o más variables</td>
+        <td>"Existe una relación positiva entre el nivel de formación contable del gerente y el cumplimiento tributario de las PYMES en Guayaquil"</td>
+      </tr>
+      <tr>
+        <td><strong>De diferencia entre grupos</strong></td>
+        <td>Predicen que existen diferencias entre grupos o condiciones</td>
+        <td>"Las empresas auditadas externamente presentarán menor número de infracciones tributarias que las que no son auditadas"</td>
+      </tr>
+      <tr>
+        <td><strong>Causales</strong></td>
+        <td>Predicen relaciones de causa-efecto entre variables (requieren diseño experimental)</td>
+        <td>"La implementación de un programa de capacitación tributaria intensiva reduce en un 30% las infracciones detectadas por el SRI en los seis meses siguientes"</td>
+      </tr>
+    </table>
+  </div>
+
+  <h4>2. Hipótesis Nula (H₀)</h4>
+  <div class="concept-box">
+    <div class="label">Definición</div>
+    <p>La hipótesis nula niega o refuta la hipótesis de investigación. Afirma que <strong>NO existe relación, diferencia o efecto</strong> entre las variables. Es fundamental en el análisis estadístico: en investigación cuantitativa, la hipótesis nula es lo que formalmente se pone a prueba con las estadísticas, y se rechaza (o no) según los resultados.</p>
+    <p><strong>Ejemplo:</strong> "No existe relación estadísticamente significativa entre el nivel de formación contable del gerente y el cumplimiento tributario de las PYMES en Guayaquil."</p>
+  </div>
+
+  <h4>3. Hipótesis Alternativa (Ha)</h4>
+  <div class="concept-box">
+    <div class="label">Definición</div>
+    <p>Ofrece una tercera posibilidad: ni exactamente lo que predice la hipótesis de investigación, ni la nulidad total. En la práctica, se utiliza para prever resultados distintos a los esperados.</p>
+    <p><strong>Ejemplo:</strong> "Existe una relación inversa (negativa) entre el nivel de formación contable del gerente y el cumplimiento tributario de las PYMES en Guayaquil" (es decir, a mayor formación, menor cumplimiento, lo cual sería sorprendente).</p>
+  </div>
+
+  <h3>Cómo redactar una hipótesis correctamente</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content"><p>Identifica claramente las <strong>variables</strong> que vas a relacionar (VI y VD).</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content"><p>Determina el <strong>tipo de relación</strong> que esperas encontrar (positiva, negativa, de diferencia, causal).</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content"><p>Especifica la <strong>población y contexto</strong> (quiénes, dónde, cuándo).</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content"><p>Redacta en forma de <strong>afirmación</strong> (no como pregunta ni como suposición vaga).</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content"><p>Verifica que sea <strong>empíricamente comprobable</strong> con los datos que puedes recolectar.</p></div>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="label">🧑‍🎓 Sofía formula sus hipótesis</div>
+    <p><strong>Hipótesis de Investigación (Hi):</strong><br>
+    "Las empresas familiares cuyos propietarios poseen título universitario en áreas de administración, contabilidad o finanzas tienen una menor tasa de cierre durante los primeros cinco años de operación, comparadas con aquellas cuyos propietarios no poseen este nivel de formación, en el cantón Guayaquil, período 2018–2023."<br><br>
+    <strong>Hipótesis Nula (H₀):</strong><br>
+    "No existe diferencia estadísticamente significativa en la tasa de cierre durante los primeros cinco años entre las empresas familiares cuyos propietarios tienen título universitario en áreas económico-administrativas y las que no, en el cantón Guayaquil, período 2018–2023."</p>
+  </div>
+
+  <div class="key-box">
+    <div class="label">💡 Idea Clave</div>
+    <p>La hipótesis es una <strong>apuesta fundamentada</strong>. No es certeza, es predicción científica. El investigador está diciendo: "Basándome en la teoría y en estudios anteriores, espero encontrar esto." Los datos luego confirmarán o rechazarán esa predicción, y ambos resultados son igualmente valiosos para la ciencia. Rechazar una hipótesis no es fracasar: es aprender algo nuevo sobre la realidad.</p>
+  </div>
+</div>
+
+<!-- ========== EJERCICIO INTERACTIVO ========== -->
+<div id="ejercicio" class="tab-content">
+  <h2>⚡ Ejercicio Interactivo</h2>
+  <p>Responde <strong>todas las preguntas</strong> y luego presiona <em>Verificar respuestas</em>. Puedes confiar en el contenido de este widget para contestar correctamente.</p>
+
+  <!-- EI 1 -->
+  <div class="exercise-item" id="ei1-wrap">
+    <div class="q-num">Pregunta 1 de 8</div>
+    <p>¿Cuál de las siguientes opciones representa un problema de investigación <strong>bien planteado</strong> para un contexto de Contabilidad y Auditoría?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei1" value="a"> a) "La corrupción es un problema grave en el Ecuador."</label>
+      <label class="option-label"><input type="radio" name="ei1" value="b"> b) "¿Cuál es la relación entre la frecuencia de auditorías externas y el nivel de cumplimiento tributario de las empresas medianas registradas en la Superintendencia de Compañías de Guayaquil, período 2020–2023?"</label>
+      <label class="option-label"><input type="radio" name="ei1" value="c"> c) "¿Por qué es importante la auditoría?"</label>
+      <label class="option-label"><input type="radio" name="ei1" value="d"> d) "La auditoría y la contabilidad son disciplinas relacionadas."</label>
+    </div>
+    <div id="ei1-feedback" class="feedback"></div>
+  </div>
+
+  <!-- EI 2 -->
+  <div class="exercise-item" id="ei2-wrap">
+    <div class="q-num">Pregunta 2 de 8</div>
+    <p>En un estudio sobre el impacto de la capacitación tributaria en la reducción de multas del SRI, la variable <strong>independiente</strong> es:</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei2" value="a"> a) El número de multas impuestas por el SRI</label>
+      <label class="option-label"><input type="radio" name="ei2" value="b"> b) El tamaño de la empresa</label>
+      <label class="option-label"><input type="radio" name="ei2" value="c"> c) El nivel de capacitación tributaria recibida por el personal contable</label>
+      <label class="option-label"><input type="radio" name="ei2" value="d"> d) El sector económico al que pertenece la empresa</label>
+    </div>
+    <div id="ei2-feedback" class="feedback"></div>
+  </div>
+
+  <!-- EI 3 -->
+  <div class="exercise-item" id="ei3-wrap">
+    <div class="q-num">Pregunta 3 de 8</div>
+    <p>La <strong>definición operacional</strong> de una variable tiene como función principal:</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei3" value="a"> a) Proporcionar el significado teórico del concepto según la literatura científica</label>
+      <label class="option-label"><input type="radio" name="ei3" value="b"> b) Establecer cómo se medirá la variable en la práctica, con qué instrumento e indicadores</label>
+      <label class="option-label"><input type="radio" name="ei3" value="c"> c) Justificar la relevancia social del estudio</label>
+      <label class="option-label"><input type="radio" name="ei3" value="d"> d) Describir la relación esperada entre variables</label>
+    </div>
+    <div id="ei3-feedback" class="feedback"></div>
+  </div>
+
+  <!-- EI 4 -->
+  <div class="exercise-item" id="ei4-wrap">
+    <div class="q-num">Pregunta 4 de 8</div>
+    <p>Identifica cuál de las siguientes es una <strong>hipótesis nula (H₀)</strong> correctamente formulada:</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei4" value="a"> a) "Las empresas con auditoría externa tienen mejor cumplimiento tributario."</label>
+      <label class="option-label"><input type="radio" name="ei4" value="b"> b) "¿Existe relación entre auditoría y cumplimiento tributario?"</label>
+      <label class="option-label"><input type="radio" name="ei4" value="c"> c) "No existe relación estadísticamente significativa entre la realización de auditorías externas y el cumplimiento tributario de las PYMES guayaquileñas."</label>
+      <label class="option-label"><input type="radio" name="ei4" value="d"> d) "La auditoría es necesaria para todas las empresas."</label>
+    </div>
+    <div id="ei4-feedback" class="feedback"></div>
+  </div>
+
+  <!-- EI 5 -->
+  <div class="exercise-item" id="ei5-wrap">
+    <div class="q-num">Pregunta 5 de 8</div>
+    <p>La variable "tipo de empresa (pública / privada / mixta)" corresponde a una escala de medición:</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei5" value="a"> a) Ordinal</label>
+      <label class="option-label"><input type="radio" name="ei5" value="b"> b) De razón</label>
+      <label class="option-label"><input type="radio" name="ei5" value="c"> c) Nominal</label>
+      <label class="option-label"><input type="radio" name="ei5" value="d"> d) De intervalo</label>
+    </div>
+    <div id="ei5-feedback" class="feedback"></div>
+  </div>
+
+  <!-- EI 6 -->
+  <div class="exercise-item" id="ei6-wrap">
+    <div class="q-num">Pregunta 6 de 8</div>
+    <p>¿Cuál de los siguientes elementos del planteamiento del problema responde a la pregunta "¿Por qué vale la pena esta investigación?"?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei6" value="a"> a) Los objetivos de la investigación</label>
+      <label class="option-label"><input type="radio" name="ei6" value="b"> b) La viabilidad del estudio</label>
+      <label class="option-label"><input type="radio" name="ei6" value="c"> c) La justificación de la investigación</label>
+      <label class="option-label"><input type="radio" name="ei6" value="d"> d) Las deficiencias en el conocimiento del problema</label>
+    </div>
+    <div id="ei6-feedback" class="feedback"></div>
+  </div>
+
+  <!-- EI 7 -->
+  <div class="exercise-item" id="ei7-wrap">
+    <div class="q-num">Pregunta 7 de 8</div>
+    <p>Un investigador quiere estudiar si el tipo de software contable utilizado (variable A) afecta la detección de errores en los balances (variable B). ¿Qué tipo de relación entre variables está estudiando?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei7" value="a"> a) Descriptiva: solo describe las características de ambas variables por separado</label>
+      <label class="option-label"><input type="radio" name="ei7" value="b"> b) Causal: la variable A (software) sería la independiente que podría causar cambios en la variable B (detección de errores)</label>
+      <label class="option-label"><input type="radio" name="ei7" value="c"> c) Nula: porque no hay hipótesis formulada</label>
+      <label class="option-label"><input type="radio" name="ei7" value="d"> d) Alternativa: porque hay dos variables involucradas</label>
+    </div>
+    <div id="ei7-feedback" class="feedback"></div>
+  </div>
+
+  <!-- EI 8 -->
+  <div class="exercise-item" id="ei8-wrap">
+    <div class="q-num">Pregunta 8 de 8</div>
+    <p>Según Hernández Sampieri, ¿en qué tipo de alcance investigativo (de los cuatro aprendidos en semanas anteriores) es <strong>más probable</strong> que NO se requiera formular una hipótesis formal?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei8" value="a"> a) Correlacional</label>
+      <label class="option-label"><input type="radio" name="ei8" value="b"> b) Explicativo</label>
+      <label class="option-label"><input type="radio" name="ei8" value="c"> c) Exploratorio</label>
+      <label class="option-label"><input type="radio" name="ei8" value="d"> d) Experimental</label>
+    </div>
+    <div id="ei8-feedback" class="feedback"></div>
+  </div>
+
+  <div style="text-align:center; margin-top: 20px;">
+    <button class="btn-primary" onclick="verificarEjercicio()">✅ Verificar respuestas</button>
+    <button class="btn-secondary" onclick="reiniciarEjercicio()">🔄 Reiniciar</button>
+  </div>
+
+  <div class="result-section" id="ejercicio-result">
+    <div class="result-emoji" id="ejercicio-emoji"></div>
+    <div class="result-score" id="ejercicio-score"></div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="ejercicio-bar" style="width:0%"></div></div>
+    <div class="result-msg" id="ejercicio-msg"></div>
+  </div>
+</div>
+
+<!-- ========== CUESTIONARIO ========== -->
+<div id="cuestionario" class="tab-content">
+  <h2>📝 Cuestionario de Evaluación</h2>
+  <p>Responde las <strong>10 preguntas</strong> completas primero y luego presiona <em>Verificar respuestas</em>. El resultado aparecerá al final.</p>
+
+  <!-- Q1 -->
+  <div class="quiz-item">
+    <div class="q-header"><span class="q-num">1.</span><span class="badge-type badge-teorica">Teórica</span></div>
+    <p class="question-text">¿Qué es un problema de investigación, según Hernández Sampieri et al.?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi1" value="a"> a) Una dificultad cotidiana que afecta a una organización</label>
+      <label class="option-label"><input type="radio" name="qi1" value="b"> b) Un vacío, contradicción o brecha en el conocimiento existente que puede estudiarse de forma sistemática</label>
+      <label class="option-label"><input type="radio" name="qi1" value="c"> c) Una pregunta filosófica sobre la realidad social</label>
+      <label class="option-label"><input type="radio" name="qi1" value="d"> d) Un conflicto entre investigadores sobre un tema determinado</label>
+    </div>
+    <div id="qi1-feedback" class="feedback"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="quiz-item">
+    <div class="q-header"><span class="q-num">2.</span><span class="badge-type badge-teorica">Teórica</span></div>
+    <p class="question-text">Los objetivos de investigación se redactan correctamente con:</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi2" value="a"> a) Verbos en tiempo futuro: "se investigará", "se analizará"</label>
+      <label class="option-label"><input type="radio" name="qi2" value="b"> b) Verbos en infinitivo: "determinar", "analizar", "describir"</label>
+      <label class="option-label"><input type="radio" name="qi2" value="c"> c) Preguntas directas: "¿Cuál es la relación?"</label>
+      <label class="option-label"><input type="radio" name="qi2" value="d"> d) Afirmaciones sobre los resultados esperados</label>
+    </div>
+    <div id="qi2-feedback" class="feedback"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="quiz-item">
+    <div class="q-header"><span class="q-num">3.</span><span class="badge-type badge-teorica">Teórica</span></div>
+    <p class="question-text">¿Cuál es la función de la variable dependiente en un estudio?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi3" value="a"> a) Es el factor que el investigador manipula o controla</label>
+      <label class="option-label"><input type="radio" name="qi3" value="b"> b) Es el efecto o resultado que se mide como respuesta a los cambios en la variable independiente</label>
+      <label class="option-label"><input type="radio" name="qi3" value="c"> c) Es la variable que se mantiene constante durante todo el estudio</label>
+      <label class="option-label"><input type="radio" name="qi3" value="d"> d) Es una característica de fondo que interfiere con los resultados</label>
+    </div>
+    <div id="qi3-feedback" class="feedback"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="quiz-item">
+    <div class="q-header"><span class="q-num">4.</span><span class="badge-type badge-teorica">Teórica</span></div>
+    <p class="question-text">Una hipótesis <strong>correlacional</strong> predice que:</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi4" value="a"> a) Una variable causa directamente los cambios en otra, en condiciones controladas</label>
+      <label class="option-label"><input type="radio" name="qi4" value="b"> b) Existe una asociación o relación entre dos o más variables, sin necesariamente implicar causalidad</label>
+      <label class="option-label"><input type="radio" name="qi4" value="c"> c) El valor de una variable será mayor al 50% en la población estudiada</label>
+      <label class="option-label"><input type="radio" name="qi4" value="d"> d) No existe ninguna relación entre las variables estudiadas</label>
+    </div>
+    <div id="qi4-feedback" class="feedback"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="quiz-item">
+    <div class="q-header"><span class="q-num">5.</span><span class="badge-type badge-teorica">Teórica</span></div>
+    <p class="question-text">¿Cuál de las siguientes afirmaciones sobre la hipótesis nula es <strong>correcta</strong>?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi5" value="a"> a) Es la hipótesis que el investigador espera confirmar con sus datos</label>
+      <label class="option-label"><input type="radio" name="qi5" value="b"> b) Afirma que no existe relación, diferencia o efecto entre las variables estudiadas, y es la que se somete formalmente a prueba estadística</label>
+      <label class="option-label"><input type="radio" name="qi5" value="c"> c) Es una predicción sobre una variable alternativa no contemplada inicialmente</label>
+      <label class="option-label"><input type="radio" name="qi5" value="d"> d) Solo se formula en investigaciones cualitativas</label>
+    </div>
+    <div id="qi5-feedback" class="feedback"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="quiz-item">
+    <div class="q-header"><span class="q-num">6.</span><span class="badge-type badge-teorica">Teórica</span></div>
+    <p class="question-text">La escala de medición <strong>ordinal</strong> se caracteriza porque:</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi6" value="a"> a) Clasifica en categorías sin ningún orden ni jerarquía entre ellas</label>
+      <label class="option-label"><input type="radio" name="qi6" value="b"> b) Tiene un cero absoluto que permite dividir y multiplicar los valores</label>
+      <label class="option-label"><input type="radio" name="qi6" value="c"> c) Establece categorías con un orden jerárquico, pero sin garantizar distancias iguales entre los niveles</label>
+      <label class="option-label"><input type="radio" name="qi6" value="d"> d) Solo permite medir variables continuas en unidades iguales</label>
+    </div>
+    <div id="qi6-feedback" class="feedback"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="quiz-item">
+    <div class="q-header"><span class="q-num">7.</span><span class="badge-type badge-teorica">Teórica</span></div>
+    <p class="question-text">Según Hernández Sampieri, ¿cuáles son las cinco preguntas que puede responder la <strong>justificación</strong> de una investigación?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi7" value="a"> a) Conveniencia, relevancia social, implicaciones prácticas, valor teórico y utilidad metodológica</label>
+      <label class="option-label"><input type="radio" name="qi7" value="b"> b) Originalidad, alcance, diseño, población y técnica estadística</label>
+      <label class="option-label"><input type="radio" name="qi7" value="c"> c) Hipótesis, variables, objetivos, marco teórico y metodología</label>
+      <label class="option-label"><input type="radio" name="qi7" value="d"> d) Quién, qué, cuándo, dónde y cómo se va a investigar</label>
+    </div>
+    <div id="qi7-feedback" class="feedback"></div>
+  </div>
+
+  <!-- Q8: ANÁLISIS -->
+  <div class="quiz-item">
+    <div class="q-header"><span class="q-num">8.</span><span class="badge-type badge-analisis">Análisis</span></div>
+    <p class="question-text">Una auditora del sector público nota que en los municipios pequeños del Ecuador hay mayor incidencia de irregularidades en el uso de recursos públicos que en los municipios grandes. Quiere investigar por qué. ¿Cuál sería la variable independiente más adecuada para su estudio?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi8" value="a"> a) El número de irregularidades detectadas en auditorías</label>
+      <label class="option-label"><input type="radio" name="qi8" value="b"> b) El tamaño del municipio (medido por presupuesto o número de habitantes), como factor que podría explicar las diferencias</label>
+      <label class="option-label"><input type="radio" name="qi8" value="c"> c) El nombre del alcalde de cada municipio</label>
+      <label class="option-label"><input type="radio" name="qi8" value="d"> d) El año en que se realizó la última auditoría</label>
+    </div>
+    <div id="qi8-feedback" class="feedback"></div>
+  </div>
+
+  <!-- Q9: ANÁLISIS -->
+  <div class="quiz-item">
+    <div class="q-header"><span class="q-num">9.</span><span class="badge-type badge-analisis">Análisis</span></div>
+    <p class="question-text">Un estudiante formula la siguiente hipótesis: <em>"La contabilidad es importante para las empresas."</em> ¿Qué problema fundamental tiene esta formulación como hipótesis de investigación científica?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi9" value="a"> a) Está formulada en presente cuando debería estar en futuro</label>
+      <label class="option-label"><input type="radio" name="qi9" value="b"> b) Es un juicio de valor que no expresa una relación entre variables medibles y no puede ser verificada empíricamente</label>
+      <label class="option-label"><input type="radio" name="qi9" value="c"> c) No menciona la población específica del estudio</label>
+      <label class="option-label"><input type="radio" name="qi9" value="d"> d) Debería ser una pregunta y no una afirmación</label>
+    </div>
+    <div id="qi9-feedback" class="feedback"></div>
+  </div>
+
+  <!-- Q10: ANÁLISIS -->
+  <div class="quiz-item">
+    <div class="q-header"><span class="q-num">10.</span><span class="badge-type badge-analisis">Análisis</span></div>
+    <p class="question-text">Una empresa recibe asesoría contable externa (grupo A) y otra no (grupo B). El investigador mide el número de errores en sus declaraciones de impuestos al cabo de un año. Analiza este diseño: ¿qué tipo de hipótesis está implícita en este estudio?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi10" value="a"> a) Hipótesis descriptiva: describe el número de errores en cada grupo por separado</label>
+      <label class="option-label"><input type="radio" name="qi10" value="b"> b) Hipótesis de diferencia entre grupos: predice que el grupo con asesoría (A) tendrá menos errores que el grupo sin asesoría (B)</label>
+      <label class="option-label"><input type="radio" name="qi10" value="c"> c) Hipótesis nula: afirma que no existe diferencia entre los dos grupos</label>
+      <label class="option-label"><input type="radio" name="qi10" value="d"> d) Hipótesis alternativa: porque compara dos condiciones distintas</label>
+    </div>
+    <div id="qi10-feedback" class="feedback"></div>
+  </div>
+
+  <div style="text-align:center; margin-top: 20px;">
+    <button class="btn-primary" onclick="verificarCuestionario()">✅ Verificar respuestas</button>
+    <button class="btn-secondary" onclick="reiniciarCuestionario()">🔄 Reiniciar</button>
+  </div>
+
+  <div class="result-section" id="cuestionario-result">
+    <div class="result-emoji" id="cuestionario-emoji"></div>
+    <div class="result-score" id="cuestionario-score"></div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="cuestionario-bar" style="width:0%"></div></div>
+    <div class="result-msg" id="cuestionario-msg"></div>
+  </div>
+</div>
+
+<!-- ========== ACTIVIDAD CON IA ========== -->
+<div id="ia" class="tab-content">
+  <h2>🤖 Actividad con Inteligencia Artificial</h2>
+
+  <div class="concept-box">
+    <div class="label">🎯 Objetivo de la Actividad</div>
+    <p>Utilizarás una IA como interlocutor crítico para <strong>construir y evaluar el planteamiento de tu propio problema de investigación</strong> en el área de Contabilidad y Auditoría. No se trata de copiar lo que la IA te diga: se trata de usar su respuesta como espejo para revisar, cuestionar y mejorar tu propio pensamiento.</p>
+  </div>
+
+  <div class="ai-step">
+    <div class="step-title">📱 Herramienta recomendada</div>
+    <p>Usa <strong>Claude en <a href="https://claude.ai" target="_blank">claude.ai</a></strong> (gratuito). También puedes usar ChatGPT (chat.openai.com) o Gemini (gemini.google.com). Claude es especialmente bueno para razonamiento metodológico y puede ayudarte a pensar con mayor profundidad.</p>
+  </div>
+
+  <div class="ai-step">
+    <div class="step-title">📋 Paso 1: Elige un tema de investigación propio</div>
+    <p>Antes de ir a la IA, piensa en <strong>algo que te genera curiosidad</strong> en el mundo de la contabilidad, auditoría, finanzas o gestión empresarial en Ecuador. Puede ser algo pequeño, como: ¿por qué las empresas familiares no llevan contabilidad formal? ¿Qué pasa con los emprendimientos después de la pandemia? ¿Los comerciantes del mercado central de Guayaquil pagan sus impuestos? Escribe tu tema en una hoja antes de continuar.</p>
+  </div>
+
+  <div class="ai-step">
+    <div class="step-title">💬 Paso 2: Copia y pega este prompt en la IA (reemplaza lo que está entre corchetes)</div>
+    <div class="prompt-box">Actúa como un metodólogo experto en investigación científica, especializado en ciencias económicas y contables. Voy a presentarte un tema de investigación que me interesa desarrollar para mi proyecto de fin de semestre en la Carrera de Contabilidad y Auditoría de la Universidad de Guayaquil.
+
+Mi tema tentativo es: [escribe aquí tu tema, por ejemplo: "el impacto de la evasión tributaria en las PYMES del sector comercial de Guayaquil"].
+
+Por favor, ayúdame a estructurar el planteamiento del problema respondiendo lo siguiente:
+1. ¿Cuál sería una pregunta de investigación bien formulada para este tema? (con variables específicas, contexto y período de tiempo)
+2. ¿Cuál sería el objetivo general de la investigación?
+3. ¿Qué variable sería la independiente y cuál la dependiente en este estudio?
+4. Formula una hipótesis de investigación (Hi) y una hipótesis nula (H₀) para este problema.
+5. Señala al menos dos posibles fuentes de datos reales en Ecuador (instituciones, bases de datos públicas) donde podría recolectar información para este estudio.
+
+Al final, dime también: ¿qué debilidades o limitaciones tiene este problema de investigación tal como lo planteé?</div>
+  </div>
+
+  <div class="ai-step">
+    <div class="step-title">🔍 Paso 3: Analiza y cuestiona la respuesta de la IA</div>
+    <p>Una vez que tengas la respuesta, <strong>NO la copies directamente</strong>. Realiza este análisis en tu cuaderno o documento:</p>
+    <ol>
+      <li>¿La pregunta de investigación que propuso la IA cumple los 4 criterios de Hernández Sampieri que vimos en clase? ¿Por qué sí o por qué no?</li>
+      <li>¿La hipótesis formulada es realmente verificable empíricamente en el contexto ecuatoriano? ¿Qué datos necesitarías y dónde los conseguirías?</li>
+      <li>¿Estás de acuerdo con la identificación de variable independiente y dependiente que hizo la IA? ¿Podrías argumentar lo contrario?</li>
+      <li>¿Qué limitación señaló la IA que tú no habías considerado? ¿Cómo podrías resolverla?</li>
+      <li>Escribe tu propia versión mejorada de la pregunta de investigación, integrando los criterios del widget y la crítica de la IA.</li>
+    </ol>
+  </div>
+
+  <div class="ai-step">
+    <div class="step-title">📊 Criterios de Evaluación</div>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Indicador</th><th>Pensamiento crítico ✅</th><th>Copia simple ❌</th></tr>
+        <tr><td>Pregunta de investigación</td><td>La reformula con sus propias palabras y agrega contexto específico de Ecuador</td><td>Copia exactamente lo que dijo la IA</td></tr>
+        <tr><td>Análisis de variables</td><td>Justifica por qué está o no de acuerdo con la clasificación de la IA</td><td>Acepta sin cuestionar las variables propuestas</td></tr>
+        <tr><td>Hipótesis</td><td>Compara la hipótesis de la IA con la estructura aprendida en clase y la corrige si es necesario</td><td>Reproduce las hipótesis tal como las escribió la IA</td></tr>
+        <tr><td>Limitaciones</td><td>Identifica limitaciones adicionales no mencionadas por la IA</td><td>Solo menciona las que señaló la IA</td></tr>
+        <tr><td>Producto final</td><td>Entrega una versión propia, mejorada y fundamentada en el contenido del widget</td><td>Entrega una copia del output de la IA</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="key-box">
+    <div class="label">💡 Recuerda</div>
+    <p>La IA es una herramienta poderosa, pero <strong>no es un oráculo infalible</strong>. A veces inventa referencias, simplifica en exceso o propone variables que no son medibles en el contexto ecuatoriano. Tu tarea es ser más inteligente que la IA: usar su respuesta como punto de partida y mejorarla con tu conocimiento, tu criterio y los contenidos aprendidos.</p>
+  </div>
+</div>
+
+<!-- ========== REFLEXIÓN ========== -->
+<div id="reflexion" class="tab-content">
+  <h2>💭 Preguntas para la Reflexión Personal</h2>
+  <p>No hay respuestas correctas ni incorrectas aquí. La idea es que conectes los conceptos de esta semana con tu propia vida. Tómate unos minutos con cada pregunta y piensa con honestidad.</p>
+
+  <div class="reflection-card">
+    <div class="q-icon">🔍</div>
+    <p><strong>Pregunta 1 — El problema que nadie ve:</strong> En tu vida cotidiana, ¿hay algún "problema" que hayas observado repetidamente y que nadie parece querer resolver? Puede ser en tu barrio, en tu familia, en el transporte público, en tu universidad. ¿Cómo lo transformarías en una pregunta de investigación científica? ¿Qué variables estarían involucradas?</p>
+  </div>
+
+  <div class="reflection-card">
+    <div class="q-icon">🎯</div>
+    <p><strong>Pregunta 2 — Tus propios objetivos:</strong> Así como una investigación tiene un objetivo general y objetivos específicos, tú también tienes metas. ¿Has pensado alguna vez en tu "objetivo general" de vida? ¿Y en tus "objetivos específicos" para los próximos 5 años? ¿Están bien formulados o son tan vagos que no sabes si los estás cumpliendo?</p>
+  </div>
+
+  <div class="reflection-card">
+    <div class="q-icon">⚖️</div>
+    <p><strong>Pregunta 3 — Tus hipótesis sobre ti mismo:</strong> Cada vez que dices "yo soy así" o "no puedo hacer esto", estás formulando una hipótesis sobre ti mismo. ¿Alguna vez has puesto a prueba esa hipótesis con evidencia real? ¿Te has atrevido a plantear una "hipótesis alternativa" que contradiga lo que crees de ti? Por ejemplo: "No soy bueno para la matemática" → ¿Qué evidencia tienes de eso? ¿Y qué evidencia contraria podrías encontrar?</p>
+  </div>
+
+  <div class="reflection-card">
+    <div class="q-icon">🌱</div>
+    <p><strong>Pregunta 4 — Definir para clarificar:</strong> Los científicos definen sus variables conceptual y operacionalmente para evitar confusiones. En tus relaciones personales —con amigos, familia, pareja— ¿has definido claramente lo que significan palabras importantes como "respeto", "éxito", "lealtad" o "felicidad"? ¿Es posible que algunos conflictos en tu vida vengan de no haber definido estas variables de la misma manera que la otra persona?</p>
+  </div>
+
+  <div class="reflection-card">
+    <div class="q-icon">📊</div>
+    <p><strong>Pregunta 5 — Variables que te afectan:</strong> En tu vida hay variables que no controlas (variables intervinientes: el contexto económico del Ecuador, la situación familiar, las oportunidades del mercado laboral) y variables que sí puedes controlar (variables independientes: tu actitud, tu esfuerzo, tu formación, tus hábitos). ¿Cuánta energía gastas preocupándote por las que no puedes controlar? ¿Y cuánta en cambiar las que sí dependen de ti?</p>
+  </div>
+
+  <div class="reflection-card">
+    <div class="q-icon">🔬</div>
+    <p><strong>Pregunta 6 — Justificación personal:</strong> Cuando la investigación científica se justifica, debe responder: "¿Para qué sirve esto? ¿A quién beneficia?" Aplica esa misma pregunta a tus decisiones más importantes de los últimos meses: estudiar Contabilidad y Auditoría, permanecer en una relación, vivir donde vives, tener los hábitos que tienes. ¿Puedes justificar cada decisión con argumentos reales y no solo con costumbre o comodidad?</p>
+  </div>
+
+  <div class="reflection-card">
+    <div class="q-icon">💡</div>
+    <p><strong>Pregunta 7 — El vacío que te mueve:</strong> Los problemas de investigación nacen de vacíos en el conocimiento. ¿Qué vacíos hay en tu propio conocimiento como futuro contador o auditor que más te inquietan? No los temas de clase, sino los temas reales del mundo profesional: ¿entiendes cómo funciona de verdad el sistema tributario ecuatoriano? ¿Sabrías detectar un fraude contable en una empresa real? ¿Conoces cómo funciona la Contraloría General del Estado? Esos vacíos que identificas hoy son el mapa de lo que necesitas aprender.</p>
+  </div>
+
+  <div class="key-box">
+    <div class="label">🌟 Para cerrar esta semana</div>
+    <p>La metodología de la investigación no es solo una materia. Es una forma de pensar: sistemática, honesta, basada en evidencia y dispuesta a cambiar de opinión ante los datos. Si aprendes a aplicar ese pensamiento no solo a los papers académicos, sino a tu vida personal y profesional, habrás ganado mucho más que una calificación. Habrás desarrollado una de las habilidades más valiosas del siglo XXI: <strong>pensar con rigor ante la incertidumbre</strong>.</p>
+  </div>
+</div>
+
+<!-- ========== BIBLIOGRAFÍA ========== -->
+<div id="bibliografia" class="tab-content">
+  <h2>📖 Bibliografía</h2>
+  <p>Referencias en formato APA 7.ª edición. Verifica cada una antes de citarla en trabajos académicos.</p>
+
+  <div class="ref-card">
+    <div class="ref-num">1</div>
+    <div class="ref-content">
+      <p>Hernández Sampieri, R., Fernández Collado, C., & Baptista Lucio, P. (2014). <em>Metodología de la investigación</em> (6.ª ed.). McGraw-Hill Education.</p>
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">2</div>
+    <div class="ref-content">
+      <p>Hernández Sampieri, R., & Mendoza Torres, C. P. (2018). <em>Metodología de la investigación: Las rutas cuantitativa, cualitativa y mixta</em>. McGraw-Hill Education.</p>
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">3</div>
+    <div class="ref-content">
+      <p>Bernal Torres, C. A. (2016). <em>Metodología de la investigación: Para administración, economía, humanidades y ciencias sociales</em> (4.ª ed.). Pearson Educación.</p>
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">4</div>
+    <div class="ref-content">
+      <p>Tamayo y Tamayo, M. (2015). <em>El proceso de la investigación científica</em> (5.ª ed.). Limusa.</p>
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">5</div>
+    <div class="ref-content">
+      <p>Kerlinger, F. N., & Lee, H. B. (2002). <em>Investigación del comportamiento: Métodos de investigación en ciencias sociales</em> (4.ª ed.). McGraw-Hill.</p>
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">6</div>
+    <div class="ref-content">
+      <p>Superintendencia de Compañías, Valores y Seguros del Ecuador. (2023). <em>Portal de información societaria y estadísticas empresariales</em>. https://www.supercias.gob.ec</p>
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">7</div>
+    <div class="ref-content">
+      <p>Servicio de Rentas Internas del Ecuador. (2023). <em>Estadísticas generales de recaudación tributaria</em>. https://www.sri.gob.ec/estadisticas-generales-de-recaudacion</p>
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">8</div>
+    <div class="ref-content">
+      <p>Creswell, J. W., & Creswell, J. D. (2018). <em>Research design: Qualitative, quantitative, and mixed methods approaches</em> (5th ed.). SAGE Publications.</p>
+    </div>
+  </div>
+
+  <div class="ref-note">
+    📌 <strong>Nota:</strong> Se recomienda verificar cada referencia en Google Scholar (<a href="https://scholar.google.com" target="_blank">scholar.google.com</a>) o en el repositorio institucional de la Universidad de Guayaquil antes de citar en trabajos académicos.
+  </div>
+</div>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+  // ===== TAB NAVIGATION =====
+  function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    const btns = document.querySelectorAll('.tab-btn');
+    const map = { repaso:0, tema1:1, tema2:2, tema3:3, tema4:4, ejercicio:5, cuestionario:6, ia:7, reflexion:8, bibliografia:9 };
+    if (map[id] !== undefined) btns[map[id]].classList.add('active');
+  }
+
+  // ===== EJERCICIO INTERACTIVO =====
+  const ejercicioCorrects = {
+    ei1: 'b', ei2: 'c', ei3: 'b', ei4: 'c',
+    ei5: 'c', ei6: 'c', ei7: 'b', ei8: 'c'
+  };
+
+  const ejercicioFeedbacks = {
+    ei1: {
+      correct: '✅ Correcto. La opción b cumple los criterios de Hernández Sampieri: relaciona dos variables (frecuencia de auditorías y cumplimiento tributario), está formulada como pregunta, delimita el contexto (Guayaquil, 2020–2023) y es empíricamente verificable con datos de la Superintendencia de Compañías.',
+      incorrect: '❌ Incorrecto. Las otras opciones tienen problemas: "la corrupción es mala" es un juicio de valor, "¿por qué es importante la auditoría?" es demasiado amplia y no relaciona variables, y "la auditoría y la contabilidad están relacionadas" es una afirmación, no una pregunta de investigación.'
+    },
+    ei2: {
+      correct: '✅ Correcto. La variable independiente (VI) es la que se supone que influye o explica algo. En este estudio, la capacitación tributaria es el factor que el investigador considera causa o precede a los cambios en el número de multas del SRI.',
+      incorrect: '❌ Incorrecto. El número de multas del SRI es la variable dependiente (el efecto que se mide). El tamaño de la empresa y el sector económico podrían ser variables intervinientes o de control, no la variable independiente principal del estudio.'
+    },
+    ei3: {
+      correct: '✅ Correcto. La definición operacional establece cómo se medirá la variable en la práctica: qué instrumento se usará, qué indicadores se observarán y cómo se cuantificará. Esto hace que la investigación sea replicable.',
+      incorrect: '❌ Incorrecto. La definición conceptual es la que proporciona el significado teórico basado en la literatura. La justificación y la relación entre variables son otros componentes del planteamiento del problema, no la función de la definición operacional.'
+    },
+    ei4: {
+      correct: '✅ Correcto. La hipótesis nula (H₀) siempre niega la existencia de relación, diferencia o efecto entre las variables. La opción c cumple esta estructura correctamente y está redactada como afirmación, no como pregunta.',
+      incorrect: '❌ Incorrecto. La opción "a" es una hipótesis de investigación (Hi), no nula. La opción "b" es una pregunta, no una hipótesis. La opción "d" es una afirmación normativa sin relación entre variables medibles.'
+    },
+    ei5: {
+      correct: '✅ Correcto. La escala nominal clasifica en categorías sin orden ni jerarquía. "Pública / privada / mixta" son categorías que identifican grupos, pero no tienen un orden superior-inferior entre ellas.',
+      incorrect: '❌ Incorrecto. La escala ordinal tiene categorías con orden (ej: bajo/medio/alto). La de razón tiene cero absoluto (ej: ingresos en dólares). La de intervalo tiene distancias iguales pero sin cero absoluto (ej: temperatura en Celsius). Ninguna de estas aplica para clasificar tipos de empresa.'
+    },
+    ei6: {
+      correct: '✅ Correcto. La justificación de la investigación responde precisamente a "¿por qué vale la pena este estudio?", considerando su conveniencia, relevancia social, implicaciones prácticas, valor teórico y utilidad metodológica.',
+      incorrect: '❌ Incorrecto. Los objetivos responden "¿para qué se investiga?" (el fin). La viabilidad responde "¿es posible llevarlo a cabo?" Las deficiencias en el conocimiento responden "¿qué no se sabe aún?" Ninguno de estos es la justificación.'
+    },
+    ei7: {
+      correct: '✅ Correcto. El estudio examina si el tipo de software (VI) afecta la detección de errores (VD), lo cual es una relación de tipo causal donde A antecede y podría provocar cambios en B. Es correcto identificarlo como una relación en la que A es la variable independiente.',
+      incorrect: '❌ Incorrecto. No es solo descriptivo porque busca una relación entre dos variables, no solo describir cada una. "Nula" se refiere a la hipótesis, no al tipo de relación. "Alternativa" tampoco es un tipo de relación entre variables.'
+    },
+    ei8: {
+      correct: '✅ Correcto. Según Hernández Sampieri, los estudios exploratorios generalmente no formulan hipótesis formales porque todavía no existe suficiente conocimiento sobre el fenómeno para hacer predicciones fundamentadas. Las hipótesis son más propias de estudios correlacionales, explicativos o experimentales.',
+      incorrect: '❌ Incorrecto. Los estudios correlacionales casi siempre incluyen hipótesis de relación. Los explicativos y los experimentales requieren hipótesis causales o de diferencia. El exploratorio es el que menos necesita hipótesis formales porque apenas está descubriendo el fenómeno.'
+    }
+  };
+
+  function verificarEjercicio() {
+    const total = Object.keys(ejercicioCorrects).length;
+    let respondidas = 0;
+    for (let key in ejercicioCorrects) {
+      const sel = document.querySelector(`input[name="${key}"]:checked`);
+      if (sel) respondidas++;
+    }
+    if (respondidas < total) {
+      alert(`⚠️ Por favor responde todas las preguntas antes de verificar. Faltan ${total - respondidas} respuesta(s).`);
+      return;
+    }
+    let correctas = 0;
+    for (let key in ejercicioCorrects) {
+      const sel = document.querySelector(`input[name="${key}"]:checked`);
+      const feedbackEl = document.getElementById(`${key}-feedback`);
+      const wrap = document.getElementById(`${key}-wrap`);
+      document.querySelectorAll(`input[name="${key}"]`).forEach(r => r.disabled = true);
+      if (sel.value === ejercicioCorrects[key]) {
+        correctas++;
+        feedbackEl.className = 'feedback correct';
+        feedbackEl.innerHTML = ejercicioFeedbacks[key].correct;
+        wrap.style.borderColor = '#059669';
+      } else {
+        feedbackEl.className = 'feedback incorrect';
+        feedbackEl.innerHTML = ejercicioFeedbacks[key].incorrect;
+        wrap.style.borderColor = '#dc2626';
+      }
+    }
+    const pct = Math.round((correctas / total) * 100);
+    const result = document.getElementById('ejercicio-result');
+    result.classList.add('show');
+    document.getElementById('ejercicio-score').textContent = `${correctas} / ${total} — ${pct}%`;
+    setTimeout(() => { document.getElementById('ejercicio-bar').style.width = pct + '%'; }, 100);
+    const msgs = [
+      [100, '🏆', '¡Perfecto! Dominas completamente los conceptos de esta semana.'],
+      [80, '🎯', '¡Excelente trabajo! Tienes una comprensión sólida del tema.'],
+      [60, '📘', 'Buen avance. Repasa los ítems incorrectos para consolidar tu aprendizaje.'],
+      [40, '⚠️', 'Sigue esforzándote. Te recomendamos releer el contenido antes de continuar.'],
+      [0, '📖', 'No te desanimes. Vuelve a los temas y revisa el material con calma.']
+    ];
+    const [, emoji, msg] = msgs.find(([min]) => pct >= min);
+    document.getElementById('ejercicio-emoji').textContent = emoji;
+    document.getElementById('ejercicio-msg').textContent = msg;
+    result.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function reiniciarEjercicio() {
+    for (let key in ejercicioCorrects) {
+      document.querySelectorAll(`input[name="${key}"]`).forEach(r => { r.checked = false; r.disabled = false; });
+      const feedbackEl = document.getElementById(`${key}-feedback`);
+      feedbackEl.className = 'feedback';
+      feedbackEl.innerHTML = '';
+      document.getElementById(`${key}-wrap`).style.borderColor = '';
+    }
+    const result = document.getElementById('ejercicio-result');
+    result.classList.remove('show');
+    document.getElementById('ejercicio-bar').style.width = '0%';
+  }
+
+  // ===== CUESTIONARIO =====
+  const quizCorrects = {
+    qi1: 'b', qi2: 'b', qi3: 'b', qi4: 'b', qi5: 'b',
+    qi6: 'c', qi7: 'a', qi8: 'b', qi9: 'b', qi10: 'b'
+  };
+
+  const quizFeedbacks = {
+    qi1: {
+      correct: '✅ Correcto. Hernández Sampieri define el problema de investigación como una brecha, contradicción o vacío en el conocimiento que puede ser abordado con el método científico. No es sinónimo de dificultad cotidiana ni de conflicto interpersonal.',
+      incorrect: '❌ Incorrecto. Un problema de investigación no es una dificultad cotidiana (eso sería un problema práctico), ni una pregunta filosófica pura (sin posibilidad empírica), ni un conflicto entre investigadores. Es un vacío verificable en el conocimiento científico.'
+    },
+    qi2: {
+      correct: '✅ Correcto. Los objetivos de investigación se redactan siempre con verbos en infinitivo: determinar, analizar, describir, comparar, establecer, identificar, evaluar. Esto les da precisión y permite verificar si fueron o no alcanzados.',
+      incorrect: '❌ Incorrecto. Los verbos en futuro son incorrectos para objetivos (eso es redacción de propósito, no de objetivo científico). Las preguntas corresponden a las preguntas de investigación, no a los objetivos. Las afirmaciones sobre resultados son hipótesis, no objetivos.'
+    },
+    qi3: {
+      correct: '✅ Correcto. La variable dependiente es el efecto o resultado. Es lo que se mide para ver qué pasó cuando la variable independiente cambió. En un experimento, depende de la VI; en estudios no experimentales, es la variable que se intenta explicar.',
+      incorrect: '❌ Incorrecto. La variable que el investigador manipula o controla es la variable independiente. La que se mantiene constante es la variable de control. La que interfiere es la variable interviniente o moderadora. La dependiente es el resultado medido.'
+    },
+    qi4: {
+      correct: '✅ Correcto. Una hipótesis correlacional predice la existencia de una asociación o relación entre variables, sin necesariamente afirmar que una causa a la otra. La causalidad requiere un diseño experimental más riguroso.',
+      incorrect: '❌ Incorrecto. La relación causa-efecto en condiciones controladas corresponde a hipótesis causales, propias de diseños experimentales. Predecir un valor porcentual en una sola variable es una hipótesis descriptiva. La ausencia de relación corresponde a la hipótesis nula.'
+    },
+    qi5: {
+      correct: '✅ Correcto. La hipótesis nula (H₀) siempre niega la relación, diferencia o efecto entre variables. Es la que se somete formalmente a prueba estadística: si los datos la refutan (la rechazan), se acepta la hipótesis de investigación.',
+      incorrect: '❌ Incorrecto. La hipótesis que el investigador espera confirmar es la hipótesis de investigación (Hi). La hipótesis alternativa ofrece una tercera posibilidad distinta a Hi. Las hipótesis se pueden usar en investigación cuantitativa (no son exclusivas de estudios cualitativos).'
+    },
+    qi6: {
+      correct: '✅ Correcto. La escala ordinal establece categorías con un orden o jerarquía (bajo < medio < alto < crítico), pero la distancia entre cada nivel no es necesariamente igual ni cuantificable matemáticamente.',
+      incorrect: '❌ Incorrecto. La escala sin orden ni jerarquía es la nominal. El cero absoluto que permite todas las operaciones es la escala de razón. La escala de intervalo mide diferencias iguales entre valores pero no tiene cero absoluto real. La ordinal ordena pero no equipara distancias.'
+    },
+    qi7: {
+      correct: '✅ Correcto. Hernández Sampieri identifica exactamente estas cinco dimensiones para justificar una investigación: conveniencia (¿para qué sirve?), relevancia social (¿a quiénes beneficia?), implicaciones prácticas (¿qué problema resuelve?), valor teórico (¿contribuye al conocimiento?) y utilidad metodológica (¿propone nuevas formas de medir?).',
+      incorrect: '❌ Incorrecto. Los elementos de las otras opciones (originalidad, diseño, técnica estadística; hipótesis, variables, objetivos; quién, qué, cuándo...) corresponden a otras partes del proceso de investigación, no a las dimensiones de la justificación según Hernández Sampieri.'
+    },
+    qi8: {
+      correct: '✅ Correcto. En este estudio, la auditora quiere entender qué factor explica las diferencias en irregularidades. El tamaño del municipio es el factor que podría explicar (la causa posible), convirtiéndose en la variable independiente. Las irregularidades detectadas serían la variable dependiente.',
+      incorrect: '❌ Incorrecto. El número de irregularidades detectadas sería la variable dependiente (el efecto que se observa). El nombre del alcalde no es una variable científicamente útil para este análisis. El año de la última auditoría podría ser una variable de control, no la independiente principal.'
+    },
+    qi9: {
+      correct: '✅ Correcto. "La contabilidad es importante para las empresas" es un juicio de valor: afirma que algo es "bueno" o "importante" sin definir variables medibles ni establecer una relación empírica verificable. No puede ser confirmada o rechazada con datos objetivos.',
+      incorrect: '❌ Incorrecto. Aunque la falta de especificación de población y el tiempo verbal también son aspectos mejorables, el problema fundamental de esta formulación es que es un juicio de valor, no una proposición científicamente verificable. Esa es la razón principal por la que no funciona como hipótesis.'
+    },
+    qi10: {
+      correct: '✅ Correcto. El diseño compara dos grupos (con asesoría vs. sin asesoría) para medir si hay diferencias en los errores tributarios. Esto corresponde a una hipótesis de diferencia entre grupos: se predice que el grupo A tendrá menos errores que el grupo B.',
+      incorrect: '❌ Incorrecto. Una hipótesis descriptiva solo describiría los errores de cada grupo por separado, sin compararlos. La hipótesis nula afirmaría que no hay diferencia entre grupos. La hipótesis alternativa podría predecir lo contrario a la hipótesis de investigación (ej: más errores en el grupo con asesoría). Lo que describe el diseño es una hipótesis de diferencia entre grupos.'
+    }
+  };
+
+  function verificarCuestionario() {
+    const total = Object.keys(quizCorrects).length;
+    let respondidas = 0;
+    for (let key in quizCorrects) {
+      if (document.querySelector(`input[name="${key}"]:checked`)) respondidas++;
+    }
+    if (respondidas < total) {
+      alert(`⚠️ Por favor responde todas las preguntas. Faltan ${total - respondidas} respuesta(s).`);
+      return;
+    }
+    let correctas = 0;
+    for (let key in quizCorrects) {
+      const sel = document.querySelector(`input[name="${key}"]:checked`);
+      const feedbackEl = document.getElementById(`${key}-feedback`);
+      document.querySelectorAll(`input[name="${key}"]`).forEach(r => r.disabled = true);
+      if (sel.value === quizCorrects[key]) {
+        correctas++;
+        feedbackEl.className = 'feedback correct';
+        feedbackEl.innerHTML = quizFeedbacks[key].correct;
+      } else {
+        feedbackEl.className = 'feedback incorrect';
+        feedbackEl.innerHTML = quizFeedbacks[key].incorrect;
+      }
+    }
+    const pct = Math.round((correctas / total) * 100);
+    const result = document.getElementById('cuestionario-result');
+    result.classList.add('show');
+    document.getElementById('cuestionario-score').textContent = `${correctas} / ${total} — ${pct}%`;
+    setTimeout(() => { document.getElementById('cuestionario-bar').style.width = pct + '%'; }, 100);
+    const msgs = [
+      [100, '🏆', '¡Perfecto! Excelencia total. Dominas los conceptos de Planteamiento del Problema, Variables e Hipótesis.'],
+      [80, '🎯', '¡Muy bien! Comprensión sólida. Revisa los ítems incorrectos para llegar al 100%.'],
+      [60, '📘', 'Buen inicio. Repasa los temas del widget donde tuviste errores y vuelve a intentarlo.'],
+      [40, '⚠️', 'Necesitas reforzar. Lee nuevamente los temas 1 a 4 antes de continuar.'],
+      [0, '📖', 'No te desanimes. Cada repaso es una oportunidad de aprender. ¡Tú puedes!']
+    ];
+    const [, emoji, msg] = msgs.find(([min]) => pct >= min);
+    document.getElementById('cuestionario-emoji').textContent = emoji;
+    document.getElementById('cuestionario-msg').textContent = msg;
+    result.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function reiniciarCuestionario() {
+    for (let key in quizCorrects) {
+      document.querySelectorAll(`input[name="${key}"]`).forEach(r => { r.checked = false; r.disabled = false; });
+      const feedbackEl = document.getElementById(`${key}-feedback`);
+      feedbackEl.className = 'feedback';
+      feedbackEl.innerHTML = '';
+    }
+    const result = document.getElementById('cuestionario-result');
+    result.classList.remove('show');
+    document.getElementById('cuestionario-bar').style.width = '0%';
+  }
+</script>
+</body>
+</html>
