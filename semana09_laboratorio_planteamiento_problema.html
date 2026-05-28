@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorio de Planteamiento del Problema</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3',sans-serif;font-size:16px;background:#f0f4f8;color:#1a1a2e;min-height:100vh}
+
+/* ===== HEADER ===== */
+.header{background:#003366;color:#fff;padding:16px 24px 12px}
+.header h1{font-family:'Lora',serif;font-size:1.2rem;font-weight:700}
+.header p{font-size:0.82rem;opacity:.85;margin-top:3px}
+.header-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:3px 12px;font-size:.75rem;color:#fff}
+.badge-gold{background:#b8860b;border-color:#b8860b}
+
+/* ===== PROGRESS RAIL ===== */
+.progress-rail{background:#fff;border-bottom:2px solid #dde3ea;padding:14px 24px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.rail-title{font-size:.75rem;font-weight:700;color:#003366;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.rail-steps{display:flex;align-items:center;gap:0;overflow-x:auto;padding-bottom:4px}
+.rail-step{display:flex;align-items:center;gap:0;flex-shrink:0}
+.rail-dot{width:34px;height:34px;border-radius:50%;border:2px solid #dde3ea;background:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#aaa;cursor:pointer;transition:all .3s;flex-shrink:0}
+.rail-dot.done{background:#059669;border-color:#059669;color:#fff}
+.rail-dot.active{background:#003366;border-color:#003366;color:#fff;box-shadow:0 0 0 4px rgba(0,51,102,.15)}
+.rail-dot.locked{cursor:not-allowed;opacity:.5}
+.rail-label{font-size:.68rem;color:#666;text-align:center;max-width:60px;line-height:1.2;margin-top:4px}
+.rail-item{display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0}
+.rail-line{width:28px;height:2px;background:#dde3ea;flex-shrink:0;margin-bottom:16px}
+.rail-line.done{background:#059669}
+
+/* ===== MAIN CONTENT ===== */
+.main{max-width:880px;margin:0 auto;padding:28px 20px 60px}
+
+/* ===== STATION ===== */
+.station{display:none}
+.station.active{display:block}
+.station-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px}
+.station-num{background:#003366;color:#fff;border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-size:1.1rem;font-weight:700;flex-shrink:0}
+.station-info h2{font-family:'Lora',serif;font-size:1.35rem;color:#003366;margin-bottom:4px}
+.station-info p{font-size:.9rem;color:#555;line-height:1.6}
+
+/* ===== GUIDE BOX ===== */
+.guide-box{background:linear-gradient(135deg,#003366 0%,#1a5ca0 100%);color:#fff;border-radius:10px;padding:16px 20px;margin-bottom:22px}
+.guide-box .guide-title{font-size:.72rem;font-weight:700;color:#87CEEB;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.guide-box p{font-size:.92rem;line-height:1.7;color:#e8f0fa;margin-bottom:0}
+
+/* ===== FIELD GROUP ===== */
+.field-group{background:#fff;border:1px solid #dde3ea;border-radius:10px;padding:18px;margin-bottom:16px}
+.field-label{font-weight:700;color:#003366;font-size:.92rem;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.field-hint{font-size:.82rem;color:#666;margin-bottom:10px;line-height:1.55;background:#f7f9fc;border-left:3px solid #87CEEB;padding:8px 12px;border-radius:0 6px 6px 0}
+.field-hint strong{color:#003366}
+textarea{width:100%;border:1.5px solid #dde3ea;border-radius:6px;padding:10px 12px;font-family:'Source Sans 3',sans-serif;font-size:.92rem;color:#1a1a2e;resize:vertical;min-height:80px;transition:border-color .2s}
+textarea:focus{outline:none;border-color:#003366}
+textarea.short{min-height:50px}
+input[type=text]{width:100%;border:1.5px solid #dde3ea;border-radius:6px;padding:10px 12px;font-family:'Source Sans 3',sans-serif;font-size:.92rem;color:#1a1a2e;transition:border-color .2s}
+input[type=text]:focus{outline:none;border-color:#003366}
+select{width:100%;border:1.5px solid #dde3ea;border-radius:6px;padding:10px 12px;font-family:'Source Sans 3',sans-serif;font-size:.92rem;color:#1a1a2e;background:#fff;transition:border-color .2s}
+select:focus{outline:none;border-color:#003366}
+
+/* ===== WHY CHAIN ===== */
+.why-chain{margin:10px 0}
+.why-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.why-badge{background:#003366;color:#fff;border-radius:6px;padding:3px 10px;font-size:.75rem;font-weight:700;white-space:nowrap;flex-shrink:0;margin-top:4px}
+.why-item textarea{min-height:46px;flex:1}
+.why-add-btn{background:transparent;border:1.5px dashed #87CEEB;color:#003366;border-radius:6px;padding:7px 16px;font-family:'Source Sans 3',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;width:100%;margin-top:6px}
+.why-add-btn:hover{background:#e3f0fb;border-color:#003366}
+.why-remove-btn{background:transparent;border:none;color:#dc2626;font-size:1.1rem;cursor:pointer;padding:4px;line-height:1;flex-shrink:0;margin-top:6px}
+
+/* ===== VESTER MATRIX ===== */
+.vester-table-wrap{overflow-x:auto;margin:10px 0}
+.vester-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.vester-table th{background:#003366;color:#fff;padding:8px 10px;text-align:center;font-weight:600}
+.vester-table th.cause-th{text-align:left}
+.vester-table td{padding:6px 8px;border:1px solid #dde3ea;text-align:center}
+.vester-table td.cause-name{text-align:left;font-weight:600;color:#003366;background:#f7f9fc;max-width:160px}
+.vester-table td input[type=number]{width:42px;border:1px solid #dde3ea;border-radius:4px;padding:3px 4px;text-align:center;font-size:.85rem}
+.vester-table td input[type=number]:focus{outline:none;border-color:#003366}
+.vester-table td.total-cell{font-weight:700;background:#e3f0fb;color:#003366}
+.vester-table td.classification{font-size:.75rem;font-weight:700;padding:4px 6px}
+.clasif-activa{background:#fef3c7;color:#92400e}
+.clasif-critica{background:#fee2e2;color:#7f1d1d}
+.clasif-pasiva{background:#d1fae5;color:#065f46}
+.clasif-inerte{background:#f1f5f9;color:#475569}
+
+/* ===== BLOOM VERBS ===== */
+.bloom-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:10px 0}
+.bloom-level{border-radius:8px;padding:10px 12px;cursor:pointer;border:2px solid transparent;transition:all .2s}
+.bloom-level:hover{transform:translateY(-2px)}
+.bloom-level.selected{border-color:#003366;box-shadow:0 0 0 3px rgba(0,51,102,.15)}
+.bloom-level h4{font-size:.82rem;font-weight:700;margin-bottom:4px}
+.bloom-level p{font-size:.72rem;line-height:1.4}
+.bloom-l1{background:#e0f2fe}
+.bloom-l2{background:#dcfce7}
+.bloom-l3{background:#fef9c3}
+.bloom-l4{background:#fce7f3}
+.bloom-l5{background:#ede9fe}
+.bloom-l6{background:#fee2e2}
+.verb-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.verb-chip{background:#003366;color:#fff;border-radius:20px;padding:3px 12px;font-size:.78rem;cursor:pointer;transition:background .15s}
+.verb-chip:hover{background:#1a6bbf}
+.verb-chip.selected-verb{background:#059669}
+
+/* ===== EMPATHY MAP ===== */
+.empathy-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.empathy-quadrant{border-radius:8px;padding:14px;border:1px solid #dde3ea}
+.empathy-q1{background:#fff8e1;border-top:4px solid #f59e0b}
+.empathy-q2{background:#e0f2fe;border-top:4px solid #0284c7}
+.empathy-q3{background:#f0fdf4;border-top:4px solid #16a34a}
+.empathy-q4{background:#fdf2f8;border-top:4px solid #9333ea}
+.empathy-quadrant h4{font-size:.85rem;font-weight:700;margin-bottom:4px}
+.empathy-quadrant .em-hint{font-size:.75rem;color:#666;margin-bottom:8px;font-style:italic}
+.empathy-quadrant textarea{min-height:70px}
+@media(max-width:580px){.empathy-grid{grid-template-columns:1fr}}
+
+/* ===== BOXES ===== */
+.example-box{background:#e3f0fb;border:1px solid #b3d4f0;border-radius:8px;padding:12px 16px;margin:12px 0;font-size:.88rem}
+.example-box strong{color:#003366}
+.key-box{background:#003366;color:#fff;border-radius:8px;padding:14px 18px;margin:16px 0}
+.key-box p{color:#e8f0fa;font-size:.9rem;line-height:1.65;margin:0}
+.alert-box{background:#fef3c7;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;padding:10px 14px;margin:12px 0;font-size:.86rem;color:#78350f}
+
+/* ===== NAV BUTTONS ===== */
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px;flex-wrap:wrap}
+.btn-prev{background:#fff;border:2px solid #003366;color:#003366;padding:11px 24px;border-radius:6px;font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;transition:all .2s}
+.btn-prev:hover{background:#f0f4f8}
+.btn-next{background:#003366;color:#fff;border:none;padding:11px 28px;border-radius:6px;font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;transition:background .2s}
+.btn-next:hover{background:#1a5ca0}
+.btn-export{background:linear-gradient(135deg,#059669,#047857);color:#fff;border:none;padding:11px 28px;border-radius:6px;font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;transition:all .2s}
+.btn-export:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(5,150,105,.3)}
+
+/* ===== SUMMARY / EXPORT ===== */
+#station-7{background:#fff;border-radius:12px;padding:28px;border:1px solid #dde3ea}
+.summary-section{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #eee}
+.summary-section:last-child{border-bottom:none;margin-bottom:0}
+.summary-label{font-size:.72rem;font-weight:700;color:#003366;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.summary-value{font-size:.95rem;color:#1a1a2e;line-height:1.7;background:#f7f9fc;border-radius:6px;padding:10px 14px}
+.map-block{background:#fff;border:2px solid #003366;border-radius:10px;overflow:hidden;margin-bottom:16px}
+.map-block-header{background:#003366;color:#fff;padding:8px 16px;font-weight:700;font-size:.88rem;display:flex;align-items:center;gap:8px}
+.map-block-body{padding:14px 16px}
+.arrow-connector{text-align:center;font-size:1.5rem;color:#003366;margin:4px 0;line-height:1}
+.hypothesis-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.hyp-card{border-radius:8px;padding:12px 14px}
+.hyp-hi{background:#dbeafe;border:1px solid #93c5fd}
+.hyp-h0{background:#fee2e2;border:1px solid #fca5a5}
+.hyp-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.hyp-hi .hyp-label{color:#1d4ed8}
+.hyp-h0 .hyp-label{color:#dc2626}
+.hyp-text{font-size:.88rem;line-height:1.55;color:#1a1a2e}
+@media(max-width:560px){.hypothesis-row{grid-template-columns:1fr}}
+.export-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;justify-content:center}
+.validation-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px}
+.val-ok{background:#059669}
+.val-warn{background:#f59e0b}
+.val-miss{background:#dc2626}
+.progress-mini{background:#e2e8f0;border-radius:999px;height:8px;margin-top:16px;overflow:hidden}
+.progress-mini-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#003366,#1a6bbf);transition:width .5s ease}
+
+/* ===== CAUSE ADD ===== */
+.cause-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.cause-item{display:flex;gap:8px;align-items:flex-start}
+.cause-item textarea{flex:1;min-height:46px}
+.cause-num{background:#87CEEB;color:#003366;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;flex-shrink:0;margin-top:6px}
+
+/* ===== COMPLETENESS ===== */
+.completeness-bar{background:#e2e8f0;border-radius:999px;height:10px;overflow:hidden;margin-top:12px}
+.completeness-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#059669,#34d399);transition:width .4s ease}
+.completeness-label{font-size:.8rem;color:#666;margin-top:4px;text-align:right}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+  .header h1{font-size:1rem}
+  .main{padding:18px 12px 50px}
+  .station-header{flex-direction:column;gap:10px}
+  .nav-row{flex-direction:column}
+  .btn-prev,.btn-next,.btn-export{width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <h1>🔬 Laboratorio de Planteamiento del Problema</h1>
+  <p>Universidad de Guayaquil · Facultad de Ciencias Administrativas · Metodología de la Investigación</p>
+  <div class="header-meta">
+    <span class="badge">Herramienta Metodológica Guiada</span>
+    <span class="badge">Del síntoma → al problema → a la hipótesis</span>
+    <span class="badge badge-gold">★ Produce un mapa exportable</span>
+  </div>
+</header>
+
+<!-- PROGRESS RAIL -->
+<div class="progress-rail">
+  <div class="rail-title">Tu recorrido metodológico — 7 estaciones</div>
+  <div class="rail-steps">
+    <div class="rail-item">
+      <div class="rail-dot active" id="dot-1" onclick="goStation(1)">1</div>
+      <div class="rail-label">Contexto & Empatía</div>
+    </div>
+    <div class="rail-line" id="line-1"></div>
+    <div class="rail-item">
+      <div class="rail-dot locked" id="dot-2" onclick="goStation(2)">2</div>
+      <div class="rail-label">Lo que veo</div>
+    </div>
+    <div class="rail-line" id="line-2"></div>
+    <div class="rail-item">
+      <div class="rail-dot locked" id="dot-3" onclick="goStation(3)">3</div>
+      <div class="rail-label">Los 5 Por Qué</div>
+    </div>
+    <div class="rail-line" id="line-3"></div>
+    <div class="rail-item">
+      <div class="rail-dot locked" id="dot-4" onclick="goStation(4)">4</div>
+      <div class="rail-label">Causas & Vester</div>
+    </div>
+    <div class="rail-line" id="line-4"></div>
+    <div class="rail-item">
+      <div class="rail-dot locked" id="dot-5" onclick="goStation(5)">5</div>
+      <div class="rail-label">Pregunta & Bloom</div>
+    </div>
+    <div class="rail-line" id="line-5"></div>
+    <div class="rail-item">
+      <div class="rail-dot locked" id="dot-6" onclick="goStation(6)">6</div>
+      <div class="rail-label">Variables & Hipótesis</div>
+    </div>
+    <div class="rail-line" id="line-6"></div>
+    <div class="rail-item">
+      <div class="rail-dot locked" id="dot-7" onclick="goStation(7)">🗺</div>
+      <div class="rail-label">Mi Mapa Final</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ============================================================ -->
+<!-- ESTACIÓN 1: CONTEXTO Y EMPATÍA -->
+<!-- ============================================================ -->
+<div class="station active" id="station-1">
+  <div class="station-header">
+    <div class="station-num">1</div>
+    <div class="station-info">
+      <h2>Contexto y Empatía: ¿Quién tiene el problema?</h2>
+      <p>Antes de investigar, necesitamos entender a las personas involucradas. La empatía es la base de toda investigación útil: si no entendemos quién vive el problema y cómo lo vive, nuestra investigación puede ser técnicamente perfecta pero completamente irrelevante.</p>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-title">🧭 ¿Por qué empezamos aquí?</div>
+    <p>Los problemas no existen en el vacío: los viven personas reales. Un recolector de basura, un docente universitario, un gerente de empresa, un agricultor en Manabí, un estudiante de primer semestre. Cada uno tiene una realidad diferente. Esta estación te pide que te pongas en sus zapatos antes de hablar de teoría.</p>
+  </div>
+
+  <!-- Quién es el protagonista -->
+  <div class="field-group">
+    <div class="field-label">👤 ¿A qué sector o ámbito pertenece tu tema de investigación?</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Selecciona el sector más cercano a tu tema. Esto nos ayudará a contextualizar ejemplos y orientar tu investigación. Puedes cambiarlo si el tema que eliges es diferente.
+    </div>
+    <select id="sector" onchange="updateSectorExamples()">
+      <option value="">— Selecciona un sector —</option>
+      <option value="educacion">🎓 Educación (universidades, colegios, docentes, estudiantes)</option>
+      <option value="empresarial">🏢 Empresarial (empresas, PYMES, emprendimientos)</option>
+      <option value="publico">🏛️ Sector Público (instituciones del Estado, GADs, ministerios)</option>
+      <option value="salud">🏥 Salud (hospitales, centros de salud, personal médico)</option>
+      <option value="comunitario">🌍 Comunidad / Social (barrios, grupos vulnerables, organizaciones)</option>
+      <option value="financiero">💰 Financiero / Tributario (bancos, SRI, seguros, auditoría)</option>
+      <option value="agro">🌾 Agropecuario / Rural (campesinos, cooperativas, producción)</option>
+      <option value="otro">📌 Otro (especifica en el campo siguiente)</option>
+    </select>
+    <div id="sector-example" style="margin-top:10px;display:none" class="example-box"></div>
+  </div>
+
+  <!-- Nombre del protagonista -->
+  <div class="field-group">
+    <div class="field-label">🧑 ¿Quién es la persona que vive el problema? Descríbela.</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Sé específico. No escribas solo "un trabajador". Escribe: <em>"María, 38 años, contadora de una empresa familiar en Guayaquil, trabaja 10 horas diarias y nunca ha recibido capacitación formal sobre las reformas tributarias del SRI."</em> Cuanto más real y concreta sea esta persona, mejor será tu investigación.
+    </div>
+    <textarea id="protagonista" placeholder="Describe a la persona que vive el problema: nombre ficticio, edad aproximada, rol, contexto, características relevantes..." rows="3"></textarea>
+  </div>
+
+  <!-- MAPA DE EMPATÍA -->
+  <div class="field-group">
+    <div class="field-label">🗺️ Mapa de Empatía — ¿Qué vive esta persona?</div>
+    <div class="field-hint">
+      <strong>¿Qué es un Mapa de Empatía?</strong> Es una herramienta del Design Thinking que nos obliga a pensar en cuatro dimensiones de la experiencia humana: lo que la persona <em>piensa y siente</em>, lo que <em>escucha</em> en su entorno, lo que <em>ve</em> a su alrededor, y lo que <em>dice y hace</em>. Completarlo nos revela contradicciones, frustraciones y necesidades reales que muchas veces no son obvias a primera vista. Llena cada cuadrante con honestidad.
+    </div>
+    <div class="empathy-grid">
+      <div class="empathy-quadrant empathy-q1">
+        <h4>🧠 ¿Qué piensa y siente?</h4>
+        <div class="em-hint">Sus preocupaciones, miedos, aspiraciones, lo que realmente le importa aunque no lo diga en voz alta.</div>
+        <textarea id="emp-piensa" placeholder="Ej: Siente que nunca tendrá tiempo de actualizarse. Le preocupa perder el trabajo si comete errores tributarios. Aspira a crecer pero no sabe por dónde..."></textarea>
+      </div>
+      <div class="empathy-quadrant empathy-q2">
+        <h4>👂 ¿Qué escucha?</h4>
+        <div class="em-hint">Lo que le dicen sus jefes, colegas, familia, medios de comunicación, redes sociales sobre su situación.</div>
+        <textarea id="emp-escucha" placeholder="Ej: Sus jefes le dicen 'haz lo que siempre has hecho'. Sus colegas le comentan que el SRI va a hacer nuevas inspecciones. En WhatsApp circulan mensajes alarmantes sobre multas..."></textarea>
+      </div>
+      <div class="empathy-quadrant empathy-q3">
+        <h4>👁️ ¿Qué ve?</h4>
+        <div class="em-hint">Su entorno inmediato: lo que ocurre a su alrededor en el trabajo, en la comunidad, en el mercado.</div>
+        <textarea id="emp-ve" placeholder="Ej: Ve que otras empresas similares reciben multas del SRI. Ve que la competencia usa software contable moderno. Ve que sus registros son manuales y propensos a errores..."></textarea>
+      </div>
+      <div class="empathy-quadrant empathy-q4">
+        <h4>🗣️ ¿Qué dice y hace?</h4>
+        <div class="em-hint">Su comportamiento observable: lo que hace en su día a día y lo que declara abiertamente.</div>
+        <textarea id="emp-hace" placeholder="Ej: Dice que 'siempre lo hemos hecho así'. Hace las declaraciones a último momento. Evita preguntar porque teme parecer incompetente. Trabaja horas extra cuando llega la época tributaria..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dolores y ganancias -->
+  <div class="field-group">
+    <div class="field-label">😣 ¿Cuáles son sus principales dolores o frustraciones?</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Los "dolores" en Design Thinking son los obstáculos, miedos, frustraciones y riesgos que esta persona enfrenta. No son el problema de investigación aún: son pistas. Escribe al menos dos.
+    </div>
+    <textarea id="dolores" placeholder="Ej: No tiene tiempo para capacitarse. No cuenta con recursos para contratar un auditor externo. Desconoce las últimas reformas del Código Tributario..." rows="3"></textarea>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">🌟 ¿Qué ganaría si el problema se resolviera?</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Las "ganancias" son los beneficios, deseos y aspiraciones de la persona. ¿Qué mejoraría en su vida si este problema desapareciera? Esto te ayudará después a redactar la justificación de tu investigación.
+    </div>
+    <textarea id="ganancias" placeholder="Ej: Podría cumplir con las obligaciones tributarias sin estrés. La empresa evitaría multas costosas. El negocio podría crecer al tener finanzas ordenadas..." rows="3"></textarea>
+  </div>
+
+  <div class="nav-row">
+    <div></div>
+    <button class="btn-next" onclick="nextStation(1)">Continuar → Lo que veo</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ESTACIÓN 2: LO QUE VEO (SÍNTOMAS/EFECTOS) -->
+<!-- ============================================================ -->
+<div class="station" id="station-2">
+  <div class="station-header">
+    <div class="station-num">2</div>
+    <div class="station-info">
+      <h2>Lo que veo: síntomas y efectos observables</h2>
+      <p>Lo primero que percibimos ante cualquier problema son sus síntomas: lo que se ve, lo que se mide, lo que se sufre. Pero atención: lo que se ve NO es el problema. Es la punta del iceberg. Esta estación te entrena para separar efectos de causas.</p>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-title">🧭 La trampa más común del investigador principiante</div>
+    <p>El error más frecuente es confundir el síntoma con el problema. <strong>Ejemplo:</strong> Un médico que ve fiebre no dice "el problema es la fiebre". La fiebre es un síntoma. El problema es la infección que la causa. En investigación ocurre lo mismo: las multas del SRI son un síntoma. El problema podría ser la falta de capacitación, o los sistemas contables obsoletos, o la cultura organizacional. Tu tarea aquí es listar lo que ves —y solo después buscaremos la causa.</p>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">👁️ Describe la situación problemática en tus propias palabras</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Escribe lo que observas, sin intentar explicar por qué ocurre todavía. Usa frases como: "Se observa que...", "Se evidencia que...", "Existe una tendencia a...", "Resulta preocupante que...". No juzgues, solo describe lo que ves.
+    </div>
+    <textarea id="situacion-general" placeholder="Ej: Se observa que las PYMES del sector comercial de Guayaquil reciben con frecuencia multas por parte del SRI debido a inconsistencias en sus declaraciones de impuestos. Esta situación se ha intensificado desde la reforma tributaria de 2022..." rows="4"></textarea>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">📋 Lista los síntomas o efectos que puedes observar directamente</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Un síntoma es algo que se puede <em>ver, medir o cuantificar</em>. Son las consecuencias visibles del problema real. Escribe entre 3 y 6 síntomas. Ejemplos de síntomas: "aumento del número de multas", "disminución de ventas", "alta rotación de personal", "bajo rendimiento académico", "incremento de quejas de clientes". <strong>Evita</strong> escribir causas aquí (eso viene después).
+    </div>
+    <div class="cause-list" id="sintomas-list">
+      <div class="cause-item">
+        <div class="cause-num">1</div>
+        <textarea class="sintoma-field" placeholder="Síntoma / efecto observable 1..." rows="2"></textarea>
+        <button class="why-remove-btn" onclick="removeSintoma(this)" title="Eliminar">✕</button>
+      </div>
+      <div class="cause-item">
+        <div class="cause-num">2</div>
+        <textarea class="sintoma-field" placeholder="Síntoma / efecto observable 2..." rows="2"></textarea>
+        <button class="why-remove-btn" onclick="removeSintoma(this)" title="Eliminar">✕</button>
+      </div>
+      <div class="cause-item">
+        <div class="cause-num">3</div>
+        <textarea class="sintoma-field" placeholder="Síntoma / efecto observable 3..." rows="2"></textarea>
+        <button class="why-remove-btn" onclick="removeSintoma(this)" title="Eliminar">✕</button>
+      </div>
+    </div>
+    <button class="why-add-btn" onclick="addSintoma()">+ Agregar otro síntoma</button>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">📍 ¿Dónde ocurre? ¿Cuándo empezó a ser visible? ¿A quiénes afecta?</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> La delimitación espacial, temporal y poblacional es esencial para que el problema sea investigable. Responde las tres preguntas en este campo.
+    </div>
+    <textarea id="contexto-sintoma" placeholder="¿Dónde? (lugar, institución, región)&#10;¿Cuándo? (período de tiempo en que se hace evidente)&#10;¿A quiénes afecta? (población directa e indirectamente afectada)" rows="4"></textarea>
+  </div>
+
+  <div class="alert-box">
+    ⚠️ <strong>Regla de oro:</strong> Si puedes decir "se nota que...", "se ve que...", "aumentó...", "disminuyó...", estás describiendo un síntoma. Perfecto. Si ya estás diciendo "porque...", "debido a...", "la razón es...", eso es una causa — guárdala para la siguiente estación.
+  </div>
+
+  <div class="nav-row">
+    <button class="btn-prev" onclick="prevStation(2)">← Volver</button>
+    <button class="btn-next" onclick="nextStation(2)">Continuar → Los 5 Por Qué</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ESTACIÓN 3: LOS 5 POR QUÉ -->
+<!-- ============================================================ -->
+<div class="station" id="station-3">
+  <div class="station-header">
+    <div class="station-num">3</div>
+    <div class="station-info">
+      <h2>Los 5 Por Qué: perforar hasta la raíz</h2>
+      <p>Esta técnica, desarrollada por Sakichi Toyoda para Toyota, consiste en preguntarse "¿por qué?" de forma encadenada hasta llegar a la causa raíz del problema. Cada respuesta se convierte en la nueva pregunta. Es sorprendentemente poderosa.</p>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-title">🧭 ¿Cómo funciona?</div>
+    <p>Tomas el síntoma más importante que identificaste y te preguntas: <strong>"¿Por qué ocurre esto?"</strong> Escribes la respuesta. Luego tomas esa respuesta y vuelves a preguntar: <strong>"¿Y por qué ocurre ESO?"</strong> Y así, hasta llegar a una causa que ya no tiene una respuesta obvia de "porque...". Esa es la causa raíz. En promedio, se necesitan entre 3 y 7 "por qués". No es una fórmula rígida: es una actitud de no conformarse con la primera respuesta.</p>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">🎯 Síntoma de partida para la cadena de "Por Qués"</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Escribe el síntoma más importante o más frecuente que identificaste en la estación anterior. Este será tu punto de partida. Debería ser algo observable y concreto.
+    </div>
+    <textarea id="sintoma-inicial" placeholder="Ej: Las PYMES del sector comercial de Guayaquil reciben multas frecuentes del SRI por errores en sus declaraciones de impuestos." rows="2"></textarea>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">🔗 Cadena de Por Qués — Profundiza nivel por nivel</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Haz click en <strong>"+ Agregar Por Qué"</strong> para ir profundizando. Cada respuesta debe ser más específica y profunda que la anterior. <strong>Evita respuestas vagas</strong> como "por falta de recursos" — sé más específico: "porque la empresa no asigna presupuesto a capacitación contable". Puedes agregar entre 3 y 7 niveles. Detente cuando la respuesta ya no tenga un "porque" obvio.
+    </div>
+    <div class="why-chain" id="why-chain">
+      <div class="why-item" id="why-0">
+        <div class="why-badge">¿Por qué 1?</div>
+        <textarea placeholder="¿Por qué ocurre el síntoma descrito arriba? Escribe la primera causa que ves..."></textarea>
+      </div>
+    </div>
+    <button class="why-add-btn" onclick="addWhy()">+ Agregar Por Qué (profundizar más)</button>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">🎯 Causa Raíz Identificada</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Al final de tu cadena de "por qués", habrás llegado a una respuesta que ya no tiene un "porque" evidente —o que sí tiene uno pero está fuera del alcance de tu investigación. Esa es tu <strong>causa raíz</strong>. Escríbela aquí con tus propias palabras, de forma clara y concisa. Esta causa raíz será el núcleo de tu problema de investigación.
+    </div>
+    <textarea id="causa-raiz" placeholder="Ej: La causa raíz es que los propietarios de PYMES no tienen formación formal en materia tributaria, lo que los hace dependientes de contadores externos que tampoco siempre están actualizados con las reformas del SRI." rows="3"></textarea>
+  </div>
+
+  <div class="example-box">
+    <strong>📌 Ejemplo completo de cadena:</strong><br><br>
+    <strong>Síntoma:</strong> Las PYMES reciben multas del SRI.<br>
+    <strong>¿Por qué 1?</strong> Porque cometen errores en sus declaraciones de impuestos.<br>
+    <strong>¿Por qué 2?</strong> Porque los registros contables no están al día ni son precisos.<br>
+    <strong>¿Por qué 3?</strong> Porque los encargados de la contabilidad no usan software adecuado.<br>
+    <strong>¿Por qué 4?</strong> Porque los propietarios no han invertido en herramientas contables modernas.<br>
+    <strong>¿Por qué 5?</strong> Porque desconocen los beneficios y no perciben el riesgo hasta que ya reciben la multa.<br>
+    <strong>→ Causa raíz:</strong> Ausencia de cultura de gestión financiera preventiva en las PYMES del sector comercial.
+  </div>
+
+  <div class="nav-row">
+    <button class="btn-prev" onclick="prevStation(3)">← Volver</button>
+    <button class="btn-next" onclick="nextStation(3)">Continuar → Causas y Matriz de Vester</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ESTACIÓN 4: CAUSAS Y MATRIZ DE VESTER -->
+<!-- ============================================================ -->
+<div class="station" id="station-4">
+  <div class="station-header">
+    <div class="station-num">4</div>
+    <div class="station-info">
+      <h2>Causas y Matriz de Vester: ¿cuál es el problema central?</h2>
+      <p>La Matriz de Vester es una herramienta de planificación que permite identificar cuál de todas las causas encontradas es la más crítica y, por tanto, el verdadero problema de investigación. Fue desarrollada por el científico alemán Frederic Vester.</p>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-title">🧭 ¿Cómo funciona la Matriz de Vester?</div>
+    <p>Primero listas todas las causas identificadas. Luego calificas cuánto influye cada causa sobre las demás en una escala de 0 a 3: <strong>0 = no influye</strong>, <strong>1 = influye poco</strong>, <strong>2 = influye moderadamente</strong>, <strong>3 = influye mucho</strong>. Sumas las filas (Activo: cuánto influye esa causa sobre las demás) y las columnas (Pasivo: cuánto es influida por las otras). La causa con mayor suma Activo Y Pasivo es la <strong>CRÍTICA</strong>: esa es tu problema de investigación central.</p>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">📋 Lista las causas identificadas (mínimo 3, máximo 6)</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Recopila las causas que surgieron en la estación anterior (cadena de Por Qués) y cualquier otra causa que hayas identificado. Escríbelas de forma breve y clara. Recuerda: una causa es algo que <em>genera o alimenta</em> el problema; un efecto es lo que ocurre como consecuencia. Si tienes dudas, pregúntate: "¿esto ocurre <strong>antes</strong> del problema o <strong>después</strong>?". Si ocurre antes, es causa. Si ocurre después, es efecto.
+    </div>
+    <div id="causas-list" class="cause-list">
+      <div class="cause-item">
+        <div class="cause-num">C1</div>
+        <textarea class="causa-field" placeholder="Causa 1..." rows="2" oninput="updateVester()"></textarea>
+        <button class="why-remove-btn" onclick="removeCausa(this)" title="Eliminar">✕</button>
+      </div>
+      <div class="cause-item">
+        <div class="cause-num">C2</div>
+        <textarea class="causa-field" placeholder="Causa 2..." rows="2" oninput="updateVester()"></textarea>
+        <button class="why-remove-btn" onclick="removeCausa(this)" title="Eliminar">✕</button>
+      </div>
+      <div class="cause-item">
+        <div class="cause-num">C3</div>
+        <textarea class="causa-field" placeholder="Causa 3..." rows="2" oninput="updateVester()"></textarea>
+        <button class="why-remove-btn" onclick="removeCausa(this)" title="Eliminar">✕</button>
+      </div>
+    </div>
+    <button class="why-add-btn" onclick="addCausa()">+ Agregar causa</button>
+  </div>
+
+  <div class="field-group" id="vester-section" style="display:none">
+    <div class="field-label">🔢 Matriz de Vester — Califica la influencia entre causas</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> En cada celda, califica cuánto influye la causa de la <strong>fila</strong> sobre la causa de la <strong>columna</strong>. Escala: <strong>0</strong> = no influye · <strong>1</strong> = influye poco · <strong>2</strong> = influye moderadamente · <strong>3</strong> = influye mucho. <strong>La diagonal es siempre 0</strong> (una causa no puede influirse a sí misma). Las celdas se llenarán automáticamente a medida que escribas.
+    </div>
+    <div class="vester-table-wrap">
+      <table class="vester-table" id="vester-table">
+        <!-- Se genera dinámicamente con JS -->
+      </table>
+    </div>
+
+    <div style="margin-top:14px">
+      <div class="field-label" style="margin-bottom:8px">🏷️ Leyenda de clasificación Vester</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;font-size:.82rem">
+        <span><span style="background:#fee2e2;padding:2px 8px;border-radius:4px;font-weight:700;color:#7f1d1d">CRÍTICA</span> Alto Activo + Alto Pasivo — Esta es tu causa principal / problema de investigación</span>
+        <span><span style="background:#fef3c7;padding:2px 8px;border-radius:4px;font-weight:700;color:#92400e">ACTIVA</span> Alto Activo + Bajo Pasivo — Causas que generan muchos otros problemas</span>
+        <span><span style="background:#d1fae5;padding:2px 8px;border-radius:4px;font-weight:700;color:#065f46">PASIVA</span> Bajo Activo + Alto Pasivo — Efectos o síntomas del problema</span>
+        <span><span style="background:#f1f5f9;padding:2px 8px;border-radius:4px;font-weight:700;color:#475569">INERTE</span> Bajo Activo + Bajo Pasivo — Poco relevante para el sistema</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">🎯 El Problema Central identificado</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Basándote en la Matriz de Vester (la causa crítica) y en tu cadena de Por Qués, escribe aquí el <strong>problema central</strong> de tu investigación. Exprésalo como una situación, no todavía como pregunta. Usa frases como: "El problema central es la ausencia de...", "El problema radica en la falta de...", "La situación problemática está determinada por...". Esta descripción se convertirá en la base de tu pregunta de investigación en la siguiente estación.
+    </div>
+    <textarea id="problema-central" placeholder="Ej: El problema central radica en la ausencia de cultura de gestión financiera preventiva entre los propietarios de PYMES del sector comercial de Guayaquil, lo que genera una cadena de errores contables que culmina en sanciones del SRI y, en casos graves, en el cierre de los negocios." rows="4"></textarea>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn-prev" onclick="prevStation(4)">← Volver</button>
+    <button class="btn-next" onclick="nextStation(4)">Continuar → Pregunta & Objetivos</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ESTACIÓN 5: PREGUNTA DE INVESTIGACIÓN Y BLOOM -->
+<!-- ============================================================ -->
+<div class="station" id="station-5">
+  <div class="station-header">
+    <div class="station-num">5</div>
+    <div class="station-info">
+      <h2>De la causa a la pregunta: construir con rigor</h2>
+      <p>Ahora transformamos el problema central en una pregunta científica bien formulada, y construimos los objetivos usando la Taxonomía de Bloom —la guía de verbos de la ciencia.</p>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-title">🧭 ¿Qué hace que una pregunta sea científica?</div>
+    <p>Hernández Sampieri establece 4 criterios: (1) <strong>relaciona variables</strong> identificables, (2) está formulada como <strong>pregunta clara</strong>, (3) implica <strong>posibilidad de prueba empírica</strong> (se puede responder con datos reales), y (4) <strong>delimita el contexto</strong> (lugar, tiempo, población). La guía de abajo te ayudará a construirla paso a paso.</p>
+  </div>
+
+  <!-- Problema recuperado -->
+  <div class="field-group" style="background:#f0f4f8;border-color:#b3d4f0">
+    <div class="field-label" style="color:#1a6bbf">📌 Tu problema central (de la estación anterior)</div>
+    <div id="problema-central-display" style="font-size:.9rem;color:#333;line-height:1.65;font-style:italic;padding:6px 0"></div>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">🏗️ Constructor de la Pregunta de Investigación</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Completa los tres bloques siguientes. Al final, ensamblarán tu pregunta. Cada bloque tiene una función específica que se explica a continuación.
+    </div>
+
+    <div style="display:grid;gap:12px;margin-top:6px">
+      <div>
+        <div style="font-weight:600;color:#003366;font-size:.85rem;margin-bottom:4px">🔵 Bloque A — ¿Qué relación o efecto quieres estudiar?</div>
+        <div style="font-size:.8rem;color:#666;margin-bottom:6px;font-style:italic">Ej: "la relación entre X y Y", "el impacto de X sobre Y", "las diferencias en Y según X"</div>
+        <input type="text" id="pregunta-a" placeholder="Ej: la relación entre el nivel de formación tributaria del propietario y la frecuencia de infracciones registradas por el SRI">
+      </div>
+      <div>
+        <div style="font-weight:600;color:#003366;font-size:.85rem;margin-bottom:4px">🟢 Bloque B — ¿En qué población o contexto?</div>
+        <div style="font-size:.8rem;color:#666;margin-bottom:6px;font-style:italic">Ej: "en las PYMES del sector comercial de Guayaquil", "en los docentes de colegios fiscales de Cuenca"</div>
+        <input type="text" id="pregunta-b" placeholder="Ej: en las PYMES del sector comercial del cantón Guayaquil">
+      </div>
+      <div>
+        <div style="font-weight:600;color:#003366;font-size:.85rem;margin-bottom:4px">🟡 Bloque C — ¿En qué período de tiempo?</div>
+        <div style="font-size:.8rem;color:#666;margin-bottom:6px;font-style:italic">Ej: "en el período 2020–2024", "durante el año lectivo 2023–2024"</div>
+        <input type="text" id="pregunta-c" placeholder="Ej: durante el período 2020–2024">
+      </div>
+    </div>
+
+    <div style="margin-top:14px;background:#003366;border-radius:8px;padding:14px 16px">
+      <div style="font-size:.72rem;font-weight:700;color:#87CEEB;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">✨ Tu Pregunta de Investigación (ensamblada)</div>
+      <div id="pregunta-ensamblada" style="font-size:.95rem;color:#fff;line-height:1.7;font-family:'Lora',serif;font-style:italic">Completa los bloques A, B y C para ver tu pregunta aquí...</div>
+    </div>
+
+    <div style="margin-top:10px">
+      <div style="font-size:.75rem;font-weight:700;color:#003366;margin-bottom:6px">✅ Validación automática de tu pregunta:</div>
+      <div id="validacion-pregunta" style="font-size:.82rem;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- BLOOM -->
+  <div class="field-group">
+    <div class="field-label">🎓 Taxonomía de Bloom — Elige el nivel y verbo para tu objetivo general</div>
+    <div class="field-hint">
+      <strong>¿Qué es la Taxonomía de Bloom?</strong> Es una clasificación de los procesos cognitivos ordenados de menor a mayor complejidad, creada por Benjamin Bloom en 1956 (revisada en 2001). Cada nivel tiene verbos específicos que indican qué tipo de conocimiento o acción se espera. Los objetivos de investigación deben usar verbos de los niveles 3 al 6 (analizar, evaluar o crear), porque la investigación científica implica procesos cognitivos complejos. Haz click en un nivel para ver sus verbos y selecciona el que mejor representa tu objetivo.
+    </div>
+    <div class="bloom-grid" id="bloom-grid">
+      <div class="bloom-level bloom-l1" onclick="selectBloom(1)">
+        <h4>🔵 Nivel 1 — Recordar</h4>
+        <p>Recuperar información ya conocida de la memoria.</p>
+      </div>
+      <div class="bloom-level bloom-l2" onclick="selectBloom(2)">
+        <h4>🟢 Nivel 2 — Comprender</h4>
+        <p>Construir significado a partir de información.</p>
+      </div>
+      <div class="bloom-level bloom-l3" onclick="selectBloom(3)">
+        <h4>🟡 Nivel 3 — Aplicar</h4>
+        <p>Usar procedimientos en situaciones nuevas.</p>
+      </div>
+      <div class="bloom-level bloom-l4" onclick="selectBloom(4)">
+        <h4>🌸 Nivel 4 — Analizar</h4>
+        <p>Descomponer para entender la estructura.</p>
+      </div>
+      <div class="bloom-level bloom-l5" onclick="selectBloom(5)">
+        <h4>🟣 Nivel 5 — Evaluar</h4>
+        <p>Hacer juicios basados en criterios.</p>
+      </div>
+      <div class="bloom-level bloom-l6" onclick="selectBloom(6)">
+        <h4>🔴 Nivel 6 — Crear</h4>
+        <p>Producir algo nuevo y original.</p>
+      </div>
+    </div>
+
+    <div id="bloom-verbs-container" style="display:none;margin-top:12px">
+      <div style="font-size:.8rem;font-weight:700;color:#003366;margin-bottom:6px">Verbos de este nivel — haz click para seleccionar:</div>
+      <div class="verb-chips" id="verb-chips"></div>
+    </div>
+    <div id="bloom-alert" style="display:none" class="alert-box" style="margin-top:8px">
+      ⚠️ Los niveles 1 y 2 (Recordar, Comprender) generan objetivos muy básicos para una investigación universitaria. Se recomienda usar al menos el nivel 3 (Aplicar) o superiores.
+    </div>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">🎯 Objetivo General de la Investigación</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Usa el verbo que seleccionaste de Bloom y redacta tu objetivo general. Estructura sugerida: <em>[Verbo en infinitivo] + [qué se va a estudiar] + [en qué población] + [en qué período]</em>. Ejemplo: <em>"Determinar la relación entre el nivel de formación tributaria del propietario y la frecuencia de infracciones del SRI en PYMES del sector comercial de Guayaquil, período 2020–2024."</em>
+    </div>
+    <div id="objetivo-bloom-hint" style="display:none;background:#e3f0fb;border-radius:6px;padding:8px 12px;font-size:.82rem;color:#003366;margin-bottom:8px;font-weight:600"></div>
+    <textarea id="objetivo-general" placeholder="Escribe tu objetivo general aquí..." rows="3"></textarea>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">📋 Objetivos Específicos (mínimo 2)</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Los objetivos específicos son los pasos concretos para alcanzar el objetivo general. Cada uno debe poder cumplirse de forma independiente. Se recomienda usar verbos de distintos niveles de Bloom para mostrar profundidad metodológica. Ejemplos de verbos: describir, identificar, comparar, establecer, analizar, evaluar, proponer.
+    </div>
+    <div id="obj-especificos-list" class="cause-list">
+      <div class="cause-item">
+        <div class="cause-num" style="background:#e3f0fb;color:#003366;border-radius:6px;width:auto;padding:0 8px;font-size:.75rem">OE1</div>
+        <textarea placeholder="Objetivo específico 1..." rows="2"></textarea>
+        <button class="why-remove-btn" onclick="removeObjEsp(this)">✕</button>
+      </div>
+      <div class="cause-item">
+        <div class="cause-num" style="background:#e3f0fb;color:#003366;border-radius:6px;width:auto;padding:0 8px;font-size:.75rem">OE2</div>
+        <textarea placeholder="Objetivo específico 2..." rows="2"></textarea>
+        <button class="why-remove-btn" onclick="removeObjEsp(this)">✕</button>
+      </div>
+    </div>
+    <button class="why-add-btn" onclick="addObjEsp()">+ Agregar objetivo específico</button>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn-prev" onclick="prevStation(5)">← Volver</button>
+    <button class="btn-next" onclick="nextStation(5)">Continuar → Variables e Hipótesis</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ESTACIÓN 6: VARIABLES E HIPÓTESIS -->
+<!-- ============================================================ -->
+<div class="station" id="station-6">
+  <div class="station-header">
+    <div class="station-num">6</div>
+    <div class="station-info">
+      <h2>Variables e Hipótesis: la predicción científica</h2>
+      <p>Con el problema y los objetivos definidos, ahora identificamos las variables que vamos a estudiar y formulamos la hipótesis que guiará toda la investigación.</p>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-title">🧭 Recuerda: de la pregunta surgen las variables</div>
+    <p>En tu pregunta de investigación ya están las variables. Si tu pregunta relaciona "el nivel de formación tributaria" con "la frecuencia de infracciones", entonces esas son tus variables. La variable independiente (VI) es la causa o el factor explicativo. La variable dependiente (VD) es el efecto o resultado que mides. Tu hipótesis predice cómo se relacionan.</p>
+  </div>
+
+  <!-- Pregunta recordada -->
+  <div class="field-group" style="background:#f0f4f8;border-color:#b3d4f0">
+    <div class="field-label" style="color:#1a6bbf">📌 Tu Pregunta de Investigación</div>
+    <div id="pregunta-recordada" style="font-size:.9rem;color:#333;line-height:1.65;font-style:italic;padding:6px 0"></div>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">🔵 Variable Independiente (VI) — La causa</div>
+    <div class="field-hint">
+      <strong>¿Qué es?</strong> La variable independiente es el factor que el investigador propone como <em>causa o explicación</em> del fenómeno estudiado. Es "lo que influye". En un experimento, es la que se manipula. En un estudio no experimental, es la que se mide como antecedente. <strong>Tip:</strong> pregúntate "¿qué factor podría estar generando el problema?". Esa respuesta es tu VI.<br><br>
+      <strong>Definición conceptual:</strong> ¿Cómo define la teoría (libros, autores) esta variable?<br>
+      <strong>Definición operacional:</strong> ¿Cómo la vas a medir en la práctica? ¿Con qué instrumento? ¿Qué indicadores usarás?
+    </div>
+    <input type="text" id="vi-nombre" placeholder="Nombre de la Variable Independiente..." style="margin-bottom:8px">
+    <textarea id="vi-conceptual" placeholder="Definición conceptual (según la teoría / autores)..." rows="2" style="margin-bottom:8px"></textarea>
+    <textarea id="vi-operacional" placeholder="Definición operacional (cómo la medirás: instrumento, indicadores, escala)..." rows="2"></textarea>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">🟠 Variable Dependiente (VD) — El efecto</div>
+    <div class="field-hint">
+      <strong>¿Qué es?</strong> La variable dependiente es lo que se <em>mide o evalúa</em> como resultado. Es "lo que cambia" cuando la variable independiente varía. <strong>Tip:</strong> pregúntate "¿qué es lo que queremos explicar o predecir?". Esa respuesta es tu VD. Recuerda que los síntomas que identificaste en la estación 2 suelen ser buenos candidatos a variables dependientes.<br><br>
+      <strong>Definición conceptual + operacional</strong> igual que la VI.
+    </div>
+    <input type="text" id="vd-nombre" placeholder="Nombre de la Variable Dependiente..." style="margin-bottom:8px">
+    <textarea id="vd-conceptual" placeholder="Definición conceptual (según la teoría / autores)..." rows="2" style="margin-bottom:8px"></textarea>
+    <textarea id="vd-operacional" placeholder="Definición operacional (cómo la medirás: instrumento, indicadores, escala)..." rows="2"></textarea>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">⚙️ Variables Intervinientes o de Control (opcional pero recomendado)</div>
+    <div class="field-hint">
+      <strong>¿Qué son?</strong> Son factores que pueden afectar la relación entre VI y VD, aunque no son el foco de tu estudio. Si no las identificas, pueden contaminar tus resultados. Ejemplos: el tamaño de la empresa, la edad del propietario, el sector económico, el año de la reforma tributaria. Identificarlas te permite explicar mejor tus resultados.
+    </div>
+    <textarea id="variables-intervinientes" placeholder="Ej: Tamaño de la empresa (microempresa / pequeña / mediana), sector económico (comercial / servicios / manufactura), antigüedad del negocio..." rows="3"></textarea>
+  </div>
+
+  <!-- HIPÓTESIS -->
+  <div class="field-group">
+    <div class="field-label">💡 Hipótesis de Investigación (Hi)</div>
+    <div class="field-hint">
+      <strong>¿Qué es?</strong> La hipótesis es una predicción fundamentada: una respuesta provisional a tu pregunta de investigación, antes de recolectar los datos. Debe: (1) estar redactada como <strong>afirmación</strong>, (2) relacionar las variables VI y VD, (3) especificar la dirección de la relación (positiva, negativa, de diferencia), (4) mencionar la población y contexto.<br><br>
+      <strong>Estructura recomendada:</strong> <em>"[VI] tiene una relación [tipo: positiva/negativa/significativa] con [VD] en [población y contexto]."</em><br>
+      O bien: <em>"Las [población A] presentan [mayor/menor] [VD] que las [población B] en [contexto]."</em>
+    </div>
+    <textarea id="hipotesis-hi" placeholder="Ej: Las PYMES cuyos propietarios tienen formación universitaria en áreas económico-administrativas presentan una frecuencia significativamente menor de infracciones tributarias registradas por el SRI, en comparación con aquellas cuyos propietarios no cuentan con dicha formación, en el cantón Guayaquil, período 2020–2024." rows="4"></textarea>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">🔴 Hipótesis Nula (H₀)</div>
+    <div class="field-hint">
+      <strong>¿Qué es?</strong> La hipótesis nula es la negación de tu hipótesis de investigación. Afirma que <em>NO existe</em> la relación, diferencia o efecto que predices. Es fundamental en el análisis estadístico porque es lo que se somete formalmente a prueba. Si los datos la refutan (la rechazan), tu hipótesis de investigación queda respaldada.<br><br>
+      <strong>Tip:</strong> Para formularla, toma tu hipótesis de investigación y agrégale "No existe..." o "No se evidencia diferencia estadísticamente significativa...".
+    </div>
+    <textarea id="hipotesis-h0" placeholder="Ej: No existe diferencia estadísticamente significativa en la frecuencia de infracciones tributarias entre las PYMES cuyos propietarios tienen formación universitaria en áreas económico-administrativas y aquellas cuyos propietarios no la tienen, en el cantón Guayaquil, período 2020–2024." rows="4"></textarea>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">📝 Justificación de la Investigación</div>
+    <div class="field-hint">
+      <strong>Instrucción:</strong> Responde brevemente al menos 3 de las 5 dimensiones de justificación de Hernández Sampieri. Puedes redactarlo como un párrafo continuo o responder cada dimensión por separado.<br>
+      <strong>Dimensiones:</strong> (1) Conveniencia: ¿para qué sirve? (2) Relevancia social: ¿a quiénes beneficia? (3) Implicaciones prácticas: ¿qué problema resuelve? (4) Valor teórico: ¿qué aporta al conocimiento? (5) Utilidad metodológica: ¿propone nuevas formas de medir?
+    </div>
+    <textarea id="justificacion" placeholder="Ej: Esta investigación es conveniente porque... Tiene relevancia social porque beneficia a... Desde el punto de vista práctico, permitirá... Teóricamente, aportará al conocimiento sobre... Metodológicamente, propone..." rows="5"></textarea>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn-prev" onclick="prevStation(6)">← Volver</button>
+    <button class="btn-next" onclick="nextStation(6)">Ver mi Mapa Final →</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ESTACIÓN 7: MAPA FINAL / EXPORTAR -->
+<!-- ============================================================ -->
+<div class="station" id="station-7">
+  <div class="station-header">
+    <div class="station-num">🗺</div>
+    <div class="station-info">
+      <h2>Tu Mapa de Planteamiento del Problema</h2>
+      <p>Aquí está todo tu trabajo sintetizado. Revísalo con ojo crítico: ¿hay coherencia entre el problema, las variables, los objetivos y la hipótesis? Si algo no encaja, regresa a la estación correspondiente y corrígelo.</p>
+    </div>
+  </div>
+
+  <!-- VALIDACIÓN SEMÁFORO -->
+  <div class="field-group" style="background:#f7f9fc">
+    <div class="field-label">🚦 Diagnóstico de completitud de tu mapa</div>
+    <div id="diagnostico-content" style="font-size:.88rem;line-height:2"></div>
+    <div class="progress-mini"><div class="progress-mini-fill" id="diagnostico-bar" style="width:0%"></div></div>
+    <div id="diagnostico-pct" style="font-size:.8rem;color:#666;text-align:right;margin-top:4px"></div>
+  </div>
+
+  <!-- EL MAPA -->
+  <div id="mapa-contenido">
+
+    <div class="map-block">
+      <div class="map-block-header">🧑 Protagonista & Contexto</div>
+      <div class="map-block-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div><div class="summary-label">Sector</div><div class="summary-value" id="map-sector">—</div></div>
+          <div><div class="summary-label">Protagonista</div><div class="summary-value" id="map-protagonista">—</div></div>
+        </div>
+        <div style="margin-top:10px"><div class="summary-label">Mapa de Empatía — Lo que vive</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px">
+            <div style="background:#fff8e1;border-radius:6px;padding:8px 10px;font-size:.82rem"><strong>Piensa y siente:</strong><br><span id="map-piensa">—</span></div>
+            <div style="background:#e0f2fe;border-radius:6px;padding:8px 10px;font-size:.82rem"><strong>Escucha:</strong><br><span id="map-escucha">—</span></div>
+            <div style="background:#f0fdf4;border-radius:6px;padding:8px 10px;font-size:.82rem"><strong>Ve:</strong><br><span id="map-ve">—</span></div>
+            <div style="background:#fdf2f8;border-radius:6px;padding:8px 10px;font-size:.82rem"><strong>Dice y hace:</strong><br><span id="map-hace">—</span></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+          <div><div class="summary-label">Dolores</div><div class="summary-value" id="map-dolores" style="font-size:.85rem">—</div></div>
+          <div><div class="summary-label">Ganancias esperadas</div><div class="summary-value" id="map-ganancias" style="font-size:.85rem">—</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">⬇️</div>
+
+    <div class="map-block">
+      <div class="map-block-header">👁️ Síntomas Observados</div>
+      <div class="map-block-body">
+        <div class="summary-value" id="map-situacion" style="font-size:.88rem;margin-bottom:8px"></div>
+        <div id="map-sintomas" style="font-size:.88rem"></div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">⬇️</div>
+
+    <div class="map-block">
+      <div class="map-block-header">🔗 Cadena de Por Qués → Causa Raíz</div>
+      <div class="map-block-body">
+        <div id="map-porques" style="font-size:.85rem;line-height:1.8"></div>
+        <div style="margin-top:10px;background:#003366;color:#fff;border-radius:6px;padding:10px 14px">
+          <div style="font-size:.72rem;color:#87CEEB;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Causa Raíz Identificada</div>
+          <div id="map-causa-raiz" style="font-size:.9rem;color:#e8f0fa"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">⬇️</div>
+
+    <div class="map-block">
+      <div class="map-block-header">⚠️ Problema Central (Matriz de Vester)</div>
+      <div class="map-block-body">
+        <div class="summary-value" id="map-problema-central" style="font-size:.9rem"></div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">⬇️</div>
+
+    <div class="map-block">
+      <div class="map-block-header">❓ Pregunta de Investigación & Objetivos</div>
+      <div class="map-block-body">
+        <div class="summary-label">Pregunta de Investigación</div>
+        <div style="background:#003366;color:#fff;border-radius:6px;padding:10px 14px;font-family:'Lora',serif;font-style:italic;font-size:.92rem;margin-bottom:12px" id="map-pregunta">—</div>
+        <div class="summary-label">Objetivo General</div>
+        <div class="summary-value" id="map-objetivo" style="font-size:.88rem;margin-bottom:10px"></div>
+        <div class="summary-label">Objetivos Específicos</div>
+        <div id="map-obj-especificos" style="font-size:.88rem"></div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">⬇️</div>
+
+    <div class="map-block">
+      <div class="map-block-header">📊 Variables de Investigación</div>
+      <div class="map-block-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <div style="background:#dbeafe;border-radius:8px;padding:12px;height:100%">
+              <div style="font-size:.72rem;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Variable Independiente (VI)</div>
+              <div style="font-weight:700;color:#1e40af;font-size:.95rem;margin-bottom:6px" id="map-vi-nombre">—</div>
+              <div style="font-size:.8rem;color:#334155"><strong>Conceptual:</strong> <span id="map-vi-conceptual">—</span></div>
+              <div style="font-size:.8rem;color:#334155;margin-top:4px"><strong>Operacional:</strong> <span id="map-vi-operacional">—</span></div>
+            </div>
+          </div>
+          <div>
+            <div style="background:#ffedd5;border-radius:8px;padding:12px;height:100%">
+              <div style="font-size:.72rem;font-weight:700;color:#c2410c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Variable Dependiente (VD)</div>
+              <div style="font-weight:700;color:#9a3412;font-size:.95rem;margin-bottom:6px" id="map-vd-nombre">—</div>
+              <div style="font-size:.8rem;color:#334155"><strong>Conceptual:</strong> <span id="map-vd-conceptual">—</span></div>
+              <div style="font-size:.8rem;color:#334155;margin-top:4px"><strong>Operacional:</strong> <span id="map-vd-operacional">—</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:10px;background:#f1f5f9;border-radius:6px;padding:10px 12px;font-size:.85rem">
+          <strong>Variables intervinientes / de control:</strong> <span id="map-intervinientes">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">⬇️</div>
+
+    <div class="map-block">
+      <div class="map-block-header">💡 Hipótesis</div>
+      <div class="map-block-body">
+        <div class="hypothesis-row">
+          <div class="hyp-card hyp-hi">
+            <div class="hyp-label">Hipótesis de Investigación (Hi)</div>
+            <div class="hyp-text" id="map-hi">—</div>
+          </div>
+          <div class="hyp-card hyp-h0">
+            <div class="hyp-label">Hipótesis Nula (H₀)</div>
+            <div class="hyp-text" id="map-h0">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">⬇️</div>
+
+    <div class="map-block">
+      <div class="map-block-header">⚖️ Justificación de la Investigación</div>
+      <div class="map-block-body">
+        <div class="summary-value" id="map-justificacion" style="font-size:.88rem"></div>
+      </div>
+    </div>
+
+  </div><!-- /mapa-contenido -->
+
+  <div class="export-actions">
+    <button class="btn-export" onclick="exportarMapa()">🖨️ Exportar / Imprimir Mapa</button>
+    <button class="btn-secondary" style="background:#003366;color:#fff;border:none;padding:11px 24px;border-radius:6px;font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer" onclick="goStation(1)">🔄 Comenzar de nuevo</button>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn-prev" onclick="prevStation(7)">← Volver a Variables e Hipótesis</button>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+// ===== STATE =====
+let currentStation = 1;
+const totalStations = 7;
+const unlockedStations = new Set([1]);
+
+// ===== NAVIGATION =====
+function showStation(n) {
+  document.querySelectorAll('.station').forEach(s => s.classList.remove('active'));
+  document.getElementById('station-' + n).classList.add('active');
+  for (let i = 1; i <= totalStations; i++) {
+    const dot = document.getElementById('dot-' + i);
+    if (!dot) continue;
+    dot.classList.remove('active', 'done', 'locked');
+    if (i < n) dot.classList.add('done');
+    else if (i === n) dot.classList.add('active');
+    else if (unlockedStations.has(i)) dot.classList.add('active');
+    else dot.classList.add('locked');
+  }
+  for (let i = 1; i <= 6; i++) {
+    const line = document.getElementById('line-' + i);
+    if (line) line.classList.toggle('done', i < n);
+  }
+  currentStation = n;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goStation(n) {
+  if (unlockedStations.has(n) || n <= currentStation) showStation(n);
+}
+
+function nextStation(from) {
+  const next = from + 1;
+  if (next === 5) populateProblemaCentral();
+  if (next === 6) populatePreguntaRecordada();
+  if (next === 7) buildFinalMap();
+  unlockedStations.add(next);
+  showStation(next);
+}
+
+function prevStation(from) {
+  showStation(from - 1);
+}
+
+// ===== SECTOR EXAMPLES =====
+const sectorExamples = {
+  educacion: '📚 <strong>Ejemplo:</strong> Estudiantes con bajo rendimiento académico pese a mayor acceso tecnológico. Docentes que no reciben capacitación en metodologías activas. Deserción universitaria en primer semestre.',
+  empresarial: '🏢 <strong>Ejemplo:</strong> PYMES con alta tasa de cierre en los primeros 3 años. Empresas familiares que no formalizan su contabilidad. Emprendimientos que no acceden a crédito por falta de estados financieros.',
+  publico: '🏛️ <strong>Ejemplo:</strong> GADs con observaciones reiterativas de la Contraloría. Contratos públicos con sobreprecios. Procesos de compra pública sin transparencia en Ecuador.',
+  salud: '🏥 <strong>Ejemplo:</strong> Pacientes que abandonan tratamientos en centros de salud pública. Personal médico con alta rotación en hospitales del IESS. Subregistro de enfermedades crónicas en zonas rurales.',
+  comunitario: '🌍 <strong>Ejemplo:</strong> Barrios periféricos de Guayaquil sin acceso a servicios básicos. Organizaciones comunitarias que no tienen personería jurídica. Comunidades indígenas con escaso acceso a educación financiera.',
+  financiero: '💰 <strong>Ejemplo:</strong> Contribuyentes del SRI con infracciones reiterativas. Cooperativas de ahorro con deficiencias en su sistema de control interno. Empresas que no implementan NIIF correctamente.',
+  agro: '🌾 <strong>Ejemplo:</strong> Pequeños agricultores de la Costa que no acceden a seguro agrícola. Cooperativas de cacao que no exportan directamente por falta de certificaciones. Pérdidas post-cosecha por ausencia de cadena de frío.',
+  otro: '📌 Describe tu sector específico en el campo de protagonista y contexto.'
+};
+
+function updateSectorExamples() {
+  const val = document.getElementById('sector').value;
+  const box = document.getElementById('sector-example');
+  if (val && sectorExamples[val]) {
+    box.innerHTML = sectorExamples[val];
+    box.style.display = 'block';
+  } else {
+    box.style.display = 'none';
+  }
+}
+
+// ===== SINTOMAS =====
+let sintomaCnt = 3;
+function addSintoma() {
+  if (sintomaCnt >= 6) { alert('Máximo 6 síntomas. Si tienes más, agrúpalos.'); return; }
+  sintomaCnt++;
+  const list = document.getElementById('sintomas-list');
+  const div = document.createElement('div');
+  div.className = 'cause-item';
+  div.innerHTML = `<div class="cause-num">${sintomaCnt}</div>
+    <textarea class="sintoma-field" placeholder="Síntoma / efecto observable ${sintomaCnt}..." rows="2"></textarea>
+    <button class="why-remove-btn" onclick="removeSintoma(this)" title="Eliminar">✕</button>`;
+  list.appendChild(div);
+}
+function removeSintoma(btn) {
+  const item = btn.closest('.cause-item');
+  const list = document.getElementById('sintomas-list');
+  if (list.children.length <= 2) { alert('Necesitas al menos 2 síntomas.'); return; }
+  item.remove();
+  renumberList('sintomas-list', 'cause-num');
+  sintomaCnt--;
+}
+
+// ===== WHY CHAIN =====
+const bloomVerbs = {
+  1: ['Definir','Listar','Recordar','Nombrar','Identificar','Reconocer','Repetir','Seleccionar'],
+  2: ['Describir','Explicar','Resumir','Clasificar','Comparar','Interpretar','Parafrasear','Traducir'],
+  3: ['Aplicar','Demostrar','Usar','Implementar','Ejecutar','Resolver','Calcular','Construir'],
+  4: ['Analizar','Diferenciar','Descomponer','Examinar','Contrastar','Organizar','Investigar','Determinar'],
+  5: ['Evaluar','Juzgar','Justificar','Criticar','Defender','Valorar','Argumentar','Seleccionar'],
+  6: ['Crear','Diseñar','Formular','Proponer','Elaborar','Planificar','Producir','Desarrollar']
+};
+let selectedBloom = 0;
+let selectedVerb = '';
+
+function selectBloom(level) {
+  selectedBloom = level;
+  document.querySelectorAll('.bloom-level').forEach((el,i) => {
+    el.classList.toggle('selected', i === level - 1);
+  });
+  const container = document.getElementById('bloom-verbs-container');
+  const chips = document.getElementById('verb-chips');
+  container.style.display = 'block';
+  chips.innerHTML = '';
+  bloomVerbs[level].forEach(v => {
+    const chip = document.createElement('span');
+    chip.className = 'verb-chip';
+    chip.textContent = v;
+    chip.onclick = () => selectVerb(v, chip);
+    chips.appendChild(chip);
+  });
+  const alert = document.getElementById('bloom-alert');
+  alert.style.display = (level <= 2) ? 'block' : 'none';
+}
+
+function selectVerb(verb, chipEl) {
+  selectedVerb = verb;
+  document.querySelectorAll('.verb-chip').forEach(c => c.classList.remove('selected-verb'));
+  chipEl.classList.add('selected-verb');
+  const hint = document.getElementById('objetivo-bloom-hint');
+  hint.style.display = 'block';
+  hint.textContent = `✅ Verbo seleccionado: "${verb}" (Nivel ${selectedBloom} de Bloom). Úsalo al inicio de tu objetivo general.`;
+  const ta = document.getElementById('objetivo-general');
+  if (!ta.value) ta.placeholder = `${verb} [qué se va a estudiar] en [población], período [tiempo]...`;
+}
+
+let whyCnt = 1;
+function addWhy() {
+  if (whyCnt >= 7) { alert('Con 7 por qués es suficiente para llegar a la raíz.'); return; }
+  whyCnt++;
+  const chain = document.getElementById('why-chain');
+  const div = document.createElement('div');
+  div.className = 'why-item';
+  div.innerHTML = `<div class="why-badge">¿Por qué ${whyCnt}?</div>
+    <textarea placeholder="¿Por qué ocurre lo que escribiste arriba? Profundiza más..." rows="2"></textarea>
+    <button class="why-remove-btn" onclick="removeWhy(this)">✕</button>`;
+  chain.appendChild(div);
+}
+function removeWhy(btn) {
+  const item = btn.closest('.why-item');
+  const chain = document.getElementById('why-chain');
+  if (chain.children.length <= 1) { alert('Necesitas al menos un Por Qué.'); return; }
+  item.remove();
+  whyCnt--;
+  chain.querySelectorAll('.why-badge').forEach((b,i) => b.textContent = `¿Por qué ${i+1}?`);
+}
+
+// ===== CAUSAS =====
+let causaCnt = 3;
+function addCausa() {
+  if (causaCnt >= 6) { alert('Máximo 6 causas para la Matriz de Vester.'); return; }
+  causaCnt++;
+  const list = document.getElementById('causas-list');
+  const div = document.createElement('div');
+  div.className = 'cause-item';
+  div.innerHTML = `<div class="cause-num">C${causaCnt}</div>
+    <textarea class="causa-field" placeholder="Causa ${causaCnt}..." rows="2" oninput="updateVester()"></textarea>
+    <button class="why-remove-btn" onclick="removeCausa(this)">✕</button>`;
+  list.appendChild(div);
+  updateVester();
+}
+function removeCausa(btn) {
+  const item = btn.closest('.cause-item');
+  const list = document.getElementById('causas-list');
+  if (list.children.length <= 2) { alert('Necesitas al menos 2 causas para la Matriz de Vester.'); return; }
+  item.remove();
+  causaCnt--;
+  renumberList('causas-list','cause-num','C');
+  updateVester();
+}
+
+function renumberList(listId, numClass, prefix='') {
+  const list = document.getElementById(listId);
+  list.querySelectorAll('.'+numClass).forEach((el,i) => el.textContent = prefix+(i+1));
+}
+
+// ===== VESTER MATRIX =====
+function getCausas() {
+  return Array.from(document.querySelectorAll('.causa-field')).map((ta,i) => ta.value.trim() || `C${i+1}`);
+}
+
+function updateVester() {
+  const causas = getCausas();
+  const n = causas.length;
+  if (n < 2) { document.getElementById('vester-section').style.display='none'; return; }
+  document.getElementById('vester-section').style.display='block';
+
+  const table = document.getElementById('vester-table');
+  // Build table
+  let html = '<thead><tr><th class="cause-th">Causa</th>';
+  causas.forEach((c,i) => html += `<th title="${c}">C${i+1}</th>`);
+  html += '<th>Activo (∑ fila)</th><th>Pasivo (∑ col)</th><th>Clasif.</th></tr></thead><tbody>';
+
+  // Preserve existing values
+  const existing = {};
+  table.querySelectorAll('input[data-r]').forEach(inp => {
+    existing[inp.dataset.r+'_'+inp.dataset.c] = inp.value;
+  });
+
+  causas.forEach((c,r) => {
+    html += `<tr><td class="cause-name" title="${c}">C${r+1}: ${c.length>28?c.substring(0,28)+'…':c}</td>`;
+    causas.forEach((cc,col) => {
+      if (r===col) {
+        html += `<td style="background:#e2e8f0;text-align:center;color:#999">—</td>`;
+      } else {
+        const val = existing[r+'_'+col] || '';
+        html += `<td><input type="number" min="0" max="3" step="1" value="${val}" data-r="${r}" data-c="${col}" oninput="recalcVester()" style="width:42px"></td>`;
+      }
+    });
+    html += `<td class="total-cell" id="vt-activo-${r}">0</td><td class="total-cell" id="vt-pasivo-${r}">0</td><td class="classification" id="vt-clasif-${r}">—</td></tr>`;
+  });
+  html += '</tbody>';
+  table.innerHTML = html;
+  recalcVester();
+}
+
+function recalcVester() {
+  const causas = getCausas();
+  const n = causas.length;
+  const vals = Array.from({length:n}, () => Array(n).fill(0));
+  document.querySelectorAll('input[data-r]').forEach(inp => {
+    const r = parseInt(inp.dataset.r), c = parseInt(inp.dataset.c);
+    const v = parseInt(inp.value)||0;
+    vals[r][c] = Math.min(3, Math.max(0, v));
+  });
+
+  const activos = vals.map(row => row.reduce((a,b)=>a+b,0));
+  const pasivos = causas.map((_,c) => vals.reduce((s,row)=>s+row[c],0));
+  const maxA = Math.max(...activos)||1;
+  const maxP = Math.max(...pasivos)||1;
+  const midA = maxA/2, midP = maxP/2;
+
+  causas.forEach((_,r) => {
+    const a = activos[r], p = pasivos[r];
+    document.getElementById(`vt-activo-${r}`).textContent = a;
+    document.getElementById(`vt-pasivo-${r}`).textContent = p;
+    let clasif = '', cls = '';
+    if (a >= midA && p >= midP) { clasif='CRÍTICA'; cls='clasif-critica'; }
+    else if (a >= midA && p < midP) { clasif='ACTIVA'; cls='clasif-activa'; }
+    else if (a < midA && p >= midP) { clasif='PASIVA'; cls='clasif-pasiva'; }
+    else { clasif='INERTE'; cls='clasif-inerte'; }
+    const cell = document.getElementById(`vt-clasif-${r}`);
+    cell.textContent = clasif;
+    cell.className = 'classification ' + cls;
+  });
+}
+
+// ===== PREGUNTA ENSAMBLADA =====
+function assemblePregunta() {
+  const a = document.getElementById('pregunta-a').value.trim();
+  const b = document.getElementById('pregunta-b').value.trim();
+  const c = document.getElementById('pregunta-c').value.trim();
+  let pregunta = '';
+  if (a || b || c) {
+    pregunta = '¿Cuál es ' + (a||'[relación entre variables]') + (b?' '+b:'') + (c?', '+c:'') + '?';
+  }
+  document.getElementById('pregunta-ensamblada').textContent = pregunta || 'Completa los bloques A, B y C para ver tu pregunta aquí...';
+  validatePregunta(a,b,c);
+}
+
+['pregunta-a','pregunta-b','pregunta-c'].forEach(id => {
+  document.getElementById(id).addEventListener('input', assemblePregunta);
+});
+
+function validatePregunta(a,b,c) {
+  const el = document.getElementById('validacion-pregunta');
+  const checks = [
+    { ok: a.length>10, text: 'Describe una relación o efecto entre variables' },
+    { ok: b.length>5, text: 'Delimita la población o contexto' },
+    { ok: c.length>3, text: 'Especifica el período de tiempo' },
+    { ok: (a+b+c).length>30, text: 'La pregunta tiene suficiente especificidad' }
+  ];
+  el.innerHTML = checks.map(ch =>
+    `<span class="validation-dot" style="background:${ch.ok?'#059669':'#dc2626'}"></span>${ch.text}<br>`
+  ).join('');
+}
+
+// ===== POPULATE CROSS-STATION DATA =====
+function populateProblemaCentral() {
+  const val = document.getElementById('problema-central').value.trim();
+  document.getElementById('problema-central-display').textContent = val || '(No has escrito el problema central aún — regresa a la estación 4)';
+}
+function populatePreguntaRecordada() {
+  const el = document.getElementById('pregunta-ensamblada');
+  document.getElementById('pregunta-recordada').textContent = el.textContent;
+}
+
+// ===== OBJ ESPECÍFICOS =====
+let objEspCnt = 2;
+function addObjEsp() {
+  objEspCnt++;
+  const list = document.getElementById('obj-especificos-list');
+  const div = document.createElement('div');
+  div.className = 'cause-item';
+  div.innerHTML = `<div class="cause-num" style="background:#e3f0fb;color:#003366;border-radius:6px;width:auto;padding:0 8px;font-size:.75rem">OE${objEspCnt}</div>
+    <textarea placeholder="Objetivo específico ${objEspCnt}..." rows="2"></textarea>
+    <button class="why-remove-btn" onclick="removeObjEsp(this)">✕</button>`;
+  list.appendChild(div);
+}
+function removeObjEsp(btn) {
+  const item = btn.closest('.cause-item');
+  const list = document.getElementById('obj-especificos-list');
+  if (list.children.length <= 1) { alert('Necesitas al menos un objetivo específico.'); return; }
+  item.remove();
+}
+
+// ===== FINAL MAP =====
+function buildFinalMap() {
+  // Sector
+  const sectorSel = document.getElementById('sector');
+  document.getElementById('map-sector').textContent = sectorSel.options[sectorSel.selectedIndex]?.text || '—';
+
+  // Protagonista y empatía
+  document.getElementById('map-protagonista').textContent = document.getElementById('protagonista').value || '—';
+  document.getElementById('map-piensa').textContent = document.getElementById('emp-piensa').value || '—';
+  document.getElementById('map-escucha').textContent = document.getElementById('emp-escucha').value || '—';
+  document.getElementById('map-ve').textContent = document.getElementById('emp-ve').value || '—';
+  document.getElementById('map-hace').textContent = document.getElementById('emp-hace').value || '—';
+  document.getElementById('map-dolores').textContent = document.getElementById('dolores').value || '—';
+  document.getElementById('map-ganancias').textContent = document.getElementById('ganancias').value || '—';
+
+  // Síntomas
+  document.getElementById('map-situacion').textContent = document.getElementById('situacion-general').value || '—';
+  const sintomas = Array.from(document.querySelectorAll('.sintoma-field')).map((ta,i)=>ta.value.trim()).filter(Boolean);
+  document.getElementById('map-sintomas').innerHTML = sintomas.map((s,i)=>`<div style="padding:4px 0;border-bottom:1px dashed #eee">• ${s}</div>`).join('') || '—';
+
+  // Por Qués
+  const porques = Array.from(document.querySelectorAll('#why-chain textarea')).map((ta,i)=>({n:i+1,t:ta.value.trim()})).filter(p=>p.t);
+  document.getElementById('map-porques').innerHTML = porques.map(p=>`<strong>¿Por qué ${p.n}?</strong> ${p.t}<br>`).join('') || '—';
+  document.getElementById('map-causa-raiz').textContent = document.getElementById('causa-raiz').value || '—';
+
+  // Problema central
+  document.getElementById('map-problema-central').textContent = document.getElementById('problema-central').value || '—';
+
+  // Pregunta
+  document.getElementById('map-pregunta').textContent = document.getElementById('pregunta-ensamblada').textContent || '—';
+
+  // Objetivo general
+  document.getElementById('map-objetivo').textContent = document.getElementById('objetivo-general').value || '—';
+
+  // Obj específicos
+  const oes = Array.from(document.querySelectorAll('#obj-especificos-list textarea')).map((ta,i)=>({n:i+1,t:ta.value.trim()})).filter(o=>o.t);
+  document.getElementById('map-obj-especificos').innerHTML = oes.map(o=>`<div style="padding:4px 0;border-bottom:1px dashed #eee"><strong>OE${o.n}:</strong> ${o.t}</div>`).join('') || '—';
+
+  // Variables
+  document.getElementById('map-vi-nombre').textContent = document.getElementById('vi-nombre').value || '—';
+  document.getElementById('map-vi-conceptual').textContent = document.getElementById('vi-conceptual').value || '—';
+  document.getElementById('map-vi-operacional').textContent = document.getElementById('vi-operacional').value || '—';
+  document.getElementById('map-vd-nombre').textContent = document.getElementById('vd-nombre').value || '—';
+  document.getElementById('map-vd-conceptual').textContent = document.getElementById('vd-conceptual').value || '—';
+  document.getElementById('map-vd-operacional').textContent = document.getElementById('vd-operacional').value || '—';
+  document.getElementById('map-intervinientes').textContent = document.getElementById('variables-intervinientes').value || '—';
+
+  // Hipótesis
+  document.getElementById('map-hi').textContent = document.getElementById('hipotesis-hi').value || '—';
+  document.getElementById('map-h0').textContent = document.getElementById('hipotesis-h0').value || '—';
+
+  // Justificación
+  document.getElementById('map-justificacion').textContent = document.getElementById('justificacion').value || '—';
+
+  // Diagnóstico
+  buildDiagnostico();
+}
+
+function buildDiagnostico() {
+  const checks = [
+    { label: 'Protagonista y contexto definidos', ok: document.getElementById('protagonista').value.trim().length > 20 },
+    { label: 'Mapa de empatía completo', ok: ['emp-piensa','emp-escucha','emp-ve','emp-hace'].every(id=>document.getElementById(id).value.trim().length>10) },
+    { label: 'Situación problemática descrita', ok: document.getElementById('situacion-general').value.trim().length > 30 },
+    { label: 'Síntomas identificados (mín. 2)', ok: Array.from(document.querySelectorAll('.sintoma-field')).filter(ta=>ta.value.trim()).length >= 2 },
+    { label: 'Cadena de Por Qués completada', ok: Array.from(document.querySelectorAll('#why-chain textarea')).some(ta=>ta.value.trim()) },
+    { label: 'Causa raíz identificada', ok: document.getElementById('causa-raiz').value.trim().length > 20 },
+    { label: 'Problema central redactado', ok: document.getElementById('problema-central').value.trim().length > 30 },
+    { label: 'Pregunta de investigación formulada', ok: document.getElementById('pregunta-ensamblada').textContent.includes('?') && document.getElementById('pregunta-ensamblada').textContent.length > 30 },
+    { label: 'Objetivo general redactado', ok: document.getElementById('objetivo-general').value.trim().length > 20 },
+    { label: 'Variable Independiente definida', ok: document.getElementById('vi-nombre').value.trim().length > 3 },
+    { label: 'Variable Dependiente definida', ok: document.getElementById('vd-nombre').value.trim().length > 3 },
+    { label: 'Hipótesis de Investigación (Hi)', ok: document.getElementById('hipotesis-hi').value.trim().length > 30 },
+    { label: 'Hipótesis Nula (H₀)', ok: document.getElementById('hipotesis-h0').value.trim().length > 30 },
+    { label: 'Justificación redactada', ok: document.getElementById('justificacion').value.trim().length > 50 },
+  ];
+  const done = checks.filter(c=>c.ok).length;
+  const pct = Math.round((done/checks.length)*100);
+  document.getElementById('diagnostico-content').innerHTML = checks.map(c=>
+    `<span class="validation-dot" style="background:${c.ok?'#059669':'#dc2626'}"></span>${c.label}<br>`
+  ).join('');
+  setTimeout(()=>{
+    document.getElementById('diagnostico-bar').style.width = pct+'%';
+    document.getElementById('diagnostico-pct').textContent = `${done} / ${checks.length} elementos completados (${pct}%)`;
+  }, 200);
+}
+
+// ===== EXPORT =====
+function exportarMapa() {
+  buildFinalMap();
+  const mapa = document.getElementById('mapa-contenido').innerHTML;
+  const win = window.open('','_blank');
+  win.document.write(`<!DOCTYPE html><html lang="es"><head>
+    <meta charset="UTF-8">
+    <title>Mapa de Planteamiento del Problema</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      body{font-family:'Source Sans 3',sans-serif;font-size:14px;color:#1a1a2e;padding:24px;max-width:900px;margin:0 auto;background:#fff}
+      h1{font-family:'Lora',serif;color:#003366;font-size:1.4rem;margin-bottom:4px}
+      .subtitle{color:#666;font-size:.85rem;margin-bottom:20px}
+      .map-block{background:#fff;border:2px solid #003366;border-radius:10px;overflow:hidden;margin-bottom:14px;break-inside:avoid}
+      .map-block-header{background:#003366;color:#fff;padding:8px 16px;font-weight:700;font-size:.88rem}
+      .map-block-body{padding:14px 16px}
+      .summary-label{font-size:.68rem;font-weight:700;color:#003366;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+      .summary-value{font-size:.88rem;color:#1a1a2e;line-height:1.7;background:#f7f9fc;border-radius:6px;padding:8px 12px}
+      .arrow-connector{text-align:center;font-size:1.2rem;color:#003366;margin:4px 0}
+      .hypothesis-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+      .hyp-card{border-radius:8px;padding:10px 12px}
+      .hyp-hi{background:#dbeafe;border:1px solid #93c5fd}
+      .hyp-h0{background:#fee2e2;border:1px solid #fca5a5}
+      .hyp-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+      .hyp-hi .hyp-label{color:#1d4ed8}
+      .hyp-h0 .hyp-label{color:#dc2626}
+      .hyp-text{font-size:.85rem;line-height:1.5;color:#1a1a2e}
+      @media print{body{padding:10px}.map-block{break-inside:avoid}}
+    </style>
+  </head><body>
+    <h1>🗺️ Mapa de Planteamiento del Problema</h1>
+    <p class="subtitle">Universidad de Guayaquil · Facultad de Ciencias Administrativas · Metodología de la Investigación · Generado con el Laboratorio Metodológico</p>
+    <hr style="border-color:#dde3ea;margin-bottom:20px">
+    ${mapa}
+    <p style="margin-top:24px;font-size:.75rem;color:#aaa;text-align:center">Generado con el Laboratorio de Planteamiento del Problema — Universidad de Guayaquil</p>
+  </body></html>`);
+  win.document.close();
+  setTimeout(()=>win.print(), 600);
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  updateVester();
+});
+</script>
+</body>
+</html>
