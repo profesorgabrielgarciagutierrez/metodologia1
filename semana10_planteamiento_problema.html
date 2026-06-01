@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 10 | Criterios y Elementos del Planteamiento del Problema</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     RESET Y BASE
+  ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #f0f4f8;
+    color: #1a1a2e;
+    min-height: 100vh;
+  }
+
+  /* ============================================================
+     ENCABEZADO
+  ============================================================ */
+  header {
+    background: #003366;
+    color: #fff;
+    padding: 22px 28px 18px;
+  }
+  .header-top {
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.82;
+    margin-bottom: 6px;
+  }
+  header h1 {
+    font-family: 'Lora', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  header h2 {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    opacity: 0.88;
+    margin-top: 5px;
+  }
+  .header-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* ============================================================
+     NAVEGACIÓN DE PESTAÑAS
+  ============================================================ */
+  .tab-nav-wrapper {
+    background: #87CEEB;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 3px solid #003366;
+  }
+  .tab-nav {
+    display: inline-flex;
+    min-width: 100%;
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    padding: 13px 18px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+    border-right: 1px solid rgba(0,51,102,0.15);
+  }
+  .tab-btn:hover { background: rgba(255,255,255,0.5); }
+  .tab-btn.active {
+    background: #fff;
+    color: #003366;
+    font-weight: 700;
+    border-bottom: 3px solid #fff;
+    margin-bottom: -3px;
+  }
+
+  /* ============================================================
+     CONTENIDO DE PESTAÑAS
+  ============================================================ */
+  .tab-content { display: none; padding: 28px 24px 40px; max-width: 920px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* ============================================================
+     COMPONENTES REUTILIZABLES
+  ============================================================ */
+  h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.25rem;
+    color: #003366;
+    margin-bottom: 14px;
+    margin-top: 26px;
+    border-bottom: 2px solid #87CEEB;
+    padding-bottom: 6px;
+  }
+  h3:first-child { margin-top: 0; }
+  h4 {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: #003366;
+    margin: 18px 0 8px;
+  }
+  p { line-height: 1.75; margin-bottom: 14px; font-size: 0.97rem; }
+
+  /* Caja de concepto */
+  .box-concepto {
+    border-left: 5px solid #003366;
+    background: #f5f8ff;
+    padding: 16px 20px;
+    margin: 18px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .box-concepto strong { color: #003366; display: block; margin-bottom: 6px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* Caja de ejemplo */
+  .box-ejemplo {
+    background: #deeeff;
+    border: 1px solid #aad4f5;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 18px 0;
+  }
+  .box-ejemplo strong { color: #003366; display: block; margin-bottom: 6px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* Caja de idea clave */
+  .box-clave {
+    background: #003366;
+    color: #fff;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 22px 0 8px;
+  }
+  .box-clave strong { display: block; margin-bottom: 6px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8; }
+  .box-clave p { color: #fff; margin: 0; }
+
+  /* Caja de advertencia */
+  .box-warning {
+    border-left: 5px solid #e67e22;
+    background: #fff8f0;
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .box-warning strong { color: #c0392b; }
+
+  /* Lista visual */
+  .lista-visual { list-style: none; margin: 14px 0; }
+  .lista-visual li {
+    padding: 10px 14px 10px 42px;
+    position: relative;
+    border-bottom: 1px solid #e8eef5;
+    font-size: 0.96rem;
+    line-height: 1.6;
+  }
+  .lista-visual li:last-child { border-bottom: none; }
+  .lista-visual li::before {
+    content: attr(data-icon);
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    font-size: 1.05rem;
+  }
+
+  /* Tabla */
+  table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.93rem; }
+  th { background: #003366; color: #fff; padding: 11px 14px; text-align: left; font-family: 'Source Sans 3', sans-serif; font-weight: 600; }
+  td { padding: 10px 14px; border-bottom: 1px solid #d0dcea; vertical-align: top; line-height: 1.55; }
+  tr:nth-child(even) td { background: #f0f6ff; }
+  tr:hover td { background: #deeeff; }
+
+  /* Numeración de pasos */
+  .paso {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin: 14px 0;
+    background: #f8faff;
+    border-radius: 8px;
+    padding: 14px 16px;
+    border: 1px solid #d4e2f4;
+  }
+  .paso-num {
+    background: #003366;
+    color: #fff;
+    border-radius: 50%;
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .paso-txt h4 { margin: 0 0 5px; font-size: 0.97rem; }
+  .paso-txt p { margin: 0; font-size: 0.93rem; }
+
+  /* ============================================================
+     EJERCICIO Y CUESTIONARIO
+  ============================================================ */
+  .exercise-item {
+    background: #fff;
+    border: 1px solid #d0dcea;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+  .exercise-item p.enunciado { font-weight: 600; color: #003366; margin-bottom: 12px; font-size: 0.97rem; }
+  .options-grid { display: flex; flex-direction: column; gap: 8px; }
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    border: 1.5px solid #c8d8ea;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    font-size: 0.94rem;
+    line-height: 1.5;
+  }
+  .option-label:hover { background: #eef5ff; border-color: #87CEEB; }
+  .option-label input { accent-color: #003366; flex-shrink: 0; }
+  .option-label.correct { background: #e6f9ee; border-color: #27ae60; }
+  .option-label.incorrect { background: #fdecea; border-color: #e74c3c; }
+  .feedback-box {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    display: none;
+    line-height: 1.55;
+  }
+  .feedback-box.correct { background: #e6f9ee; border-left: 4px solid #27ae60; color: #1a5c30; }
+  .feedback-box.incorrect { background: #fdecea; border-left: 4px solid #e74c3c; color: #7b1a1a; }
+
+  .type-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .badge-teoria { background: #deeeff; color: #003366; }
+  .badge-analisis { background: #fff0d0; color: #7a4800; }
+
+  .btn-verificar {
+    display: block;
+    margin: 24px auto 0;
+    background: #003366;
+    color: #fff;
+    border: none;
+    padding: 13px 36px;
+    border-radius: 8px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: background 0.2s;
+  }
+  .btn-verificar:hover { background: #004488; }
+  .btn-reiniciar {
+    display: none;
+    margin: 12px auto 0;
+    background: #87CEEB;
+    color: #003366;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-reiniciar:hover { background: #6ab8de; }
+
+  /* Resultado final */
+  .result-panel {
+    display: none;
+    background: #fff;
+    border: 2px solid #003366;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 24px;
+    text-align: center;
+  }
+  .result-panel .score-big { font-size: 2.8rem; font-weight: 700; color: #003366; font-family: 'Lora', serif; }
+  .result-panel .score-pct { font-size: 1.1rem; color: #555; margin-bottom: 14px; }
+  .progress-bar-wrap { background: #e0e8f0; border-radius: 20px; height: 18px; overflow: hidden; margin: 12px 0; }
+  .progress-bar-fill { height: 100%; border-radius: 20px; transition: width 0.8s ease; background: #003366; }
+  .result-msg { font-size: 1.05rem; margin-top: 10px; font-weight: 600; }
+
+  /* ============================================================
+     ACTIVIDAD IA
+  ============================================================ */
+  .ia-step {
+    background: #f5f8ff;
+    border: 1px solid #c5d8f0;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 16px 0;
+  }
+  .ia-step h4 { margin-top: 0; }
+  .prompt-box {
+    background: #1a1a2e;
+    color: #a8d8ff;
+    border-radius: 8px;
+    padding: 18px 20px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin: 14px 0;
+    white-space: pre-wrap;
+    border-left: 4px solid #87CEEB;
+  }
+
+  /* ============================================================
+     REFLEXIÓN
+  ============================================================ */
+  .reflexion-card {
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fa 100%);
+    border: 1px solid #c0d0e8;
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin: 18px 0;
+    position: relative;
+  }
+  .reflexion-card::before {
+    content: '"';
+    position: absolute;
+    top: 10px;
+    left: 16px;
+    font-size: 3.5rem;
+    color: #87CEEB;
+    font-family: 'Lora', serif;
+    line-height: 1;
+    opacity: 0.6;
+  }
+  .reflexion-card p { margin-left: 28px; font-style: italic; font-size: 0.97rem; line-height: 1.7; margin-bottom: 0; }
+  .reflexion-card .tag { margin-left: 28px; display: inline-block; margin-top: 10px; background: #003366; color: #fff; font-size: 0.72rem; padding: 2px 10px; border-radius: 12px; font-style: normal; }
+
+  /* ============================================================
+     BIBLIOGRAFÍA
+  ============================================================ */
+  .ref-card {
+    background: #fff;
+    border: 1px solid #d0dcea;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    border-left: 5px solid #87CEEB;
+  }
+  .ref-card .ref-authors { font-weight: 700; color: #003366; font-size: 0.93rem; }
+  .ref-card .ref-year { color: #555; font-size: 0.93rem; }
+  .ref-card .ref-title { font-style: italic; font-size: 0.93rem; margin: 4px 0; }
+  .ref-card .ref-source { font-size: 0.88rem; color: #444; }
+  .ref-note { background: #fff8e1; border: 1px solid #f0c040; border-radius: 8px; padding: 12px 16px; margin-top: 20px; font-size: 0.88rem; color: #5a4000; line-height: 1.6; }
+
+  /* ============================================================
+     RESPONSIVE
+  ============================================================ */
+  @media (max-width: 640px) {
+    header h1 { font-size: 1.25rem; }
+    .tab-btn { padding: 11px 13px; font-size: 0.78rem; }
+    .tab-content { padding: 20px 14px 32px; }
+    h3 { font-size: 1.1rem; }
+    table { font-size: 0.85rem; }
+    th, td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     ENCABEZADO
+============================================================ -->
+<header>
+  <div class="header-top">Universidad de Guayaquil · Facultad de Ciencias Administrativas · Contabilidad y Auditoría</div>
+  <h1>Metodología de la Investigación</h1>
+  <h2>Unidad 3 | Semana 10 — Criterios y Elementos del Planteamiento del Problema de Investigación</h2>
+  <div class="header-badges">
+    <span class="badge">📅 Ciclo I · 2026</span>
+    <span class="badge">🎓 Modalidad Virtual</span>
+    <span class="badge">📚 Unidad 3: Planteamiento, Variables e Hipótesis</span>
+  </div>
+</header>
+
+<!-- ============================================================
+     MENÚ DE PESTAÑAS
+============================================================ -->
+<div class="tab-nav-wrapper">
+  <nav class="tab-nav" role="tablist">
+    <button class="tab-btn active" onclick="showTab('repaso')" role="tab">📋 Repaso</button>
+    <button class="tab-btn" onclick="showTab('t1')" role="tab">1. El Problema de Investigación</button>
+    <button class="tab-btn" onclick="showTab('t2')" role="tab">2. Criterios para el Planteamiento</button>
+    <button class="tab-btn" onclick="showTab('t3')" role="tab">3. Elementos del Planteamiento</button>
+    <button class="tab-btn" onclick="showTab('t4')" role="tab">4. Errores Frecuentes y Buenas Prácticas</button>
+    <button class="tab-btn" onclick="showTab('ejercicio')" role="tab">5. Ejercicio Interactivo</button>
+    <button class="tab-btn" onclick="showTab('cuestionario')" role="tab">6. Cuestionario</button>
+    <button class="tab-btn" onclick="showTab('ia')" role="tab">7. Actividad con IA</button>
+    <button class="tab-btn" onclick="showTab('reflexion')" role="tab">8. Reflexión</button>
+    <button class="tab-btn" onclick="showTab('biblio')" role="tab">9. Bibliografía</button>
+  </nav>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: REPASO
+============================================================ -->
+<div id="tab-repaso" class="tab-content active">
+  <h3>📋 Repaso: Lo que hemos construido hasta aquí</h3>
+  <p>Llegamos a la Semana 10 con una base sólida. A continuación encontrarás un resumen analítico de lo más relevante de las semanas anteriores, para que puedas conectar este nuevo contenido con lo ya aprendido.</p>
+
+  <div class="box-ejemplo">
+    <strong>🗓 Unidad 1 (Semanas 1–4): Fundamentos del conocimiento científico</strong>
+    <p>Distinguimos el <strong>conocimiento empírico</strong> (cotidiano, no sistematizado) del <strong>conocimiento científico</strong> (metódico, verificable, acumulativo). Comprendimos que la ciencia opera bajo un <strong>método científico</strong> con características definidas: sistemático, reproducible, falible y autocorrectivo. También exploramos la <strong>epistemología</strong> —la rama filosófica que estudia cómo se produce y valida el conocimiento— y su relevancia para las ciencias sociales como la Contabilidad y la Auditoría.</p>
+  </div>
+
+  <div class="box-ejemplo">
+    <strong>🗓 Unidad 2 (Semanas 5–7): Enfoques y diseños de investigación</strong>
+    <p>Aprendimos que la investigación puede abordarse desde un <strong>enfoque cuantitativo</strong> (medición, estadística, generalización) o <strong>cualitativo</strong> (comprensión profunda, subjetividad, contexto), o mediante <strong>métodos mixtos</strong>. Luego profundizamos en los <strong>diseños experimentales</strong> (manipulación deliberada de variables para establecer causalidad) y los <strong>diseños no experimentales</strong> (observación sin intervención). Entendimos que la elección del diseño depende del problema que se quiere responder.</p>
+  </div>
+
+  <div class="box-ejemplo">
+    <strong>🗓 Semana 9 (inicio Unidad 3): Primer acercamiento al planteamiento del problema</strong>
+    <p>La semana pasada introdujimos la idea central: <strong>todo proceso de investigación parte de identificar un problema</strong>. Un problema de investigación no es una dificultad personal ni una queja; es una <strong>brecha entre lo que se conoce y lo que se desconoce</strong>, con relevancia científica o práctica. También hicimos una primera aproximación a las <strong>variables</strong> (los atributos que el investigador mide o manipula) y a las <strong>hipótesis</strong> (afirmaciones provisionales sobre la relación entre variables). Esta semana profundizaremos en <em>cómo plantearlo correctamente</em>.</p>
+  </div>
+
+  <div class="box-clave">
+    <strong>🔗 Conexión con esta semana</strong>
+    <p>Saber <em>qué</em> es un problema no basta: necesitamos saber <em>cómo</em> plantearlo con rigor. Eso implica conocer los criterios que debe cumplir y los elementos que todo planteamiento debe contener. Eso es exactamente lo que estudiaremos en la Semana 10.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: TEMA 1
+============================================================ -->
+<div id="tab-t1" class="tab-content">
+  <h3>1. ¿Qué es un problema de investigación y por qué es tan importante?</h3>
+
+  <p>Antes de hablar de <em>criterios</em> y <em>elementos</em>, es necesario comprender con precisión qué significa "problema de investigación". Este concepto suele malinterpretarse en los primeros ciclos universitarios, por eso lo explicaremos desde el principio.</p>
+
+  <div class="box-concepto">
+    <strong>📖 Definición</strong>
+    <p>Un <strong>problema de investigación</strong> es una <em>brecha de conocimiento</em> identificada y delimitada, que el investigador decide abordar de manera sistemática mediante el método científico. No es una dificultad cotidiana, ni una queja, ni una intuición: es una pregunta o conjunto de preguntas que la ciencia aún no ha respondido satisfactoriamente —o cuya respuesta, en un contexto particular, necesita ser verificada o actualizada.</p>
+  </div>
+
+  <h4>La diferencia entre un problema cotidiano y un problema de investigación</h4>
+  <p>Esta distinción es fundamental. Muchos estudiantes confunden ambos conceptos. Observa la tabla siguiente:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Problema cotidiano</th>
+        <th>Problema de investigación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>"En mi empresa hay mucho fraude y nadie hace nada."</td>
+        <td>"¿Qué factores organizacionales se asocian con la mayor incidencia de fraude contable en empresas medianas del sector comercial de Guayaquil durante el período 2020–2024?"</td>
+      </tr>
+      <tr>
+        <td>"Los estudiantes no aprenden bien la NIC 1."</td>
+        <td>"¿En qué medida el uso de simulaciones contables digitales mejora la comprensión de la NIC 1 en estudiantes de Contabilidad de nivel superior?"</td>
+      </tr>
+      <tr>
+        <td>"Las declaraciones al SRI tienen muchos errores."</td>
+        <td>"¿Cuáles son las principales causas de errores en las declaraciones del Impuesto a la Renta presentadas por personas naturales obligadas a llevar contabilidad en Ecuador, período 2022?"</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>¿Notas la diferencia? El problema de investigación es <strong>específico, delimitable, medible y dirigido a producir conocimiento</strong>. El problema cotidiano es una observación vaga que puede ser válida como punto de partida, pero aún no es investigable.</p>
+
+  <h4>¿Por qué el planteamiento es la etapa más crítica?</h4>
+  <p>Hernández-Sampieri, Fernández-Collado y Baptista Lucio (2014) afirman que plantear el problema de investigación "es afinar y estructurar más formalmente la idea de investigación". Esta afirmación tiene una implicación profunda: <strong>si el problema está mal planteado, todo lo que venga después —objetivos, hipótesis, metodología, análisis— estará edificado sobre bases defectuosas</strong>.</p>
+
+  <div class="box-ejemplo">
+    <strong>🇪🇨 Ejemplo contextualizado: Auditoría Forense en Ecuador</strong>
+    <p>Imagina que un estudiante quiere investigar el fraude en empresas ecuatorianas. Si plantea su problema como <em>"el fraude es muy malo y hay que combatirlo"</em>, eso no es investigable: es una opinión moral. Pero si lo reformula como <em>"¿Qué mecanismos de control interno reducen la probabilidad de fraude financiero en empresas de la Superintendencia de Compañías del Ecuador con ingresos entre 1 y 5 millones de dólares?"</em>, ya tiene un problema con objeto claro, variables identificables y posibilidad de producir conocimiento útil para auditores y reguladores.</p>
+  </div>
+
+  <h4>El planteamiento como contrato intelectual</h4>
+  <p>Una manera útil de entender el planteamiento es verlo como un <strong>contrato intelectual</strong> entre el investigador y sus lectores. En ese contrato, el investigador se compromete a responder una pregunta específica, bajo ciertos límites, utilizando determinados métodos. Todo lo demás en la investigación existe para cumplir ese contrato.</p>
+
+  <div class="box-clave">
+    <strong>💡 Idea clave</strong>
+    <p>Un problema de investigación es una brecha de conocimiento identificada con precisión. No basta con detectar que algo "está mal" en la realidad: hay que transformar esa observación en una pregunta científicamente tratable. El planteamiento del problema es el acto de formalizar esa transformación.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: TEMA 2
+============================================================ -->
+<div id="tab-t2" class="tab-content">
+  <h3>2. Criterios para plantear un problema de investigación</h3>
+
+  <p>Plantear un problema no es solo escribir una pregunta. Existen <strong>criterios evaluativos</strong> que permiten juzgar si un problema está bien formulado o no. Hernández-Sampieri et al. (2014) identifican cinco criterios esenciales. Los explicaremos uno por uno con ejemplos del ámbito contable-auditor ecuatoriano.</p>
+
+  <!-- Criterio 1 -->
+  <div class="paso">
+    <div class="paso-num">1</div>
+    <div class="paso-txt">
+      <h4>Capacidad de generar conocimiento nuevo</h4>
+      <p>El problema debe contribuir a ampliar lo que se sabe sobre un tema. No sirve investigar algo que ya está suficientemente respondido por la literatura existente. Antes de formular el problema, el investigador debe revisar fuentes previas y confirmar que existe una brecha real.</p>
+    </div>
+  </div>
+
+  <div class="box-ejemplo">
+    <strong>🇪🇨 Ejemplo</strong>
+    <p><strong>❌ Sin aporte:</strong> "¿Qué es la NIC 16 (Propiedad, Planta y Equipo)?" → ya está ampliamente respondido en la literatura.<br>
+    <strong>✅ Con aporte:</strong> "¿Cómo afecta la adopción de la NIC 16 al EBITDA declarado ante la Superintendencia de Compañías por empresas industriales ecuatorianas en el período 2019–2023?" → produce conocimiento contextual nuevo.</p>
+  </div>
+
+  <!-- Criterio 2 -->
+  <div class="paso">
+    <div class="paso-num">2</div>
+    <div class="paso-txt">
+      <h4>Relevancia y significatividad</h4>
+      <p>El problema debe importar. Esto puede medirse de dos maneras: <strong>relevancia teórica</strong> (aporta al debate académico de la disciplina) o <strong>relevancia práctica</strong> (sus resultados son útiles para personas, organizaciones o políticas). Idealmente, un buen problema tiene ambas.</p>
+    </div>
+  </div>
+
+  <div class="box-ejemplo">
+    <strong>🇪🇨 Ejemplo de relevancia práctica</strong>
+    <p>Investigar los errores más frecuentes en declaraciones del Impuesto al Valor Agregado (IVA) ante el SRI tiene relevancia práctica inmediata: los contadores pueden diseñar protocolos de verificación, y el SRI puede focalizar sus auditorías. Aunque no sea un tema "novedoso" en la teoría, su utilidad práctica lo convierte en un problema significativo.</p>
+  </div>
+
+  <!-- Criterio 3 -->
+  <div class="paso">
+    <div class="paso-num">3</div>
+    <div class="paso-txt">
+      <h4>Viabilidad o factibilidad</h4>
+      <p>El problema debe poder ser investigado con los recursos disponibles: tiempo, acceso a datos, presupuesto, instrumentos. Un problema brillante en teoría pero irrealizable en la práctica no es útil. La viabilidad depende de: acceso a la población o muestra, disponibilidad de los datos, competencia del investigador y marco temporal.</p>
+    </div>
+  </div>
+
+  <div class="box-warning">
+    <strong>⚠️ Error frecuente:</strong> Plantear un problema que requiere acceso a información confidencial de empresas privadas sin tener acuerdos formales, o que necesita equipos técnicos costosos que el investigador no puede adquirir. La viabilidad no limita la ambición intelectual; la <em>ancla a la realidad</em>.
+  </div>
+
+  <!-- Criterio 4 -->
+  <div class="paso">
+    <div class="paso-num">4</div>
+    <div class="paso-txt">
+      <h4>Relevancia ética</h4>
+      <p>La investigación no puede causar daño a personas, grupos o instituciones. Esto implica considerar si la metodología respeta la dignidad de los participantes, si los datos sensibles serán protegidos y si los resultados podrían usarse de manera perjudicial. En contabilidad y auditoría, esto es especialmente relevante cuando se trabaja con información financiera confidencial.</p>
+    </div>
+  </div>
+
+  <div class="box-concepto">
+    <strong>📖 Nota sobre ética investigativa en Ecuador</strong>
+    <p>En Ecuador, las investigaciones con datos de personas deben considerar la <strong>Ley Orgánica de Protección de Datos Personales (2021)</strong>. Trabajar con información tributaria o contable de terceros sin autorización puede constituir una violación legal, además de un problema ético.</p>
+  </div>
+
+  <!-- Criterio 5 -->
+  <div class="paso">
+    <div class="paso-num">5</div>
+    <div class="paso-txt">
+      <h4>Claridad y precisión en la formulación</h4>
+      <p>El problema debe estar formulado con un lenguaje claro, sin ambigüedades. Los términos clave deben ser definibles y medibles. Una pregunta vaga produce una investigación vaga. La claridad no significa simplicidad; significa que el lector sabe exactamente qué se va a investigar, sobre quién, cuándo y cómo.</p>
+    </div>
+  </div>
+
+  <div class="box-ejemplo">
+    <strong>🔬 Comparación de claridad</strong>
+    <p><strong>❌ Vago:</strong> "¿Cómo afecta la tecnología a la contabilidad en las empresas?"<br>
+    <strong>✅ Preciso:</strong> "¿En qué medida el uso de software ERP (Enterprise Resource Planning) reduce los tiempos de cierre contable mensual en empresas medianas del sector manufacturero de Guayaquil entre 2022 y 2024?"<br><br>
+    El segundo está delimitado por: <em>variable independiente</em> (uso de ERP), <em>variable dependiente</em> (tiempos de cierre), <em>población</em> (empresas medianas manufactureras), <em>lugar</em> (Guayaquil), <em>tiempo</em> (2022–2024).</p>
+  </div>
+
+  <h4>Resumen de los cinco criterios</h4>
+  <table>
+    <thead>
+      <tr><th>Criterio</th><th>Pregunta que debes hacerte</th><th>Si la respuesta es NO…</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Genera nuevo conocimiento</strong></td><td>¿Hay algo que la ciencia aún no sabe sobre esto?</td><td>Reformula o cambia el ángulo.</td></tr>
+      <tr><td><strong>Es relevante/significativo</strong></td><td>¿A quién le importa la respuesta?</td><td>Amplía el impacto o cambia el enfoque.</td></tr>
+      <tr><td><strong>Es viable</strong></td><td>¿Puedo hacerlo con mis recursos actuales?</td><td>Reduce el alcance o busca alianzas.</td></tr>
+      <tr><td><strong>Es ético</strong></td><td>¿Causa daño o usa datos sin autorización?</td><td>Rediseña la metodología o cambia el problema.</td></tr>
+      <tr><td><strong>Es claro y preciso</strong></td><td>¿Cualquier lector entiende exactamente qué se investigará?</td><td>Redefine términos y delimita más.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box-clave">
+    <strong>💡 Idea clave</strong>
+    <p>Un problema bien planteado cumple los cinco criterios simultáneamente. No alcanza con que sea brillante si no es viable; ni con que sea viable si no es ético; ni con que sea ético si no es claro. Los cinco criterios son condiciones necesarias, no opcionales.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: TEMA 3
+============================================================ -->
+<div id="tab-t3" class="tab-content">
+  <h3>3. Elementos del planteamiento del problema de investigación</h3>
+
+  <p>Cumplir los criterios es condición necesaria, pero no suficiente. Una vez que el investigador sabe que su problema es válido, debe <strong>estructurarlo formalmente</strong> mediante sus elementos constitutivos. Hernández-Sampieri et al. (2014) establecen que el planteamiento del problema incluye, como mínimo, cuatro elementos fundamentales. Aquí los desarrollaremos en detalle.</p>
+
+  <div class="box-concepto">
+    <strong>📖 ¿Qué son los elementos del planteamiento?</strong>
+    <p>Son las <strong>secciones o componentes</strong> que, en conjunto, construyen formalmente el problema de investigación. Cada elemento cumple una función específica e insustituible. Omitir uno es como construir una casa sin cimientos: la estructura puede parecer en pie, pero es inestable.</p>
+  </div>
+
+  <!-- ELEMENTO 1: Objetivos -->
+  <h4>Elemento 1: Objetivos de investigación</h4>
+  <p>Los objetivos declaran <strong>qué pretende lograr</strong> el investigador. Deben ser coherentes con el problema planteado y formularse con verbos en infinitivo que indiquen acciones concretas y verificables.</p>
+
+  <ul class="lista-visual">
+    <li data-icon="🎯"><strong>Objetivo general:</strong> describe el propósito amplio de la investigación. Responde a "¿qué quiero lograr en términos globales?"</li>
+    <li data-icon="🔍"><strong>Objetivos específicos:</strong> desagregan el objetivo general en metas parciales, alcanzables y medibles. Cada objetivo específico debe contribuir al general.</li>
+    <li data-icon="✅"><strong>Verbos recomendados para objetivos específicos:</strong> identificar, determinar, analizar, comparar, describir, evaluar, medir, establecer, relacionar.</li>
+    <li data-icon="❌"><strong>Verbos a evitar:</strong> "entender", "saber", "conocer" —son demasiado vagos y no indican una acción verificable—.</li>
+  </ul>
+
+  <div class="box-ejemplo">
+    <strong>🇪🇨 Ejemplo completo de objetivos (contexto SRI)</strong>
+    <p><strong>Problema:</strong> "¿Cuáles son los factores que inciden en la mora tributaria de personas naturales obligadas a llevar contabilidad en la provincia del Guayas, año 2024?"<br><br>
+    <strong>Objetivo general:</strong> Analizar los factores que inciden en la mora tributaria de personas naturales obligadas a llevar contabilidad en la provincia del Guayas durante el año 2024.<br><br>
+    <strong>Objetivos específicos:</strong><br>
+    — Identificar las características socioeconómicas de los contribuyentes con mora tributaria en la provincia del Guayas.<br>
+    — Determinar la frecuencia y los montos de la mora según sector económico de actividad.<br>
+    — Establecer la relación entre el nivel de asesoría contable profesional y la incidencia de mora tributaria.</p>
+  </div>
+
+  <!-- ELEMENTO 2: Preguntas de investigación -->
+  <h4>Elemento 2: Preguntas de investigación</h4>
+  <p>Las preguntas son el <strong>corazón del planteamiento</strong>. Mientras que los objetivos dicen <em>qué</em> se hará, las preguntas expresan de forma interrogativa <em>qué se quiere saber</em>. Toda investigación debe poder resumirse en una o más preguntas claras.</p>
+
+  <div class="box-concepto">
+    <strong>📖 Características de una buena pregunta de investigación</strong>
+    <p>Debe ser: (1) expresada en forma de pregunta, (2) clara y sin ambigüedades, (3) delimitada en tiempo, espacio o contexto, (4) empiricamente respondible —es decir, que pueda responderse con datos y no solo con reflexión filosófica—, y (5) ética en su formulación.</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Tipo de pregunta</th><th>Qué busca</th><th>Ejemplo</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Descriptiva</strong></td>
+        <td>Caracterizar un fenómeno</td>
+        <td>¿Cuáles son los errores más frecuentes en la declaración del IVA en pequeños negocios de Cuenca?</td>
+      </tr>
+      <tr>
+        <td><strong>Correlacional</strong></td>
+        <td>Conocer la relación entre variables</td>
+        <td>¿Existe relación entre el nivel de digitalización contable y la reducción de errores tributarios en PYMES guayaquileñas?</td>
+      </tr>
+      <tr>
+        <td><strong>Explicativa/Causal</strong></td>
+        <td>Determinar causas de un fenómeno</td>
+        <td>¿Qué factores causan la subdeclaración de ingresos en el sector informal de comercio de Quito?</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ELEMENTO 3: Justificación -->
+  <h4>Elemento 3: Justificación de la investigación</h4>
+  <p>La justificación responde a la pregunta <strong>"¿Por qué es importante realizar esta investigación?"</strong> No es un ejercicio retórico: es la argumentación racional de por qué vale la pena invertir recursos intelectuales, económicos y temporales en el estudio propuesto.</p>
+
+  <p>Hernández-Sampieri et al. (2014) proponen evaluar la justificación mediante cinco criterios —conocidos en el ámbito metodológico como los "cinco porqués de la justificación"—:</p>
+
+  <ul class="lista-visual">
+    <li data-icon="🧩"><strong>Conveniencia:</strong> ¿Para qué sirve esta investigación? ¿Qué problema concreto ayuda a resolver?</li>
+    <li data-icon="👥"><strong>Relevancia social:</strong> ¿Quiénes se benefician con los resultados? ¿Tiene impacto en la comunidad, sector, país?</li>
+    <li data-icon="💡"><strong>Implicaciones prácticas:</strong> ¿Ayuda a resolver un problema real, cotidiano, operativo?</li>
+    <li data-icon="📚"><strong>Valor teórico:</strong> ¿Llena un vacío en el conocimiento? ¿Cuestiona, complementa o confirma teorías existentes?</li>
+    <li data-icon="🔬"><strong>Utilidad metodológica:</strong> ¿Propone o prueba nuevos instrumentos, enfoques o técnicas de recolección de datos?</li>
+  </ul>
+
+  <div class="box-ejemplo">
+    <strong>🇪🇨 Ejemplo de justificación parcial (contexto Contraloría General del Estado)</strong>
+    <p>"La presente investigación es conveniente porque la Contraloría General del Estado del Ecuador ha identificado un incremento del 23% en observaciones de auditoría por irregularidades en la contratación pública entre 2020 y 2023 (Contraloría, 2023). Su relevancia social radica en que el uso inadecuado de fondos públicos afecta directamente la calidad de los servicios que el Estado presta a la ciudadanía. Desde el punto de vista teórico, este estudio pondrá a prueba si los modelos de riesgo de auditoría desarrollados para el sector privado son aplicables al ámbito de la contratación pública ecuatoriana."</p>
+  </div>
+
+  <!-- ELEMENTO 4: Viabilidad y delimitación -->
+  <h4>Elemento 4: Viabilidad o delimitación del estudio</h4>
+  <p>Este elemento responde a la pregunta: <strong>¿Qué puede y qué no puede hacer esta investigación?</strong> La delimitación no es una admisión de debilidad; es una demostración de honestidad intelectual y rigor científico. Una investigación que pretende abarcarlo todo, en la práctica no abarca nada con profundidad.</p>
+
+  <div class="box-concepto">
+    <strong>📖 Dimensiones de la delimitación</strong>
+    <p><strong>Temporal:</strong> el período de tiempo que cubre el estudio (Ej.: 2021–2024).<br>
+    <strong>Espacial / geográfica:</strong> el lugar o contexto (Ej.: empresas del sector comercial de Guayaquil).<br>
+    <strong>Temática:</strong> los aspectos del fenómeno que se estudiarán y los que quedarán fuera (Ej.: solo el fraude interno, no el fraude externo).<br>
+    <strong>Poblacional:</strong> quiénes son los sujetos o unidades de análisis (Ej.: contadores públicos con más de 5 años de experiencia).</p>
+  </div>
+
+  <div class="box-warning">
+    <strong>⚠️ Importante:</strong> Delimitar no significa recortar arbitrariamente. Cada límite debe estar <em>justificado</em>. Si estudias solo Guayaquil, debes explicar por qué Guayaquil y no otra ciudad o todo el país (acceso a datos, representatividad, recursos, etc.).
+  </div>
+
+  <div class="box-clave">
+    <strong>💡 Idea clave: Los cuatro elementos son inseparables</strong>
+    <p>Objetivos, preguntas, justificación y viabilidad/delimitación no son secciones independientes que se llenan por separado: deben formar un sistema coherente. Los objetivos deben responder a las preguntas; la justificación debe fundamentar la importancia de esas preguntas; y la delimitación debe hacer que los objetivos sean alcanzables dentro de los límites establecidos.</p>
+  </div>
+
+  <h4>Esquema visual del planteamiento completo</h4>
+  <table>
+    <thead>
+      <tr><th>Elemento</th><th>Pregunta que responde</th><th>Función en la investigación</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Objetivos</strong></td><td>¿Qué haré?</td><td>Declara los propósitos y metas del estudio.</td></tr>
+      <tr><td><strong>Preguntas</strong></td><td>¿Qué quiero saber?</td><td>Expresa la esencia del problema en forma interrogativa.</td></tr>
+      <tr><td><strong>Justificación</strong></td><td>¿Por qué vale la pena?</td><td>Argumenta la importancia científica y social del estudio.</td></tr>
+      <tr><td><strong>Viabilidad/Delimitación</strong></td><td>¿Qué puedo y no puedo hacer?</td><td>Establece los límites honestos del estudio.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: TEMA 4
+============================================================ -->
+<div id="tab-t4" class="tab-content">
+  <h3>4. Errores frecuentes y buenas prácticas en el planteamiento del problema</h3>
+
+  <p>Conocer la teoría no garantiza aplicarla bien. En esta pestaña identificaremos los <strong>errores más comunes</strong> que cometen los estudiantes e investigadores noveles al plantear su problema, y las <strong>buenas prácticas</strong> que los investigadores experimentados siguen para evitarlos.</p>
+
+  <h4>Errores frecuentes en el planteamiento del problema</h4>
+
+  <ul class="lista-visual">
+    <li data-icon="🚫">
+      <strong>Confundir el tema con el problema.</strong> El tema es un área temática amplia (Ej.: "fraude contable en Ecuador"). El problema es una pregunta específica dentro de ese tema. Muchos estudiantes presentan solo el tema y creen que ya plantearon el problema.
+    </li>
+    <li data-icon="🚫">
+      <strong>Formular el problema como una certeza, no como una pregunta.</strong> "El fraude aumenta cuando los controles son débiles" es una afirmación, no un problema investigable. El problema debe ser algo que aún no sabemos con certeza en el contexto específico que estudiamos.
+    </li>
+    <li data-icon="🚫">
+      <strong>Planteamientos demasiado amplios o ambiciosos.</strong> "Analizar la contabilidad en América Latina" es inabarcable para un proyecto de grado. La amplitud excesiva compromete la viabilidad y la profundidad del estudio.
+    </li>
+    <li data-icon="🚫">
+      <strong>Objetivos que no se derivan del problema.</strong> Cuando los objetivos específicos no guardan relación directa con la pregunta de investigación principal, el estudio pierde coherencia interna. Los objetivos son la operacionalización del problema.
+    </li>
+    <li data-icon="🚫">
+      <strong>Justificaciones genéricas y vacías.</strong> Frases como "esta investigación es importante porque el tema es relevante para la ciencia" no justifican nada. La justificación debe ser específica, argumentada y cuantificada cuando sea posible.
+    </li>
+    <li data-icon="🚫">
+      <strong>Ignorar la literatura existente antes de plantear.</strong> Si el problema ya fue ampliamente respondido en otros estudios, la investigación pierde su razón de ser. La revisión bibliográfica previa es indispensable para validar que existe una brecha real.
+    </li>
+  </ul>
+
+  <h4>Buenas prácticas del investigador riguroso</h4>
+
+  <div class="paso">
+    <div class="paso-num">✔</div>
+    <div class="paso-txt">
+      <h4>Partir de la realidad observada, no de la teoría</h4>
+      <p>El mejor punto de partida es una observación concreta de la realidad: una estadística llamativa, un informe institucional, una experiencia profesional documentada. La teoría viene después para enmarcar el problema, no para generarlo artificialmente.</p>
+    </div>
+  </div>
+
+  <div class="paso">
+    <div class="paso-num">✔</div>
+    <div class="paso-txt">
+      <h4>Usar datos existentes para fundamentar el problema</h4>
+      <p>Un planteamiento sólido incluye datos que demuestran que el problema existe: cifras del INEC, reportes del SRI, informes de la Contraloría, estadísticas de la Superintendencia de Compañías o estudios previos. "Se estima que..." sin fuente no es suficiente.</p>
+    </div>
+  </div>
+
+  <div class="paso">
+    <div class="paso-num">✔</div>
+    <div class="paso-txt">
+      <h4>Someter el planteamiento a la prueba de las cinco preguntas</h4>
+      <p>Antes de darlo por terminado, el investigador debe preguntarse: (1) ¿Es claro para alguien que no conozca el tema? (2) ¿Puedo responderlo con datos reales? (3) ¿Importa la respuesta? (4) ¿Tengo los medios para investigarlo? (5) ¿Es ético? Si alguna respuesta es "no", debe revisarse.</p>
+    </div>
+  </div>
+
+  <div class="paso">
+    <div class="paso-num">✔</div>
+    <div class="paso-txt">
+      <h4>Redactar el planteamiento antes de escribir el marco teórico</h4>
+      <p>Algunos estudiantes cometen el error de construir el marco teórico primero y luego "inventar" un problema que encaje. El orden correcto es el inverso: primero el problema, luego la teoría que lo sustenta. El problema guía la revisión teórica, no al revés.</p>
+    </div>
+  </div>
+
+  <div class="box-ejemplo">
+    <strong>🇪🇨 Caso ilustrativo: De la queja al planteamiento riguroso</strong>
+    <p><strong>Observación inicial (queja):</strong> "Los informes de auditoría del sector público en Ecuador son incomprensibles para los ciudadanos."<br><br>
+    <strong>Paso 1 — Identificar la brecha:</strong> ¿Qué no se sabe? No se sabe con precisión <em>cuántos</em> ciudadanos comprenden los informes de auditoría, ni <em>qué elementos</em> generan mayor incomprensión, ni si esto <em>afecta</em> la rendición de cuentas efectiva.<br><br>
+    <strong>Paso 2 — Formular la pregunta:</strong> "¿En qué medida el nivel de legibilidad de los informes de auditoría de la Contraloría General del Estado se asocia con la comprensión ciudadana de la rendición de cuentas, en usuarios de plataformas digitales gubernamentales de Quito, 2024?"<br><br>
+    <strong>Resultado:</strong> Un problema claro, delimitado, relevante (ciudadanía + transparencia pública), viable (cuestionario a usuarios digitales) y ético (datos anónimos).</p>
+  </div>
+
+  <h4>El proceso iterativo: el planteamiento se refina</h4>
+  <p>Es importante reconocer que el planteamiento del problema no nace perfecto. Es un proceso <strong>iterativo</strong>: se formula, se revisa, se ajusta y se vuelve a revisar. Los investigadores experimentados pueden reformular su problema varias veces antes de llegar a una versión definitiva. Esto no es señal de debilidad; es señal de rigor.</p>
+
+  <div class="box-clave">
+    <strong>💡 Idea clave final</strong>
+    <p>Un buen planteamiento del problema es el resultado de observar con atención, preguntar con precisión, argumentar con datos y delimitar con honestidad. No es un formulario que se llena mecánicamente: es un acto de pensamiento riguroso que define el rumbo de toda la investigación.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: EJERCICIO INTERACTIVO
+============================================================ -->
+<div id="tab-ejercicio" class="tab-content">
+  <h3>5. Ejercicio Interactivo</h3>
+  <p>Lee cada situación con cuidado y selecciona la respuesta correcta. Cuando hayas respondido <strong>todos los ítems</strong>, presiona <em>Verificar respuestas</em>.</p>
+
+  <!-- Ítem 1 -->
+  <div class="exercise-item">
+    <p class="enunciado">1. Un estudiante escribe: <em>"El fraude financiero es muy grave en las empresas ecuatorianas y debe combatirse urgentemente."</em> ¿Cuál es el problema principal con esta formulación?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei1" value="a"> a) El tema es poco relevante para la auditoría.</label>
+      <label class="option-label"><input type="radio" name="ei1" value="b"> b) Es una opinión o juicio de valor, no un problema de investigación formulado como pregunta científicamente tratable.</label>
+      <label class="option-label"><input type="radio" name="ei1" value="c"> c) El planteamiento no tiene objetivos específicos definidos.</label>
+      <label class="option-label"><input type="radio" name="ei1" value="d"> d) No menciona el período de tiempo ni la provincia.</label>
+    </div>
+    <div class="feedback-box" id="fb-ei1"></div>
+  </div>
+
+  <!-- Ítem 2 -->
+  <div class="exercise-item">
+    <p class="enunciado">2. ¿Cuál de los siguientes verbos es el MÁS adecuado para redactar un objetivo específico de investigación?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei2" value="a"> a) Entender</label>
+      <label class="option-label"><input type="radio" name="ei2" value="b"> b) Conocer</label>
+      <label class="option-label"><input type="radio" name="ei2" value="c"> c) Determinar</label>
+      <label class="option-label"><input type="radio" name="ei2" value="d"> d) Saber</label>
+    </div>
+    <div class="feedback-box" id="fb-ei2"></div>
+  </div>
+
+  <!-- Ítem 3 -->
+  <div class="exercise-item">
+    <p class="enunciado">3. Un investigador quiere estudiar "la contabilidad en toda América Latina durante los últimos 50 años." ¿Qué criterio del planteamiento del problema está claramente incumplido?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei3" value="a"> a) Relevancia social</label>
+      <label class="option-label"><input type="radio" name="ei3" value="b"> b) Viabilidad o factibilidad</label>
+      <label class="option-label"><input type="radio" name="ei3" value="c"> c) Generación de nuevo conocimiento</label>
+      <label class="option-label"><input type="radio" name="ei3" value="d"> d) Relevancia ética</label>
+    </div>
+    <div class="feedback-box" id="fb-ei3"></div>
+  </div>
+
+  <!-- Ítem 4 -->
+  <div class="exercise-item">
+    <p class="enunciado">4. De los cuatro elementos del planteamiento del problema, ¿cuál responde a la pregunta "¿Por qué vale la pena realizar esta investigación?"</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei4" value="a"> a) Los objetivos de investigación</label>
+      <label class="option-label"><input type="radio" name="ei4" value="b"> b) Las preguntas de investigación</label>
+      <label class="option-label"><input type="radio" name="ei4" value="c"> c) La justificación de la investigación</label>
+      <label class="option-label"><input type="radio" name="ei4" value="d"> d) La viabilidad o delimitación</label>
+    </div>
+    <div class="feedback-box" id="fb-ei4"></div>
+  </div>
+
+  <!-- Ítem 5 -->
+  <div class="exercise-item">
+    <p class="enunciado">5. La delimitación temporal de un estudio indica:</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei5" value="a"> a) Cuánto tiempo le tomará al investigador escribir la tesis.</label>
+      <label class="option-label"><input type="radio" name="ei5" value="b"> b) El período de tiempo que abarcará el fenómeno estudiado.</label>
+      <label class="option-label"><input type="radio" name="ei5" value="c"> c) El número de horas semanales que el investigador dedicará al proyecto.</label>
+      <label class="option-label"><input type="radio" name="ei5" value="d"> d) La fecha de entrega del informe final.</label>
+    </div>
+    <div class="feedback-box" id="fb-ei5"></div>
+  </div>
+
+  <!-- Ítem 6 -->
+  <div class="exercise-item">
+    <p class="enunciado">6. Clasifica este planteamiento: <em>"¿Existe relación entre el nivel de capacitación tributaria de los contadores y la reducción de sanciones del SRI en PYMES de Quito, 2023?"</em></p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei6" value="a"> a) Es un tema amplio sin delimitar.</label>
+      <label class="option-label"><input type="radio" name="ei6" value="b"> b) Es una pregunta correlacional bien delimitada en población, lugar y tiempo.</label>
+      <label class="option-label"><input type="radio" name="ei6" value="c"> c) Es una pregunta descriptiva que busca caracterizar un fenómeno.</label>
+      <label class="option-label"><input type="radio" name="ei6" value="d"> d) Es un objetivo específico, no una pregunta de investigación.</label>
+    </div>
+    <div class="feedback-box" id="fb-ei6"></div>
+  </div>
+
+  <!-- Ítem 7 -->
+  <div class="exercise-item">
+    <p class="enunciado">7. Un investigador usa información financiera privada de una empresa sin haber obtenido autorización. ¿Qué criterio del planteamiento del problema viola principalmente?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei7" value="a"> a) Claridad y precisión</label>
+      <label class="option-label"><input type="radio" name="ei7" value="b"> b) Viabilidad</label>
+      <label class="option-label"><input type="radio" name="ei7" value="c"> c) Relevancia ética</label>
+      <label class="option-label"><input type="radio" name="ei7" value="d"> d) Generación de nuevo conocimiento</label>
+    </div>
+    <div class="feedback-box" id="fb-ei7"></div>
+  </div>
+
+  <!-- Ítem 8 -->
+  <div class="exercise-item">
+    <p class="enunciado">8. ¿Cuál es el orden correcto para construir el planteamiento del problema en una investigación?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="ei8" value="a"> a) Marco teórico → objetivos → problema → justificación</label>
+      <label class="option-label"><input type="radio" name="ei8" value="b"> b) Hipótesis → variables → problema → justificación</label>
+      <label class="option-label"><input type="radio" name="ei8" value="c"> c) Observación de la realidad → identificación de la brecha → formulación del problema → justificación y delimitación</label>
+      <label class="option-label"><input type="radio" name="ei8" value="d"> d) Metodología → problema → objetivos → marco teórico</label>
+    </div>
+    <div class="feedback-box" id="fb-ei8"></div>
+  </div>
+
+  <button class="btn-verificar" id="btn-check-ej" onclick="verificarEjercicio()">✅ Verificar respuestas</button>
+  <button class="btn-reiniciar" id="btn-reiniciar-ej" onclick="reiniciarEjercicio()">🔄 Reiniciar ejercicio</button>
+
+  <div class="result-panel" id="result-ej">
+    <div class="score-big" id="score-ej-txt"></div>
+    <div class="score-pct" id="pct-ej-txt"></div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="bar-ej"></div></div>
+    <div class="result-msg" id="msg-ej"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: CUESTIONARIO
+============================================================ -->
+<div id="tab-cuestionario" class="tab-content">
+  <h3>6. Cuestionario de Evaluación</h3>
+  <p>Responde las 10 preguntas. Cuando termines, presiona <em>Verificar respuestas</em>. Cada pregunta indica si es teórica o de análisis.</p>
+
+  <!-- Q1 -->
+  <div class="exercise-item">
+    <span class="type-badge badge-teoria">Teórica</span>
+    <p class="enunciado">1. Según Hernández-Sampieri et al. (2014), plantear el problema de investigación es:</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi1" value="a"> a) Elegir el método estadístico más apropiado.</label>
+      <label class="option-label"><input type="radio" name="qi1" value="b"> b) Afinar y estructurar más formalmente la idea de investigación.</label>
+      <label class="option-label"><input type="radio" name="qi1" value="c"> c) Redactar el marco teórico de forma preliminar.</label>
+      <label class="option-label"><input type="radio" name="qi1" value="d"> d) Seleccionar la muestra de la población objetivo.</label>
+    </div>
+    <div class="feedback-box" id="fb-qi1"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="exercise-item">
+    <span class="type-badge badge-teoria">Teórica</span>
+    <p class="enunciado">2. ¿Cuál de los siguientes NO es un criterio para evaluar si un problema de investigación está bien planteado?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi2" value="a"> a) Generación de nuevo conocimiento</label>
+      <label class="option-label"><input type="radio" name="qi2" value="b"> b) Relevancia y significatividad</label>
+      <label class="option-label"><input type="radio" name="qi2" value="c"> c) Extensión mínima de cinco páginas</label>
+      <label class="option-label"><input type="radio" name="qi2" value="d"> d) Viabilidad o factibilidad</label>
+    </div>
+    <div class="feedback-box" id="fb-qi2"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="exercise-item">
+    <span class="type-badge badge-teoria">Teórica</span>
+    <p class="enunciado">3. La justificación de una investigación evalúa la conveniencia, relevancia social, implicaciones prácticas, valor teórico y:</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi3" value="a"> a) Utilidad metodológica</label>
+      <label class="option-label"><input type="radio" name="qi3" value="b"> b) Número de variables independientes</label>
+      <label class="option-label"><input type="radio" name="qi3" value="c"> c) Tamaño de la muestra estadística</label>
+      <label class="option-label"><input type="radio" name="qi3" value="d"> d) Presupuesto disponible del investigador</label>
+    </div>
+    <div class="feedback-box" id="fb-qi3"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="exercise-item">
+    <span class="type-badge badge-teoria">Teórica</span>
+    <p class="enunciado">4. ¿Cuál es la diferencia fundamental entre el tema de investigación y el problema de investigación?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi4" value="a"> a) El tema es más específico; el problema es más general.</label>
+      <label class="option-label"><input type="radio" name="qi4" value="b"> b) El tema es un área amplia; el problema es una brecha específica formulada como pregunta investigable dentro de ese tema.</label>
+      <label class="option-label"><input type="radio" name="qi4" value="c"> c) El tema se redacta en forma de hipótesis; el problema en forma de objetivo.</label>
+      <label class="option-label"><input type="radio" name="qi4" value="d"> d) El problema incluye la metodología; el tema no.</label>
+    </div>
+    <div class="feedback-box" id="fb-qi4"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="exercise-item">
+    <span class="type-badge badge-teoria">Teórica</span>
+    <p class="enunciado">5. Una pregunta de investigación del tipo "¿Cuáles son las características del control interno en las cooperativas de ahorro de Loja?" es principalmente:</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi5" value="a"> a) Correlacional</label>
+      <label class="option-label"><input type="radio" name="qi5" value="b"> b) Explicativa o causal</label>
+      <label class="option-label"><input type="radio" name="qi5" value="c"> c) Descriptiva</label>
+      <label class="option-label"><input type="radio" name="qi5" value="d"> d) Experimental</label>
+    </div>
+    <div class="feedback-box" id="fb-qi5"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="exercise-item">
+    <span class="type-badge badge-teoria">Teórica</span>
+    <p class="enunciado">6. Delimitar el estudio a empresas del sector manufacturero de Guayaquil entre 2021 y 2024 es un ejemplo de delimitación:</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi6" value="a"> a) Solo temática</label>
+      <label class="option-label"><input type="radio" name="qi6" value="b"> b) Espacial, temporal y poblacional combinadas</label>
+      <label class="option-label"><input type="radio" name="qi6" value="c"> c) Exclusivamente metodológica</label>
+      <label class="option-label"><input type="radio" name="qi6" value="d"> d) Solo poblacional</label>
+    </div>
+    <div class="feedback-box" id="fb-qi6"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="exercise-item">
+    <span class="type-badge badge-teoria">Teórica</span>
+    <p class="enunciado">7. ¿Por qué el planteamiento del problema es considerado la etapa más crítica de una investigación?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi7" value="a"> a) Porque determina el número de páginas del informe final.</label>
+      <label class="option-label"><input type="radio" name="qi7" value="b"> b) Porque un problema mal planteado hace que todos los elementos posteriores (objetivos, hipótesis, metodología) sean defectuosos.</label>
+      <label class="option-label"><input type="radio" name="qi7" value="c"> c) Porque requiere más tiempo que el análisis estadístico.</label>
+      <label class="option-label"><input type="radio" name="qi7" value="d"> d) Porque define el presupuesto que se necesitará para la investigación.</label>
+    </div>
+    <div class="feedback-box" id="fb-qi7"></div>
+  </div>
+
+  <!-- Q8 — Análisis -->
+  <div class="exercise-item">
+    <span class="type-badge badge-analisis">Análisis</span>
+    <p class="enunciado">8. Una estudiante plantea: <em>"Quiero investigar si las personas aprenden mejor con tecnología o sin ella, en todo el sistema educativo ecuatoriano, desde primaria hasta posgrado."</em> ¿Cuál es el principal problema con este planteamiento?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi8" value="a"> a) El tema no es relevante para la ciencia.</label>
+      <label class="option-label"><input type="radio" name="qi8" value="b"> b) La investigación es inviable por su alcance excesivo: abarcar todo el sistema educativo en todos los niveles es irrealizable con los recursos habituales de un proyecto de grado.</label>
+      <label class="option-label"><input type="radio" name="qi8" value="c"> c) No tiene justificación de ningún tipo.</label>
+      <label class="option-label"><input type="radio" name="qi8" value="d"> d) Le falta una hipótesis nula.</label>
+    </div>
+    <div class="feedback-box" id="fb-qi8"></div>
+  </div>
+
+  <!-- Q9 — Análisis -->
+  <div class="exercise-item">
+    <span class="type-badge badge-analisis">Análisis</span>
+    <p class="enunciado">9. Un contador detecta que el 30% de los pequeños comerciantes de su ciudad no conoce la diferencia entre el régimen RIMPE y el régimen general del SRI. Decide investigarlo. ¿Qué tipo de pregunta de investigación sería más adecuada como primer paso?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi9" value="a"> a) Una pregunta explicativa: "¿Qué causa que los comerciantes no conozcan el RIMPE?"</label>
+      <label class="option-label"><input type="radio" name="qi9" value="b"> b) Una pregunta descriptiva: "¿Cuál es el nivel de conocimiento de los pequeños comerciantes sobre el régimen RIMPE frente al régimen general del SRI en [ciudad], 2024?"</label>
+      <label class="option-label"><input type="radio" name="qi9" value="c"> c) Una pregunta experimental: "¿Qué ocurre si le enseño RIMPE a un grupo de comerciantes?"</label>
+      <label class="option-label"><input type="radio" name="qi9" value="d"> d) Una hipótesis negativa: "El RIMPE no es conocido por los comerciantes."</label>
+    </div>
+    <div class="feedback-box" id="fb-qi9"></div>
+  </div>
+
+  <!-- Q10 — Análisis -->
+  <div class="exercise-item">
+    <span class="type-badge badge-analisis">Análisis</span>
+    <p class="enunciado">10. Un investigador justifica su estudio afirmando: <em>"Este tema es importante porque la investigación siempre aporta a la ciencia y al conocimiento humano."</em> ¿Qué falla tiene esta justificación?</p>
+    <div class="options-grid">
+      <label class="option-label"><input type="radio" name="qi10" value="a"> a) Es demasiado específica y no aplica a otras áreas.</label>
+      <label class="option-label"><input type="radio" name="qi10" value="b"> b) Es una justificación genérica y vacía: podría aplicarse a cualquier investigación sin argumentar por qué <em>este</em> problema específico merece ser estudiado.</label>
+      <label class="option-label"><input type="radio" name="qi10" value="c"> c) Solo menciona el valor teórico y omite la relevancia social.</label>
+      <label class="option-label"><input type="radio" name="qi10" value="d"> d) No cita a Hernández-Sampieri.</label>
+    </div>
+    <div class="feedback-box" id="fb-qi10"></div>
+  </div>
+
+  <button class="btn-verificar" id="btn-check-quiz" onclick="verificarCuestionario()">✅ Verificar respuestas</button>
+  <button class="btn-reiniciar" id="btn-reiniciar-quiz" onclick="reiniciarCuestionario()">🔄 Reiniciar cuestionario</button>
+
+  <div class="result-panel" id="result-quiz">
+    <div class="score-big" id="score-quiz-txt"></div>
+    <div class="score-pct" id="pct-quiz-txt"></div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="bar-quiz"></div></div>
+    <div class="result-msg" id="msg-quiz"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: ACTIVIDAD CON IA
+============================================================ -->
+<div id="tab-ia" class="tab-content">
+  <h3>7. Actividad con Inteligencia Artificial</h3>
+
+  <div class="box-concepto">
+    <strong>🎯 Propósito de esta actividad</strong>
+    <p>Usarás la IA como <strong>interlocutora crítica</strong> para poner a prueba tu capacidad de <em>formular y evaluar un problema de investigación</em>. No se trata de copiar lo que la IA produce: se trata de comparar, cuestionar y mejorar tu propio planteamiento a partir del diálogo con la herramienta.</p>
+  </div>
+
+  <div class="ia-step">
+    <h4>🛠️ Herramienta recomendada</h4>
+    <p>Usa <strong>Claude en <a href="https://claude.ai" target="_blank">claude.ai</a></strong> (de Anthropic). Es gratuito, accesible desde el navegador y especialmente bueno para análisis metodológico. También puedes usar ChatGPT (chat.openai.com) o Gemini (gemini.google.com).</p>
+  </div>
+
+  <div class="ia-step">
+    <h4>📋 Paso 1: Formula tu propio problema (ANTES de usar la IA)</h4>
+    <p>Piensa en una situación real del ámbito contable, tributario, financiero o de auditoría que hayas observado en tu entorno —en un negocio familiar, en noticias, en tu comunidad, o en tu experiencia laboral si la tienes. Formula:</p>
+    <ul class="lista-visual">
+      <li data-icon="✍️">Una <strong>pregunta de investigación</strong> (clara, específica, con contexto ecuatoriano)</li>
+      <li data-icon="🎯">Un <strong>objetivo general</strong> (con verbo en infinitivo)</li>
+      <li data-icon="📝">Una <strong>justificación breve</strong> (3–4 oraciones argumentadas)</li>
+    </ul>
+    <p>Escríbelo en papel o en un documento antes de continuar. Este será tu punto de comparación.</p>
+  </div>
+
+  <div class="ia-step">
+    <h4>🤖 Paso 2: Usa este prompt exacto con la IA</h4>
+    <p>Copia el siguiente prompt, <strong>completa las partes entre corchetes</strong> con tu propio planteamiento, y envíalo a la IA:</p>
+    <div class="prompt-box">Actúa como un metodólogo experto en investigación científica en ciencias sociales y contables.
+
+Te presento el planteamiento de problema que he formulado para mi investigación:
+
+PREGUNTA DE INVESTIGACIÓN: [escribe aquí tu pregunta]
+OBJETIVO GENERAL: [escribe aquí tu objetivo]
+JUSTIFICACIÓN: [escribe aquí tus 3-4 oraciones de justificación]
+
+Por favor, evalúa mi planteamiento respondiendo lo siguiente:
+1. ¿Mi pregunta de investigación es clara, específica y científicamente tratable? ¿Qué aspectos mejorarías y por qué?
+2. ¿Mi objetivo general está correctamente formulado (verbo en infinitivo, coherente con la pregunta)? ¿Qué cambiarías?
+3. ¿Mi justificación es específica y argumentada, o es genérica? ¿Qué dimensiones (conveniencia, relevancia social, valor teórico, utilidad metodológica, implicaciones prácticas) están presentes y cuáles faltan?
+4. Propón una versión mejorada de cada uno de los tres elementos.
+5. Señala un riesgo o limitación que debería considerar al delimitar este problema.
+
+Responde en español, con ejemplos concretos y lenguaje accesible para un estudiante universitario de Contabilidad y Auditoría en Ecuador.</div>
+  </div>
+
+  <div class="ia-step">
+    <h4>🔍 Paso 3: Analiza la respuesta de la IA</h4>
+    <p>Cuando la IA responda, NO copies su versión mejorada directamente. En cambio, reflexiona:</p>
+    <ul class="lista-visual">
+      <li data-icon="❓">¿La IA identificó debilidades que tú ya habías notado? ¿Cuáles no habías detectado?</li>
+      <li data-icon="🤔">¿La versión mejorada que propone la IA es realmente mejor que la tuya? ¿Por qué sí o por qué no?</li>
+      <li data-icon="⚖️">¿Hay algún aspecto de tu planteamiento original que defenderías aun después de ver la respuesta de la IA? Argumenta por qué.</li>
+      <li data-icon="🇪🇨">¿La IA consideró adecuadamente el contexto ecuatoriano? Si no lo hizo, ¿cómo adaptarías su versión mejorada?</li>
+    </ul>
+  </div>
+
+  <div class="ia-step">
+    <h4>📄 Paso 4: Producto final que entregarás</h4>
+    <p>Redacta un documento de 1–2 páginas que incluya:</p>
+    <ul class="lista-visual">
+      <li data-icon="1️⃣">Tu planteamiento original (antes de usar la IA)</li>
+      <li data-icon="2️⃣">Un resumen de la evaluación que la IA hizo (en tus propias palabras, no copiado)</li>
+      <li data-icon="3️⃣">Tu versión final mejorada (que integra lo que consideras válido de la respuesta de la IA con tu propio criterio)</li>
+      <li data-icon="4️⃣">Una reflexión de 5–8 oraciones: ¿En qué aspectos la IA te ayudó? ¿Dónde crees que se equivocó o fue insuficiente? ¿Qué aprendiste del proceso?</li>
+    </ul>
+  </div>
+
+  <div class="box-clave">
+    <strong>📊 Criterio de evaluación</strong>
+    <p><strong>Pensamiento crítico (excelente):</strong> El estudiante incorpora selectivamente las sugerencias de la IA, defiende con argumentos sus propias decisiones y produce una versión mejorada genuinamente propia.<br><br>
+    <strong>Copia simple (insuficiente):</strong> El estudiante pega la respuesta de la IA sin análisis, sin adaptación al contexto y sin reflexión propia. Esto se detecta fácilmente porque la IA tiende a usar ejemplos no ecuatorianos y terminología no concordante con el material del curso.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: REFLEXIÓN
+============================================================ -->
+<div id="tab-reflexion" class="tab-content">
+  <h3>8. Reflexión: Tu vida también tiene un planteamiento del problema</h3>
+
+  <p>La metodología de la investigación no es solo un conjunto de técnicas para hacer tesis. Es, en el fondo, una manera de <strong>pensar con rigor y honestidad</strong> sobre la realidad. En esta sección, te invito a conectar lo que aprendiste hoy con situaciones que ya vives o has vivido.</p>
+
+  <p>No hay respuestas correctas ni incorrectas aquí. Solo hay reflexión honesta. Tómate el tiempo que necesites con cada pregunta.</p>
+
+  <div class="reflexion-card">
+    <p>Cuando algo te molesta en tu vida —una relación difícil, una situación injusta, un hábito que no puedes cambiar— ¿sueles expresarlo como una queja ("esto está mal") o como una pregunta ("¿por qué pasa esto y qué puedo hacer al respecto")? ¿Cómo cambiaría tu vida si aplicaras el criterio de <em>claridad y precisión</em> del problema de investigación a las dificultades personales?</p>
+    <span class="tag">🧠 Pensamiento crítico personal</span>
+  </div>
+
+  <div class="reflexion-card">
+    <p>Un investigador necesita <strong>delimitar</strong> su estudio: aceptar que no puede abarcarlo todo y que está bien. ¿Hay áreas de tu vida donde intentas "abarcarlo todo" —en el trabajo, en los estudios, en tus relaciones— y terminas haciendo todo a medias? ¿Qué pasaría si te atrevieras a delimitar con honestidad: a decir "esto sí, esto no, y esto después"?</p>
+    <span class="tag">⚡ Inteligencia emocional y límites sanos</span>
+  </div>
+
+  <div class="reflexion-card">
+    <p>La <strong>justificación</strong> de una investigación responde: "¿Por qué vale la pena hacerlo?" Aplica esta pregunta a algo que estás postergando en tu vida: ¿por qué <em>sí</em> vale la pena hacer eso que aún no has comenzado? ¿Qué pasaría si escribieras tu propia justificación personal —conveniencia, relevancia, implicaciones prácticas— para ese proyecto de vida que tienes pendiente?</p>
+    <span class="tag">🌱 Autoconocimiento y propósito</span>
+  </div>
+
+  <div class="reflexion-card">
+    <p>El planteamiento del problema es <strong>iterativo</strong>: se formula, se revisa, se mejora. Los investigadores experimentados saben que el primer borrador nunca es el definitivo, y no se avergüenzan de ello. ¿Eres de las personas que se bloquean ante la idea de "no tener todo claro desde el principio"? ¿Cómo te relacionas con la imperfección y la revisión constante en tu proceso de aprendizaje y en tus decisiones de vida?</p>
+    <span class="tag">🔄 PNL: proceso vs. perfección</span>
+  </div>
+
+  <div class="reflexion-card">
+    <p>Uno de los criterios para evaluar un problema de investigación es que sea <strong>éticamente válido</strong>: que no cause daño. ¿Hay decisiones en tu vida cotidiana —en cómo hablas de los demás, en cómo usas la información que tienes de otras personas, en cómo actúas cuando nadie te ve— que pasarían una "auditoría ética" si alguien las examinara? ¿Qué significa para ti actuar con integridad, no porque te observan, sino porque es lo correcto?</p>
+    <span class="tag">🏛️ Ética e integridad personal</span>
+  </div>
+
+  <div class="reflexion-card">
+    <p>Un problema de investigación necesita ser <strong>viable</strong>: alcanzable con los recursos que tienes, no con los que desearías tener. ¿Cuántas veces te has frustrado por comparar tu situación actual con un ideal inalcanzable en este momento? ¿Qué pasaría si comenzaras a valorar lo que <em>sí puedes hacer hoy</em> con lo que tienes, en lugar de esperar las condiciones perfectas para empezar?</p>
+    <span class="tag">💪 Autoestima y acción presente</span>
+  </div>
+
+  <div class="box-clave">
+    <strong>✨ Para cerrar</strong>
+    <p>Un investigador riguroso no solo estudia la realidad externa: también aprende a observarse a sí mismo con la misma honestidad y precisión que aplica a sus datos. El método científico y el autoconocimiento comparten un principio fundamental: <em>la verdad se construye mejor cuando uno está dispuesto a cuestionar sus propias certezas</em>.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: BIBLIOGRAFÍA
+============================================================ -->
+<div id="tab-biblio" class="tab-content">
+  <h3>9. Bibliografía</h3>
+  <p>Referencias en formato APA 7.ª edición utilizadas como base conceptual de este widget.</p>
+
+  <div class="ref-card">
+    <div class="ref-authors">Hernández-Sampieri, R., Fernández-Collado, C., y Baptista Lucio, M. P.</div>
+    <div class="ref-year">(2014).</div>
+    <div class="ref-title">Metodología de la investigación (6.ª ed.).</div>
+    <div class="ref-source">McGraw-Hill Education.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-authors">Arias, F. G.</div>
+    <div class="ref-year">(2012).</div>
+    <div class="ref-title">El proyecto de investigación: Introducción a la metodología científica (6.ª ed.).</div>
+    <div class="ref-source">Editorial Episteme.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-authors">Creswell, J. W., y Creswell, J. D.</div>
+    <div class="ref-year">(2018).</div>
+    <div class="ref-title">Research design: Qualitative, quantitative, and mixed methods approaches (5th ed.).</div>
+    <div class="ref-source">SAGE Publications.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-authors">Bernal Torres, C. A.</div>
+    <div class="ref-year">(2016).</div>
+    <div class="ref-title">Metodología de la investigación: Administración, economía, humanidades y ciencias sociales (4.ª ed.).</div>
+    <div class="ref-source">Pearson Educación.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-authors">Tamayo y Tamayo, M.</div>
+    <div class="ref-year">(2004).</div>
+    <div class="ref-title">El proceso de la investigación científica: Incluye evaluación y administración de proyectos de investigación (4.ª ed.).</div>
+    <div class="ref-source">Editorial Limusa.</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-authors">Contraloría General del Estado del Ecuador.</div>
+    <div class="ref-year">(2023).</div>
+    <div class="ref-title">Informe de gestión y resultados 2023.</div>
+    <div class="ref-source">Contraloría General del Estado. https://www.contraloria.gob.ec</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-authors">Kerlinger, F. N., y Lee, H. B.</div>
+    <div class="ref-year">(2002).</div>
+    <div class="ref-title">Investigación del comportamiento: Métodos de investigación en ciencias sociales (4.ª ed.).</div>
+    <div class="ref-source">McGraw-Hill.</div>
+  </div>
+
+  <div class="ref-note">
+    📌 <strong>Nota:</strong> Se recomienda verificar cada referencia en Google Scholar (<a href="https://scholar.google.com" target="_blank">scholar.google.com</a>) o en el repositorio institucional de la Universidad de Guayaquil antes de citar en trabajos académicos.
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+  /* ---------- Navegación de pestañas ---------- */
+  function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  /* ---------- EJERCICIO INTERACTIVO ---------- */
+  const ejCorrects = {
+    ei1: 'b',
+    ei2: 'c',
+    ei3: 'b',
+    ei4: 'c',
+    ei5: 'b',
+    ei6: 'b',
+    ei7: 'c',
+    ei8: 'c'
+  };
+
+  const ejFeedbacks = {
+    ei1: {
+      correct: '✅ Correcto. "El fraude es muy grave" es una opinión moral, no una pregunta científicamente tratable. Un problema de investigación requiere ser formulado como una brecha de conocimiento investigable.',
+      incorrect: '❌ La respuesta correcta es B. La formulación es una opinión o juicio de valor, no una pregunta con las características de un problema de investigación científica.'
+    },
+    ei2: {
+      correct: '✅ Correcto. "Determinar" es un verbo preciso y verificable. Los verbos como "entender", "conocer" o "saber" son demasiado vagos para un objetivo específico medible.',
+      incorrect: '❌ La respuesta correcta es C: "Determinar". Los verbos como "entender", "conocer" y "saber" no indican una acción verificable en los resultados de la investigación.'
+    },
+    ei3: {
+      correct: '✅ Correcto. Abarcar "toda América Latina durante 50 años" hace el estudio completamente inviable para cualquier investigador con recursos normales. El criterio de viabilidad está claramente incumplido.',
+      incorrect: '❌ La respuesta correcta es B: Viabilidad o factibilidad. El alcance geográfico y temporal del problema lo hace imposible de ejecutar con recursos reales.'
+    },
+    ei4: {
+      correct: '✅ Correcto. La justificación es el elemento que argumenta por qué vale la pena realizar el estudio, respondiendo con conveniencia, relevancia social, valor teórico, implicaciones prácticas y utilidad metodológica.',
+      incorrect: '❌ La respuesta correcta es C: La justificación de la investigación. Es el componente que responde "¿por qué vale la pena?"'
+    },
+    ei5: {
+      correct: '✅ Correcto. La delimitación temporal establece el período de tiempo que cubre el fenómeno estudiado (Ej.: 2021–2024), no el tiempo de trabajo del investigador.',
+      incorrect: '❌ La respuesta correcta es B. La delimitación temporal indica el período del fenómeno que se investigará, no el tiempo dedicado a escribir la tesis ni la fecha de entrega.'
+    },
+    ei6: {
+      correct: '✅ Correcto. La pregunta busca conocer la relación entre dos variables (capacitación y sanciones), está delimitada en población (contadores), lugar (PYMES de Quito) y tiempo (2023). Es una pregunta correlacional bien formulada.',
+      incorrect: '❌ La respuesta correcta es B. La pregunta busca conocer la relación entre dos variables y está correctamente delimitada: es una pregunta correlacional.'
+    },
+    ei7: {
+      correct: '✅ Correcto. Usar información confidencial sin autorización viola el criterio ético del planteamiento. En Ecuador, además, puede implicar violaciones a la Ley de Protección de Datos Personales.',
+      incorrect: '❌ La respuesta correcta es C: Relevancia ética. Acceder a información privada sin autorización es un problema ético y legal, independientemente de la viabilidad o claridad del planteamiento.'
+    },
+    ei8: {
+      correct: '✅ Correcto. El orden correcto en investigación parte de la observación de la realidad, luego se identifica la brecha (qué no se sabe), se formula el problema como pregunta y finalmente se construye la justificación y delimitación.',
+      incorrect: '❌ La respuesta correcta es C. El proceso investigativo parte de la realidad observada, no del marco teórico ni de la hipótesis. El problema guía todo lo demás.'
+    }
+  };
+
+  function verificarEjercicio() {
+    const names = ['ei1','ei2','ei3','ei4','ei5','ei6','ei7','ei8'];
+    let allAnswered = true;
+    names.forEach(n => {
+      if (!document.querySelector('input[name="' + n + '"]:checked')) allAnswered = false;
+    });
+    if (!allAnswered) { alert('Por favor responde todos los ítems antes de verificar.'); return; }
+
+    let score = 0;
+    names.forEach(n => {
+      const selected = document.querySelector('input[name="' + n + '"]:checked').value;
+      const correct = ejCorrects[n];
+      const fb = document.getElementById('fb-' + n);
+      const labels = document.querySelectorAll('input[name="' + n + '"]');
+      labels.forEach(inp => {
+        const lbl = inp.parentElement;
+        if (inp.value === correct) lbl.classList.add('correct');
+        else if (inp.value === selected && selected !== correct) lbl.classList.add('incorrect');
+        inp.disabled = true;
+      });
+      if (selected === correct) {
+        score++;
+        fb.textContent = ejFeedbacks[n].correct;
+        fb.className = 'feedback-box correct';
+      } else {
+        fb.textContent = ejFeedbacks[n].incorrect;
+        fb.className = 'feedback-box incorrect';
+      }
+      fb.style.display = 'block';
+    });
+
+    const pct = Math.round((score / 8) * 100);
+    const panel = document.getElementById('result-ej');
+    panel.style.display = 'block';
+    document.getElementById('score-ej-txt').textContent = score + ' / 8';
+    document.getElementById('pct-ej-txt').textContent = pct + '% de respuestas correctas';
+    setTimeout(() => { document.getElementById('bar-ej').style.width = pct + '%'; }, 100);
+    const msgs = [
+      [100, '🏆 ¡Perfecto! Dominas completamente estos conceptos.'],
+      [75, '🎯 ¡Muy bien! Solo algunos detalles por reforzar.'],
+      [50, '📘 Vas bien, pero te conviene releer las pestañas de contenido.'],
+      [25, '⚠️ Hay conceptos clave que necesitas repasar con calma.'],
+      [0,  '📖 Te recomiendo volver al inicio y leer cada pestaña con atención.']
+    ];
+    document.getElementById('msg-ej').textContent = msgs.find(m => pct >= m[0])[1];
+    document.getElementById('btn-reiniciar-ej').style.display = 'block';
+    document.getElementById('btn-check-ej').style.display = 'none';
+  }
+
+  function reiniciarEjercicio() {
+    ['ei1','ei2','ei3','ei4','ei5','ei6','ei7','ei8'].forEach(n => {
+      document.querySelectorAll('input[name="' + n + '"]').forEach(inp => {
+        inp.checked = false;
+        inp.disabled = false;
+        inp.parentElement.classList.remove('correct','incorrect');
+      });
+      const fb = document.getElementById('fb-' + n);
+      fb.style.display = 'none';
+      fb.className = 'feedback-box';
+    });
+    document.getElementById('result-ej').style.display = 'none';
+    document.getElementById('bar-ej').style.width = '0';
+    document.getElementById('btn-reiniciar-ej').style.display = 'none';
+    document.getElementById('btn-check-ej').style.display = 'block';
+  }
+
+  /* ---------- CUESTIONARIO ---------- */
+  const quizCorrects = {
+    qi1: 'b',
+    qi2: 'c',
+    qi3: 'a',
+    qi4: 'b',
+    qi5: 'c',
+    qi6: 'b',
+    qi7: 'b',
+    qi8: 'b',
+    qi9: 'b',
+    qi10: 'b'
+  };
+
+  const quizFeedbacks = {
+    qi1: {
+      correct: '✅ Correcto. Hernández-Sampieri et al. (2014) definen el planteamiento como el proceso de "afinar y estructurar más formalmente la idea de investigación". Esta definición subraya que el problema no se inventa: se precisa.',
+      incorrect: '❌ La respuesta correcta es B. Según Hernández-Sampieri et al. (2014), plantear el problema es afinar y estructurar la idea de investigación, no elegir métodos estadísticos ni redactar el marco teórico.'
+    },
+    qi2: {
+      correct: '✅ Correcto. La "extensión mínima de páginas" no es un criterio metodológico. Los cinco criterios son: generación de conocimiento, relevancia, viabilidad, ética y claridad/precisión.',
+      incorrect: '❌ La respuesta correcta es C. La extensión del texto no es un criterio para evaluar si un problema está bien planteado. Los criterios son: nuevo conocimiento, relevancia, viabilidad, ética y claridad.'
+    },
+    qi3: {
+      correct: '✅ Correcto. Hernández-Sampieri et al. proponen cinco dimensiones de justificación: conveniencia, relevancia social, implicaciones prácticas, valor teórico y utilidad metodológica.',
+      incorrect: '❌ La respuesta correcta es A: utilidad metodológica. Las cinco dimensiones son: conveniencia, relevancia social, implicaciones prácticas, valor teórico y utilidad metodológica.'
+    },
+    qi4: {
+      correct: '✅ Correcto. El tema es un área amplia (Ej.: "fraude contable"). El problema es una brecha específica formulada como pregunta investigable dentro de ese tema (Ej.: "¿Qué factores...?").',
+      incorrect: '❌ La respuesta correcta es B. El tema es un área general; el problema es una pregunta específica sobre una brecha de conocimiento identificada dentro de ese tema.'
+    },
+    qi5: {
+      correct: '✅ Correcto. Una pregunta que busca caracterizar un fenómeno ("¿Cuáles son las características...?") es de tipo descriptivo. No establece relaciones causales ni correlaciones.',
+      incorrect: '❌ La respuesta correcta es C: descriptiva. La pregunta busca caracterizar el fenómeno (describir el estado del control interno), no establecer relaciones o causas.'
+    },
+    qi6: {
+      correct: '✅ Correcto. Delimitar a un sector (manufacturero), una ciudad (Guayaquil) y un período (2021–2024) combina la delimitación espacial, temporal y poblacional simultáneamente.',
+      incorrect: '❌ La respuesta correcta es B. La delimitación combina tres dimensiones: espacial (Guayaquil), temporal (2021–2024) y poblacional (empresas del sector manufacturero).'
+    },
+    qi7: {
+      correct: '✅ Correcto. Si el problema está mal planteado, todos los elementos posteriores heredan ese error: los objetivos serán imprecisos, la hipótesis mal formulada y la metodología mal elegida.',
+      incorrect: '❌ La respuesta correcta es B. El planteamiento es la etapa más crítica porque un problema mal formulado compromete la coherencia de todo lo que sigue: objetivos, hipótesis, metodología y análisis.'
+    },
+    qi8: {
+      correct: '✅ Correcto. Abarcar todos los niveles del sistema educativo ecuatoriano (primaria, secundaria, superior, posgrado) en un solo estudio de grado es inviable por los recursos que requeriría. El criterio de viabilidad es el más afectado.',
+      incorrect: '❌ La respuesta correcta es B. El principal problema es la inviabilidad: el alcance es excesivo para los recursos y tiempo disponibles en un proyecto de grado.'
+    },
+    qi9: {
+      correct: '✅ Correcto. Como primer paso, ante una observación como esta, lo más apropiado es una pregunta descriptiva que establezca con precisión el nivel del problema antes de buscar causas o relaciones.',
+      incorrect: '❌ La respuesta correcta es B: una pregunta descriptiva. Antes de explicar causas o establecer relaciones, se debe describir el fenómeno con precisión. La pregunta descriptiva es el primer paso lógico.'
+    },
+    qi10: {
+      correct: '✅ Correcto. La justificación "la investigación siempre aporta a la ciencia" podría aplicarse literalmente a cualquier investigación del mundo, lo que la hace completamente vacía de argumentación específica.',
+      incorrect: '❌ La respuesta correcta es B. La justificación es genérica: podría usarse para cualquier investigación sin cambiar una sola palabra, lo que demuestra que no justifica <em>este</em> problema en particular.'
+    }
+  };
+
+  function verificarCuestionario() {
+    const names = ['qi1','qi2','qi3','qi4','qi5','qi6','qi7','qi8','qi9','qi10'];
+    let allAnswered = true;
+    names.forEach(n => {
+      if (!document.querySelector('input[name="' + n + '"]:checked')) allAnswered = false;
+    });
+    if (!allAnswered) { alert('Por favor responde todas las preguntas antes de verificar.'); return; }
+
+    let score = 0;
+    names.forEach(n => {
+      const selected = document.querySelector('input[name="' + n + '"]:checked').value;
+      const correct = quizCorrects[n];
+      const fb = document.getElementById('fb-' + n);
+      document.querySelectorAll('input[name="' + n + '"]').forEach(inp => {
+        const lbl = inp.parentElement;
+        if (inp.value === correct) lbl.classList.add('correct');
+        else if (inp.value === selected && selected !== correct) lbl.classList.add('incorrect');
+        inp.disabled = true;
+      });
+      if (selected === correct) {
+        score++;
+        fb.textContent = quizFeedbacks[n].correct;
+        fb.className = 'feedback-box correct';
+      } else {
+        fb.textContent = quizFeedbacks[n].incorrect;
+        fb.className = 'feedback-box incorrect';
+      }
+      fb.style.display = 'block';
+    });
+
+    const pct = score * 10;
+    const panel = document.getElementById('result-quiz');
+    panel.style.display = 'block';
+    document.getElementById('score-quiz-txt').textContent = score + ' / 10';
+    document.getElementById('pct-quiz-txt').textContent = pct + '% de respuestas correctas';
+    setTimeout(() => { document.getElementById('bar-quiz').style.width = pct + '%'; }, 100);
+    let emoji, msg;
+    if (pct === 100) { emoji = '🏆'; msg = '¡Perfecto! Tienes un dominio excepcional del planteamiento del problema.'; }
+    else if (pct >= 80) { emoji = '🎯'; msg = '¡Muy bien! Pequeños detalles por reforzar.'; }
+    else if (pct >= 60) { emoji = '📘'; msg = 'Buen avance. Te recomendamos releer las pestañas de criterios y elementos.'; }
+    else if (pct >= 40) { emoji = '⚠️'; msg = 'Hay conceptos importantes que necesitan refuerzo. Vuelve al contenido.'; }
+    else { emoji = '📖'; msg = 'Te recomendamos comenzar desde el Repaso y leer cada pestaña con atención antes de volver a intentar.'; }
+    document.getElementById('msg-quiz').textContent = emoji + ' ' + msg;
+    document.getElementById('btn-reiniciar-quiz').style.display = 'block';
+    document.getElementById('btn-check-quiz').style.display = 'none';
+  }
+
+  function reiniciarCuestionario() {
+    ['qi1','qi2','qi3','qi4','qi5','qi6','qi7','qi8','qi9','qi10'].forEach(n => {
+      document.querySelectorAll('input[name="' + n + '"]').forEach(inp => {
+        inp.checked = false;
+        inp.disabled = false;
+        inp.parentElement.classList.remove('correct','incorrect');
+      });
+      const fb = document.getElementById('fb-' + n);
+      fb.style.display = 'none';
+      fb.className = 'feedback-box';
+    });
+    document.getElementById('result-quiz').style.display = 'none';
+    document.getElementById('bar-quiz').style.width = '0';
+    document.getElementById('btn-reiniciar-quiz').style.display = 'none';
+    document.getElementById('btn-check-quiz').style.display = 'block';
+  }
+</script>
+</body>
+</html>
