@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Semana 11A | Variables de Investigación | Metodología de la Investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #f0f4f8;
+    color: #1a1a2e;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    background: #003366;
+    color: #fff;
+    padding: 18px 24px;
+    text-align: center;
+  }
+  .site-header .institution {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 4px;
+  }
+  .site-header h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.2rem, 3vw, 1.75rem);
+    font-weight: 700;
+  }
+  .site-header .meta {
+    font-size: 13px;
+    opacity: 0.8;
+    margin-top: 6px;
+  }
+  .brand-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 2px 12px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  /* ===== TAB NAVIGATION ===== */
+  .tab-nav-wrapper {
+    background: #87CEEB;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0 8px;
+    box-shadow: 0 2px 6px rgba(0,51,102,0.15);
+    scrollbar-width: thin;
+    scrollbar-color: #003366 #87CEEB;
+  }
+  .tab-nav-wrapper::-webkit-scrollbar { height: 4px; }
+  .tab-nav-wrapper::-webkit-scrollbar-thumb { background: #003366; border-radius: 4px; }
+  .tab-nav {
+    display: inline-flex;
+    gap: 2px;
+    padding: 6px 0;
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    color: #1a1a2e;
+    cursor: pointer;
+    border-radius: 6px 6px 0 0;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { background: rgba(255,255,255,0.5); }
+  .tab-btn.active {
+    background: #fff;
+    color: #003366;
+    font-weight: 700;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .tab-content { display: none; padding: 28px 20px; max-width: 960px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* ===== TYPOGRAPHY ===== */
+  h2 {
+    font-family: 'Lora', serif;
+    color: #003366;
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    border-bottom: 3px solid #87CEEB;
+    padding-bottom: 8px;
+  }
+  h3 {
+    font-family: 'Lora', serif;
+    color: #003366;
+    font-size: 1.15rem;
+    margin: 24px 0 10px;
+  }
+  p { margin-bottom: 14px; }
+  ul, ol { margin: 10px 0 14px 22px; }
+  li { margin-bottom: 6px; }
+  strong { color: #003366; }
+
+  /* ===== CONCEPT BOX ===== */
+  .box-concept {
+    border-left: 5px solid #003366;
+    background: #f7faff;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 18px 0;
+  }
+  .box-concept .box-title {
+    font-family: 'Lora', serif;
+    color: #003366;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ===== EXAMPLE BOX ===== */
+  .box-example {
+    background: #dbeeff;
+    border: 1px solid #87CEEB;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 18px 0;
+  }
+  .box-example .box-title {
+    font-family: 'Lora', serif;
+    color: #003366;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+  }
+
+  /* ===== KEY IDEA BOX ===== */
+  .box-key {
+    background: #003366;
+    color: #fff;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .box-key .box-title {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    opacity: 0.9;
+  }
+
+  /* ===== WARNING BOX ===== */
+  .box-warning {
+    background: #fff8e1;
+    border-left: 5px solid #f9a825;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 16px 0;
+  }
+
+  /* ===== TABLE ===== */
+  .table-wrapper { overflow-x: auto; margin: 18px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead { background: #003366; color: #fff; }
+  thead th { padding: 12px; text-align: left; }
+  tbody tr:nth-child(even) { background: #eef4ff; }
+  tbody tr:nth-child(odd) { background: #fff; }
+  td { padding: 10px 12px; border-bottom: 1px solid #d0dff0; vertical-align: top; }
+
+  /* ===== VARIABLE TYPE CARDS ===== */
+  .var-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 18px 0; }
+  .var-card {
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    font-size: 14px;
+  }
+  .var-card .icon { font-size: 2rem; margin-bottom: 8px; }
+  .var-card h4 { font-family: 'Lora', serif; margin-bottom: 6px; font-size: 0.95rem; }
+  .vc-ind { background: #e8f5e9; border: 2px solid #4caf50; }
+  .vc-dep { background: #fce4ec; border: 2px solid #e91e63; }
+  .vc-int { background: #fff3e0; border: 2px solid #ff9800; }
+  .vc-con { background: #f3e5f5; border: 2px solid #9c27b0; }
+  .vc-ext { background: #e3f2fd; border: 2px solid #2196f3; }
+
+  /* ===== SCALE CARDS ===== */
+  .scale-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 18px 0; }
+  .scale-card {
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 13.5px;
+  }
+  .sc-nom { background: #f3e5f5; border-top: 4px solid #9c27b0; }
+  .sc-ord { background: #e3f2fd; border-top: 4px solid #2196f3; }
+  .sc-int { background: #e8f5e9; border-top: 4px solid #4caf50; }
+  .sc-raz { background: #fff8e1; border-top: 4px solid #f9a825; }
+  .scale-card h4 { font-family: 'Lora', serif; color: #003366; margin-bottom: 8px; }
+
+  /* ===== INTERACTION DIAGRAM ===== */
+  .diagram-container {
+    background: #f7faff;
+    border: 2px solid #87CEEB;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .diagram-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 12px 0;
+  }
+  .d-box {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 120px;
+  }
+  .d-ind { background: #4caf50; color: #fff; }
+  .d-dep { background: #e91e63; color: #fff; }
+  .d-int { background: #ff9800; color: #fff; }
+  .d-con { background: #9c27b0; color: #fff; }
+  .d-ext { background: #2196f3; color: #fff; }
+  .d-arrow { font-size: 1.5rem; color: #003366; }
+
+  /* ===== EXERCISE & QUIZ ===== */
+  .exercise-item {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #d0dff0;
+    padding: 18px;
+    margin-bottom: 16px;
+    transition: border-color 0.3s;
+  }
+  .exercise-item p.question-text { font-weight: 600; margin-bottom: 12px; color: #003366; }
+  .option-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid transparent;
+  }
+  .option-label:hover { background: #eef4ff; }
+  .option-label input[type="radio"] { margin-top: 3px; accent-color: #003366; flex-shrink: 0; }
+  .badge-type {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+  .badge-teo { background: #dbeeff; color: #003366; }
+  .badge-ana { background: #fce4ec; color: #880e4f; }
+
+  /* FEEDBACK */
+  .feedback-box {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  .feedback-correct { background: #e8f5e9; border-left: 4px solid #4caf50; color: #1b5e20; }
+  .feedback-incorrect { background: #fce4ec; border-left: 4px solid #e91e63; color: #880e4f; }
+
+  /* RESULT PANEL */
+  .result-panel {
+    display: none;
+    background: #f7faff;
+    border: 2px solid #87CEEB;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .result-panel .score-emoji { font-size: 3rem; margin-bottom: 8px; }
+  .result-panel .score-text { font-family: 'Lora', serif; font-size: 1.4rem; color: #003366; font-weight: 700; }
+  .result-panel .score-msg { margin-top: 8px; color: #555; }
+  .progress-bar-wrap { background: #d0dff0; border-radius: 20px; height: 18px; margin: 16px 0; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 20px; background: linear-gradient(90deg, #003366, #87CEEB); transition: width 1s ease; width: 0%; }
+
+  /* BUTTONS */
+  .btn-verify {
+    background: #003366;
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: background 0.2s;
+  }
+  .btn-verify:hover { background: #00509e; }
+  .btn-reset {
+    background: transparent;
+    color: #003366;
+    border: 2px solid #003366;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: all 0.2s;
+  }
+  .btn-reset:hover { background: #003366; color: #fff; }
+  .alert-msg { color: #c62828; font-weight: 600; margin-top: 10px; display: none; }
+
+  /* REPASO styles */
+  .repaso-week {
+    background: #fff;
+    border-radius: 10px;
+    border-left: 5px solid #87CEEB;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+  }
+  .repaso-week h4 { color: #003366; font-family: 'Lora', serif; margin-bottom: 6px; }
+
+  /* FILE NAVIGATOR */
+  .file-nav {
+    background: #003366;
+    color: #fff;
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .file-nav span { font-size: 13px; opacity: 0.9; }
+  .file-nav a {
+    color: #87CEEB;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 13px;
+    border: 1px solid #87CEEB;
+    padding: 4px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .file-nav a:hover { background: #87CEEB; color: #003366; }
+
+  /* HIGHLIGHT PILL */
+  .pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 2px;
+  }
+  .pill-green { background: #e8f5e9; color: #2e7d32; border: 1px solid #4caf50; }
+  .pill-red { background: #fce4ec; color: #880e4f; border: 1px solid #e91e63; }
+  .pill-orange { background: #fff3e0; color: #e65100; border: 1px solid #ff9800; }
+  .pill-purple { background: #f3e5f5; color: #6a1b9a; border: 1px solid #9c27b0; }
+  .pill-blue { background: #e3f2fd; color: #0d47a1; border: 1px solid #2196f3; }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="institution">Universidad de Guayaquil · Facultad de Ciencias Administrativas · Carrera en Contabilidad y Auditoría</div>
+  <h1>Metodología de la Investigación</h1>
+  <div class="meta">Unidad III · <strong>Semana 11A</strong> · Variables de Investigación</div>
+  <div class="brand-tag">PERSONA IDEAL · Humanizamos la cultura desde conversaciones que transforman</div>
+</header>
+
+<!-- ===== TAB NAVIGATION ===== -->
+<div class="tab-nav-wrapper">
+  <nav class="tab-nav" role="tablist">
+    <button class="tab-btn active" onclick="showTab('repaso')" role="tab">📋 Repaso</button>
+    <button class="tab-btn" onclick="showTab('t1')" role="tab">1. ¿Qué es una variable?</button>
+    <button class="tab-btn" onclick="showTab('t2')" role="tab">2. Variables por su Rol</button>
+    <button class="tab-btn" onclick="showTab('t3')" role="tab">3. Variables por Naturaleza</button>
+    <button class="tab-btn" onclick="showTab('t4')" role="tab">4. Escalas de Medición</button>
+    <button class="tab-btn" onclick="showTab('t5')" role="tab">5. Interacción entre Variables</button>
+    <button class="tab-btn" onclick="showTab('ejercicio')" role="tab">6. Ejercicio Interactivo</button>
+    <button class="tab-btn" onclick="showTab('cuestionario')" role="tab">7. Cuestionario</button>
+    <button class="tab-btn" onclick="showTab('semana11b')" role="tab">→ Semana 11B</button>
+  </nav>
+</div>
+
+<!-- ============================= REPASO ============================= -->
+<div id="tab-repaso" class="tab-content active">
+  <div class="file-nav">
+    <span>📁 Este archivo: <strong>Semana 11A</strong> — Contenido, Ejercicio y Cuestionario</span>
+    <a href="semana11B_variables.html">Ir a Semana 11B → Actividad IA · Reflexión · Bibliografía</a>
+  </div>
+
+  <h2>📋 Repaso: Lo que hemos aprendido hasta aquí</h2>
+  <p>Antes de adentrarnos en las variables de investigación, es fundamental que tengas claro el camino recorrido. Esta semana construiremos sobre fundamentos que ya conoces.</p>
+
+  <div class="repaso-week">
+    <h4>Semanas 1–4 · Unidad I: Fundamentos del Conocimiento Científico</h4>
+    <p>Exploramos la diferencia entre el <strong>conocimiento empírico</strong> (basado en la experiencia cotidiana sin sistematización) y el <strong>conocimiento científico</strong> (sistemático, verificable, replicable). Analizamos los <strong>paradigmas de investigación</strong>: positivismo, interpretativismo y crítico. También diferenciamos ciencias empíricas (estudian la realidad observable, como la contabilidad) de ciencias formales (trabajan con símbolos y lógica, como las matemáticas). La <strong>epistemología</strong> nos preguntó: ¿cómo sabemos lo que sabemos? y ¿cómo validamos ese conocimiento?</p>
+  </div>
+
+  <div class="repaso-week">
+    <h4>Semanas 5–7 · Unidad II: Enfoques y Diseños de Investigación</h4>
+    <p>Distinguimos el <strong>enfoque cuantitativo</strong> (mide, cuantifica, busca generalizaciones estadísticas) del <strong>cualitativo</strong> (comprende, interpreta, busca profundidad). Los <strong>métodos mixtos</strong> combinan ambos. Estudiamos los <strong>diseños experimentales</strong> (el investigador manipula condiciones) y los <strong>no experimentales</strong> (observa sin intervenir). Aquí apareció por primera vez la distinción entre <strong>variable independiente</strong> (causa, la que se manipula) y <strong>variable dependiente</strong> (efecto, la que se mide). También analizamos la <strong>validez interna</strong> (¿el experimento realmente mide lo que cree medir?) y la <strong>validez externa</strong> (¿los resultados se pueden generalizar?).</p>
+  </div>
+
+  <div class="repaso-week">
+    <h4>Semanas 9–10 · Unidad III: Planteamiento del Problema</h4>
+    <p>Aprendimos que un buen <strong>planteamiento del problema</strong> incluye: descripción del fenómeno, formulación de la pregunta principal, preguntas subsidiarias, objetivos (general y específicos), justificación del estudio (teórica, metodológica y práctica) y delimitación. Aplicamos esto al contexto ecuatoriano: empresas, SRI, Contraloría General del Estado, Superintendencia de Compañías, IESS. También vimos que el problema debe ser <strong>factible, relevante, preciso y ético</strong>.</p>
+  </div>
+
+  <div class="box-key">
+    <div class="box-title">🔗 Conexión con esta semana</div>
+    <p>Todo planteamiento del problema requiere identificar <strong>qué se va a medir</strong>. Eso son las <strong>variables</strong>. Sin variables bien definidas, la investigación no puede avanzar: no sabríamos qué datos recoger, cómo analizarlos ni cómo responder la pregunta de investigación. Esta semana damos un paso fundamental.</p>
+  </div>
+</div>
+
+<!-- ============================= TEMA 1: ¿QUÉ ES UNA VARIABLE? ============================= -->
+<div id="tab-t1" class="tab-content">
+  <h2>1. ¿Qué es una Variable de Investigación?</h2>
+
+  <div class="box-concept">
+    <div class="box-title">📌 Definición formal</div>
+    <p>Una <strong>variable</strong> es cualquier característica, propiedad o atributo de un objeto, persona, fenómeno o situación que <em>puede tomar diferentes valores</em>. En investigación científica, es aquello que el investigador decide observar, medir, controlar o manipular porque su variación es relevante para responder la pregunta de investigación.</p>
+    <p><em>Fuente: Hernández Sampieri, R., Fernández Collado, C. y Baptista Lucio, M. P. (2014). Metodología de la investigación (6.ª ed.). McGraw-Hill.</em></p>
+  </div>
+
+  <p>La palabra <strong>"variable"</strong> proviene del latín <em>variabilis</em>, que significa "susceptible de cambio o variación". En ciencia, todo lo que puede variar (y cuya variación nos interesa estudiar) es una variable.</p>
+
+  <h3>¿Por qué es tan importante definir las variables?</h3>
+  <p>Imagina que tu pregunta de investigación es: <em>"¿Influye la capacitación tributaria en el cumplimiento fiscal de las microempresas de Guayaquil?"</em> Antes de salir a recolectar datos, debes responder:</p>
+  <ul>
+    <li>¿Qué es "capacitación tributaria"? ¿Se mide por horas, por número de talleres, por nivel de conocimiento adquirido?</li>
+    <li>¿Qué es "cumplimiento fiscal"? ¿Es declarar a tiempo, pagar lo correcto, o no tener infracciones?</li>
+    <li>¿Qué tipo de microempresas? ¿Del sector comercio? ¿Con RUC activo en el SRI?</li>
+  </ul>
+  <p>Sin responder estas preguntas, dos investigadores distintos podrían estudiar "lo mismo" pero medir cosas completamente diferentes. La precisión en la definición de variables es lo que hace que la investigación sea <strong>replicable, verificable y científicamente válida</strong>.</p>
+
+  <div class="box-example">
+    <div class="box-title">🇪🇨 Ejemplo concreto — Contexto ecuatoriano</div>
+    <p><strong>Investigación:</strong> "Efecto del sistema de facturación electrónica del SRI sobre la evasión fiscal en el sector comercio de Pichincha, 2022–2024."</p>
+    <ul>
+      <li><strong>Variable 1:</strong> Implementación del sistema de facturación electrónica (¿lo usa la empresa o no? ¿desde cuándo? ¿qué porcentaje de sus transacciones están en el sistema?)</li>
+      <li><strong>Variable 2:</strong> Nivel de evasión fiscal (¿diferencia entre impuesto declarado y estimado? ¿auditorías del SRI? ¿multas recibidas?)</li>
+    </ul>
+    <p>Cada una de estas características <strong>varía</strong> de empresa a empresa, de año a año. Esa variación es precisamente lo que queremos estudiar.</p>
+  </div>
+
+  <h3>Diferencia entre constante y variable</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Concepto</th><th>Definición</th><th>Ejemplo en investigación contable</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Constante</strong></td>
+          <td>Característica que no cambia en todos los sujetos del estudio. Se usa para delimitar la muestra, no para analizar variación.</td>
+          <td>Estudiar solo empresas con RUC activo en el SRI. Todos los sujetos cumplen esa condición → es una constante, no una variable.</td>
+        </tr>
+        <tr>
+          <td><strong>Variable</strong></td>
+          <td>Característica que toma distintos valores entre los sujetos del estudio, y cuya variación es relevante para la investigación.</td>
+          <td>El nivel de ingresos anuales (varía entre empresas: $10.000, $500.000, $2.000.000). La antigüedad de la empresa (varía). El sector económico (comercio, servicios, industria).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box-warning">
+    <strong>⚠️ Error frecuente en estudiantes:</strong> Confundir una constante con una variable. Si en tu estudio <em>todas</em> las empresas son del sector farmacéutico (porque delimitaste así la población), entonces "sector económico" es una constante en tu estudio, no una variable. Solo se convierte en variable si tus sujetos de estudio pertenecen a sectores <em>diferentes</em>.
+  </div>
+
+  <h3>¿Qué hace que algo sea una "buena" variable de investigación?</h3>
+  <ul>
+    <li><strong>Variabilidad real:</strong> debe tomar al menos dos valores distintos en la realidad estudiada.</li>
+    <li><strong>Medibilidad:</strong> debe poder ser observada, medida o registrada de alguna forma (directa o indirectamente).</li>
+    <li><strong>Relevancia teórica:</strong> debe estar conectada a la pregunta de investigación y al marco conceptual.</li>
+    <li><strong>Claridad conceptual:</strong> su definición no debe ser ambigua ni interpretarse de múltiples maneras contradictorias.</li>
+    <li><strong>Operacionalización posible:</strong> debe poder traducirse en indicadores concretos para la recolección de datos.</li>
+  </ul>
+
+  <div class="box-key">
+    <div class="box-title">💡 Idea clave para recordar</div>
+    <p>Una variable no es simplemente "un concepto que nos interesa estudiar". Es un concepto que <em>varía</em> (de ahí su nombre), que podemos <em>medir</em>, y cuya variación tiene <em>sentido científico</em> en relación con nuestra pregunta de investigación. Todo lo que investigamos gira alrededor de las variables: las hipótesis las relacionan, los instrumentos las miden, el análisis estadístico las compara.</p>
+  </div>
+</div>
+
+<!-- ============================= TEMA 2: VARIABLES POR SU ROL ============================= -->
+<div id="tab-t2" class="tab-content">
+  <h2>2. Clasificación de Variables por su Rol en la Investigación</h2>
+
+  <p>La clasificación más importante en investigación científica es la que distingue a las variables según el <strong>papel que juegan</strong> dentro del diseño de la investigación. No se trata de características intrínsecas de la variable en sí misma, sino de <em>cómo la usamos</em> dentro de un estudio específico.</p>
+
+  <div class="var-cards">
+    <div class="var-card vc-ind">
+      <div class="icon">🟢</div>
+      <h4>Variable Independiente (VI)</h4>
+      <p>La causa o factor que el investigador manipula o selecciona como posible explicación.</p>
+    </div>
+    <div class="var-card vc-dep">
+      <div class="icon">🔴</div>
+      <h4>Variable Dependiente (VD)</h4>
+      <p>El efecto o resultado que se espera cambie en función de la VI. Es lo que se mide.</p>
+    </div>
+    <div class="var-card vc-int">
+      <div class="icon">🟠</div>
+      <h4>Variable Interviniente / Moderadora</h4>
+      <p>Afecta la relación VI→VD pero no es el foco principal. Puede intensificar o atenuar el efecto.</p>
+    </div>
+    <div class="var-card vc-con">
+      <div class="icon">🟣</div>
+      <h4>Variable de Control</h4>
+      <p>Se mantiene constante deliberadamente para que no interfiera con la relación VI→VD.</p>
+    </div>
+    <div class="var-card vc-ext">
+      <div class="icon">🔵</div>
+      <h4>Variable Extraña / Confusora</h4>
+      <p>Puede afectar la VD sin que el investigador lo planifique. Amenaza la validez interna.</p>
+    </div>
+  </div>
+
+  <!-- VI -->
+  <h3>2.1 Variable Independiente (VI) — "La causa"</h3>
+  <div class="box-concept">
+    <div class="box-title">📌 Definición</div>
+    <p>Es la variable que el investigador <strong>manipula</strong> (en experimentos) o <strong>selecciona</strong> (en estudios no experimentales) porque se hipotetiza que tiene un efecto o influencia sobre otra variable. Se la llama "independiente" porque su valor no depende de las demás variables del estudio —en teoría, el investigador la controla o la selecciona.</p>
+  </div>
+  <p>En un experimento verdadero, la VI es aquella que el investigador cambia intencionalmente para ver qué ocurre. En estudios correlacionales o causales no experimentales, la VI es la variable "antecedente" que presumiblemente explica los cambios en la VD.</p>
+
+  <div class="box-example">
+    <div class="box-title">🇪🇨 Ejemplos en contexto ecuatoriano</div>
+    <ul>
+      <li><strong>Investigación 1:</strong> ¿Afecta el tipo de software contable (TINI, Mónica, SIIGO) a la exactitud en las declaraciones al SRI? → VI: tipo de software contable</li>
+      <li><strong>Investigación 2:</strong> ¿Influye el nivel de educación financiera en el ahorro de los trabajadores del IESS? → VI: nivel de educación financiera</li>
+      <li><strong>Investigación 3:</strong> ¿El tamaño de la empresa determina la probabilidad de ser auditada por la Contraloría? → VI: tamaño de la empresa</li>
+    </ul>
+  </div>
+
+  <!-- VD -->
+  <h3>2.2 Variable Dependiente (VD) — "El efecto"</h3>
+  <div class="box-concept">
+    <div class="box-title">📌 Definición</div>
+    <p>Es la variable cuyo valor <strong>se espera que cambie</strong> como resultado de la variación de la VI. Se mide, se observa, se registra. Se llama "dependiente" porque su comportamiento depende (o se hipotetiza que depende) de lo que ocurra con la VI.</p>
+  </div>
+
+  <div class="box-example">
+    <div class="box-title">🇪🇨 Ejemplos en contexto ecuatoriano</div>
+    <ul>
+      <li><strong>Investigación 1:</strong> → VD: exactitud (porcentaje de errores) en las declaraciones al SRI</li>
+      <li><strong>Investigación 2:</strong> → VD: nivel de ahorro mensual de los trabajadores (en dólares)</li>
+      <li><strong>Investigación 3:</strong> → VD: probabilidad de ser auditada (sí/no, o porcentaje histórico)</li>
+    </ul>
+  </div>
+
+  <!-- Variable interviniente -->
+  <h3>2.3 Variable Interviniente o Moderadora — "El modificador"</h3>
+  <div class="box-concept">
+    <div class="box-title">📌 Definición</div>
+    <p>Es una tercera variable que <strong>modifica la intensidad o la dirección</strong> de la relación entre la VI y la VD. No es la causa principal ni el efecto principal, pero su presencia cambia la forma en que la VI afecta a la VD. Cuando actúa <em>entre</em> la VI y la VD (mediando el proceso causal), se llama <strong>variable mediadora</strong>. Cuando actúa <em>sobre la relación</em> fortaleciendo o debilitando el efecto, se llama <strong>variable moderadora</strong>.</p>
+  </div>
+
+  <div class="box-example">
+    <div class="box-title">🇪🇨 Ejemplo detallado</div>
+    <p><strong>Pregunta:</strong> ¿Influye la capacitación tributaria en el cumplimiento del IVA?</p>
+    <p><strong>VI:</strong> Capacitación tributaria | <strong>VD:</strong> Cumplimiento del IVA</p>
+    <p><strong>Variable moderadora:</strong> Sector económico de la empresa.</p>
+    <p>La capacitación puede tener un efecto <em>mayor</em> en empresas del sector servicios (que suelen tener menos cultura tributaria) y un efecto <em>menor</em> en empresas del sector financiero (que ya tienen departamentos tributarios). El sector <em>modera</em> cuánto efecto tiene la capacitación.</p>
+    <p><strong>Variable mediadora:</strong> Comprensión de la normativa tributaria. La capacitación mejora el cumplimiento fiscal, pero <em>a través</em> de generar mayor comprensión de la normativa. La comprensión es el puente (mediador) entre la causa y el efecto.</p>
+  </div>
+
+  <!-- Variable de control -->
+  <h3>2.4 Variable de Control — "El guardián de la validez"</h3>
+  <div class="box-concept">
+    <div class="box-title">📌 Definición</div>
+    <p>Es una variable que podría influir en la VD, pero que el investigador <strong>mantiene constante o neutraliza deliberadamente</strong> para que no distorsione los resultados. Al controlarla, el investigador puede estar más seguro de que los cambios en la VD se deben realmente a la VI y no a otro factor.</p>
+  </div>
+
+  <div class="box-example">
+    <div class="box-title">🇪🇨 Ejemplo</div>
+    <p><strong>Investigación:</strong> Efecto del uso de NIIF (Normas Internacionales de Información Financiera) sobre la transparencia de los estados financieros.</p>
+    <p><strong>VI:</strong> Adopción de NIIF (sí/no) | <strong>VD:</strong> Nivel de transparencia financiera</p>
+    <p><strong>Variables de control:</strong> Tamaño de la empresa (solo se estudian empresas medianas), sector económico (solo comercio), año fiscal (solo 2023). Al controlar estas variables, la investigadora puede comparar "manzanas con manzanas": empresas del mismo tamaño, del mismo sector y del mismo año, con y sin NIIF.</p>
+  </div>
+
+  <!-- Variable extraña -->
+  <h3>2.5 Variable Extraña o Confusora — "El intruso"</h3>
+  <div class="box-concept">
+    <div class="box-title">📌 Definición</div>
+    <p>Es una variable que <strong>no fue planificada ni controlada</strong> por el investigador, pero que puede afectar a la VD, generando confusión sobre si el efecto se debe realmente a la VI. Amenaza la validez interna de la investigación. Cuando una variable extraña está correlacionada tanto con la VI como con la VD, se llama <strong>variable confusora</strong> y puede generar relaciones espurias (falsas).</p>
+  </div>
+
+  <div class="box-example">
+    <div class="box-title">🇪🇨 Ejemplo de relación espuria</div>
+    <p>Un investigador encuentra que las empresas que usan sistemas ERP (Planificación de Recursos Empresariales) tienen mayores utilidades. ¿Concluye que los ERP generan mayor rentabilidad?</p>
+    <p><strong>Variable confusora:</strong> El tamaño de la empresa. Las empresas grandes son las que tienen capacidad para adquirir un ERP Y las que tienen mayores utilidades. El ERP no causa las utilidades; ambos son efectos del tamaño. Si no se controla el tamaño, la relación entre ERP y utilidades es <em>espuria</em> (falsa).</p>
+  </div>
+
+  <div class="box-key">
+    <div class="box-title">💡 Clave: el rol depende del estudio, no de la variable misma</div>
+    <p>La misma variable puede ser independiente en un estudio y dependiente en otro. Por ejemplo, "nivel de educación financiera" puede ser la VD si estudias el efecto de un programa de capacitación (VI: programa de capacitación → VD: nivel de educación financiera). Pero en otro estudio, puede ser la VI si estudias el efecto de la educación financiera sobre el ahorro (VI: educación financiera → VD: nivel de ahorro). El rol lo define el investigador según su pregunta.</p>
+  </div>
+</div>
+
+<!-- ============================= TEMA 3: VARIABLES POR NATURALEZA ============================= -->
+<div id="tab-t3" class="tab-content">
+  <h2>3. Clasificación de Variables por su Naturaleza</h2>
+
+  <p>Esta clasificación responde a la pregunta: <strong>¿qué tipo de información captura esta variable?</strong> ¿Números o categorías? ¿Magnitudes o atributos? Esta distinción es fundamental porque determina <em>qué tipo de análisis estadístico</em> puedes aplicar.</p>
+
+  <div class="box-concept">
+    <div class="box-title">📌 Dos grandes categorías</div>
+    <ul>
+      <li><strong>Variables cuantitativas:</strong> expresan cantidades, magnitudes, valores numéricos con los que tiene sentido operar matemáticamente.</li>
+      <li><strong>Variables cualitativas (o categóricas):</strong> expresan atributos, categorías, características que no son intrínsecamente numéricas.</li>
+    </ul>
+  </div>
+
+  <!-- CUANTITATIVAS -->
+  <h3>3.1 Variables Cuantitativas — "Las que se cuentan o miden"</h3>
+  <p>Son variables cuyos valores son <strong>números con sentido matemático real</strong>. Tiene sentido sumarlos, restarlos, calcular promedios y desviaciones estándar. Se subdividen en:</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Subtipo</th>
+          <th>Característica esencial</th>
+          <th>Ejemplo en contabilidad/auditoría</th>
+          <th>¿Permite cero absoluto?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Discreta</strong></td>
+          <td>Solo toma valores enteros (no hay decimales con sentido real). Generalmente se cuenta.</td>
+          <td>Número de facturas emitidas por día. Número de empleados. Número de observaciones en una auditoría.</td>
+          <td>Sí (0 facturas = ninguna factura)</td>
+        </tr>
+        <tr>
+          <td><strong>Continua</strong></td>
+          <td>Puede tomar cualquier valor dentro de un rango, incluidos decimales. Se mide, no se cuenta.</td>
+          <td>Monto de ventas ($15.432,67). Tasa de interés (5,75%). Ratio de liquidez (1,43). Porcentaje de evasión (12,3%).</td>
+          <td>Sí (depende de la variable)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box-example">
+    <div class="box-title">🇪🇨 Escenario: Auditoría en una cooperativa de ahorro y crédito de Quito</div>
+    <p>Un auditor de la Superintendencia de Economía Popular y Solidaria recopila datos de 50 cooperativas:</p>
+    <ul>
+      <li><span class="pill pill-green">Discreta</span> Número de socios activos: 234, 1.890, 45.231 (valores enteros, se cuentan)</li>
+      <li><span class="pill pill-green">Discreta</span> Número de créditos otorgados en el trimestre: 12, 340, 2.100</li>
+      <li><span class="pill pill-blue">Continua</span> Monto total de cartera de crédito: $450.230,50 (puede tener decimales)</li>
+      <li><span class="pill pill-blue">Continua</span> Índice de morosidad: 3,7% (valor decimal con sentido real)</li>
+      <li><span class="pill pill-blue">Continua</span> Capital social: $1.234.567,89</li>
+    </ul>
+  </div>
+
+  <!-- CUALITATIVAS -->
+  <h3>3.2 Variables Cualitativas (Categóricas) — "Las que se clasifican"</h3>
+  <p>Son variables cuyos valores son <strong>categorías o atributos</strong>, no números en sentido matemático. Aunque en algunos casos se les asignen números (como "1 = sí, 0 = no"), esos números son <em>etiquetas</em>, no magnitudes: no tiene sentido calcular el promedio entre "sí" y "no".</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Subtipo</th>
+          <th>Característica esencial</th>
+          <th>Ejemplo en contabilidad/auditoría</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Nominal</strong></td>
+          <td>Las categorías no tienen orden inherente. Solo son nombres o etiquetas distintas.</td>
+          <td>Tipo de empresa: SA, Cía. Ltda., Cooperativa, EP. / Régimen tributario: RISE, RUC persona natural, RUC sociedad. / Sector: comercio, servicios, industria, agropecuario.</td>
+        </tr>
+        <tr>
+          <td><strong>Ordinal</strong></td>
+          <td>Las categorías tienen un orden lógico, pero la distancia entre ellas no es homogénea ni cuantificable.</td>
+          <td>Calificación de riesgo crediticio: AAA, AA+, AA, BB, C. / Nivel de cumplimiento tributario: alto, medio, bajo. / Grado académico del contador: bachiller, tercer nivel, cuarto nivel.</td>
+        </tr>
+        <tr>
+          <td><strong>Dicotómica / Binaria</strong></td>
+          <td>Solo tiene dos categorías posibles. Es un caso especial de variable nominal.</td>
+          <td>¿La empresa usa NIIF? Sí / No. / ¿Fue auditada? Sí / No. / ¿Tiene obligación de llevar contabilidad? Sí / No.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box-example">
+    <div class="box-title">🇪🇨 Escenario: Investigación sobre evasión fiscal en Guayaquil</div>
+    <p>Una investigadora del SRI estudia a 200 microempresas del sector comercio. Sus variables incluyen:</p>
+    <ul>
+      <li><span class="pill pill-purple">Nominal</span> Tipo de comprobante de venta que emite: factura física, factura electrónica, nota de venta, ninguno</li>
+      <li><span class="pill pill-purple">Nominal</span> Régimen tributario: RISE o RUC</li>
+      <li><span class="pill pill-orange">Ordinal</span> Nivel de conocimiento tributario: nulo, básico, intermedio, avanzado</li>
+      <li><span class="pill pill-red">Dicotómica</span> ¿Declaró el IVA a tiempo en los últimos 12 meses? Sí / No</li>
+      <li><span class="pill pill-green">Cuantitativa continua</span> Monto de ventas anuales declaradas (en dólares)</li>
+    </ul>
+  </div>
+
+  <div class="box-warning">
+    <strong>⚠️ Trampa común: el número que no es cuantitativo.</strong><br/>
+    El número de RUC de una empresa (p. ej., 0992458743001) es un número, pero es una <em>variable nominal</em>: solo sirve como identificador. No tiene sentido calcular el promedio de los RUC. Del mismo modo, el código de sector económico que usa el SRI (1 = comercio, 2 = servicios, 3 = industria) es una variable nominal disfrazada de número. El tipo de variable no lo determina si los valores son números o letras, sino si esos valores representan magnitudes matemáticas reales o solo categorías.
+  </div>
+
+  <div class="box-key">
+    <div class="box-title">💡 Regla práctica para no confundirse</div>
+    <p>Pregúntate: <strong>¿Tiene sentido calcular el promedio de esta variable?</strong> Si alguien dice "el promedio del sector económico de las empresas del estudio es 1,7", ¿eso quiere decir algo? No. Es una variable nominal. Pero si dice "el promedio de ventas anuales es $45.320", eso sí tiene sentido. Es una variable cuantitativa.</p>
+  </div>
+</div>
+
+<!-- ============================= TEMA 4: ESCALAS DE MEDICIÓN ============================= -->
+<div id="tab-t4" class="tab-content">
+  <h2>4. Escalas de Medición de Variables</h2>
+
+  <p>Stanley Stevens (1946) propuso el sistema de clasificación más utilizado en ciencias sociales y económicas: <strong>cuatro escalas de medición</strong> que van desde la menos informativa hasta la más informativa. Entender en qué escala se ubica tu variable determina qué operaciones matemáticas puedes realizar y qué análisis estadístico es válido.</p>
+
+  <div class="scale-grid">
+    <div class="scale-card sc-nom">
+      <h4>🏷️ Escala Nominal</h4>
+      <p>Solo clasifica, no ordena. Los números son etiquetas. <strong>Operaciones válidas:</strong> frecuencias, moda, chi-cuadrado. <strong>No:</strong> promedio, suma.</p>
+    </div>
+    <div class="scale-card sc-ord">
+      <h4>📊 Escala Ordinal</h4>
+      <p>Clasifica Y ordena, pero las distancias entre categorías no son iguales. <strong>Operaciones válidas:</strong> mediana, rangos, correlación de Spearman.</p>
+    </div>
+    <div class="scale-card sc-int">
+      <h4>📏 Escala de Intervalo</h4>
+      <p>Orden + distancias iguales entre valores. Sin cero absoluto. <strong>Operaciones válidas:</strong> media, desviación estándar. <strong>No:</strong> razones (no puedes decir "el doble de").</p>
+    </div>
+    <div class="scale-card sc-raz">
+      <h4>⚖️ Escala de Razón</h4>
+      <p>Todo lo anterior + cero absoluto real. Es la escala más completa. <strong>Todas</strong> las operaciones matemáticas son válidas, incluidas razones y proporciones.</p>
+    </div>
+  </div>
+
+  <!-- NOMINAL -->
+  <h3>4.1 Escala Nominal — "Etiquetas sin jerarquía"</h3>
+  <div class="box-concept">
+    <div class="box-title">📌 Definición</div>
+    <p>Las categorías <strong>solo sirven para clasificar</strong>, sin ningún orden o jerarquía. Cambiar el orden de las categorías no pierde información. Los números asignados son arbitrarios.</p>
+  </div>
+  <div class="box-example">
+    <div class="box-title">Ejemplos en contabilidad y auditoría</div>
+    <ul>
+      <li><strong>Tipo de persona jurídica</strong> (según la Superintendencia de Compañías): Compañía Anónima (SA), Compañía de Responsabilidad Limitada (Cía. Ltda.), Sociedad de Hecho, Empresa Pública. No hay una que "sea más" que otra; solo son categorías distintas.</li>
+      <li><strong>Método de depreciación usado</strong>: línea recta, suma de dígitos, unidades de producción. Solo son métodos distintos, no mejores ni peores en sí mismos.</li>
+      <li><strong>Moneda de los estados financieros</strong>: dólares (Ecuador), pesos (Colombia), soles (Perú). Categorías, no magnitudes.</li>
+    </ul>
+    <p><strong>Estadísticos aplicables:</strong> tablas de frecuencia (cuántas empresas son SA, cuántas son Cía. Ltda.), moda (la forma jurídica más común), prueba de chi-cuadrado (¿hay relación entre el tipo jurídico y la probabilidad de ser auditada?).</p>
+  </div>
+
+  <!-- ORDINAL -->
+  <h3>4.2 Escala Ordinal — "Hay un orden, pero no sabemos la distancia"</h3>
+  <div class="box-concept">
+    <div class="box-title">📌 Definición</div>
+    <p>Las categorías tienen un <strong>orden lógico y significativo</strong> (de menor a mayor, de peor a mejor), pero la distancia entre categorías consecutivas <em>no es uniforme ni cuantificable</em>. Solo sabemos que A > B > C, no cuánto más grande es A que B.</p>
+  </div>
+  <div class="box-example">
+    <div class="box-title">Ejemplos en contabilidad y auditoría</div>
+    <ul>
+      <li><strong>Calificación de riesgo soberano del Ecuador (según Fitch/Moody's/S&P):</strong> B-, CCC+, BB, BBB, A. Sabemos que BBB es mejor que B-, pero no podemos decir que la diferencia entre BBB y BB es igual a la diferencia entre BB y B.</li>
+      <li><strong>Nivel de control interno (según COSO):</strong> Inicial / Desarrollado / Definido / Gestionado / Optimizado. Hay un orden de madurez, pero la "distancia" entre etapas no es uniforme.</li>
+      <li><strong>Escala de Likert en encuestas:</strong> Totalmente en desacuerdo (1) / En desacuerdo (2) / Neutral (3) / De acuerdo (4) / Totalmente de acuerdo (5). Hay orden, pero la distancia psicológica entre 1 y 2 puede ser muy diferente a la distancia entre 4 y 5.</li>
+    </ul>
+    <p><strong>Estadísticos aplicables:</strong> mediana (el valor central del ranking), percentiles, correlación de Spearman (no Pearson), prueba de Mann-Whitney.</p>
+  </div>
+
+  <!-- INTERVALO -->
+  <h3>4.3 Escala de Intervalo — "Distancias iguales, pero sin cero absoluto"</h3>
+  <div class="box-concept">
+    <div class="box-title">📌 Definición</div>
+    <p>Las categorías tienen orden Y las distancias entre valores consecutivos son <strong>iguales y cuantificables</strong>. Sin embargo, <em>no existe un cero absoluto</em>: el cero en esta escala es arbitrario, no significa "ausencia total". Por eso no puedes hacer razones (no puedes decir "el doble de").</p>
+  </div>
+  <div class="box-example">
+    <div class="box-title">Ejemplo clásico y ejemplo en economía</div>
+    <p><strong>Ejemplo clásico:</strong> Temperatura en Celsius. La diferencia entre 10°C y 20°C es igual a la diferencia entre 30°C y 40°C. Pero 20°C NO es "el doble de caliente" que 10°C, porque el cero (0°C) no significa "ausencia de temperatura", es solo el punto de congelación del agua.</p>
+    <p><strong>En economía y contabilidad:</strong> Los índices económicos compuestos (como el Índice de Confianza del Consumidor, o ciertos índices de percepción de corrupción) suelen considerarse de intervalo: sus diferencias son comparables, pero el cero no significa "ausencia total" del fenómeno.</p>
+    <p><strong>Estadísticos aplicables:</strong> media aritmética, desviación estándar, correlación de Pearson, regresión lineal.</p>
+  </div>
+
+  <!-- RAZÓN -->
+  <h3>4.4 Escala de Razón — "La escala completa"</h3>
+  <div class="box-concept">
+    <div class="box-title">📌 Definición</div>
+    <p>Es la escala más informativa. Tiene orden, distancias iguales Y un <strong>cero absoluto real</strong> que significa ausencia total del atributo. Esto permite hacer razones: "empresa A tiene el doble de ventas que empresa B". Es la escala más común en contabilidad y finanzas.</p>
+  </div>
+  <div class="box-example">
+    <div class="box-title">🇪🇨 Ejemplos abundantes en contabilidad y auditoría</div>
+    <ul>
+      <li><strong>Ventas anuales:</strong> $0 significa que la empresa no vendió nada. $200.000 es el doble que $100.000. ✅ Escala de razón.</li>
+      <li><strong>Número de empleados:</strong> 0 empleados = empresa sin personal. 20 empleados = el doble que 10. ✅</li>
+      <li><strong>Monto de impuestos pagados al SRI:</strong> $0 = no pagó. $50.000 = cinco veces más que $10.000. ✅</li>
+      <li><strong>Índice de liquidez corriente:</strong> Activo corriente / Pasivo corriente. Si es 0, la empresa no tiene activos corrientes. 2 es el doble que 1. ✅</li>
+      <li><strong>Porcentaje de morosidad:</strong> 0% = sin mora. 10% = el doble que 5%. ✅</li>
+    </ul>
+    <p><strong>Estadísticos aplicables:</strong> todos: media, desviación estándar, correlación de Pearson, regresión, análisis de varianza (ANOVA), y también se pueden calcular razones y proporciones.</p>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Escala</th>
+          <th>Clasifica</th>
+          <th>Ordena</th>
+          <th>Distancias iguales</th>
+          <th>Cero absoluto</th>
+          <th>Estadísticos típicos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Nominal</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>Moda, frecuencias, chi²</td></tr>
+        <tr><td><strong>Ordinal</strong></td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>Mediana, Spearman, Mann-Whitney</td></tr>
+        <tr><td><strong>Intervalo</strong></td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>Media, DE, Pearson, regresión</td></tr>
+        <tr><td><strong>Razón</strong></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>Todos los anteriores + razones</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box-key">
+    <div class="box-title">💡 Idea clave — ¿Por qué esto importa en investigación?</div>
+    <p>Si confundes la escala de tu variable, aplicarás estadísticos incorrectos. Calcular el "promedio del sector económico" (nominal) no tiene sentido. Pero calcular el promedio de las ventas (razón) sí lo tiene. Un investigador riguroso siempre especifica la escala de cada variable antes de elegir su análisis estadístico. Esta decisión es parte de la <strong>definición operacional</strong> de las variables, que estudiaremos en la Semana 12.</p>
+  </div>
+</div>
+
+<!-- ============================= TEMA 5: INTERACCIÓN ENTRE VARIABLES ============================= -->
+<div id="tab-t5" class="tab-content">
+  <h2>5. Relaciones e Interacción entre Variables</h2>
+
+  <p>Las variables de un estudio nunca existen de forma aislada. La investigación científica consiste precisamente en estudiar <strong>cómo se relacionan</strong> entre sí. Esta sección es fundamental: te permitirá entender la arquitectura lógica de cualquier investigación y detectar qué tipo de relación hipotética existe entre las variables que has identificado.</p>
+
+  <h3>5.1 Tipos de relación entre variables</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo de relación</th>
+          <th>¿Qué significa?</th>
+          <th>Dirección</th>
+          <th>Ejemplo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Correlación positiva</strong></td>
+          <td>Cuando una variable aumenta, la otra también aumenta (y viceversa).</td>
+          <td>Misma dirección ↑↑ o ↓↓</td>
+          <td>A mayor nivel de educación financiera, mayor nivel de ahorro.</td>
+        </tr>
+        <tr>
+          <td><strong>Correlación negativa</strong></td>
+          <td>Cuando una variable aumenta, la otra disminuye.</td>
+          <td>Dirección opuesta ↑↓</td>
+          <td>A mayor número de auditorías realizadas, menor índice de evasión fiscal.</td>
+        </tr>
+        <tr>
+          <td><strong>Sin correlación</strong></td>
+          <td>Los cambios en una variable no están relacionados con los cambios en la otra.</td>
+          <td>Sin patrón</td>
+          <td>El color del logotipo de la empresa y su nivel de rentabilidad (no hay relación lógica).</td>
+        </tr>
+        <tr>
+          <td><strong>Relación causal</strong></td>
+          <td>Una variable (causa) produce un efecto en la otra. Más fuerte que la correlación: implica dirección temporal y mecanismo.</td>
+          <td>Causa → Efecto</td>
+          <td>La evasión fiscal del año anterior provoca mayor fiscalización del SRI el año siguiente.</td>
+        </tr>
+        <tr>
+          <td><strong>Relación espuria</strong></td>
+          <td>Dos variables parecen relacionadas, pero la relación se debe a una tercera variable confusora.</td>
+          <td>Aparente →, en realidad ← ← Variable confusora</td>
+          <td>Las empresas con más trabajadores tienen más accidentes laborales. Pero es el sector (construcción vs. servicios) el que explica ambas cosas.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DIAGRAMAS DE INTERACCIÓN -->
+  <h3>5.2 Esquemas de relación entre variables</h3>
+  <p>Los investigadores utilizan diagramas para representar cómo se relacionan las variables en su modelo conceptual. A continuación encontrarás los esquemas más comunes:</p>
+
+  <h4 style="color:#003366; margin: 16px 0 8px;">Esquema 1: Relación simple VI → VD</h4>
+  <div class="diagram-container">
+    <div class="diagram-row">
+      <div class="d-box d-ind">VI: Capacitación tributaria</div>
+      <div class="d-arrow">→</div>
+      <div class="d-box d-dep">VD: Cumplimiento fiscal</div>
+    </div>
+    <p style="font-size:13px; color:#555; margin-top:10px;">La forma más simple. Una causa, un efecto. Adecuada para investigaciones iniciales o correlacionales bivariadas.</p>
+  </div>
+
+  <h4 style="color:#003366; margin: 16px 0 8px;">Esquema 2: VI → VD con Variable Interviniente (moderadora)</h4>
+  <div class="diagram-container">
+    <div class="diagram-row">
+      <div class="d-box d-con">Moderadora: Sector económico</div>
+    </div>
+    <div class="diagram-row">
+      <div class="d-arrow">↓</div>
+    </div>
+    <div class="diagram-row">
+      <div class="d-box d-ind">VI: Capacitación tributaria</div>
+      <div class="d-arrow">→</div>
+      <div class="d-box d-dep">VD: Cumplimiento fiscal</div>
+    </div>
+    <p style="font-size:13px; color:#555; margin-top:10px;">La relación entre VI y VD varía según el sector económico. En el sector financiero, la capacitación puede tener mayor efecto que en el sector informal.</p>
+  </div>
+
+  <h4 style="color:#003366; margin: 16px 0 8px;">Esquema 3: Relación mediada (VI → Mediadora → VD)</h4>
+  <div class="diagram-container">
+    <div class="diagram-row">
+      <div class="d-box d-ind">VI: Programa de capacitación NIIF</div>
+      <div class="d-arrow">→</div>
+      <div class="d-box d-int">Mediadora: Comprensión de NIIF</div>
+      <div class="d-arrow">→</div>
+      <div class="d-box d-dep">VD: Calidad de EEFF</div>
+    </div>
+    <p style="font-size:13px; color:#555; margin-top:10px;">La capacitación mejora la calidad de los estados financieros, pero <em>a través de</em> una mayor comprensión de las normas. Si no hay comprensión, la capacitación no produce efecto.</p>
+  </div>
+
+  <h4 style="color:#003366; margin: 16px 0 8px;">Esquema 4: Múltiples VI sobre una VD</h4>
+  <div class="diagram-container">
+    <div class="diagram-row">
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div class="d-box d-ind">VI1: Tamaño de empresa</div>
+        <div class="d-box d-ind">VI2: Antigüedad en el mercado</div>
+        <div class="d-box d-ind">VI3: Nivel de endeudamiento</div>
+      </div>
+      <div class="d-arrow" style="font-size:2rem;">→</div>
+      <div class="d-box d-dep" style="padding:20px;">VD: Probabilidad de quiebra</div>
+    </div>
+    <p style="font-size:13px; color:#555; margin-top:10px;">La realidad empresarial es compleja. Los modelos multivariados (como regresión múltiple) estudian el efecto simultáneo de varias VI sobre una sola VD.</p>
+  </div>
+
+  <!-- ESCENARIOS PRÁCTICOS COMPLETOS -->
+  <h3>5.3 Escenarios integrados: identificando todos los tipos de variables</h3>
+
+  <div class="box-example">
+    <div class="box-title">🔍 Escenario A: Investigación sobre la Contraloría General del Estado</div>
+    <p><strong>Título:</strong> "Factores que influyen en la eficiencia de los exámenes especiales realizados por la Contraloría General del Estado del Ecuador, 2020–2024."</p>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Variable</th><th>Tipo por rol</th><th>Tipo por naturaleza</th><th>Escala</th></tr></thead>
+        <tbody>
+          <tr><td>Número de auditores asignados al examen</td><td>Variable Independiente</td><td>Cuantitativa discreta</td><td>Razón</td></tr>
+          <tr><td>Duración del examen (días)</td><td>Variable Independiente</td><td>Cuantitativa discreta</td><td>Razón</td></tr>
+          <tr><td>Tipo de entidad auditada (ministerio, GAD, EP)</td><td>Variable de Control</td><td>Cualitativa nominal</td><td>Nominal</td></tr>
+          <tr><td>Experiencia del jefe de equipo (años)</td><td>Variable Interviniente</td><td>Cuantitativa continua</td><td>Razón</td></tr>
+          <tr><td>Hallazgos con glosa detectados</td><td>Variable Dependiente</td><td>Cuantitativa discreta</td><td>Razón</td></tr>
+          <tr><td>Monto total de glosas ($)</td><td>Variable Dependiente</td><td>Cuantitativa continua</td><td>Razón</td></tr>
+          <tr><td>Período fiscal auditado</td><td>Variable de Control</td><td>Cualitativa ordinal</td><td>Ordinal</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="box-example">
+    <div class="box-title">🔍 Escenario B: Investigación sobre PYMES en Cuenca</div>
+    <p><strong>Título:</strong> "Relación entre el uso de herramientas de planificación financiera y la rentabilidad de las PYMES del sector manufacturero de Cuenca, 2023."</p>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Variable</th><th>Tipo por rol</th><th>Tipo por naturaleza</th><th>Escala</th></tr></thead>
+        <tbody>
+          <tr><td>Uso de presupuesto formal (sí/no)</td><td>Variable Independiente</td><td>Cualitativa dicotómica</td><td>Nominal</td></tr>
+          <tr><td>Uso de indicadores financieros (sí/no)</td><td>Variable Independiente</td><td>Cualitativa dicotómica</td><td>Nominal</td></tr>
+          <tr><td>ROE (Retorno sobre el patrimonio)</td><td>Variable Dependiente</td><td>Cuantitativa continua</td><td>Razón</td></tr>
+          <tr><td>Margen de utilidad neta (%)</td><td>Variable Dependiente</td><td>Cuantitativa continua</td><td>Razón</td></tr>
+          <tr><td>Años de operación</td><td>Variable de Control</td><td>Cuantitativa discreta</td><td>Razón</td></tr>
+          <tr><td>Nivel de educación del gerente</td><td>Variable Interviniente</td><td>Cualitativa ordinal</td><td>Ordinal</td></tr>
+          <tr><td>Crisis económica nacional (presente/ausente)</td><td>Variable Extraña</td><td>Cualitativa dicotómica</td><td>Nominal</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="box-key">
+    <div class="box-title">💡 La regla de oro de las variables</div>
+    <p>Para cualquier investigación que plantees, haz siempre estas tres preguntas por cada variable: <strong>(1) ¿Qué rol juega?</strong> (independiente, dependiente, interviniente, control, extraña) <strong>(2) ¿Qué tipo de datos produce?</strong> (cuantitativa/cualitativa, discreta/continua, nominal/ordinal) <strong>(3) ¿En qué escala se mide?</strong> (nominal, ordinal, intervalo, razón). Responder estas tres preguntas por escrito es el primer paso de la <em>operacionalización</em>, que veremos en la Semana 12.</p>
+  </div>
+</div>
+
+<!-- ============================= EJERCICIO INTERACTIVO ============================= -->
+<div id="tab-ejercicio" class="tab-content">
+  <h2>6. Ejercicio Interactivo — Identificación y Clasificación de Variables</h2>
+  <p>Lee cada situación de investigación cuidadosamente. Identifica la clasificación correcta de cada variable. Responde <strong>todos los ítems antes de verificar</strong>.</p>
+
+  <!-- ÍTEM 1 -->
+  <div class="exercise-item" id="ei-wrap-1">
+    <p class="question-text">Ítem 1. Una investigadora estudia si el número de horas de capacitación tributaria recibidas por los contadores influye en la tasa de errores en las declaraciones al SRI. ¿Qué tipo de variable es "número de horas de capacitación"?</p>
+    <label class="option-label"><input type="radio" name="ei1" value="a"/> Variable dependiente cuantitativa discreta</label>
+    <label class="option-label"><input type="radio" name="ei1" value="b"/> Variable independiente cuantitativa discreta</label>
+    <label class="option-label"><input type="radio" name="ei1" value="c"/> Variable de control cualitativa ordinal</label>
+    <label class="option-label"><input type="radio" name="ei1" value="d"/> Variable dependiente cualitativa nominal</label>
+    <div class="feedback-box" id="ef1"></div>
+  </div>
+
+  <!-- ÍTEM 2 -->
+  <div class="exercise-item" id="ei-wrap-2">
+    <p class="question-text">Ítem 2. En esa misma investigación, la investigadora decide estudiar únicamente empresas del sector comercio (excluyendo servicios e industria). ¿Qué papel cumple el "sector económico" en este diseño?</p>
+    <label class="option-label"><input type="radio" name="ei2" value="a"/> Variable independiente, porque determina el tipo de empresa</label>
+    <label class="option-label"><input type="radio" name="ei2" value="b"/> Variable dependiente, porque cambia según la capacitación</label>
+    <label class="option-label"><input type="radio" name="ei2" value="c"/> Variable de control, porque se mantiene constante para neutralizar su efecto</label>
+    <label class="option-label"><input type="radio" name="ei2" value="d"/> Variable interviniente, porque modera la relación entre VI y VD</label>
+    <div class="feedback-box" id="ef2"></div>
+  </div>
+
+  <!-- ÍTEM 3 -->
+  <div class="exercise-item" id="ei-wrap-3">
+    <p class="question-text">Ítem 3. Un investigador clasifica a las empresas según su régimen tributario: RISE, RUC Persona Natural, o RUC Sociedad. ¿En qué escala de medición se encuentra esta variable?</p>
+    <label class="option-label"><input type="radio" name="ei3" value="a"/> Escala ordinal, porque hay un orden de complejidad entre los regímenes</label>
+    <label class="option-label"><input type="radio" name="ei3" value="b"/> Escala de razón, porque los valores son números</label>
+    <label class="option-label"><input type="radio" name="ei3" value="c"/> Escala nominal, porque las categorías solo clasifican sin orden inherente</label>
+    <label class="option-label"><input type="radio" name="ei3" value="d"/> Escala de intervalo, porque las diferencias entre regímenes son iguales</label>
+    <div class="feedback-box" id="ef3"></div>
+  </div>
+
+  <!-- ÍTEM 4 -->
+  <div class="exercise-item" id="ei-wrap-4">
+    <p class="question-text">Ítem 4. Un auditor de la Contraloría General del Estado clasifica a las entidades auditadas según su nivel de riesgo: Riesgo Alto, Riesgo Medio, Riesgo Bajo. ¿Cuál es la escala de medición correcta?</p>
+    <label class="option-label"><input type="radio" name="ei4" value="a"/> Nominal, porque son solo tres categorías</label>
+    <label class="option-label"><input type="radio" name="ei4" value="b"/> Ordinal, porque las categorías tienen un orden lógico pero sin distancias iguales</label>
+    <label class="option-label"><input type="radio" name="ei4" value="c"/> De razón, porque se puede calcular el promedio de riesgo</label>
+    <label class="option-label"><input type="radio" name="ei4" value="d"/> De intervalo, porque la diferencia entre niveles es cuantificable</label>
+    <div class="feedback-box" id="ef4"></div>
+  </div>
+
+  <!-- ÍTEM 5 -->
+  <div class="exercise-item" id="ei-wrap-5">
+    <p class="question-text">Ítem 5. Un estudio encuentra que las empresas que usan software contable tienen mayores utilidades. Sin embargo, resulta que las empresas grandes son las que tanto usan software como tienen mayores utilidades. El "tamaño de la empresa" en este contexto es:</p>
+    <label class="option-label"><input type="radio" name="ei5" value="a"/> Variable independiente, porque determina el uso del software</label>
+    <label class="option-label"><input type="radio" name="ei5" value="b"/> Variable dependiente, porque es resultado del uso del software</label>
+    <label class="option-label"><input type="radio" name="ei5" value="c"/> Variable extraña o confusora, porque genera una relación espuria entre software y utilidades</label>
+    <label class="option-label"><input type="radio" name="ei5" value="d"/> Variable de control, porque fue planificada en el diseño del estudio</label>
+    <div class="feedback-box" id="ef5"></div>
+  </div>
+
+  <!-- ÍTEM 6 -->
+  <div class="exercise-item" id="ei-wrap-6">
+    <p class="question-text">Ítem 6. La investigadora mide el "margen de utilidad neta" de las empresas (ejemplo: 8,5%, 12,3%, 0%, 25,7%). ¿Cuál es la clasificación más completa y correcta de esta variable?</p>
+    <label class="option-label"><input type="radio" name="ei6" value="a"/> Variable cualitativa ordinal de escala ordinal</label>
+    <label class="option-label"><input type="radio" name="ei6" value="b"/> Variable cuantitativa continua de escala de razón</label>
+    <label class="option-label"><input type="radio" name="ei6" value="c"/> Variable cuantitativa discreta de escala nominal</label>
+    <label class="option-label"><input type="radio" name="ei6" value="d"/> Variable cualitativa nominal de escala de intervalo</label>
+    <div class="feedback-box" id="ef6"></div>
+  </div>
+
+  <!-- ÍTEM 7 -->
+  <div class="exercise-item" id="ei-wrap-7">
+    <p class="question-text">Ítem 7. Una investigación estudia el efecto del programa de capacitación NIIF de la Superintendencia de Compañías sobre la calidad de los estados financieros. Un investigador argumenta que la capacitación mejora la calidad "porque primero mejora la comprensión de las normas". ¿Cómo se clasificaría "comprensión de las normas NIIF"?</p>
+    <label class="option-label"><input type="radio" name="ei7" value="a"/> Variable independiente, porque explica la calidad de los EEFF</label>
+    <label class="option-label"><input type="radio" name="ei7" value="b"/> Variable dependiente, porque es el resultado final que se mide</label>
+    <label class="option-label"><input type="radio" name="ei7" value="c"/> Variable mediadora, porque es el mecanismo a través del cual la VI produce su efecto en la VD</label>
+    <label class="option-label"><input type="radio" name="ei7" value="d"/> Variable de control, porque se mantiene igual en todos los participantes</label>
+    <div class="feedback-box" id="ef7"></div>
+  </div>
+
+  <!-- ÍTEM 8 -->
+  <div class="exercise-item" id="ei-wrap-8">
+    <p class="question-text">Ítem 8. Un investigador encuesta a empleados de cooperativas de ahorro y crédito preguntando: "¿En qué medida considera que su cooperativa cumple con las normas de la SEPS?" con una escala: 1=Nunca, 2=Pocas veces, 3=A veces, 4=Frecuentemente, 5=Siempre. Identifica el enunciado correcto sobre esta variable.</p>
+    <label class="option-label"><input type="radio" name="ei8" value="a"/> Es una variable cuantitativa continua de escala de razón porque usa números del 1 al 5</label>
+    <label class="option-label"><input type="radio" name="ei8" value="b"/> Es una variable cualitativa ordinal de escala ordinal, porque hay un orden de frecuencia pero las distancias psicológicas entre opciones no son uniformes</label>
+    <label class="option-label"><input type="radio" name="ei8" value="c"/> Es una variable nominal porque solo clasifica opiniones sin ningún orden</label>
+    <label class="option-label"><input type="radio" name="ei8" value="d"/> Es una variable cuantitativa discreta de escala de intervalo con cero absoluto</label>
+    <div class="feedback-box" id="ef8"></div>
+  </div>
+
+  <div style="text-align:center;">
+    <button class="btn-verify" onclick="verificarEjercicio()">✅ Verificar Respuestas</button>
+    <p class="alert-msg" id="alert-ejercicio">⚠️ Por favor, responde todos los ítems antes de verificar.</p>
+  </div>
+
+  <div class="result-panel" id="result-ejercicio">
+    <div class="score-emoji" id="ej-emoji"></div>
+    <div class="score-text" id="ej-score-text"></div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="ej-bar"></div></div>
+    <div class="score-msg" id="ej-msg"></div>
+    <br/>
+    <button class="btn-reset" onclick="resetEjercicio()">🔄 Reiniciar ejercicio</button>
+  </div>
+</div>
+
+<!-- ============================= CUESTIONARIO ============================= -->
+<div id="tab-cuestionario" class="tab-content">
+  <h2>7. Cuestionario — Variables de Investigación</h2>
+  <p>10 preguntas de opción múltiple. Responde <strong>todas las preguntas antes de verificar</strong>. Cada respuesta tiene su retroalimentación explicativa.</p>
+
+  <!-- Q1 -->
+  <div class="exercise-item">
+    <span class="badge-type badge-teo">Teórica</span>
+    <p class="question-text">1. Según Hernández Sampieri et al. (2014), una variable de investigación se define principalmente como:</p>
+    <label class="option-label"><input type="radio" name="qi1" value="a"/> Cualquier número o dato que se recoge en una encuesta</label>
+    <label class="option-label"><input type="radio" name="qi1" value="b"/> Una característica o propiedad que puede variar y cuya variación es susceptible de medirse u observarse</label>
+    <label class="option-label"><input type="radio" name="qi1" value="c"/> Un concepto teórico que describe la población de estudio de manera fija</label>
+    <label class="option-label"><input type="radio" name="qi1" value="d"/> El resultado estadístico que se obtiene al final de la investigación</label>
+    <div class="feedback-box" id="qf1"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="exercise-item">
+    <span class="badge-type badge-teo">Teórica</span>
+    <p class="question-text">2. ¿Cuál es la diferencia fundamental entre una variable independiente y una dependiente?</p>
+    <label class="option-label"><input type="radio" name="qi2" value="a"/> La VI siempre se mide en escala de razón; la VD siempre es cualitativa</label>
+    <label class="option-label"><input type="radio" name="qi2" value="b"/> La VI es la que el investigador manipula o selecciona como causa presumible; la VD es la que se mide como efecto</label>
+    <label class="option-label"><input type="radio" name="qi2" value="c"/> La VI solo existe en diseños experimentales; en estudios no experimentales solo hay VD</label>
+    <label class="option-label"><input type="radio" name="qi2" value="d"/> La VD es la que el investigador puede cambiar; la VI es la que se mide al final</label>
+    <div class="feedback-box" id="qf2"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="exercise-item">
+    <span class="badge-type badge-teo">Teórica</span>
+    <p class="question-text">3. Una variable moderadora se diferencia de una variable mediadora en que:</p>
+    <label class="option-label"><input type="radio" name="qi3" value="a"/> La moderadora es siempre cuantitativa; la mediadora es siempre cualitativa</label>
+    <label class="option-label"><input type="radio" name="qi3" value="b"/> La moderadora modifica la intensidad de la relación VI→VD; la mediadora explica el mecanismo o proceso por el cual la VI produce el efecto en la VD</label>
+    <label class="option-label"><input type="radio" name="qi3" value="c"/> Solo la mediadora afecta la relación VI→VD; la moderadora actúa fuera del modelo</label>
+    <label class="option-label"><input type="radio" name="qi3" value="d"/> No existe diferencia real; son sinónimos en la metodología de investigación</label>
+    <div class="feedback-box" id="qf3"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="exercise-item">
+    <span class="badge-type badge-teo">Teórica</span>
+    <p class="question-text">4. En la escala de medición de Stevens (1946), ¿qué característica distingue a la escala de razón de la de intervalo?</p>
+    <label class="option-label"><input type="radio" name="qi4" value="a"/> La escala de razón permite calcular la moda; la de intervalo no</label>
+    <label class="option-label"><input type="radio" name="qi4" value="b"/> La escala de razón tiene un cero absoluto real que indica ausencia total del atributo; la de intervalo no</label>
+    <label class="option-label"><input type="radio" name="qi4" value="c"/> La escala de intervalo tiene más categorías posibles que la de razón</label>
+    <label class="option-label"><input type="radio" name="qi4" value="d"/> Solo la escala de intervalo permite calcular medias aritméticas</label>
+    <div class="feedback-box" id="qf4"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="exercise-item">
+    <span class="badge-type badge-teo">Teórica</span>
+    <p class="question-text">5. ¿Cuál de los siguientes ejemplos corresponde a una variable cuantitativa discreta?</p>
+    <label class="option-label"><input type="radio" name="qi5" value="a"/> Porcentaje de evasión fiscal (puede ser 12,37%)</label>
+    <label class="option-label"><input type="radio" name="qi5" value="b"/> Monto de ventas anuales en dólares (puede ser $23.456,89)</label>
+    <label class="option-label"><input type="radio" name="qi5" value="c"/> Número de facturas emitidas por día (solo valores enteros: 0, 1, 2, 3...)</label>
+    <label class="option-label"><input type="radio" name="qi5" value="d"/> Tipo de régimen tributario (RISE, RUC Persona Natural, RUC Sociedad)</label>
+    <div class="feedback-box" id="qf5"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="exercise-item">
+    <span class="badge-type badge-teo">Teórica</span>
+    <p class="question-text">6. Una "relación espuria" entre dos variables ocurre cuando:</p>
+    <label class="option-label"><input type="radio" name="qi6" value="a"/> Las dos variables son independientes y no tienen ninguna relación estadística</label>
+    <label class="option-label"><input type="radio" name="qi6" value="b"/> La relación observada entre dos variables se debe en realidad a una tercera variable confusora, no a una relación causal real entre ellas</label>
+    <label class="option-label"><input type="radio" name="qi6" value="c"/> La variable dependiente produce cambios en la variable independiente (causalidad inversa)</label>
+    <label class="option-label"><input type="radio" name="qi6" value="d"/> El investigador manipula tanto la VI como la VD de forma deliberada</label>
+    <div class="feedback-box" id="qf6"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="exercise-item">
+    <span class="badge-type badge-teo">Teórica</span>
+    <p class="question-text">7. Una variable cualitativa ordinal se diferencia de una nominal en que:</p>
+    <label class="option-label"><input type="radio" name="qi7" value="a"/> La ordinal siempre usa números; la nominal siempre usa letras</label>
+    <label class="option-label"><input type="radio" name="qi7" value="b"/> La ordinal tiene categorías con un orden lógico significativo; la nominal solo clasifica sin ningún orden jerárquico</label>
+    <label class="option-label"><input type="radio" name="qi7" value="c"/> La nominal permite calcular medias; la ordinal no</label>
+    <label class="option-label"><input type="radio" name="qi7" value="d"/> Solo la nominal es aplicable en investigaciones contables; la ordinal es exclusiva de las ciencias sociales</label>
+    <div class="feedback-box" id="qf7"></div>
+  </div>
+
+  <!-- Q8 — ANÁLISIS -->
+  <div class="exercise-item">
+    <span class="badge-type badge-ana">Análisis</span>
+    <p class="question-text">8. La Contraloría General del Estado realiza una investigación para determinar si el número de auditores asignados a un examen especial influye en el número de hallazgos detectados, controlando el tipo de entidad auditada. ¿Cuál es la variable dependiente de este estudio?</p>
+    <label class="option-label"><input type="radio" name="qi8" value="a"/> El número de auditores asignados, porque es el factor que se selecciona</label>
+    <label class="option-label"><input type="radio" name="qi8" value="b"/> El tipo de entidad auditada, porque determina el contexto</label>
+    <label class="option-label"><input type="radio" name="qi8" value="c"/> El número de hallazgos detectados, porque es el efecto que se espera varíe según la cantidad de auditores</label>
+    <label class="option-label"><input type="radio" name="qi8" value="d"/> El presupuesto de la Contraloría, porque financia toda la operación</label>
+    <div class="feedback-box" id="qf8"></div>
+  </div>
+
+  <!-- Q9 — ANÁLISIS -->
+  <div class="exercise-item">
+    <span class="badge-type badge-ana">Análisis</span>
+    <p class="question-text">9. Una investigadora del SRI obtiene que las microempresas que tienen contadora mujer presentan menor evasión fiscal que las que tienen contador hombre. Antes de concluir que el género del contador causa menor evasión, ¿qué debería considerar metodológicamente?</p>
+    <label class="option-label"><input type="radio" name="qi9" value="a"/> Que el género del contador es una variable de razón y se puede promediar directamente</label>
+    <label class="option-label"><input type="radio" name="qi9" value="b"/> Que podrían existir variables confusoras (como el sector económico, el tamaño de la empresa o el nivel de educación del contador) que expliquen ambas variables, generando una posible relación espuria</label>
+    <label class="option-label"><input type="radio" name="qi9" value="c"/> Que debería cambiar la variable dependiente a otra escala de medición antes de analizar</label>
+    <label class="option-label"><input type="radio" name="qi9" value="d"/> Que el género es una variable independiente de escala ordinal con tres categorías</label>
+    <div class="feedback-box" id="qf9"></div>
+  </div>
+
+  <!-- Q10 — ANÁLISIS -->
+  <div class="exercise-item">
+    <span class="badge-type badge-ana">Análisis</span>
+    <p class="question-text">10. Una empresa de auditoría aplica una encuesta a sus clientes usando la escala: 1=Muy insatisfecho, 2=Insatisfecho, 3=Neutral, 4=Satisfecho, 5=Muy satisfecho. El gerente calcula el "promedio de satisfacción = 3,7" y concluye que está entre Neutral y Satisfecho. ¿Qué problema metodológico tiene esta conclusión?</p>
+    <label class="option-label"><input type="radio" name="qi10" value="a"/> Ninguno; es completamente válido calcular promedios en cualquier escala numérica</label>
+    <label class="option-label"><input type="radio" name="qi10" value="b"/> El problema es que debió usar la mediana en lugar del promedio, ya que la escala de satisfacción es ordinal: las distancias entre categorías no son iguales y el promedio puede ser engañoso</label>
+    <label class="option-label"><input type="radio" name="qi10" value="c"/> El error está en usar una escala del 1 al 5; debería ser del 1 al 10 para ser más precisa</label>
+    <label class="option-label"><input type="radio" name="qi10" value="d"/> El promedio es incorrecto porque la escala tiene un número impar de opciones</label>
+    <div class="feedback-box" id="qf10"></div>
+  </div>
+
+  <div style="text-align:center;">
+    <button class="btn-verify" onclick="verificarCuestionario()">✅ Verificar Respuestas</button>
+    <p class="alert-msg" id="alert-cuestionario">⚠️ Por favor, responde todas las preguntas antes de verificar.</p>
+  </div>
+
+  <div class="result-panel" id="result-cuestionario">
+    <div class="score-emoji" id="qz-emoji"></div>
+    <div class="score-text" id="qz-score-text"></div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="qz-bar"></div></div>
+    <div class="score-msg" id="qz-msg"></div>
+    <br/>
+    <button class="btn-reset" onclick="resetCuestionario()">🔄 Reiniciar cuestionario</button>
+  </div>
+</div>
+
+<!-- ============================= SEMANA 11B LINK ============================= -->
+<div id="tab-semana11b" class="tab-content">
+  <h2>→ Continúa en Semana 11B</h2>
+  <div class="box-key">
+    <div class="box-title">📁 Este widget (11A) cubre: Contenido teórico · Ejercicio interactivo · Cuestionario</div>
+    <p>Para completar la semana, accede al archivo <strong>Semana 11B</strong> que contiene:</p>
+    <ul>
+      <li>🤖 Actividad con Inteligencia Artificial</li>
+      <li>💭 Preguntas de Reflexión (conexión con la vida diaria)</li>
+      <li>📚 Bibliografía en formato APA 7.ª edición</li>
+    </ul>
+  </div>
+  <div style="text-align:center; margin-top:24px;">
+    <a href="semana11B_variables.html" style="display:inline-block; background:#003366; color:#fff; padding:14px 36px; border-radius:10px; text-decoration:none; font-weight:700; font-size:1.1rem; font-family:'Source Sans 3',sans-serif;">
+      Ir a Semana 11B →
+    </a>
+  </div>
+</div>
+
+<!-- ============================= JAVASCRIPT ============================= -->
+<script>
+// ===== TAB NAVIGATION =====
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ===== EJERCICIO INTERACTIVO =====
+const ejercicioCorrects = {
+  ei1: 'b',
+  ei2: 'c',
+  ei3: 'c',
+  ei4: 'b',
+  ei5: 'c',
+  ei6: 'b',
+  ei7: 'c',
+  ei8: 'b'
+};
+
+const ejercicioFeedbacks = {
+  ei1: {
+    correct: '✅ Correcto. "Número de horas" es la variable que el investigador selecciona como causa presumible de los errores. Es independiente (causa). Se mide en horas enteras (valores enteros), por lo que es cuantitativa discreta.',
+    incorrect: '❌ Incorrecto. "Número de horas de capacitación" es la variable que el investigador selecciona como posible causa de los errores → es la Variable Independiente. Se mide en horas completas (sin decimales con sentido) → cuantitativa discreta.'
+  },
+  ei2: {
+    correct: '✅ Correcto. Al limitar el estudio solo al sector comercio, la investigadora mantiene el sector constante para que no distorsione los resultados. Eso es exactamente una variable de control: se neutraliza deliberadamente.',
+    incorrect: '❌ Incorrecto. Si la investigadora estudia SOLO el sector comercio, el sector no varía en el estudio (todos son del mismo sector). Eso la convierte en una Variable de Control: se mantiene constante para neutralizar su posible efecto en la VD.'
+  },
+  ei3: {
+    correct: '✅ Correcto. RISE, RUC Persona Natural y RUC Sociedad son categorías que clasifican a los contribuyentes, pero no tienen un orden jerárquico inherente (ninguna es "mayor" que la otra en sentido lógico universal). Es escala nominal.',
+    incorrect: '❌ Incorrecto. Las categorías RISE, RUC Persona Natural y RUC Sociedad son etiquetas de clasificación sin orden jerárquico predeterminado. La escala correcta es NOMINAL. Aunque tengan diferente complejidad operativa, en sí mismas como variable son categorías sin orden inherente establecido científicamente.'
+  },
+  ei4: {
+    correct: '✅ Correcto. "Riesgo Alto > Riesgo Medio > Riesgo Bajo" tiene un orden lógico claro. Sin embargo, no podemos cuantificar la diferencia: ¿cuánto más riesgoso es Alto que Medio? No lo sabemos con exactitud. Es escala ordinal.',
+    incorrect: '❌ Incorrecto. Las categorías de riesgo (Alto, Medio, Bajo) tienen un orden lógico claro (sabemos que Alto > Medio > Bajo), pero no podemos decir que la distancia entre Alto y Medio es igual a la distancia entre Medio y Bajo. Eso es la escala ORDINAL.'
+  },
+  ei5: {
+    correct: '✅ Correcto. El tamaño de la empresa es una variable que no fue planificada como parte del diseño, pero que explica tanto el uso de software (las grandes pueden pagarlo) como las utilidades (las grandes tienen más recursos). Genera una relación espuria → es variable extraña/confusora.',
+    incorrect: '❌ Incorrecto. El tamaño de la empresa no fue planificado en el diseño del estudio, pero afecta tanto al uso de software como a las utilidades. Esto genera una relación espuria (aparente) entre software y utilidades. El tamaño es la Variable Extraña o Confusora.'
+  },
+  ei6: {
+    correct: '✅ Correcto. El margen de utilidad neta (p. ej., 8,5%, 25,7%) puede tomar cualquier valor decimal dentro de un rango → cuantitativa continua. El 0% significa "sin utilidad" (cero absoluto real) y 20% es el doble de 10% → escala de razón. Clasificación completa: cuantitativa continua, escala de razón.',
+    incorrect: '❌ Incorrecto. El margen de utilidad neta puede tomar valores decimales (8,5%, 12,3%) → es CUANTITATIVA CONTINUA. El cero significa "sin margen" (cero absoluto real) y se pueden hacer razones (20% es el doble de 10%) → es escala de RAZÓN.'
+  },
+  ei7: {
+    correct: '✅ Correcto. "Comprensión de las normas NIIF" es el mecanismo intermedio: la capacitación produce primero comprensión, y esa comprensión produce calidad en los EEFF. La comprensión está entre la VI y la VD → es la Variable Mediadora.',
+    incorrect: '❌ Incorrecto. La "comprensión de normas NIIF" es el puente entre la capacitación (VI) y la calidad de EEFF (VD). La capacitación → genera comprensión → que genera calidad. La comprensión está en el medio del proceso causal → es Variable MEDIADORA.'
+  },
+  ei8: {
+    correct: '✅ Correcto. La escala 1=Nunca ... 5=Siempre tiene un orden lógico (Nunca < Pocas veces < A veces < Frecuentemente < Siempre). Sin embargo, las distancias psicológicas entre opciones no son uniformes (la diferencia entre "Nunca" y "Pocas veces" puede ser muy diferente a la de "Frecuentemente" y "Siempre"). Es una escala ORDINAL, de variable cualitativa ordinal.',
+    incorrect: '❌ Incorrecto. Aunque se usen números del 1 al 5, esos números son etiquetas de una escala de frecuencia con orden (Nunca < ... < Siempre). Las distancias psicológicas entre opciones no son uniformes → no es de intervalo ni de razón. Es una variable CUALITATIVA ORDINAL de escala ORDINAL. El estadístico apropiado sería la mediana, no la media.'
+  }
+};
+
+function verificarEjercicio() {
+  const nombres = Object.keys(ejercicioCorrects);
+  let todosRespondidos = true;
+  
+  nombres.forEach(n => {
+    const sel = document.querySelector(`input[name="${n}"]:checked`);
+    if (!sel) todosRespondidos = false;
+  });
+  
+  if (!todosRespondidos) {
+    document.getElementById('alert-ejercicio').style.display = 'block';
+    return;
+  }
+  document.getElementById('alert-ejercicio').style.display = 'none';
+  
+  let correctas = 0;
+  nombres.forEach((n, idx) => {
+    const sel = document.querySelector(`input[name="${n}"]:checked`).value;
+    const fb = document.getElementById('ef' + (idx + 1));
+    fb.style.display = 'block';
+    if (sel === ejercicioCorrects[n]) {
+      correctas++;
+      fb.className = 'feedback-box feedback-correct';
+      fb.innerHTML = ejercicioFeedbacks[n].correct;
+    } else {
+      fb.className = 'feedback-box feedback-incorrect';
+      fb.innerHTML = ejercicioFeedbacks[n].incorrect;
+    }
+  });
+  
+  const pct = Math.round((correctas / nombres.length) * 100);
+  const panel = document.getElementById('result-ejercicio');
+  panel.style.display = 'block';
+  
+  const emojis = pct === 100 ? '🏆' : pct >= 80 ? '🎯' : pct >= 60 ? '📘' : pct >= 40 ? '⚠️' : '📖';
+  const msgs = pct === 100 ? '¡Perfecto! Dominas la clasificación de variables.' 
+              : pct >= 80 ? '¡Muy bien! Tienes una comprensión sólida del tema.'
+              : pct >= 60 ? 'Buen intento. Revisa los ítems incorrectos y vuelve a intentarlo.'
+              : pct >= 40 ? 'Necesitas repasar el contenido. Vuelve a las pestañas 1–5.'
+              : 'Te recomiendo releer todo el material antes de intentarlo de nuevo.';
+  
+  document.getElementById('ej-emoji').textContent = emojis;
+  document.getElementById('ej-score-text').textContent = `${correctas}/${nombres.length} correctas — ${pct}%`;
+  document.getElementById('ej-msg').textContent = msgs;
+  setTimeout(() => { document.getElementById('ej-bar').style.width = pct + '%'; }, 100);
+  panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetEjercicio() {
+  document.querySelectorAll('[name^="ei"]').forEach(r => r.checked = false);
+  document.querySelectorAll('[id^="ef"]').forEach(f => { f.style.display = 'none'; f.className = 'feedback-box'; });
+  document.getElementById('result-ejercicio').style.display = 'none';
+  document.getElementById('ej-bar').style.width = '0%';
+  document.getElementById('alert-ejercicio').style.display = 'none';
+}
+
+// ===== CUESTIONARIO =====
+const quizCorrects = {
+  qi1: 'b',
+  qi2: 'b',
+  qi3: 'b',
+  qi4: 'b',
+  qi5: 'c',
+  qi6: 'b',
+  qi7: 'b',
+  qi8: 'c',
+  qi9: 'b',
+  qi10: 'b'
+};
+
+const quizFeedbacks = {
+  qi1: {
+    correct: '✅ Correcto. Hernández Sampieri et al. (2014) definen la variable como una propiedad que puede variar y cuya variación es susceptible de medirse u observarse. Lo esencial es la variabilidad y la posibilidad de medición.',
+    incorrect: '❌ Incorrecto. Una variable no es cualquier dato recogido ni un resultado final. Según Hernández Sampieri et al. (2014), es una característica que puede variar y cuya variación puede medirse. Opción correcta: B.'
+  },
+  qi2: {
+    correct: '✅ Correcto. La VI es la que el investigador manipula (en experimentos) o selecciona como posible causa. La VD es la que se mide para ver si cambió. Esta distinción aplica tanto en diseños experimentales como no experimentales.',
+    incorrect: '❌ Incorrecto. La distinción fundamental es: VI = posible causa (se manipula o selecciona); VD = efecto (se mide). No depende de la escala de medición ni del tipo de diseño. Opción correcta: B.'
+  },
+  qi3: {
+    correct: '✅ Correcto. La moderadora actúa SOBRE la relación (la hace más fuerte o más débil según sus valores). La mediadora actúa DENTRO de la relación, siendo el proceso por el cual la VI produce su efecto en la VD.',
+    incorrect: '❌ Incorrecto. La moderadora modifica la fuerza o dirección de la relación VI→VD (por ejemplo, el efecto es diferente para hombres que para mujeres). La mediadora es el mecanismo intermedio (el proceso que conecta VI con VD). Opción correcta: B.'
+  },
+  qi4: {
+    correct: '✅ Correcto. El cero absoluto es la característica definitoria de la escala de razón. En la escala de intervalo, el cero es arbitrario (como 0°C, que no significa "ausencia de temperatura"). En la de razón, 0 ventas = ninguna venta; 0 empleados = sin personal.',
+    incorrect: '❌ Incorrecto. La diferencia clave es el CERO ABSOLUTO. Escala de intervalo: el cero es convencional (no significa ausencia total). Escala de razón: el cero significa ausencia real del atributo y permite hacer razones (A es el doble de B). Opción correcta: B.'
+  },
+  qi5: {
+    correct: '✅ Correcto. El número de facturas emitidas por día solo puede ser un número entero (no tiene sentido emitir 2,7 facturas). Se cuenta, no se mide con decimales reales. Eso la hace cuantitativa discreta.',
+    incorrect: '❌ Incorrecto. Las opciones A y B son cuantitativas continuas (pueden tener decimales con sentido real). La D es cualitativa nominal. El número de facturas (0, 1, 2, 3...) solo puede ser entero → cuantitativa DISCRETA. Opción correcta: C.'
+  },
+  qi6: {
+    correct: '✅ Correcto. Una relación espuria es cuando dos variables parecen relacionadas entre sí, pero la relación se debe a una tercera variable que causa ambas. No hay causalidad real entre las dos primeras, solo una apariencia generada por el factor confusor.',
+    incorrect: '❌ Incorrecto. La relación espuria ocurre cuando una Variable Confusora genera la ilusión de que A causa B, cuando en realidad ambas son causadas por C. Ejemplo: a más helados vendidos, más ahogados → la variable confusora es el calor del verano. Opción correcta: B.'
+  },
+  qi7: {
+    correct: '✅ Correcto. La variable ordinal tiene categorías con un orden lógico y significativo (mejor/peor, más/menos). La nominal solo etiqueta y clasifica sin ningún orden. Ambas son cualitativas, pero la ordinal agrega la propiedad del orden.',
+    incorrect: '❌ Incorrecto. No depende de si usa números o letras. La diferencia es: ordinal = hay un orden lógico entre categorías (AAA > AA > A). Nominal = solo clasificación sin orden (Norte, Sur, Este, Oeste no tienen jerarquía). Opción correcta: B.'
+  },
+  qi8: {
+    correct: '✅ Correcto. El número de hallazgos detectados es el EFECTO que se espera cambie según la cantidad de auditores asignados (la causa). Lo que se mide al final es la VD. El tipo de entidad es variable de control (se neutraliza).',
+    incorrect: '❌ Incorrecto. La Variable Dependiente es la que SE MIDE como efecto. En esta investigación, se quiere saber si más auditores → más hallazgos. Los hallazgos detectados son el efecto medido → Variable Dependiente. Opción correcta: C.'
+  },
+  qi9: {
+    correct: '✅ Correcto. Antes de atribuir causalidad al género del contador, se deben descartar variables confusoras. Por ejemplo: ¿Las empresas dirigidas por mujeres son más pequeñas? ¿Están en sectores con menor evasión cultural? El género podría ser un correlato, no una causa real.',
+    incorrect: '❌ Incorrecto. Antes de concluir que el género causa menor evasión, la investigadora debe considerar si hay VARIABLES CONFUSORAS que expliquen tanto el género del contador como el nivel de evasión (tamaño de empresa, sector, educación del contador). Podría ser una relación espuria. Opción correcta: B.'
+  },
+  qi10: {
+    correct: '✅ Correcto. La escala de satisfacción (1=Muy insatisfecho ... 5=Muy satisfecho) es ordinal: hay orden, pero las distancias psicológicas entre opciones no son iguales. Calcular el promedio de una variable ordinal puede ser engañoso. El estadístico apropiado es la MEDIANA.',
+    incorrect: '❌ Incorrecto. La escala de satisfacción Likert es una variable ORDINAL. Las distancias entre "Muy insatisfecho" y "Insatisfecho" no necesariamente equivalen a las entre "Satisfecho" y "Muy satisfecho". Calcular la media aritmética en variables ordinales es metodológicamente cuestionable; se recomienda usar la MEDIANA. Opción correcta: B.'
+  }
+};
+
+function verificarCuestionario() {
+  const nombres = Object.keys(quizCorrects);
+  let todosRespondidos = true;
+  
+  nombres.forEach(n => {
+    const sel = document.querySelector(`input[name="${n}"]:checked`);
+    if (!sel) todosRespondidos = false;
+  });
+  
+  if (!todosRespondidos) {
+    document.getElementById('alert-cuestionario').style.display = 'block';
+    return;
+  }
+  document.getElementById('alert-cuestionario').style.display = 'none';
+  
+  let correctas = 0;
+  nombres.forEach((n, idx) => {
+    const sel = document.querySelector(`input[name="${n}"]:checked`).value;
+    const fb = document.getElementById('qf' + (idx + 1));
+    fb.style.display = 'block';
+    if (sel === quizCorrects[n]) {
+      correctas++;
+      fb.className = 'feedback-box feedback-correct';
+      fb.innerHTML = quizFeedbacks[n].correct;
+    } else {
+      fb.className = 'feedback-box feedback-incorrect';
+      fb.innerHTML = quizFeedbacks[n].incorrect;
+    }
+  });
+  
+  const pct = Math.round((correctas / 10) * 100);
+  const panel = document.getElementById('result-cuestionario');
+  panel.style.display = 'block';
+  
+  const emojis = pct === 100 ? '🏆' : pct >= 80 ? '🎯' : pct >= 60 ? '📘' : pct >= 40 ? '⚠️' : '📖';
+  const msgs = pct === 100 ? '¡Excelente! Dominas completamente las variables de investigación. ¡Preparado para la Semana 12!'
+              : pct >= 80 ? '¡Muy bien! Tienes una comprensión sólida. Revisa los ítems incorrectos para consolidar.'
+              : pct >= 60 ? 'Bien encaminado. Repasa los temas donde fallaste y vuelve a intentarlo.'
+              : pct >= 40 ? 'Necesitas reforzar. Vuelve a las pestañas de contenido antes de reintentar.'
+              : 'Dedica tiempo a releer el material completo. ¡Tú puedes lograrlo!';
+  
+  document.getElementById('qz-emoji').textContent = emojis;
+  document.getElementById('qz-score-text').textContent = `${correctas}/10 — ${pct}%`;
+  document.getElementById('qz-msg').textContent = msgs;
+  setTimeout(() => { document.getElementById('qz-bar').style.width = pct + '%'; }, 100);
+  panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetCuestionario() {
+  document.querySelectorAll('[name^="qi"]').forEach(r => r.checked = false);
+  document.querySelectorAll('[id^="qf"]').forEach(f => { f.style.display = 'none'; f.className = 'feedback-box'; });
+  document.getElementById('result-cuestionario').style.display = 'none';
+  document.getElementById('qz-bar').style.width = '0%';
+  document.getElementById('alert-cuestionario').style.display = 'none';
+}
+</script>
+</body>
+</html>

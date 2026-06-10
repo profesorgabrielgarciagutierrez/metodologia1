@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Semana 11B | Variables de Investigación | Metodología de la Investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #f0f4f8;
+    color: #1a1a2e;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    background: #003366;
+    color: #fff;
+    padding: 18px 24px;
+    text-align: center;
+  }
+  .site-header .institution {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 4px;
+  }
+  .site-header h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.2rem, 3vw, 1.75rem);
+    font-weight: 700;
+  }
+  .site-header .meta {
+    font-size: 13px;
+    opacity: 0.8;
+    margin-top: 6px;
+  }
+  .brand-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 2px 12px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  /* ===== TAB NAVIGATION ===== */
+  .tab-nav-wrapper {
+    background: #87CEEB;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0 8px;
+    box-shadow: 0 2px 6px rgba(0,51,102,0.15);
+    scrollbar-width: thin;
+    scrollbar-color: #003366 #87CEEB;
+  }
+  .tab-nav-wrapper::-webkit-scrollbar { height: 4px; }
+  .tab-nav-wrapper::-webkit-scrollbar-thumb { background: #003366; border-radius: 4px; }
+  .tab-nav {
+    display: inline-flex;
+    gap: 2px;
+    padding: 6px 0;
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    color: #1a1a2e;
+    cursor: pointer;
+    border-radius: 6px 6px 0 0;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { background: rgba(255,255,255,0.5); }
+  .tab-btn.active {
+    background: #fff;
+    color: #003366;
+    font-weight: 700;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .tab-content { display: none; padding: 28px 20px; max-width: 960px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* ===== TYPOGRAPHY ===== */
+  h2 {
+    font-family: 'Lora', serif;
+    color: #003366;
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    border-bottom: 3px solid #87CEEB;
+    padding-bottom: 8px;
+  }
+  h3 {
+    font-family: 'Lora', serif;
+    color: #003366;
+    font-size: 1.15rem;
+    margin: 24px 0 10px;
+  }
+  h4 { font-family: 'Lora', serif; color: #003366; margin: 16px 0 8px; font-size: 1rem; }
+  p { margin-bottom: 14px; }
+  ul, ol { margin: 10px 0 14px 22px; }
+  li { margin-bottom: 6px; }
+  strong { color: #003366; }
+
+  /* ===== CONCEPT BOX ===== */
+  .box-concept {
+    border-left: 5px solid #003366;
+    background: #f7faff;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 18px 0;
+  }
+  .box-concept .box-title {
+    font-family: 'Lora', serif;
+    color: #003366;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  /* ===== EXAMPLE BOX ===== */
+  .box-example {
+    background: #dbeeff;
+    border: 1px solid #87CEEB;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 18px 0;
+  }
+  .box-example .box-title {
+    font-family: 'Lora', serif;
+    color: #003366;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+  }
+
+  /* ===== KEY IDEA BOX ===== */
+  .box-key {
+    background: #003366;
+    color: #fff;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .box-key .box-title {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    opacity: 0.9;
+  }
+  .box-key p, .box-key ul, .box-key li { color: #fff; }
+  .box-key strong { color: #87CEEB; }
+
+  /* ===== IA ACTIVITY ===== */
+  .ia-step {
+    background: #fff;
+    border-radius: 10px;
+    border: 2px solid #87CEEB;
+    padding: 18px 20px;
+    margin: 16px 0;
+  }
+  .ia-step-num {
+    background: #003366;
+    color: #fff;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .prompt-box {
+    background: #1a1a2e;
+    color: #e0f0ff;
+    border-radius: 8px;
+    padding: 18px;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 12px 0;
+    position: relative;
+    white-space: pre-wrap;
+  }
+  .prompt-box .prompt-label {
+    display: inline-block;
+    background: #87CEEB;
+    color: #003366;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .criterio-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  .criterio-table th { background: #003366; color: #fff; padding: 10px; text-align: left; }
+  .criterio-table td { padding: 10px; border-bottom: 1px solid #d0dff0; vertical-align: top; }
+  .criterio-table tr:nth-child(even) td { background: #eef4ff; }
+  .tag-crit { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 700; }
+  .tag-bien { background: #e8f5e9; color: #2e7d32; }
+  .tag-mal { background: #fce4ec; color: #880e4f; }
+
+  /* ===== REFLEXIÓN ===== */
+  .reflexion-card {
+    background: #fff;
+    border-radius: 12px;
+    border-left: 6px solid #87CEEB;
+    padding: 20px 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0,51,102,0.08);
+  }
+  .reflexion-card .r-num {
+    background: #87CEEB;
+    color: #003366;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .reflexion-card .r-pregunta {
+    font-family: 'Lora', serif;
+    color: #003366;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .reflexion-card .r-guia {
+    font-size: 14px;
+    color: #444;
+    font-style: italic;
+    border-top: 1px solid #d0dff0;
+    padding-top: 10px;
+    margin-top: 8px;
+  }
+  .reflexion-intro {
+    background: linear-gradient(135deg, #003366, #00509e);
+    color: #fff;
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 24px;
+  }
+  .reflexion-intro h3 { color: #87CEEB; margin-bottom: 10px; }
+
+  /* ===== BIBLIOGRAFÍA ===== */
+  .bib-card {
+    background: #fff;
+    border-radius: 10px;
+    border-top: 4px solid #003366;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 6px rgba(0,51,102,0.08);
+  }
+  .bib-card .bib-tipo {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .tipo-libro { background: #e8f5e9; color: #2e7d32; }
+  .tipo-articulo { background: #e3f2fd; color: #0d47a1; }
+  .tipo-norma { background: #fff3e0; color: #e65100; }
+  .tipo-inst { background: #f3e5f5; color: #6a1b9a; }
+  .bib-autores { font-weight: 600; color: #1a1a2e; margin-bottom: 4px; }
+  .bib-titulo { font-style: italic; color: #003366; margin-bottom: 4px; }
+  .bib-datos { font-size: 14px; color: #555; }
+  .bib-nota {
+    background: #fff8e1;
+    border: 1px solid #f9a825;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #5d4037;
+  }
+
+  /* ===== FILE NAVIGATOR ===== */
+  .file-nav {
+    background: #003366;
+    color: #fff;
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .file-nav span { font-size: 13px; opacity: 0.9; }
+  .file-nav a {
+    color: #87CEEB;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 13px;
+    border: 1px solid #87CEEB;
+    padding: 4px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .file-nav a:hover { background: #87CEEB; color: #003366; }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 2px dashed #87CEEB;
+    margin: 28px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="institution">Universidad de Guayaquil · Facultad de Ciencias Administrativas · Carrera en Contabilidad y Auditoría</div>
+  <h1>Metodología de la Investigación</h1>
+  <div class="meta">Unidad III · <strong>Semana 11B</strong> · Variables de Investigación</div>
+  <div class="brand-tag">PERSONA IDEAL · Humanizamos la cultura desde conversaciones que transforman</div>
+</header>
+
+<!-- ===== TAB NAVIGATION ===== -->
+<div class="tab-nav-wrapper">
+  <nav class="tab-nav" role="tablist">
+    <button class="tab-btn active" onclick="showTab('ia')" role="tab">🤖 Actividad con IA</button>
+    <button class="tab-btn" onclick="showTab('reflexion')" role="tab">💭 Reflexión</button>
+    <button class="tab-btn" onclick="showTab('biblio')" role="tab">📚 Bibliografía</button>
+    <button class="tab-btn" onclick="showTab('volver')" role="tab">← Semana 11A</button>
+  </nav>
+</div>
+
+<!-- ============================= ACTIVIDAD CON IA ============================= -->
+<div id="tab-ia" class="tab-content active">
+  <div class="file-nav">
+    <span>📁 Este archivo: <strong>Semana 11B</strong> — Actividad IA · Reflexión · Bibliografía</span>
+    <a href="semana11A_variables.html">← Volver a Semana 11A (Contenido + Ejercicio + Cuestionario)</a>
+  </div>
+
+  <h2>🤖 Actividad con Inteligencia Artificial</h2>
+
+  <div class="box-concept">
+    <div class="box-title">📋 Nombre de la actividad</div>
+    <p><strong>"Diseñador de variables: cuestionando a la IA para construir un modelo de investigación real"</strong></p>
+    <p>Esta actividad NO consiste en copiar la respuesta de la IA. Consiste en usarla como interlocutor crítico para construir y refinar tus propias ideas sobre las variables de una investigación que tú vas a diseñar. La IA puede equivocarse; tú debes detectar esos errores.</p>
+  </div>
+
+  <div class="box-example">
+    <div class="box-title">🎯 Herramienta recomendada</div>
+    <p>Usa <strong>Claude en claude.ai</strong> (Anthropic) — <a href="https://claude.ai" target="_blank" style="color:#003366;"><strong>claude.ai</strong></a> — sin necesidad de cuenta de pago. Alternativas gratuitas: ChatGPT (chatgpt.com) o Gemini (gemini.google.com).</p>
+    <p>Si usas Claude: inicia una nueva conversación y pega el prompt a continuación. No necesitas proporcionar contexto previo; el prompt es completo.</p>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="ia-step">
+    <div class="ia-step-num">1</div>
+    <h4>Elige tu contexto de investigación</h4>
+    <p>Antes de usar la IA, elige UNO de los siguientes contextos de investigación (o propón el tuyo propio relacionado con contabilidad o auditoría en Ecuador):</p>
+    <ul>
+      <li>🏦 El impacto del crédito de desarrollo del BanEcuador en la rentabilidad de las microempresas rurales de Manabí</li>
+      <li>🧾 La relación entre la cultura de facturación electrónica y el cumplimiento del IVA en el sector restaurantero de Quito</li>
+      <li>📊 Factores que influyen en la calidad de los dictámenes de auditoría en empresas de economía popular y solidaria supervisadas por la SEPS</li>
+      <li>💼 El efecto de la rotación de personal contable sobre la exactitud de los estados financieros en empresas medianas de Guayaquil</li>
+      <li><em>Tu propio tema relacionado con tu experiencia o interés profesional</em></li>
+    </ul>
+  </div>
+
+  <!-- PASO 2: PROMPT -->
+  <div class="ia-step">
+    <div class="ia-step-num">2</div>
+    <h4>Copia y pega este prompt exacto a la IA (reemplaza [CONTEXTO] con tu elección)</h4>
+    <div class="prompt-box"><span class="prompt-label">PROMPT PARA LA IA</span>
+Actúa como metodólogo experto en investigación social y contable. Voy a diseñar una investigación sobre el siguiente tema: [CONTEXTO — escribe aquí tu tema elegido].
+
+Necesito que hagas lo siguiente:
+
+1. Identifica y lista TODAS las variables que considera razonable incluir en esta investigación, organizadas por su rol (Variable Independiente, Variable Dependiente, Variables Intervinientes o Moderadoras, Variables de Control posibles, posibles Variables Extrañas o Confusoras).
+
+2. Para cada variable, especifica:
+   a) Tipo de variable según su naturaleza (cuantitativa discreta, cuantitativa continua, cualitativa nominal, cualitativa ordinal, dicotómica)
+   b) Escala de medición (nominal, ordinal, intervalo, razón)
+   c) Al menos un indicador concreto que permitiría medirla en el contexto ecuatoriano
+
+3. Dibuja o describe en texto el esquema de relaciones entre las principales variables (VI → mediadora → VD, con moderadoras si aplica)
+
+4. Identifica DOS posibles variables confusoras que podrían generar relaciones espurias si no se controlan, y explica por qué serían confusoras en este caso específico.
+
+Sé específico y usa ejemplos del contexto ecuatoriano (menciona instituciones como SRI, Contraloría General del Estado, Superintendencia de Compañías, SEPS, IESS, SENESCYT cuando corresponda).</div>
+    <p><strong>Tiempo estimado para obtener la respuesta:</strong> 1–2 minutos. La respuesta puede ser extensa; eso es normal y es lo que queremos analizar.</p>
+  </div>
+
+  <!-- PASO 3: QUÉ HACER CON LA RESPUESTA -->
+  <div class="ia-step">
+    <div class="ia-step-num">3</div>
+    <h4>¿Qué hacer con la respuesta de la IA?</h4>
+    <p>Una vez que obtengas la respuesta, realiza estas acciones de análisis crítico:</p>
+    <ol>
+      <li><strong>Verifica la clasificación de roles:</strong> ¿La IA clasificó correctamente las variables por su rol? ¿Hay alguna variable que debería ser independiente pero la clasificó como dependiente, o viceversa? Recuerda que el rol depende del diseño de la investigación, no de la variable en sí.</li>
+      <li><strong>Verifica las escalas de medición:</strong> Revisa si la IA asignó correctamente la escala a cada variable. Por ejemplo: ¿clasificó como "ordinal" algo que en realidad es "nominal"? ¿Confundió "discreta" con "continua"?</li>
+      <li><strong>Evalúa los indicadores propuestos:</strong> ¿Los indicadores que sugirió la IA son concretos y medibles en Ecuador? ¿Hay instituciones o fuentes de datos reales que respalden esos indicadores?</li>
+      <li><strong>Cuestionamiento crítico — el paso más importante:</strong> Haz una segunda pregunta a la IA: <em>"¿Hay alguna clasificación de las anteriores que pueda ser debatida o que dependa de supuestos específicos del diseño de investigación? ¿Cuáles?"</em>. Analiza su respuesta.</li>
+      <li><strong>Escribe tu propia versión corregida:</strong> Basándote en lo que aprendiste en el widget y en la respuesta de la IA, escribe en tus propias palabras el modelo de variables de tu investigación, señalando en qué puntos difiere de la propuesta de la IA y por qué.</li>
+    </ol>
+  </div>
+
+  <!-- PASO 4: CRITERIO DE EVALUACIÓN -->
+  <div class="ia-step">
+    <div class="ia-step-num">4</div>
+    <h4>Criterio de evaluación: ¿qué demuestra pensamiento crítico?</h4>
+    <table class="criterio-table">
+      <thead>
+        <tr>
+          <th>Nivel</th>
+          <th>¿Qué hace el estudiante?</th>
+          <th>Calificación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag-crit tag-mal">❌ Copia simple</span></td>
+          <td>Pega la respuesta de la IA tal como llegó, sin análisis ni verificación. No identifica errores ni añade perspectiva propia.</td>
+          <td>No logrado</td>
+        </tr>
+        <tr>
+          <td><span class="tag-crit" style="background:#fff3e0; color:#e65100;">⚠️ Básico</span></td>
+          <td>Resume la respuesta de la IA con sus propias palabras, pero no la cuestiona ni compara con el contenido del widget. No identifica posibles errores.</td>
+          <td>En proceso</td>
+        </tr>
+        <tr>
+          <td><span class="tag-crit" style="background:#e3f2fd; color:#0d47a1;">📘 Esperado</span></td>
+          <td>Verifica la clasificación de al menos 3 variables, detecta 1 posible error o ambigüedad en la respuesta de la IA, y escribe su propia versión del modelo de variables con justificación.</td>
+          <td>Logrado</td>
+        </tr>
+        <tr>
+          <td><span class="tag-crit tag-bien">🏆 Sobresaliente</span></td>
+          <td>Verifica todas las clasificaciones, detecta errores o ambigüedades con argumentación metodológica (citando a Hernández Sampieri u otro autor), hace una segunda pregunta a la IA y analiza críticamente su respuesta, y produce un modelo de variables mejorado con respecto a la propuesta de la IA.</td>
+          <td>Excelente</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box-key">
+    <div class="box-title">🧠 La IA como espejo metodológico</div>
+    <p>La inteligencia artificial no conoce el contexto específico de tu investigación, ni las particularidades del sistema tributario ecuatoriano, ni las regulaciones de la Contraloría o la SEPS. Tú sí. El objetivo de esta actividad es que uses el conocimiento que adquiriste en este widget para <strong>evaluar, corregir y mejorar</strong> lo que la IA produce. Eso es exactamente lo que hace un investigador competente.</p>
+  </div>
+</div>
+
+<!-- ============================= REFLEXIÓN ============================= -->
+<div id="tab-reflexion" class="tab-content">
+  <h2>💭 Reflexión — Las Variables en tu Vida</h2>
+
+  <div class="reflexion-intro">
+    <h3>¿Por qué conectar las variables de investigación con tu vida?</h3>
+    <p>La metodología de investigación no es una materia abstracta desconectada de tu realidad. Las <strong>variables</strong> son precisamente el intento científico de nombrar, medir y entender lo que ya existe en la vida de cada persona. Esta sección te invita a mirar hacia adentro: a reconocer que llevas estudiando variables toda tu vida, aunque nunca las hayas llamado así.</p>
+    <p><em>No hay respuestas correctas ni incorrectas. El objetivo es conectar, reflexionar y crecer.</em></p>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- REFLEXIÓN 1 -->
+  <div class="reflexion-card">
+    <div class="r-num">1</div>
+    <div class="r-pregunta">¿Cuáles son las "variables independientes" de tu vida?</div>
+    <p>En investigación, la variable independiente es aquella que el investigador selecciona o manipula porque cree que tiene efecto en el resultado. En tu vida, hay factores que tú decides cambiar esperando que produzcan un resultado diferente: el tiempo que dedicas a estudiar, la hora en que te duermes, la actitud con que llegas a clases, las personas con quienes te relacionas.</p>
+    <p><strong>Reflexiona:</strong> ¿Cuáles son los dos o tres factores que, cuando los cambias conscientemente, producen los cambios más notables en tus resultados académicos, emocionales o relacionales? ¿Los has identificado como tus "palancas de cambio"?</p>
+    <div class="r-guia">🧠 <em>Conexión metodológica: Un investigador elige su VI porque tiene evidencia o intuición de que "mover" esa variable cambia el resultado. Tú también puedes hacer eso con tu vida: identificar qué variables son palancas reales de tu bienestar y enfocarte en ellas.</em></div>
+  </div>
+
+  <!-- REFLEXIÓN 2 -->
+  <div class="reflexion-card">
+    <div class="r-num">2</div>
+    <div class="r-pregunta">¿Qué variables intervinientes te han alejado de tu objetivo sin que lo hayas notado?</div>
+    <p>Las variables intervinientes son aquellas que modifican el efecto de la causa sobre el resultado, sin ser la causa principal ni el resultado final. En la vida, hay circunstancias, creencias o emociones que "intervienen" entre lo que hacemos y lo que logramos: el miedo al fracaso que te hace estudiar de forma ansiosa en vez de profunda, un conflicto familiar que aparece justo en época de exámenes, la falta de sueño que reduce tu capacidad de concentración.</p>
+    <p><strong>Reflexiona:</strong> ¿Puedes identificar una situación en la que trabajaste o te esforzaste mucho (VI alta) pero no lograste el resultado esperado (VD baja)? ¿Qué factor intervino en medio de ese proceso?</p>
+    <div class="r-guia">🧠 <em>Conexión con inteligencia emocional: Reconocer las variables intervinientes de tu vida es un acto de autoconciencia. La inteligencia emocional (Goleman) incluye precisamente la capacidad de identificar qué emociones o circunstancias están "moderando" tu rendimiento, y gestionarlas.</em></div>
+  </div>
+
+  <!-- REFLEXIÓN 3 -->
+  <div class="reflexion-card">
+    <div class="r-num">3</div>
+    <div class="r-pregunta">¿En qué escala mides tu propio valor como persona?</div>
+    <p>En investigación, las escalas de medición determinan cuánta información capturamos sobre una variable. Hay escalas que solo clasifican (nominal), otras que ordenan (ordinal), y otras que miden con precisión y tienen un cero absoluto real (razón). Muchas personas usan escalas equivocadas para medirse a sí mismas:</p>
+    <ul>
+      <li>Quien dice "soy un fracasado" usa una escala nominal binaria (éxito/fracaso), descartando toda la riqueza del continuo.</li>
+      <li>Quien se compara constantemente con otros usa una escala ordinal ("soy mejor que X, pero peor que Y"), olvidando que esa escala no captura su valor intrínseco.</li>
+      <li>Quien se mide solo por sus calificaciones usa una sola variable para representar toda la complejidad de su ser.</li>
+    </ul>
+    <p><strong>Reflexiona:</strong> ¿Qué variables usas para medirte a ti mismo/a? ¿Son las más representativas de quién eres? ¿Cuáles variables importantes de ti mismo/a has estado ignorando o sub-midiendo?</p>
+    <div class="r-guia">🧠 <em>Conexión con autoestima: La autoestima saludable implica una autoevaluación multidimensional y justa. Así como en investigación buscamos medir con la escala más adecuada y el mayor número de variables relevantes, contigo mismo/a también mereces una medición justa, completa y compasiva.</em></div>
+  </div>
+
+  <!-- REFLEXIÓN 4 -->
+  <div class="reflexion-card">
+    <div class="r-num">4</div>
+    <div class="r-pregunta">¿Qué "variables confusoras" distorsionan tu percepción de los demás?</div>
+    <p>Una variable confusora hace que confundamos la causa real de algo con otra variable que solo está correlacionada. En las relaciones humanas ocurre lo mismo: a veces atribuimos el comportamiento de alguien a su carácter o intención, cuando en realidad hay un factor tercero que explica ese comportamiento (estrés, miedo, historia personal, contexto cultural).</p>
+    <p><strong>Reflexiona:</strong> ¿Puedes recordar una situación en la que juzgaste mal a alguien (o a ti mismo/a) porque no viste el "tercer factor" que explicaba el comportamiento? ¿Cómo cambió tu percepción cuando lo descubriste?</p>
+    <div class="r-guia">🧠 <em>Conexión con PNL (Programación Neurolingüística): En PNL existe el concepto de "reencuadre" (reframing): cambiar el marco con que interpretamos una situación. Ver una variable confusora equivale a reencuadrar: ya no vemos la causa donde no estaba, sino donde realmente está. Ese es un acto de madurez emocional y relacional.</em></div>
+  </div>
+
+  <!-- REFLEXIÓN 5 -->
+  <div class="reflexion-card">
+    <div class="r-num">5</div>
+    <div class="r-pregunta">¿Qué estudias cuando no estudias "Metodología de Investigación"?</div>
+    <p>Cada vez que observas un fenómeno que te llama la atención y te preguntas "¿por qué ocurre esto?", estás haciendo metodología de investigación. Cuando observas que cierto tipo de clima te afecta el ánimo, estás identificando una relación entre variables (clima → estado de ánimo). Cuando notas que rindes mejor después de desayunar bien, estás detectando una relación causal (desayuno → rendimiento). Cuando te das cuenta de que tu estado de ánimo afecta cómo percibes el mismo evento, estás identificando una variable moderadora (estado de ánimo modera la relación evento → percepción).</p>
+    <p><strong>Reflexiona:</strong> ¿Qué fenómeno de tu vida cotidiana (familiar, académico, social, económico) llevas tiempo observando sin poder explicar del todo? Descríbelo en términos de variables: ¿cuál sería la VI, la VD, y qué variables intervinientes o confusoras podrían estar actuando?</p>
+    <div class="r-guia">🧠 <em>Conexión con autoconocimiento: El autoconocimiento profundo no es otra cosa que investigación sobre uno mismo. Los grandes líderes, los terapeutas competentes y las personas emocionalmente maduras son, en cierta forma, investigadores de su propia experiencia: observan patrones, formulan hipótesis sobre sí mismos y ajustan sus comportamientos según lo que descubren. La metodología de investigación es una forma sistematizada de algo que los seres humanos hacemos naturalmente.</em></div>
+  </div>
+
+  <!-- REFLEXIÓN 6 -->
+  <div class="reflexion-card">
+    <div class="r-num">6</div>
+    <div class="r-pregunta">¿Cuál es la "variable dependiente" de tu proyecto de vida en este momento?</div>
+    <p>En investigación, la variable dependiente es el resultado que queremos lograr, el efecto que queremos observar. En tu proyecto de vida personal y profesional, también existe algo que quieres lograr: un estado que deseas alcanzar, una versión de ti mismo/a que quieres ser, un impacto que quieres tener en tu familia, comunidad o profesión.</p>
+    <p><strong>Reflexiona:</strong> Nombra con precisión (como haría un investigador con su VD) cuál es el resultado que más deseas en tu vida en este momento. Ahora identifica: ¿cuáles son las dos o tres variables independientes más importantes que, si las trabajas consistentemente, tienen más probabilidades de producir ese resultado? ¿Estás dedicando tu tiempo y energía a esas variables?</p>
+    <div class="r-guia">🧠 <em>Conexión con propósito y fe: En la tradición cristiana, uno de los grandes temas es la vocación: el llamado a ser y hacer algo específico. Identificar tu "variable dependiente" de vida es, de alguna forma, intentar nombrar ese llamado. Y reconocer las variables independientes que la producen es preguntarte: ¿en qué estoy sembrando? Porque toda cosecha (VD) depende de lo que se siembra (VI).</em></div>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="box-key">
+    <div class="box-title">🌱 Para cerrar esta reflexión</div>
+    <p>La Unidad III de este curso se llama "Planteamiento del Problema, Variables e Hipótesis". Pero en el fondo, lo que estamos aprendiendo es a nombrar con precisión lo que queremos entender y cambiar. Eso aplica tanto en la investigación científica como en la vida personal. Un investigador que no sabe qué mide, no puede descubrir nada. Una persona que no sabe qué valora ni hacia dónde quiere ir, tampoco. <strong>Nombrar tus variables —en la investigación y en la vida— es el primer paso hacia la transformación.</strong></p>
+  </div>
+</div>
+
+<!-- ============================= BIBLIOGRAFÍA ============================= -->
+<div id="tab-biblio" class="tab-content">
+  <h2>📚 Bibliografía</h2>
+  <p>Referencias utilizadas en este widget, presentadas en formato APA 7.ª edición. Todas las referencias son reales y verificables.</p>
+
+  <!-- REF 1 -->
+  <div class="bib-card">
+    <span class="bib-tipo tipo-libro">📖 Libro de texto</span>
+    <div class="bib-autores">Hernández Sampieri, R., Fernández Collado, C., y Baptista Lucio, M. P.</div>
+    <div class="bib-datos">(2014).</div>
+    <div class="bib-titulo">Metodología de la investigación (6.ª ed.).</div>
+    <div class="bib-datos">McGraw-Hill Education.</div>
+    <p style="font-size:13px; color:#555; margin-top:8px;">Referencia central del curso. Capítulos 7 y 8 desarrollan con extensión la conceptualización, clasificación y operacionalización de variables en el marco del proceso de investigación cuantitativa y mixta.</p>
+  </div>
+
+  <!-- REF 2 -->
+  <div class="bib-card">
+    <span class="bib-tipo tipo-libro">📖 Libro de texto</span>
+    <div class="bib-autores">Kerlinger, F. N., y Lee, H. B.</div>
+    <div class="bib-datos">(2002).</div>
+    <div class="bib-titulo">Investigación del comportamiento: Métodos de investigación en ciencias sociales (4.ª ed.).</div>
+    <div class="bib-datos">McGraw-Hill.</div>
+    <p style="font-size:13px; color:#555; margin-top:8px;">Texto clásico en metodología. Desarrolla con rigor la distinción entre variables independientes, dependientes, moderadoras y el concepto de control experimental. Fundamental para comprender la lógica de la causalidad en investigación social.</p>
+  </div>
+
+  <!-- REF 3 -->
+  <div class="bib-card">
+    <span class="bib-tipo tipo-articulo">📄 Artículo académico</span>
+    <div class="bib-autores">Stevens, S. S.</div>
+    <div class="bib-datos">(1946).</div>
+    <div class="bib-titulo">On the theory of scales of measurement.</div>
+    <div class="bib-datos"><em>Science, 103</em>(2684), 677–680. https://doi.org/10.1126/science.103.2684.677</div>
+    <p style="font-size:13px; color:#555; margin-top:8px;">Artículo seminal donde Stevens propone el sistema de cuatro escalas de medición (nominal, ordinal, intervalo y razón) que es el estándar universal en ciencias sociales y económicas hasta la actualidad.</p>
+  </div>
+
+  <!-- REF 4 -->
+  <div class="bib-card">
+    <span class="bib-tipo tipo-libro">📖 Libro de texto</span>
+    <div class="bib-autores">Bryman, A.</div>
+    <div class="bib-datos">(2016).</div>
+    <div class="bib-titulo">Social research methods (5.ª ed.).</div>
+    <div class="bib-datos">Oxford University Press.</div>
+    <p style="font-size:13px; color:#555; margin-top:8px;">Manual ampliamente utilizado en investigación social y económica. Proporciona claridad sobre la distinción entre variables cuantitativas y cualitativas, y su relación con los diseños de investigación mixtos.</p>
+  </div>
+
+  <!-- REF 5 -->
+  <div class="bib-card">
+    <span class="bib-tipo tipo-libro">📖 Libro de texto</span>
+    <div class="bib-autores">Creswell, J. W., y Creswell, J. D.</div>
+    <div class="bib-datos">(2018).</div>
+    <div class="bib-titulo">Research design: Qualitative, quantitative, and mixed methods approaches (5.ª ed.).</div>
+    <div class="bib-datos">SAGE Publications.</div>
+    <p style="font-size:13px; color:#555; margin-top:8px;">Referencia estándar en diseño de investigación. Especialmente útil para entender cómo las variables se conceptualizan de forma diferente en estudios cualitativos, cuantitativos y mixtos, y cómo se operacionalizan en instrumentos concretos.</p>
+  </div>
+
+  <!-- REF 6 -->
+  <div class="bib-card">
+    <span class="bib-tipo tipo-libro">📖 Libro de texto</span>
+    <div class="bib-autores">Babbie, E.</div>
+    <div class="bib-datos">(2016).</div>
+    <div class="bib-titulo">The practice of social research (14.ª ed.).</div>
+    <div class="bib-datos">Cengage Learning.</div>
+    <p style="font-size:13px; color:#555; margin-top:8px;">Texto clásico en metodología de investigación social. Aborda en detalle la conceptualización y operacionalización de variables, así como los criterios para establecer validez y confiabilidad en la medición.</p>
+  </div>
+
+  <!-- REF 7 -->
+  <div class="bib-card">
+    <span class="bib-tipo tipo-articulo">📄 Artículo académico</span>
+    <div class="bib-autores">Baron, R. M., y Kenny, D. A.</div>
+    <div class="bib-datos">(1986).</div>
+    <div class="bib-titulo">The moderator-mediator variable distinction in social psychological research: Conceptual, strategic, and statistical considerations.</div>
+    <div class="bib-datos"><em>Journal of Personality and Social Psychology, 51</em>(6), 1173–1182. https://doi.org/10.1037/0022-3514.51.6.1173</div>
+    <p style="font-size:13px; color:#555; margin-top:8px;">Artículo de referencia obligatoria para comprender la distinción entre variables moderadoras y mediadoras. Es uno de los artículos más citados en ciencias sociales y proporciona criterios operacionales precisos para identificar cada tipo.</p>
+  </div>
+
+  <!-- REF 8 -->
+  <div class="bib-card">
+    <span class="bib-tipo tipo-libro">📖 Libro de texto</span>
+    <div class="bib-autores">Arias, F. G.</div>
+    <div class="bib-datos">(2012).</div>
+    <div class="bib-titulo">El proyecto de investigación: Introducción a la metodología científica (6.ª ed.).</div>
+    <div class="bib-datos">Editorial Episteme.</div>
+    <p style="font-size:13px; color:#555; margin-top:8px;">Referencia latinoamericana ampliamente utilizada en universidades ecuatorianas y venezolanas. Su tratamiento de la clasificación de variables es claro, accesible y con ejemplos aplicados al contexto social latinoamericano.</p>
+  </div>
+
+  <div class="bib-nota">
+    ⚠️ <strong>Nota académica importante:</strong> Se recomienda verificar cada referencia en <strong>Google Scholar</strong> (<a href="https://scholar.google.com" target="_blank" style="color:#5d4037;">scholar.google.com</a>) o en el repositorio institucional de la Universidad de Guayaquil antes de citar en trabajos académicos. Las fechas de edición y datos editoriales pueden variar según la edición disponible en su biblioteca.
+  </div>
+</div>
+
+<!-- ============================= VOLVER A 11A ============================= -->
+<div id="tab-volver" class="tab-content">
+  <h2>← Volver a Semana 11A</h2>
+  <div class="box-key">
+    <div class="box-title">📁 Semana 11A contiene</div>
+    <ul>
+      <li>📋 Repaso de semanas anteriores (diagnóstico)</li>
+      <li>1. ¿Qué es una variable? (definición, diferencias con constante, criterios de calidad)</li>
+      <li>2. Variables por su rol (VI, VD, interviniente, control, extraña/confusora)</li>
+      <li>3. Variables por naturaleza (cuantitativas y cualitativas con todos sus subtipos)</li>
+      <li>4. Escalas de medición (nominal, ordinal, intervalo, razón)</li>
+      <li>5. Relaciones e interacción entre variables (esquemas con múltiples escenarios)</li>
+      <li>6. Ejercicio interactivo (8 ítems)</li>
+      <li>7. Cuestionario (10 preguntas con badges Teórica/Análisis)</li>
+    </ul>
+  </div>
+  <div style="text-align:center; margin-top:24px;">
+    <a href="semana11A_variables.html" style="display:inline-block; background:#003366; color:#fff; padding:14px 36px; border-radius:10px; text-decoration:none; font-weight:700; font-size:1.1rem; font-family:'Source Sans 3',sans-serif;">
+      ← Ir a Semana 11A
+    </a>
+  </div>
+</div>
+
+<!-- ============================= JAVASCRIPT ============================= -->
+<script>
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
