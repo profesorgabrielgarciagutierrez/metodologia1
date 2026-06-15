@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 14 — Herramientas de Gestión Bibliográfica | Metodología de la Investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* === RESET Y BASE === */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Sans 3', sans-serif; background: #f4f6f9; color: #1a1a2e; font-size: 16px; line-height: 1.7; }
+  h1, h2, h3, h4 { font-family: 'Lora', serif; }
+
+  /* === HEADER === */
+  .site-header { background: #003366; color: #fff; padding: 20px 30px; }
+  .site-header .inst { font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; opacity: .85; margin-bottom: 6px; }
+  .site-header h1 { font-size: 1.45rem; font-weight: 700; line-height: 1.3; }
+  .site-header .meta { margin-top: 8px; font-size: 0.82rem; opacity: .8; }
+  .badge-unit { display: inline-block; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35); border-radius: 20px; padding: 2px 12px; font-size: 0.75rem; margin-right: 8px; }
+
+  /* === TAB NAV === */
+  .tab-nav-wrapper { background: #87CEEB; overflow-x: auto; white-space: nowrap; border-bottom: 3px solid #003366; }
+  .tab-nav-wrapper::-webkit-scrollbar { height: 4px; } 
+  .tab-nav-wrapper::-webkit-scrollbar-track { background: #87CEEB; }
+  .tab-nav-wrapper::-webkit-scrollbar-thumb { background: #003366; border-radius: 2px; }
+  .tab-nav { display: inline-flex; padding: 0 10px; }
+  .tab-btn { display: inline-block; padding: 11px 18px; font-family: 'Source Sans 3', sans-serif; font-size: 0.82rem; font-weight: 600; color: #1a1a2e; background: transparent; border: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -3px; transition: all .2s; white-space: nowrap; }
+  .tab-btn:hover { background: rgba(0,51,102,.1); }
+  .tab-btn.active { background: #fff; color: #003366; font-weight: 700; border-bottom: 3px solid #003366; }
+
+  /* === CONTENT AREA === */
+  .tab-content { display: none; max-width: 960px; margin: 0 auto; padding: 30px 20px 50px; }
+  .tab-content.active { display: block; }
+
+  /* === CONCEPT BOX === */
+  .concept-box { border-left: 5px solid #003366; background: #fff; padding: 18px 22px; margin: 20px 0; border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,.07); }
+  .concept-box h4 { color: #003366; font-size: 1rem; margin-bottom: 8px; }
+
+  /* === EXAMPLE BOX === */
+  .example-box { background: #e8f4fd; border: 1px solid #b3d9f5; border-radius: 8px; padding: 18px 22px; margin: 20px 0; }
+  .example-box .ex-label { font-size: 0.78rem; font-weight: 700; color: #0066cc; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+
+  /* === KEY BOX === */
+  .key-box { background: #003366; color: #fff; border-radius: 8px; padding: 16px 22px; margin: 20px 0; }
+  .key-box h4 { font-family: 'Lora', serif; font-size: 1rem; margin-bottom: 6px; color: #87CEEB; }
+
+  /* === WARNING BOX === */
+  .warn-box { background: #fff8e1; border-left: 5px solid #f59e0b; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+
+  /* === TABLES === */
+  .styled-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.07); }
+  .styled-table th { background: #003366; color: #fff; padding: 12px 15px; text-align: left; font-family: 'Lora', serif; font-size: 0.88rem; }
+  .styled-table td { padding: 11px 15px; border-bottom: 1px solid #e5e9f0; vertical-align: top; }
+  .styled-table tr:last-child td { border-bottom: none; }
+  .styled-table tr:nth-child(even) td { background: #f7f9fc; }
+
+  /* === SECTION TITLES === */
+  .section-title { font-family: 'Lora', serif; font-size: 1.3rem; color: #003366; border-bottom: 2px solid #87CEEB; padding-bottom: 8px; margin: 28px 0 16px; }
+  .subsection-title { font-family: 'Lora', serif; font-size: 1.05rem; color: #003366; margin: 22px 0 10px; }
+
+  /* === STEP CARDS === */
+  .step-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 16px 0; }
+  .step-card { background: #fff; border: 1px solid #d0dcea; border-top: 4px solid #003366; border-radius: 8px; padding: 16px; }
+  .step-card .step-num { font-family: 'Lora', serif; font-size: 1.8rem; color: #87CEEB; font-weight: 700; }
+  .step-card h4 { font-size: 0.9rem; color: #003366; margin: 4px 0 6px; }
+  .step-card p { font-size: 0.85rem; color: #4a5568; }
+
+  /* === SOFT CARDS === */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 16px 0; }
+  .soft-card { background: #fff; border: 1px solid #d0dcea; border-radius: 10px; padding: 18px; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+  .soft-card .icon { font-size: 2rem; margin-bottom: 8px; }
+  .soft-card h4 { font-size: 0.95rem; color: #003366; margin-bottom: 6px; }
+  .soft-card p { font-size: 0.85rem; color: #4a5568; }
+
+  /* === INTERACTIVE === */
+  .ej-item { background: #fff; border: 2px solid #d0dcea; border-radius: 10px; padding: 18px 20px; margin: 14px 0; transition: border-color .2s; }
+  .ej-item.correct { border-color: #22c55e; background: #f0fdf4; }
+  .ej-item.incorrect { border-color: #ef4444; background: #fef2f2; }
+  .ej-item .ej-q { font-weight: 600; margin-bottom: 12px; color: #003366; }
+  .ej-item label { display: block; padding: 8px 12px; margin: 5px 0; border-radius: 6px; cursor: pointer; border: 1px solid #e5e9f0; transition: background .15s; font-size: 0.9rem; }
+  .ej-item label:hover { background: #e8f4fd; }
+  .ej-item label input { margin-right: 8px; }
+  .ej-feedback { display: none; margin-top: 10px; padding: 10px 14px; border-radius: 6px; font-size: 0.88rem; font-weight: 600; }
+  .ej-feedback.show { display: block; }
+  .ej-feedback.ok { background: #dcfce7; color: #15803d; }
+  .ej-feedback.fail { background: #fee2e2; color: #b91c1c; }
+
+  /* === QUIZ === */
+  .quiz-item { background: #fff; border: 2px solid #d0dcea; border-radius: 10px; padding: 18px 20px; margin: 14px 0; }
+  .quiz-item.correct { border-color: #22c55e; background: #f0fdf4; }
+  .quiz-item.incorrect { border-color: #ef4444; background: #fef2f2; }
+  .quiz-item .q-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+  .quiz-item .q-num { font-family: 'Lora', serif; font-size: 1.1rem; color: #87CEEB; background: #003366; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.8rem; font-weight: 700; }
+  .quiz-item .q-text { font-weight: 600; color: #1a1a2e; flex: 1; }
+  .badge { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 2px 9px; border-radius: 12px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+  .badge-t { background: #dbeafe; color: #1d4ed8; }
+  .badge-a { background: #fce7f3; color: #9d174d; }
+  .quiz-item label { display: block; padding: 8px 12px; margin: 5px 0; border-radius: 6px; cursor: pointer; border: 1px solid #e5e9f0; font-size: 0.9rem; }
+  .quiz-item label:hover { background: #e8f4fd; }
+  .quiz-item label input { margin-right: 8px; }
+  .q-feedback { display: none; margin-top: 10px; padding: 10px 14px; border-radius: 6px; font-size: 0.88rem; }
+  .q-feedback.show { display: block; }
+  .q-feedback.ok { background: #dcfce7; color: #15803d; font-weight: 600; }
+  .q-feedback.fail { background: #fee2e2; color: #b91c1c; }
+
+  /* === BUTTONS === */
+  .btn-verify { display: block; width: 100%; max-width: 340px; margin: 24px auto 0; padding: 14px 20px; background: #003366; color: #fff; font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; transition: background .2s; }
+  .btn-verify:hover { background: #004080; }
+  .btn-reset { display: block; width: 100%; max-width: 200px; margin: 14px auto 0; padding: 10px 16px; background: #6b7280; color: #fff; font-size: 0.9rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; }
+  .btn-reset:hover { background: #4b5563; }
+
+  /* === SCORE === */
+  .score-panel { display: none; background: #fff; border: 2px solid #003366; border-radius: 12px; padding: 26px; margin-top: 24px; text-align: center; }
+  .score-panel.show { display: block; }
+  .score-big { font-family: 'Lora', serif; font-size: 3rem; color: #003366; font-weight: 700; }
+  .score-emoji { font-size: 2.5rem; margin: 8px 0; }
+  .score-msg { font-size: 1rem; color: #4a5568; margin-top: 6px; }
+  .progress-bar-wrap { background: #e5e9f0; border-radius: 20px; height: 18px; margin: 16px 0; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 20px; background: linear-gradient(90deg, #003366, #0066cc); transition: width 1s ease; }
+
+  /* === AI ACTIVITY === */
+  .ai-box { background: #fff; border: 2px dashed #003366; border-radius: 10px; padding: 22px; margin: 16px 0; }
+  .ai-prompt { background: #1a1a2e; color: #87CEEB; font-family: monospace; font-size: 0.88rem; padding: 18px; border-radius: 8px; white-space: pre-wrap; line-height: 1.6; margin: 14px 0; }
+
+  /* === REFLECTION === */
+  .refl-card { background: #fff; border-radius: 10px; padding: 20px; margin: 14px 0; border-left: 5px solid #87CEEB; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+  .refl-card h4 { color: #003366; font-family: 'Lora', serif; margin-bottom: 8px; }
+
+  /* === BIBLIO === */
+  .bib-card { background: #fff; border-radius: 10px; padding: 16px 20px; margin: 12px 0; box-shadow: 0 2px 6px rgba(0,0,0,.06); border-top: 4px solid #003366; }
+  .bib-card .bib-author { font-size: 0.78rem; color: #6b7280; text-transform: uppercase; letter-spacing: .5px; }
+  .bib-card .bib-title { font-style: italic; color: #003366; font-weight: 600; margin: 4px 0; }
+  .bib-card .bib-detail { font-size: 0.85rem; color: #4a5568; }
+  .bib-note { background: #fff8e1; border: 1px solid #f59e0b; border-radius: 8px; padding: 14px 18px; margin-top: 20px; font-size: 0.85rem; color: #5c4a00; }
+
+  /* === TOOL COMPARISON === */
+  .tool-icon { font-size: 1.5rem; margin-right: 6px; vertical-align: middle; }
+  .highlight { background: #fff3cd; padding: 1px 4px; border-radius: 3px; font-weight: 600; }
+
+  @media (max-width: 600px) {
+    .site-header h1 { font-size: 1.15rem; }
+    .tab-btn { font-size: 0.76rem; padding: 9px 13px; }
+    .step-grid, .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="inst">Universidad de Guayaquil &bull; Facultad de Ciencias Administrativas &bull; Carrera de Contabilidad y Auditoría</div>
+  <h1>Semana 14 — Herramientas para la Gestión Bibliográfica<br>Aplicación de Estilos de Citas y Referenciación</h1>
+  <div class="meta">
+    <span class="badge-unit">Unidad 4</span>
+    <span class="badge-unit">Metodología de la Investigación</span>
+    <span class="badge-unit">Ciclo I · 2026</span>
+  </div>
+</header>
+
+<!-- TAB NAV -->
+<div class="tab-nav-wrapper">
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('repaso')">📋 Repaso</button>
+    <button class="tab-btn" onclick="showTab('t1')">📂 Tema 1</button>
+    <button class="tab-btn" onclick="showTab('t2')">📐 Tema 2</button>
+    <button class="tab-btn" onclick="showTab('t3')">✍️ Tema 3</button>
+    <button class="tab-btn" onclick="showTab('t4')">🔗 Tema 4</button>
+    <button class="tab-btn" onclick="showTab('ejercicio')">🧩 Ejercicio</button>
+    <button class="tab-btn" onclick="showTab('cuestionario')">📝 Cuestionario</button>
+    <button class="tab-btn" onclick="showTab('ia')">🤖 Act. con IA</button>
+    <button class="tab-btn" onclick="showTab('reflexion')">💭 Reflexión</button>
+    <button class="tab-btn" onclick="showTab('biblio')">📚 Bibliografía</button>
+  </nav>
+</div>
+
+<!-- ===================== REPASO ===================== -->
+<section id="tab-repaso" class="tab-content active">
+  <h2 class="section-title">📋 Repaso — Unidad 4 (Semanas anteriores)</h2>
+  <p>Esta sección te sitúa en el contexto del semestre para que conectes los temas previos con lo que aprenderás hoy.</p>
+
+  <h3 class="subsection-title">Unidades I, II y III — Síntesis del Primer Parcial</h3>
+  <div class="concept-box">
+    <h4>¿Dónde hemos estado?</h4>
+    <p>En las primeras 12 semanas construiste una base sólida para investigar: aprendiste qué es el conocimiento científico (Semanas 1–4), cómo se diseña una investigación según el enfoque cuantitativo, cualitativo o mixto (Semanas 5–7), y cómo se plantea un problema, se formulan variables y se construyen hipótesis (Semanas 9–12). Todo ese andamiaje lleva a una pregunta práctica: <strong>¿cómo encuentro, organizo y cito la literatura científica que sostiene mi investigación?</strong> Eso es exactamente lo que aborda la Unidad 4.</p>
+  </div>
+
+  <h3 class="subsection-title">Semana 13 — Bases de Datos Científicas y Repositorios</h3>
+  <p>La semana pasada aprendiste que la comunidad científica no publica sus hallazgos en redes sociales o Wikipedia: los publica en <strong>revistas indexadas</strong> y los organiza en <strong>bases de datos especializadas</strong>. Revisaste herramientas como:</p>
+  <table class="styled-table">
+    <tr><th>Recurso</th><th>¿Qué contiene?</th><th>Acceso</th></tr>
+    <tr><td><strong>Google Scholar</strong></td><td>Artículos, tesis, libros académicos de todo el mundo</td><td>Gratuito</td></tr>
+    <tr><td><strong>Scopus</strong></td><td>Revistas científicas indexadas de alto impacto</td><td>Pago / institucional</td></tr>
+    <tr><td><strong>LATINDEX</strong></td><td>Revistas académicas latinoamericanas</td><td>Gratuito</td></tr>
+    <tr><td><strong>REDIB</strong></td><td>Repositorio iberoamericano de ciencia y tecnología</td><td>Gratuito</td></tr>
+    <tr><td><strong>Repositorio U. Guayaquil</strong></td><td>Tesis y trabajos de investigación de la institución</td><td>Gratuito</td></tr>
+  </table>
+  <div class="key-box">
+    <h4>💡 Idea clave de la Semana 13</h4>
+    <p>Saber dónde buscar es tan importante como saber qué buscar. Un investigador que solo usa fuentes de internet genéricas (sitios web sin autoría, blogs, Wikipedia) debilita la credibilidad de su trabajo. Las bases de datos científicas garantizan que las fuentes han pasado por revisión de pares (<em>peer review</em>), es decir, expertos independientes validaron su calidad.</p>
+  </div>
+
+  <h3 class="subsection-title">Hoy — Semana 14: ¿Qué viene?</h3>
+  <p>Una vez que encontraste tus fuentes, enfrentas dos nuevos desafíos:</p>
+  <div class="step-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <h4>Organizar las referencias</h4>
+      <p>¿Cómo guardo y administro docenas de artículos sin perder ninguno? → <strong>Gestores bibliográficos</strong></p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <h4>Citar correctamente</h4>
+      <p>¿Cómo indico dentro del texto de quién tomé cada idea? → <strong>Estilos de citación</strong> (APA, Vancouver, IEEE…)</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <h4>Referenciar al final</h4>
+      <p>¿Cómo construyo la lista de referencias al final de mi trabajo siguiendo las normas? → <strong>Formatos de referencia</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TEMA 1 ===================== -->
+<section id="tab-t1" class="tab-content">
+  <h2 class="section-title">📂 Tema 1 — ¿Por qué gestionar las referencias bibliográficas?</h2>
+
+  <div class="concept-box">
+    <h4>Definición: Gestión bibliográfica</h4>
+    <p>La <strong>gestión bibliográfica</strong> es el proceso de recopilar, organizar, almacenar y dar formato a las fuentes de información (libros, artículos, tesis, páginas web académicas) que el investigador utiliza en su trabajo. No se trata solo de guardar links o fotocopias: implica mantener un registro estructurado que permita localizar cualquier fuente en segundos y convertirla automáticamente en el formato de cita exigido.</p>
+  </div>
+
+  <h3 class="subsection-title">El problema real: ¿qué le pasa a Sofía sin gestión bibliográfica?</h3>
+  <div class="example-box">
+    <div class="ex-label">🎓 Caso Sofía — Universidad de Guayaquil</div>
+    <p>Sofía está escribiendo su proyecto de investigación sobre evasión tributaria en el Ecuador para su carrera de Contabilidad y Auditoría. Ha leído 35 artículos durante tres semanas. Los guardó en una carpeta del escritorio llamada "cosas útiles". El día antes de la entrega, su docente le pide que incluya la lista de referencias en formato APA 7.ª edición.</p>
+    <p style="margin-top:10px">Sofía abre los 35 archivos uno por uno, copia los títulos a mano, busca a los autores, intenta recordar en qué revista estaba cada uno… En cuatro horas logra armar solo 12 referencias y muchas tienen errores. Pierde puntos y, peor aún, tiempo que podría haber dedicado al análisis.</p>
+    <p style="margin-top:10px"><strong>¿Qué hubiera pasado si Sofía usaba un gestor bibliográfico desde el primer día?</strong> Habría generado las 35 referencias en formato APA en menos de 3 minutos, con un clic.</p>
+  </div>
+
+  <h3 class="subsection-title">¿Por qué es obligatorio en la academia?</h3>
+  <table class="styled-table">
+    <tr><th>Razón</th><th>Consecuencia de ignorarla</th></tr>
+    <tr><td><strong>Evitar el plagio</strong>: toda idea tomada de otro autor debe citarse</td><td>Sanción académica, anulación del trabajo</td></tr>
+    <tr><td><strong>Dar crédito intelectual</strong>: los autores originales merecen reconocimiento</td><td>Violación de derechos de autor</td></tr>
+    <tr><td><strong>Permitir la verificación</strong>: el lector debe poder localizar cada fuente</td><td>Pérdida de credibilidad del trabajo</td></tr>
+    <tr><td><strong>Demostrar rigor científico</strong>: una investigación sin referencias sólidas es débil</td><td>Rechazo en revistas, tribunales o defensas</td></tr>
+    <tr><td><strong>Ahorro de tiempo</strong>: los gestores automatizan el formato</td><td>Horas perdidas en formato manual con errores</td></tr>
+  </table>
+
+  <h3 class="subsection-title">El ciclo de la gestión bibliográfica</h3>
+  <div class="step-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h4>Buscar</h4>
+      <p>Localizas fuentes en bases de datos (Google Scholar, Scopus, LATINDEX)</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h4>Importar</h4>
+      <p>Añades la referencia al gestor (manual o con un clic desde la base de datos)</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h4>Organizar</h4>
+      <p>Clasificas por tema, año, proyecto o etiquetas personalizadas</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <h4>Citar</h4>
+      <p>Insertas citas en tu texto con el formato requerido automáticamente</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">5</div>
+      <h4>Referenciar</h4>
+      <p>Generas la lista de referencias final con un solo botón</p>
+    </div>
+  </div>
+
+  <div class="key-box">
+    <h4>💡 Idea clave</h4>
+    <p>La gestión bibliográfica no es un trámite burocrático: es una habilidad profesional. Un contador o auditor que investiga —ya sea para una tesis, un informe para la Contraloría General del Estado o un artículo académico— necesita dominar esta habilidad para producir documentos creíbles, rastreables y éticos.</p>
+  </div>
+</section>
+
+<!-- ===================== TEMA 2 ===================== -->
+<section id="tab-t2" class="tab-content">
+  <h2 class="section-title">📐 Tema 2 — Herramientas para la Gestión Bibliográfica</h2>
+  <p>Los <strong>gestores bibliográficos</strong> (también llamados gestores de referencias) son programas o aplicaciones que permiten almacenar, organizar y dar formato a referencias de manera automatizada. Existen varios; los más importantes para un estudiante universitario ecuatoriano son los siguientes:</p>
+
+  <h3 class="subsection-title">Zotero — El gestor gratuito por excelencia</h3>
+  <div class="soft-card" style="margin: 16px 0; max-width: 100%;">
+    <div class="icon">🟦</div>
+    <h4>Zotero (zotero.org)</h4>
+    <p>Software de código abierto y gratuito, disponible para Windows, Mac y Linux. Es el más recomendado en universidades latinoamericanas porque no requiere pago y tiene una extensión para el navegador que importa referencias desde Google Scholar con un solo clic.</p>
+  </div>
+
+  <table class="styled-table">
+    <tr><th>Función</th><th>¿Cómo se usa en Zotero?</th></tr>
+    <tr><td>Importar desde Google Scholar</td><td>Con el conector de navegador (Zotero Connector), aparece un ícono en la barra del navegador. Un clic guarda el artículo completo con todos sus metadatos.</td></tr>
+    <tr><td>Organizar por carpetas</td><td>Creas colecciones por tema: "Evasión tributaria", "SRI Ecuador", "Auditoría forense".</td></tr>
+    <tr><td>Adjuntar el PDF</td><td>Puedes adjuntar el archivo PDF a cada referencia para no perder el documento original.</td></tr>
+    <tr><td>Generar bibliografía en APA</td><td>Seleccionas las referencias, clic derecho → "Crear bibliografía" → eliges APA 7.ª → copia automática al portapapeles.</td></tr>
+    <tr><td>Insertar citas en Word</td><td>El plugin de Zotero para Microsoft Word inserta citas "(Autor, año)" con un clic y actualiza la lista de referencias automáticamente.</td></tr>
+  </table>
+
+  <div class="example-box">
+    <div class="ex-label">🇪🇨 Ejemplo Ecuador — Carrera de Contabilidad y Auditoría</div>
+    <p>La estudiante Sofía busca en Google Scholar el artículo: <em>"Evasión tributaria en el Ecuador: análisis del comportamiento del contribuyente"</em>. Aparece el ícono de Zotero en la barra del navegador. Hace clic: Zotero captura automáticamente el autor, año, nombre de la revista, volumen, páginas y DOI (Identificador de Objeto Digital). Cuando llega a construir su marco teórico, Sofía ya tiene 40 referencias perfectamente organizadas y genera su bibliografía en APA en 30 segundos.</p>
+  </div>
+
+  <h3 class="subsection-title">Mendeley — El gestor de Elsevier</h3>
+  <div class="soft-card" style="margin: 16px 0; max-width: 100%;">
+    <div class="icon">🔴</div>
+    <h4>Mendeley (mendeley.com)</h4>
+    <p>Desarrollado por la editorial científica Elsevier. Tiene versión gratuita y de pago. Incluye red social académica para compartir investigaciones con otros investigadores del mundo. Muy popular en ciencias sociales y económicas.</p>
+  </div>
+
+  <h3 class="subsection-title">Comparativa de los principales gestores</h3>
+  <table class="styled-table">
+    <tr><th>Gestor</th><th>Costo</th><th>Formatos de cita</th><th>Plugin Word</th><th>Almac. en nube</th><th>Ideal para…</th></tr>
+    <tr><td><strong>Zotero</strong></td><td>🟢 Gratuito</td><td>APA, Vancouver, IEEE, Chicago y más de 9.000</td><td>✅ Sí</td><td>300 MB gratis</td><td>Estudiantes universitarios</td></tr>
+    <tr><td><strong>Mendeley</strong></td><td>🟡 Freemium</td><td>APA, Harvard, Vancouver y cientos más</td><td>✅ Sí</td><td>2 GB gratis</td><td>Investigadores en redes académicas</td></tr>
+    <tr><td><strong>EndNote</strong></td><td>🔴 Pago</td><td>Más de 6.000 estilos</td><td>✅ Sí</td><td>Sí</td><td>Investigadores institucionales</td></tr>
+    <tr><td><strong>BibTeX</strong></td><td>🟢 Gratuito</td><td>Personalizable</td><td>Solo LaTeX</td><td>No</td><td>Ciencias exactas / LaTeX</td></tr>
+    <tr><td><strong>Google Scholar</strong></td><td>🟢 Gratuito</td><td>APA, MLA, ISO 690</td><td>❌ No</td><td>No</td><td>Citas rápidas sin gestor</td></tr>
+  </table>
+
+  <div class="warn-box">
+    <strong>⚠️ Importante:</strong> Google Scholar genera citas automáticas, pero con frecuencia comete errores (nombres mal escritos, años incorrectos, falta de información). Siempre verifica cada campo antes de usar una cita generada automáticamente por Google Scholar.
+  </div>
+
+  <h3 class="subsection-title">¿Cómo instalar y usar Zotero paso a paso?</h3>
+  <div class="step-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h4>Descarga</h4>
+      <p>Ve a zotero.org y descarga la versión para tu sistema operativo. Es completamente gratuito.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h4>Instala el Conector</h4>
+      <p>Instala también "Zotero Connector" como extensión en tu navegador Chrome, Firefox o Edge.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h4>Crea colecciones</h4>
+      <p>Organiza carpetas por tema de investigación: "Tributación Ecuador", "Auditoría SEPS", etc.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <h4>Importa referencias</h4>
+      <p>Busca en Google Scholar y haz clic en el ícono del conector para guardar automáticamente.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">5</div>
+      <h4>Instala plugin Word</h4>
+      <p>En Zotero: Editar → Preferencias → Procesadores de texto → instalar plugin para Word.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">6</div>
+      <h4>Genera bibliografía</h4>
+      <p>Selecciona todas las referencias, clic derecho, "Crear bibliografía desde ítems", elige APA 7.ª.</p>
+    </div>
+  </div>
+
+  <div class="key-box">
+    <h4>💡 Idea clave</h4>
+    <p>Para un estudiante ecuatoriano de Contabilidad y Auditoría, la recomendación es clara: <strong>comienza con Zotero</strong>. Es gratuito, compatible con Word, soporta APA 7.ª (el estilo exigido en la mayoría de universidades del Ecuador) y tiene comunidad hispanohablante de soporte.</p>
+  </div>
+</section>
+
+<!-- ===================== TEMA 3 ===================== -->
+<section id="tab-t3" class="tab-content">
+  <h2 class="section-title">✍️ Tema 3 — Estilos de Citación: ¿Qué son y por qué existen distintos?</h2>
+
+  <div class="concept-box">
+    <h4>Definición: Estilo de citación</h4>
+    <p>Un <strong>estilo de citación</strong> (también llamado estilo de referenciación) es un conjunto de reglas estandarizadas que indica cómo se debe presentar la información sobre una fuente dentro del texto (cita in-text) y al final del documento (lista de referencias). Estas reglas especifican el orden de los elementos, la puntuación, el uso de cursivas, mayúsculas y la estructura de cada tipo de fuente (libro, artículo, tesis, página web, etc.).</p>
+  </div>
+
+  <p>Distintas disciplinas académicas adoptaron distintos estilos porque tienen necesidades diferentes de información. Un médico necesita saber en qué año se publicó un tratamiento; un abogado necesita la página exacta del texto legal; un humanista necesita la editorial y la ciudad. Por eso existen varios estilos.</p>
+
+  <h3 class="subsection-title">Los principales estilos de citación en el mundo académico</h3>
+  <table class="styled-table">
+    <tr><th>Estilo</th><th>Área disciplinar</th><th>Formato de cita in-text</th><th>Organización bibliografía</th></tr>
+    <tr><td><strong>APA 7.ª</strong> (American Psychological Association)</td><td>Ciencias sociales, educación, psicología, administración</td><td>(Apellido, año)</td><td>Orden alfabético por apellido</td></tr>
+    <tr><td><strong>Vancouver</strong></td><td>Medicina, ciencias de la salud</td><td>Número entre corchetes [1]</td><td>Orden de aparición en el texto</td></tr>
+    <tr><td><strong>IEEE</strong> (Institute of Electrical and Electronics Engineers)</td><td>Ingeniería, informática, tecnología</td><td>Número entre corchetes [1]</td><td>Orden de aparición</td></tr>
+    <tr><td><strong>Chicago / Turabian</strong></td><td>Historia, humanidades, ciencias sociales</td><td>Notas al pie con número</td><td>Bibliografía al final</td></tr>
+    <tr><td><strong>MLA</strong> (Modern Language Association)</td><td>Literatura, lenguas, humanidades</td><td>(Apellido página)</td><td>Works Cited al final</td></tr>
+    <tr><td><strong>Harvard</strong></td><td>Ciencias naturales, ciencias sociales (UK)</td><td>(Apellido, año)</td><td>Orden alfabético</td></tr>
+  </table>
+
+  <div class="example-box">
+    <div class="ex-label">🇪🇨 ¿Qué estilo usa la Universidad de Guayaquil?</div>
+    <p>La <strong>Facultad de Ciencias Administrativas</strong> y la mayoría de facultades de Ciencias Sociales y Económicas del Ecuador exigen el estilo <strong>APA en su 7.ª edición</strong> (publicada en 2020). Esto incluye las tesis de grado, los proyectos de investigación y los artículos académicos. Debes aplicarlo en todos tus trabajos de investigación mientras estés en la carrera.</p>
+  </div>
+
+  <h3 class="subsection-title">Diferencia fundamental: cita vs. referencia</h3>
+  <div class="card-grid">
+    <div class="soft-card">
+      <div class="icon">📌</div>
+      <h4>Cita (in-text citation)</h4>
+      <p>Es la indicación breve que aparece <strong>dentro del cuerpo del texto</strong>, inmediatamente después de la idea tomada del autor. Ejemplo: <em>(García, 2022)</em> o <em>(García, 2022, p. 45)</em>. Su función es indicarle al lector "esta idea no es mía, es de García".</p>
+    </div>
+    <div class="soft-card">
+      <div class="icon">📋</div>
+      <h4>Referencia (reference list)</h4>
+      <p>Es la información completa de la fuente que aparece <strong>al final del documento</strong>, en la sección "Referencias". Permite al lector localizar la fuente original. Debe incluir autor, año, título, editorial, DOI o URL, según el tipo de fuente.</p>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <strong>⚠️ Error frecuente:</strong> Muchos estudiantes confunden "bibliografía" con "referencias". En APA, se habla de <strong>Lista de Referencias</strong> (solo incluye las fuentes efectivamente citadas en el texto). La <strong>bibliografía</strong> puede incluir fuentes consultadas pero no citadas. En trabajos académicos ecuatorianos bajo APA, se usa "Referencias".
+  </div>
+
+  <div class="key-box">
+    <h4>💡 Idea clave</h4>
+    <p>Citar correctamente no es solo cumplir una formalidad: es la práctica que distingue al investigador honesto del que plagia. En el Ecuador, la Ley de Educación Superior (LOES) y los reglamentos de titulación exigen que todo trabajo académico sea original y bien referenciado. El incumplimiento puede derivar en la anulación del título.</p>
+  </div>
+</section>
+
+<!-- ===================== TEMA 4 ===================== -->
+<section id="tab-t4" class="tab-content">
+  <h2 class="section-title">🔗 Tema 4 — Aplicación Práctica del Estilo APA 7.ª Edición</h2>
+  <p>El estilo APA 7.ª edición es el estándar académico en las Ciencias Sociales y Administrativas del Ecuador. En este tema aprenderás exactamente cómo aplicarlo para los tipos de fuentes más comunes en Contabilidad y Auditoría.</p>
+
+  <h3 class="subsection-title">Estructura de una cita APA in-text (dentro del texto)</h3>
+  <table class="styled-table">
+    <tr><th>Situación</th><th>Formato APA</th><th>Ejemplo</th></tr>
+    <tr><td>Un autor, parafraseo</td><td>(Apellido, año)</td><td><em>La evasión tributaria afecta directamente los ingresos del Estado (Carrasco, 2021).</em></td></tr>
+    <tr><td>Un autor, cita textual</td><td>(Apellido, año, p. XX)</td><td><em>"El SRI recaudó $15.000 millones en 2022" (Morales, 2023, p. 34).</em></td></tr>
+    <tr><td>Dos autores</td><td>(Apellido1 y Apellido2, año)</td><td><em>(Torres y Vega, 2020)</em></td></tr>
+    <tr><td>Tres o más autores</td><td>(Primer apellido et al., año)</td><td><em>(Hernández et al., 2014)</em></td></tr>
+    <tr><td>Organización como autor</td><td>(Sigla, año) — primera vez nombre completo</td><td><em>(Servicio de Rentas Internas [SRI], 2023)</em> → luego <em>(SRI, 2023)</em></td></tr>
+    <tr><td>Sin fecha</td><td>(Apellido, s.f.)</td><td><em>(García, s.f.)</em></td></tr>
+  </table>
+
+  <h3 class="subsection-title">Estructura de las Referencias APA 7.ª — Los tipos más comunes</h3>
+
+  <div class="concept-box">
+    <h4>Libro impreso o digital</h4>
+    <p><strong>Apellido, I. (Año). <em>Título del libro en cursiva</em>. Editorial.</strong></p>
+    <p style="margin-top:8px">Ejemplo: Hernández-Sampieri, R., Fernández-Collado, C., y Baptista-Lucio, P. (2014). <em>Metodología de la investigación</em> (6.ª ed.). McGraw-Hill.</p>
+  </div>
+
+  <div class="concept-box">
+    <h4>Artículo de revista científica (con DOI)</h4>
+    <p><strong>Apellido, I. (Año). Título del artículo. <em>Nombre de la Revista en Cursiva</em>, volumen(número), páginas iniciales-finales. https://doi.org/XXXXX</strong></p>
+    <p style="margin-top:8px">Ejemplo: Andrade, M., y Ponce, J. (2021). Evasión tributaria y sus efectos en la recaudación del SRI. <em>Revista Económica del Ecuador</em>, 12(3), 45–62. https://doi.org/10.xxxx/xxx</p>
+  </div>
+
+  <div class="concept-box">
+    <h4>Tesis de grado o posgrado</h4>
+    <p><strong>Apellido, I. (Año). <em>Título de la tesis en cursiva</em> [Tipo de tesis, Nombre de la universidad]. Repositorio URL.</strong></p>
+    <p style="margin-top:8px">Ejemplo: Salazar, K. (2022). <em>Análisis de la elusión fiscal en empresas del sector bananero ecuatoriano</em> [Tesis de grado, Universidad de Guayaquil]. Repositorio UG. http://repositorio.ug.edu.ec/...</p>
+  </div>
+
+  <div class="concept-box">
+    <h4>Documento institucional (SRI, Contraloría, Superintendencia)</h4>
+    <p><strong>Nombre Completo de la Institución. (Año). <em>Título del documento</em>. URL.</strong></p>
+    <p style="margin-top:8px">Ejemplo: Servicio de Rentas Internas. (2023). <em>Estadísticas de recaudación tributaria 2022</em>. https://www.sri.gob.ec/estadisticas</p>
+  </div>
+
+  <div class="concept-box">
+    <h4>Página web o recurso en línea</h4>
+    <p><strong>Apellido, I. (Año, día de mes). <em>Título de la página</em>. Nombre del sitio. URL.</strong></p>
+    <p style="margin-top:8px">Ejemplo: Contraloría General del Estado. (2023, 15 de marzo). <em>Informe de auditoría al GAD Municipal de Guayaquil</em>. Contraloría General del Estado. https://www.contraloria.gob.ec/...</p>
+  </div>
+
+  <h3 class="subsection-title">Cambios clave APA 7.ª vs. APA 6.ª (edición anterior)</h3>
+  <table class="styled-table">
+    <tr><th>Aspecto</th><th>APA 6.ª (anterior)</th><th>APA 7.ª (actual ✅)</th></tr>
+    <tr><td>Tres o más autores</td><td>Se listaban todos en la primera cita</td><td>Siempre "et al." desde la primera cita</td></tr>
+    <tr><td>Lugar de publicación</td><td>Se incluía ciudad y país del libro</td><td>Ya NO se incluye el lugar de publicación</td></tr>
+    <tr><td>DOI (enlace permanente)</td><td>Formato: doi:10.xxxx</td><td>Formato: https://doi.org/10.xxxx</td></tr>
+    <tr><td>Edición del libro</td><td>(6ta ed.)</td><td>(6.ª ed.) — con ordinal femenino</td></tr>
+    <tr><td>Running head</td><td>Obligatorio en todos los documentos</td><td>Solo en manuscritos enviados a revistas</td></tr>
+  </table>
+
+  <h3 class="subsection-title">Reglas de formato de la Lista de Referencias APA</h3>
+  <div class="step-grid">
+    <div class="step-card">
+      <div class="step-num">R1</div>
+      <h4>Orden alfabético</h4>
+      <p>Se ordenan por el primer apellido del autor. Si no hay autor, se usa el título.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">R2</div>
+      <h4>Sangría francesa</h4>
+      <p>La primera línea va al margen izquierdo. Las líneas siguientes llevan sangría de 1,27 cm (media pulgada).</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">R3</div>
+      <h4>Doble espacio</h4>
+      <p>Todo el texto de la lista de referencias va a doble espacio, sin espacio adicional entre entradas.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">R4</div>
+      <h4>Título en cursiva</h4>
+      <p>El título del libro o revista va en cursiva. El título del artículo va en texto normal.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">R5</div>
+      <h4>DOI siempre</h4>
+      <p>Si el artículo tiene DOI (Digital Object Identifier), siempre debe incluirse como enlace https://doi.org/…</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">R6</div>
+      <h4>Solo obras citadas</h4>
+      <p>La lista de referencias APA solo incluye las obras que sí citaste en el texto, no lecturas adicionales.</p>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="ex-label">🇪🇨 Contexto Ecuador — Fuentes institucionales frecuentes en C&A</div>
+    <p>En Contabilidad y Auditoría, las fuentes más citadas incluyen documentos del <strong>SRI</strong> (normativa tributaria), la <strong>Contraloría General del Estado</strong> (normas de auditoría gubernamental), la <strong>Superintendencia de Compañías</strong> (regulación societaria), la <strong>SEPS</strong> (economía popular y solidaria), el <strong>IESS</strong> (seguridad social) y el <strong>BanEcuador</strong> (financiamiento). Todas se citan como autor institucional en APA.</p>
+  </div>
+
+  <div class="key-box">
+    <h4>💡 Idea clave</h4>
+    <p>Aplicar el estilo APA 7.ª correctamente demuestra que eres parte de la comunidad científica. Cada punto, coma, cursiva y orden en las referencias tiene un propósito: garantizar que cualquier persona del mundo pueda localizar tu fuente. Con Zotero, este proceso se automatiza, pero debes entender la lógica para detectar y corregir errores.</p>
+  </div>
+</section>
+
+<!-- ===================== EJERCICIO INTERACTIVO ===================== -->
+<section id="tab-ejercicio" class="tab-content">
+  <h2 class="section-title">🧩 Ejercicio Interactivo — Identifica el Formato Correcto</h2>
+  <p>Lee cada situación y selecciona la opción que aplica correctamente el estilo APA 7.ª edición o el uso correcto de los gestores bibliográficos. Responde <strong>todos los ítems</strong> antes de verificar.</p>
+
+  <!-- ÍTEM 1 -->
+  <div class="ej-item" id="ei1-item">
+    <div class="ej-q">1. Sofía tiene un libro escrito por Roberto Andrade publicado en 2020 titulado "Tributación en el Ecuador". ¿Cuál es la cita in-text correcta en APA 7.ª?</div>
+    <label><input type="radio" name="ei1" value="a"> A) [Andrade, 2020]</label>
+    <label><input type="radio" name="ei1" value="b"> B) (Andrade, 2020)</label>
+    <label><input type="radio" name="ei1" value="c"> C) Andrade (2020)</label>
+    <label><input type="radio" name="ei1" value="d"> D) Andrade, R. 2020</label>
+    <div class="ej-feedback" id="ei1-fb"></div>
+  </div>
+
+  <!-- ÍTEM 2 -->
+  <div class="ej-item" id="ei2-item">
+    <div class="ej-q">2. ¿Cuál de estas referencias de libro está correctamente formateada en APA 7.ª?</div>
+    <label><input type="radio" name="ei2" value="a"> A) Hernández, R. (2014). Metodología de la investigación. México D.F.: McGraw-Hill.</label>
+    <label><input type="radio" name="ei2" value="b"> B) Hernández-Sampieri, R., Fernández-Collado, C., y Baptista-Lucio, P. (2014). <em>Metodología de la investigación</em> (6.ª ed.). McGraw-Hill.</label>
+    <label><input type="radio" name="ei2" value="c"> C) Hernández R, Fernández C, Baptista P. Metodología de la investigación 6.ª ed. McGraw-Hill. 2014.</label>
+    <label><input type="radio" name="ei2" value="d"> D) R. Hernández-Sampieri (2014) – Metodología de la investigación – McGraw-Hill – México.</label>
+    <div class="ej-feedback" id="ei2-fb"></div>
+  </div>
+
+  <!-- ÍTEM 3 -->
+  <div class="ej-item" id="ei3-item">
+    <div class="ej-q">3. Un artículo tiene cuatro autores: Vega, Torres, Mora y Ríos, publicado en 2022. ¿Cómo se cita en APA 7.ª desde la primera mención?</div>
+    <label><input type="radio" name="ei3" value="a"> A) (Vega, Torres, Mora y Ríos, 2022)</label>
+    <label><input type="radio" name="ei3" value="b"> B) (Vega et al., 2022)</label>
+    <label><input type="radio" name="ei3" value="c"> C) (Vega, Torres, et al., 2022)</label>
+    <label><input type="radio" name="ei3" value="d"> D) (Vega y otros, 2022)</label>
+    <div class="ej-feedback" id="ei3-fb"></div>
+  </div>
+
+  <!-- ÍTEM 4 -->
+  <div class="ej-item" id="ei4-item">
+    <div class="ej-q">4. ¿Cuál herramienta es completamente GRATUITA, genera bibliografías en APA 7.ª, tiene plugin para Word y extensión de navegador para importar desde Google Scholar?</div>
+    <label><input type="radio" name="ei4" value="a"> A) EndNote</label>
+    <label><input type="radio" name="ei4" value="b"> B) Mendeley</label>
+    <label><input type="radio" name="ei4" value="c"> C) Zotero</label>
+    <label><input type="radio" name="ei4" value="d"> D) Microsoft Word solo</label>
+    <div class="ej-feedback" id="ei4-fb"></div>
+  </div>
+
+  <!-- ÍTEM 5 -->
+  <div class="ej-item" id="ei5-item">
+    <div class="ej-q">5. En APA 7.ª, ¿dónde ya NO se debe incluir el lugar de publicación del libro (diferencia clave con la 6.ª edición)?</div>
+    <label><input type="radio" name="ei5" value="a"> A) En la cita in-text</label>
+    <label><input type="radio" name="ei5" value="b"> B) En la lista de referencias del libro</label>
+    <label><input type="radio" name="ei5" value="c"> C) En el pie de página</label>
+    <label><input type="radio" name="ei5" value="d"> D) En el resumen del trabajo</label>
+    <div class="ej-feedback" id="ei5-fb"></div>
+  </div>
+
+  <!-- ÍTEM 6 -->
+  <div class="ej-item" id="ei6-item">
+    <div class="ej-q">6. El Servicio de Rentas Internas del Ecuador publicó en 2023 un informe titulado "Estadísticas de recaudación tributaria 2022". ¿Cuál es la referencia correcta en APA 7.ª?</div>
+    <label><input type="radio" name="ei6" value="a"> A) SRI (2023). Estadísticas de recaudación tributaria 2022. Gobierno del Ecuador.</label>
+    <label><input type="radio" name="ei6" value="b"> B) Servicio de Rentas Internas. (2023). <em>Estadísticas de recaudación tributaria 2022</em>. https://www.sri.gob.ec/estadisticas</label>
+    <label><input type="radio" name="ei6" value="c"> C) SRI, 2023, "Estadísticas", Guayaquil.</label>
+    <label><input type="radio" name="ei6" value="d"> D) www.sri.gob.ec (2023).</label>
+    <div class="ej-feedback" id="ei6-fb"></div>
+  </div>
+
+  <!-- ÍTEM 7 -->
+  <div class="ej-item" id="ei7-item">
+    <div class="ej-q">7. ¿Qué significa DOI en el contexto de las referencias académicas?</div>
+    <label><input type="radio" name="ei7" value="a"> A) Documento Oficial de Indexación</label>
+    <label><input type="radio" name="ei7" value="b"> B) Digital Object Identifier — identificador único y permanente de un artículo en línea</label>
+    <label><input type="radio" name="ei7" value="c"> C) Datos de Origen Institucional</label>
+    <label><input type="radio" name="ei7" value="d"> D) Directorio de Obras Internacionales</label>
+    <div class="ej-feedback" id="ei7-fb"></div>
+  </div>
+
+  <!-- ÍTEM 8 -->
+  <div class="ej-item" id="ei8-item">
+    <div class="ej-q">8. En la Lista de Referencias APA 7.ª, el formato de sangría que se usa es:</div>
+    <label><input type="radio" name="ei8" value="a"> A) Sangría normal: primera línea indentada, resto al margen</label>
+    <label><input type="radio" name="ei8" value="b"> B) Sangría francesa: primera línea al margen izquierdo, líneas siguientes con sangría de 1,27 cm</label>
+    <label><input type="radio" name="ei8" value="c"> C) Sin ninguna sangría, todo al margen izquierdo</label>
+    <label><input type="radio" name="ei8" value="d"> D) Sangría de toda la referencia 2 cm desde el margen</label>
+    <div class="ej-feedback" id="ei8-fb"></div>
+  </div>
+
+  <button class="btn-verify" onclick="verificarEjercicio()">✅ Verificar mis respuestas</button>
+  <div class="score-panel" id="ej-score">
+    <div class="score-emoji" id="ej-emoji"></div>
+    <div class="score-big" id="ej-puntos"></div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="ej-bar" style="width:0%"></div></div>
+    <div class="score-msg" id="ej-msg"></div>
+  </div>
+  <button class="btn-reset" onclick="resetEjercicio()" style="display:none" id="ej-reset-btn">🔄 Reiniciar ejercicio</button>
+</section>
+
+<!-- ===================== CUESTIONARIO ===================== -->
+<section id="tab-cuestionario" class="tab-content">
+  <h2 class="section-title">📝 Cuestionario — 10 Preguntas de Evaluación</h2>
+  <p>Responde las <strong>10 preguntas</strong> (7 teóricas + 3 de análisis de caso) seleccionando una opción por pregunta. Al finalizar, presiona "Verificar" para recibir tu calificación y retroalimentación.</p>
+
+  <!-- Q1 -->
+  <div class="quiz-item" id="qi1-item">
+    <div class="q-header"><div class="q-num">1</div><div class="q-text">¿Cuál es la función principal de un gestor bibliográfico como Zotero o Mendeley?</div></div>
+    <span class="badge badge-t">Teórica</span>
+    <label><input type="radio" name="qi1" value="a"> A) Buscar artículos científicos en internet automáticamente</label>
+    <label><input type="radio" name="qi1" value="b"> B) Organizar, almacenar y formatear referencias bibliográficas de manera automatizada</label>
+    <label><input type="radio" name="qi1" value="c"> C) Detectar el plagio en los trabajos académicos</label>
+    <label><input type="radio" name="qi1" value="d"> D) Redactar automáticamente el marco teórico del trabajo</label>
+    <div class="q-feedback" id="qi1-fb"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="quiz-item" id="qi2-item">
+    <div class="q-header"><div class="q-num">2</div><div class="q-text">¿Qué diferencia hay entre una "cita" y una "referencia" en APA 7.ª?</div></div>
+    <span class="badge badge-t">Teórica</span>
+    <label><input type="radio" name="qi2" value="a"> A) Son sinónimos; ambas aparecen al final del documento</label>
+    <label><input type="radio" name="qi2" value="b"> B) La cita aparece dentro del texto y la referencia aparece al final con la información completa de la fuente</label>
+    <label><input type="radio" name="qi2" value="c"> C) La cita va al final y la referencia va dentro del texto</label>
+    <label><input type="radio" name="qi2" value="d"> D) La cita es para libros y la referencia es para artículos</label>
+    <div class="q-feedback" id="qi2-fb"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="quiz-item" id="qi3-item">
+    <div class="q-header"><div class="q-num">3</div><div class="q-text">En APA 7.ª, un artículo con cinco autores se cita in-text como:</div></div>
+    <span class="badge badge-t">Teórica</span>
+    <label><input type="radio" name="qi3" value="a"> A) (Autor1, Autor2, Autor3, Autor4 y Autor5, año)</label>
+    <label><input type="radio" name="qi3" value="b"> B) (Autor1 y cols., año)</label>
+    <label><input type="radio" name="qi3" value="c"> C) (Autor1 et al., año)</label>
+    <label><input type="radio" name="qi3" value="d"> D) (Autor1, Autor2 et al., año)</label>
+    <div class="q-feedback" id="qi3-fb"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="quiz-item" id="qi4-item">
+    <div class="q-header"><div class="q-num">4</div><div class="q-text">¿Qué estilo de citación utilizan principalmente las ciencias de la salud y la medicina?</div></div>
+    <span class="badge badge-t">Teórica</span>
+    <label><input type="radio" name="qi4" value="a"> A) APA 7.ª</label>
+    <label><input type="radio" name="qi4" value="b"> B) MLA</label>
+    <label><input type="radio" name="qi4" value="c"> C) Vancouver</label>
+    <label><input type="radio" name="qi4" value="d"> D) Chicago</label>
+    <div class="q-feedback" id="qi4-fb"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="quiz-item" id="qi5-item">
+    <div class="q-header"><div class="q-num">5</div><div class="q-text">En APA 7.ª, ¿qué información se eliminó de la referencia de un libro respecto a la 6.ª edición?</div></div>
+    <span class="badge badge-t">Teórica</span>
+    <label><input type="radio" name="qi5" value="a"> A) El nombre del autor</label>
+    <label><input type="radio" name="qi5" value="b"> B) El año de publicación</label>
+    <label><input type="radio" name="qi5" value="c"> C) El lugar/ciudad de publicación</label>
+    <label><input type="radio" name="qi5" value="d"> D) El nombre de la editorial</label>
+    <div class="q-feedback" id="qi5-fb"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="quiz-item" id="qi6-item">
+    <div class="q-header"><div class="q-num">6</div><div class="q-text">¿Qué es el DOI y cuál es su función en una referencia académica?</div></div>
+    <span class="badge badge-t">Teórica</span>
+    <label><input type="radio" name="qi6" value="a"> A) Es el número de páginas del artículo; permite saber la extensión</label>
+    <label><input type="radio" name="qi6" value="b"> B) Es el identificador único y permanente de un objeto digital (artículo); permite acceder a él sin importar cambios de URL</label>
+    <label><input type="radio" name="qi6" value="c"> C) Es la clasificación decimal del libro en la biblioteca</label>
+    <label><input type="radio" name="qi6" value="d"> D) Es el código del autor registrado en Scopus</label>
+    <div class="q-feedback" id="qi6-fb"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="quiz-item" id="qi7-item">
+    <div class="q-header"><div class="q-num">7</div><div class="q-text">En la Lista de Referencias APA, ¿cómo se ordena la información?</div></div>
+    <span class="badge badge-t">Teórica</span>
+    <label><input type="radio" name="qi7" value="a"> A) Por orden de aparición en el texto</label>
+    <label><input type="radio" name="qi7" value="b"> B) Por tipo de fuente (primero libros, luego artículos, luego web)</label>
+    <label><input type="radio" name="qi7" value="c"> C) Alfabéticamente por el primer apellido del autor (o título si no hay autor)</label>
+    <label><input type="radio" name="qi7" value="d"> D) Por año de publicación, del más reciente al más antiguo</label>
+    <div class="q-feedback" id="qi7-fb"></div>
+  </div>
+
+  <!-- Q8 — ANÁLISIS -->
+  <div class="quiz-item" id="qi8-item">
+    <div class="q-header"><div class="q-num">8</div><div class="q-text">Carlos está terminando su tesis sobre "Auditoría interna en cooperativas de ahorro y crédito supervisadas por la SEPS". Encontró 45 fuentes en tres meses. Ahora debe entregar la lista de referencias en APA 7.ª en 24 horas. ¿Qué solución es la más eficiente y profesional?</div></div>
+    <span class="badge badge-a">Análisis de caso</span>
+    <label><input type="radio" name="qi8" value="a"> A) Copiar las referencias tal como las genera Google Scholar sin revisarlas</label>
+    <label><input type="radio" name="qi8" value="b"> B) Usar Zotero, que ya tiene todas las fuentes importadas, generar bibliografía en APA 7.ª y revisar posibles errores antes de entregar</label>
+    <label><input type="radio" name="qi8" value="c"> C) Escribir las 45 referencias a mano basándose en su memoria</label>
+    <label><input type="radio" name="qi8" value="d"> D) Solo incluir las 10 referencias más importantes para ahorrar tiempo</label>
+    <div class="q-feedback" id="qi8-fb"></div>
+  </div>
+
+  <!-- Q9 — ANÁLISIS -->
+  <div class="quiz-item" id="qi9-item">
+    <div class="q-header"><div class="q-num">9</div><div class="q-text">La docente revisó el trabajo de Ana y encontró que todas sus "referencias" incluyen fuentes que Ana consultó pero que NUNCA citó dentro del texto del trabajo. ¿Cuál es el error según APA 7.ª?</div></div>
+    <span class="badge badge-a">Análisis de caso</span>
+    <label><input type="radio" name="qi9" value="a"> A) No hay error; en APA se puede incluir todas las fuentes consultadas</label>
+    <label><input type="radio" name="qi9" value="b"> B) El error es que la Lista de Referencias APA solo debe incluir las fuentes efectivamente citadas en el texto; lo que describe Ana sería una bibliografía, no una lista de referencias</label>
+    <label><input type="radio" name="qi9" value="c"> C) El error es que APA prohíbe incluir más de 20 referencias</label>
+    <label><input type="radio" name="qi9" value="d"> D) No es un error; Ana puede hacer lo que prefiera</label>
+    <div class="q-feedback" id="qi9-fb"></div>
+  </div>
+
+  <!-- Q10 — ANÁLISIS -->
+  <div class="quiz-item" id="qi10-item">
+    <div class="q-header"><div class="q-num">10</div><div class="q-text">Un informe publicado por la Contraloría General del Estado del Ecuador en 2024, sin autor personal identificado, debe citarse in-text en APA 7.ª como:</div></div>
+    <span class="badge badge-a">Análisis de caso</span>
+    <label><input type="radio" name="qi10" value="a"> A) (Anónimo, 2024)</label>
+    <label><input type="radio" name="qi10" value="b"> B) (Sin autor, 2024)</label>
+    <label><input type="radio" name="qi10" value="c"> C) (Contraloría General del Estado [CGE], 2024) — primera mención; luego (CGE, 2024)</label>
+    <label><input type="radio" name="qi10" value="d"> D) (Ecuador, Contraloría, 2024)</label>
+    <div class="q-feedback" id="qi10-fb"></div>
+  </div>
+
+  <button class="btn-verify" onclick="verificarQuiz()">✅ Verificar mis respuestas</button>
+  <div class="score-panel" id="quiz-score">
+    <div class="score-emoji" id="quiz-emoji"></div>
+    <div class="score-big" id="quiz-puntos"></div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="quiz-bar" style="width:0%"></div></div>
+    <div class="score-msg" id="quiz-msg"></div>
+  </div>
+  <button class="btn-reset" onclick="resetQuiz()" style="display:none" id="quiz-reset-btn">🔄 Reiniciar cuestionario</button>
+</section>
+
+<!-- ===================== ACTIVIDAD CON IA ===================== -->
+<section id="tab-ia" class="tab-content">
+  <h2 class="section-title">🤖 Actividad con Inteligencia Artificial</h2>
+  <div class="concept-box">
+    <h4>Herramienta recomendada: Claude en claude.ai</h4>
+    <p>Para esta actividad se recomienda usar <strong>Claude</strong> (claude.ai), aunque también puedes usar ChatGPT (chatgpt.com) o Gemini (gemini.google.com). Todas estas herramientas son gratuitas en su versión básica. La idea NO es copiar la respuesta de la IA: es usarla como interlocutor para desarrollar tu pensamiento crítico sobre el tema.</p>
+  </div>
+
+  <h3 class="subsection-title">🎯 Actividad: "El auditor que no citó — análisis de consecuencias"</h3>
+  <p>Vas a usar la inteligencia artificial para analizar un escenario real que podría ocurrirte en tu vida profesional como contador o auditor en el Ecuador.</p>
+
+  <div class="ai-box">
+    <h4 style="color:#003366; margin-bottom:10px">📋 Paso 1 — Copia exactamente este prompt y pégalo en Claude, ChatGPT o Gemini:</h4>
+    <div class="ai-prompt">Actúa como un experto en ética académica y auditoría en el Ecuador. 
+
+Escenario: Un auditor de una firma ecuatoriana elaboró un informe para la Contraloría General del Estado sobre el GAD Municipal de Guayaquil. En su informe incluyó conclusiones basadas en tres estudios académicos sobre gestión pública municipal, pero no los citó en ninguna parte del documento. Su supervisor le pregunta: "¿De dónde sacaste eso?"
+
+Quiero que respondas lo siguiente:
+1. ¿Qué riesgos éticos y legales enfrenta este auditor en el contexto de la normativa ecuatoriana?
+2. ¿Cómo debería haber citado esas tres fuentes si hubiera usado el estilo APA 7.ª? Dame un ejemplo con datos ficticios pero realistas.
+3. ¿Qué diferencia habría hecho usar Zotero desde el inicio del proceso de investigación?
+4. ¿Qué lección de integridad profesional extrae de este caso para un estudiante de Contabilidad y Auditoría?
+
+Sé concreto, usa contexto ecuatoriano y da ejemplos prácticos.</div>
+  </div>
+
+  <div class="ai-box">
+    <h4 style="color:#003366; margin-bottom:10px">📋 Paso 2 — ¿Qué haces con la respuesta?</h4>
+    <ol style="padding-left:20px; line-height:2">
+      <li>Lee la respuesta completa con atención crítica.</li>
+      <li>Identifica <strong>al menos dos afirmaciones con las que estés de acuerdo</strong> y explica por qué, conectándolas con lo aprendido en el widget.</li>
+      <li>Identifica <strong>al menos una afirmación que quieras cuestionar o ampliar</strong>. ¿Estás completamente de acuerdo? ¿Falta algo que el widget sí enseñó?</li>
+      <li>Escribe en tu cuaderno o documento una reflexión de 150 palabras: <em>"Lo que aprendí sobre la importancia de citar correctamente en mi futura carrera como contador/auditor es…"</em></li>
+    </ol>
+  </div>
+
+  <div class="ai-box">
+    <h4 style="color:#003366; margin-bottom:10px">📋 Paso 3 — Criterio de evaluación</h4>
+    <table class="styled-table">
+      <tr><th>Nivel</th><th>¿Qué hace el estudiante?</th></tr>
+      <tr><td>🏆 <strong>Pensamiento crítico</strong></td><td>Compara la respuesta de la IA con el contenido del widget, identifica coincidencias y discrepancias, y elabora una reflexión propia que va más allá de la respuesta de la IA.</td></tr>
+      <tr><td>📘 <strong>Comprensión básica</strong></td><td>Resume lo que dijo la IA con sus propias palabras y conecta una idea con el tema de APA o Zotero.</td></tr>
+      <tr><td>📖 <strong>Copia simple</strong></td><td>Pega la respuesta de la IA sin elaboración propia. Esto no demuestra aprendizaje y no cumple con la actividad.</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== REFLEXIÓN ===================== -->
+<section id="tab-reflexion" class="tab-content">
+  <h2 class="section-title">💭 Preguntas Reflexivas</h2>
+  <p>Estas preguntas no tienen una única respuesta correcta. Su propósito es ayudarte a conectar los conceptos del widget con tu vida, tu futuro profesional y tu desarrollo como persona. No se trata de memorizar: se trata de comprender.</p>
+
+  <div class="refl-card">
+    <h4>🪞 Reflexión 1 — Honestidad intelectual y autoconocimiento</h4>
+    <p>Cuando escribes un trabajo y usas una idea que leíste en algún lugar pero no la citas, ¿qué te dice eso de ti mismo? La inteligencia emocional nos invita a ser honestos no solo con los demás, sino con nosotros mismos. ¿Has sentido alguna vez la tentación de presentar como tuya una idea que viste en otro lugar? ¿Qué factores te llevaron a ese impulso (presión del tiempo, miedo al fracaso, desconocimiento de las normas)? ¿Cómo puedes cambiar esa situación con las herramientas que aprendiste hoy?</p>
+  </div>
+
+  <div class="refl-card">
+    <h4>🏛️ Reflexión 2 — Confianza institucional y auditoría</h4>
+    <p>Como futuro profesional de Contabilidad y Auditoría en el Ecuador, tu firma y tu nombre respaldarán informes financieros que afectarán decisiones de empresas, del Estado o de la ciudadanía. Si un informe que firmas no cita correctamente sus fuentes, ¿qué mensaje envías sobre tu rigor profesional? ¿Cómo se conecta la práctica de citar correctamente con la ética del auditor descrita en los principios de la Contraloría General del Estado?</p>
+  </div>
+
+  <div class="refl-card">
+    <h4>🧠 Reflexión 3 — Programación neurolingüística y hábitos</h4>
+    <p>La PNL (Programación Neurolingüística) enseña que nuestros comportamientos son programas mentales repetidos. Si desde hoy instalas el hábito de guardar cada fuente en Zotero inmediatamente después de consultarla, ¿cómo cambiaría tu experiencia al llegar al momento de entregar un trabajo? ¿Qué "programas mentales" tienes actualmente sobre las citas (¿es un castigo? ¿una burocracia?)? ¿Cómo podrías reprogramarlos para verlas como una herramienta de poder académico?</p>
+  </div>
+
+  <div class="refl-card">
+    <h4>🌎 Reflexión 4 — Contexto latinoamericano y autoestima académica</h4>
+    <p>Existe una percepción en algunos contextos latinoamericanos de que "citar es solo para los investigadores importantes, no para los estudiantes". ¿Compartes esa percepción o la rechazas? ¿Qué te dice sobre tu propia autoestima académica comenzar a aplicar APA 7.ª desde ahora, como lo hacen los investigadores que publican en las mejores revistas del mundo? ¿En qué te convierte ese acto de disciplina intelectual?</p>
+  </div>
+
+  <div class="refl-card">
+    <h4>⏱️ Reflexión 5 — Gestión del tiempo y bienestar</h4>
+    <p>Una de las principales causas de estrés en los estudiantes universitarios es dejar las citas y la bibliografía para el último momento. Si la gestión bibliográfica con Zotero puede reducir ese tiempo de horas a minutos, ¿qué harías con ese tiempo ganado? ¿Cómo se conecta el aprendizaje de herramientas como Zotero con tu bienestar personal y tu equilibrio entre estudio y vida cotidiana?</p>
+  </div>
+</section>
+
+<!-- ===================== BIBLIOGRAFÍA ===================== -->
+<section id="tab-biblio" class="tab-content">
+  <h2 class="section-title">📚 Bibliografía</h2>
+  <p>Las siguientes referencias sustentan los contenidos de este widget. Se presentan en formato APA 7.ª edición.</p>
+
+  <div class="bib-card">
+    <div class="bib-author">Hernández-Sampieri, R., Fernández-Collado, C., y Baptista-Lucio, P.</div>
+    <div class="bib-title">Metodología de la investigación (6.ª ed.)</div>
+    <div class="bib-detail">McGraw-Hill. (2014). Obra de referencia fundamental para el curso. Aborda el proceso completo de investigación científica, incluyendo el uso de fuentes y la construcción del marco teórico.</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-author">American Psychological Association.</div>
+    <div class="bib-title">Publication Manual of the American Psychological Association (7.ª ed.)</div>
+    <div class="bib-detail">American Psychological Association. (2020). Manual oficial de estilo APA en su 7.ª edición. Fuente primaria de todas las reglas de citación y referenciación explicadas en este widget. https://doi.org/10.1037/0000165-000</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-author">Ñaupas Paitán, H., Valdivia Dueñas, M. R., Palacios Vilela, J. J., y Romero Delgado, H. E.</div>
+    <div class="bib-title">Metodología de la investigación cuantitativa-cualitativa y redacción de la tesis (5.ª ed.)</div>
+    <div class="bib-detail">Ediciones de la U. (2018). Manual latinoamericano que integra los fundamentos epistemológicos con las técnicas prácticas de investigación, incluyendo el manejo de fuentes bibliográficas. ISBN 978-958-762-876-0</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-author">Biblioteca de la Universidad de Alicante.</div>
+    <div class="bib-title">Citar con Zotero: guía de uso</div>
+    <div class="bib-detail">Universidad de Alicante. (2023). Guía institucional de uso del gestor bibliográfico Zotero, con instrucciones para instalación, importación de referencias y generación de bibliografías en distintos estilos. https://biblioteca.ua.es/es/aprendizaje/gestores-bibliograficos/zotero.html</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-author">Servicio de Rentas Internas del Ecuador.</div>
+    <div class="bib-title">Estadísticas de recaudación tributaria</div>
+    <div class="bib-detail">SRI. (2023). Datos oficiales de recaudación fiscal en el Ecuador, utilizados como ejemplo de fuente institucional en la construcción de referencias APA. https://www.sri.gob.ec/estadisticas</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-author">Contraloría General del Estado del Ecuador.</div>
+    <div class="bib-title">Normas de control interno para las entidades, organismos del sector público y personas jurídicas de derecho privado que dispongan de recursos públicos</div>
+    <div class="bib-detail">Contraloría General del Estado. (2014). Documento normativo que establece los principios de integridad y documentación aplicables al ejercicio de la auditoría gubernamental en el Ecuador. https://www.contraloria.gob.ec</div>
+  </div>
+
+  <div class="bib-note">
+    📌 <strong>Nota importante:</strong> Se recomienda verificar cada referencia en <strong>Google Scholar</strong> (scholar.google.com) o en el repositorio institucional de la Universidad de Guayaquil antes de citar cualquiera de estas obras en trabajos académicos. Los enlaces web pueden cambiar con el tiempo; el DOI, cuando está disponible, es el identificador más estable.
+  </div>
+</section>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+  // === TAB NAVIGATION ===
+  function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // === EJERCICIO INTERACTIVO ===
+  const ejercicioCorrects = {
+    ei1: 'b',
+    ei2: 'b',
+    ei3: 'b',
+    ei4: 'c',
+    ei5: 'b',
+    ei6: 'b',
+    ei7: 'b',
+    ei8: 'b'
+  };
+
+  const ejercicioFeedbacks = {
+    ei1: {
+      ok: '✅ Correcto. En APA 7.ª, la cita in-text va entre paréntesis: (Andrade, 2020). Los corchetes [como en IEEE] o el formato sin paréntesis no son APA.',
+      fail: '❌ Incorrecto. En APA 7.ª la cita in-text siempre va entre paréntesis: (Apellido, año). La respuesta correcta es B.'
+    },
+    ei2: {
+      ok: '✅ Correcto. En APA 7.ª: todos los apellidos (hasta 20 autores), año entre paréntesis, título en cursiva, número de edición con ordinal femenino, editorial sin ciudad. La opción A es incorrecta porque incluye "México D.F." (ya no va en APA 7.ª).',
+      fail: '❌ Incorrecto. La respuesta B es la correcta: incluye todos los autores, año, título en cursiva, edición con ordinal femenino y editorial sin ciudad. APA 7.ª eliminó la ciudad de publicación.'
+    },
+    ei3: {
+      ok: '✅ Correcto. En APA 7.ª, cuando hay 3 o más autores, se usa "et al." desde la primera mención: (Vega et al., 2022). Esta es una de las principales diferencias con APA 6.ª.',
+      fail: '❌ Incorrecto. En APA 7.ª, con 3 o más autores siempre se usa "et al." desde la primera cita: (Vega et al., 2022). Respuesta correcta: B.'
+    },
+    ei4: {
+      ok: '✅ Correcto. Zotero es completamente gratuito, de código abierto, tiene extensión para Chrome/Firefox, plugin para Microsoft Word e integración directa con Google Scholar.',
+      fail: '❌ Incorrecto. Zotero (opción C) es el único completamente gratuito con todas esas funcionalidades. EndNote es de pago; Mendeley es freemium (tiene versión pagada); Word solo no tiene conector con bases de datos.'
+    },
+    ei5: {
+      ok: '✅ Correcto. En APA 7.ª ya no se incluye el lugar/ciudad de publicación en la referencia de un libro. Antes (APA 6.ª) se escribía: "México D.F.: McGraw-Hill." Ahora solo: "McGraw-Hill."',
+      fail: '❌ Incorrecto. El elemento eliminado en APA 7.ª respecto a la 6.ª es el LUGAR de publicación del libro (ciudad y país). Respuesta correcta: B.'
+    },
+    ei6: {
+      ok: '✅ Correcto. Para documentos institucionales, APA 7.ª usa el nombre completo de la institución, año, título en cursiva y URL. La opción A usa la sigla como autor (incorrecto para la primera mención en la referencia) y omite URL.',
+      fail: '❌ Incorrecto. Para instituciones gubernamentales en APA 7.ª: nombre completo, año, título en cursiva, URL. Respuesta correcta: B.'
+    },
+    ei7: {
+      ok: '✅ Correcto. DOI significa Digital Object Identifier (Identificador de Objeto Digital). Es un código único asignado a un artículo u obra digital que garantiza acceso permanente sin importar si la URL del sitio cambia.',
+      fail: '❌ Incorrecto. DOI = Digital Object Identifier (Identificador de Objeto Digital). Es un identificador único y permanente para artículos científicos digitales. Respuesta correcta: B.'
+    },
+    ei8: {
+      ok: '✅ Correcto. La sangría francesa en APA 7.ª coloca la primera línea al margen izquierdo y las líneas siguientes con sangría de 1,27 cm (media pulgada). Es la opción B.',
+      fail: '❌ Incorrecto. APA 7.ª usa sangría francesa: primera línea al margen, resto con 1,27 cm de sangría. Respuesta correcta: B.'
+    }
+  };
+
+  function verificarEjercicio() {
+    const nombres = ['ei1','ei2','ei3','ei4','ei5','ei6','ei7','ei8'];
+    let respondidas = 0, correctas = 0;
+    nombres.forEach(n => {
+      const sel = document.querySelector('input[name="'+n+'"]:checked');
+      if (sel) respondidas++;
+    });
+    if (respondidas < nombres.length) {
+      alert('⚠️ Por favor responde todas las preguntas antes de verificar.');
+      return;
+    }
+    nombres.forEach(n => {
+      const sel = document.querySelector('input[name="'+n+'"]:checked');
+      const item = document.getElementById(n+'-item');
+      const fb = document.getElementById(n+'-fb');
+      const esCorrecta = sel.value === ejercicioCorrects[n];
+      if (esCorrecta) {
+        item.classList.add('correct'); correctas++;
+        fb.textContent = ejercicioFeedbacks[n].ok;
+        fb.className = 'ej-feedback show ok';
+      } else {
+        item.classList.add('incorrect');
+        fb.textContent = ejercicioFeedbacks[n].fail;
+        fb.className = 'ej-feedback show fail';
+      }
+      document.querySelectorAll('input[name="'+n+'"]').forEach(r => r.disabled = true);
+    });
+    const pct = Math.round(correctas / nombres.length * 100);
+    const panel = document.getElementById('ej-score');
+    document.getElementById('ej-puntos').textContent = correctas + ' / ' + nombres.length + ' — ' + pct + '%';
+    document.getElementById('ej-bar').style.width = pct + '%';
+    let emoji='', msg='';
+    if (pct===100){emoji='🏆';msg='¡Perfecto! Dominas el uso de APA 7.ª y los gestores bibliográficos.';}
+    else if (pct>=80){emoji='🎯';msg='¡Muy bien! Tienes una sólida comprensión. Repasa los ítems en rojo.';}
+    else if (pct>=60){emoji='📘';msg='Vas bien. Refuerza los conceptos de formato APA y vuelve a intentarlo.';}
+    else if (pct>=40){emoji='⚠️';msg='Necesitas reforzar el contenido. Vuelve a las pestañas de Tema 3 y Tema 4.';}
+    else{emoji='📖';msg='Todavía falta. Lee con calma las pestañas de Temas 1 al 4 y vuelve a intentarlo.';}
+    document.getElementById('ej-emoji').textContent = emoji;
+    document.getElementById('ej-msg').textContent = msg;
+    panel.classList.add('show');
+    document.getElementById('ej-reset-btn').style.display = 'block';
+  }
+
+  function resetEjercicio() {
+    ['ei1','ei2','ei3','ei4','ei5','ei6','ei7','ei8'].forEach(n => {
+      document.querySelectorAll('input[name="'+n+'"]').forEach(r => { r.disabled = false; r.checked = false; });
+      const item = document.getElementById(n+'-item');
+      item.classList.remove('correct','incorrect');
+      const fb = document.getElementById(n+'-fb');
+      fb.className = 'ej-feedback';
+      fb.textContent = '';
+    });
+    document.getElementById('ej-score').classList.remove('show');
+    document.getElementById('ej-bar').style.width = '0%';
+    document.getElementById('ej-reset-btn').style.display = 'none';
+  }
+
+  // === CUESTIONARIO ===
+  const quizCorrects = {
+    qi1: 'b',
+    qi2: 'b',
+    qi3: 'c',
+    qi4: 'c',
+    qi5: 'c',
+    qi6: 'b',
+    qi7: 'c',
+    qi8: 'b',
+    qi9: 'b',
+    qi10: 'c'
+  };
+
+  const quizFeedbacks = {
+    qi1: {
+      ok: '✅ Correcto. Los gestores bibliográficos como Zotero y Mendeley organizan, almacenan y dan formato automático a las referencias, incluyendo APA, Vancouver, IEEE, entre otros.',
+      fail: '❌ Incorrecto. Los gestores bibliográficos organizan, almacenan y FORMATEAN referencias automáticamente. No buscan artículos por sí solos ni detectan plagio. Respuesta: B.'
+    },
+    qi2: {
+      ok: '✅ Correcto. La CITA es la indicación breve dentro del texto (Apellido, año). La REFERENCIA es la información completa al final del documento, en la Lista de Referencias.',
+      fail: '❌ Incorrecto. La cita va DENTRO del texto (referencia breve al autor) y la referencia va AL FINAL del documento con información completa. Respuesta: B.'
+    },
+    qi3: {
+      ok: '✅ Correcto. En APA 7.ª, con 3 o más autores, se usa siempre "et al." desde la primera cita in-text: (Autor1 et al., año). Esto es diferente a APA 6.ª donde se listaban todos la primera vez.',
+      fail: '❌ Incorrecto. En APA 7.ª, con 3 o más autores: (Primer apellido et al., año) desde la primera mención. "et al." es latín: "y otros". Respuesta: C.'
+    },
+    qi4: {
+      ok: '✅ Correcto. El estilo Vancouver es el estándar en ciencias de la salud y medicina. Usa números entre corchetes [1] y ordena las referencias por orden de aparición en el texto.',
+      fail: '❌ Incorrecto. Las ciencias de la salud usan el estilo VANCOUVER (números entre corchetes). APA es para ciencias sociales; MLA para humanidades; Chicago para historia. Respuesta: C.'
+    },
+    qi5: {
+      ok: '✅ Correcto. En APA 7.ª ya no se incluye el lugar/ciudad de publicación del libro. Antes (APA 6.ª) se escribía "Ciudad: Editorial". Ahora solo "Editorial."',
+      fail: '❌ Incorrecto. En APA 7.ª se eliminó el LUGAR DE PUBLICACIÓN (ciudad/país) de las referencias de libros. Los demás elementos (autor, año, título, editorial) se mantienen. Respuesta: C.'
+    },
+    qi6: {
+      ok: '✅ Correcto. DOI = Digital Object Identifier. Es un identificador único y permanente asignado a documentos digitales. En APA 7.ª se presenta como: https://doi.org/XXXXXXX',
+      fail: '❌ Incorrecto. DOI = Digital Object Identifier. Permite acceder a un artículo de manera permanente, incluso si la URL del sitio cambia. En APA 7.ª va en formato: https://doi.org/... Respuesta: B.'
+    },
+    qi7: {
+      ok: '✅ Correcto. En APA 7.ª, la Lista de Referencias se ordena ALFABÉTICAMENTE por el primer apellido del autor. Si no hay autor, se ordena por el título de la obra.',
+      fail: '❌ Incorrecto. APA ordena la lista ALFABÉTICAMENTE por apellido del autor (o título si no hay autor). El orden de aparición es del estilo Vancouver/IEEE. Respuesta: C.'
+    },
+    qi8: {
+      ok: '✅ Correcto. La opción B es la más eficiente y profesional: usar Zotero (que ya tiene las fuentes), generar en APA 7.ª y revisar posibles errores. Copiar de Google Scholar sin revisar es arriesgado porque frecuentemente tiene errores.',
+      fail: '❌ Incorrecto. La solución correcta es B: usar Zotero para generar la bibliografía automáticamente y luego revisarla. Google Scholar sin verificación tiene errores; la memoria falla; reducir referencias sin criterio es incompleto. Respuesta: B.'
+    },
+    qi9: {
+      ok: '✅ Correcto. En APA 7.ª, la Lista de Referencias SOLO incluye las fuentes citadas en el texto. Las fuentes consultadas pero no citadas conformarían una "bibliografía" (concepto diferente). Ana mezcló ambos conceptos.',
+      fail: '❌ Incorrecto. APA establece que la Lista de Referencias incluye SOLO las fuentes efectivamente citadas dentro del texto. Lo que hizo Ana es una bibliografía (fuentes consultadas), no una lista de referencias APA. Respuesta: B.'
+    },
+    qi10: {
+      ok: '✅ Correcto. En APA 7.ª, cuando una organización es el autor, se cita con su nombre completo la primera vez, seguido de la sigla entre corchetes: (Contraloría General del Estado [CGE], 2024). En menciones posteriores: (CGE, 2024).',
+      fail: '❌ Incorrecto. Las organizaciones se citan con su nombre completo la primera vez + sigla entre corchetes: (Contraloría General del Estado [CGE], 2024). Luego solo la sigla. "Anónimo" se usa cuando no hay autor conocido, no cuando el autor es una institución. Respuesta: C.'
+    }
+  };
+
+  function verificarQuiz() {
+    const nombres = ['qi1','qi2','qi3','qi4','qi5','qi6','qi7','qi8','qi9','qi10'];
+    let respondidas = 0, correctas = 0;
+    nombres.forEach(n => {
+      const sel = document.querySelector('input[name="'+n+'"]:checked');
+      if (sel) respondidas++;
+    });
+    if (respondidas < nombres.length) {
+      alert('⚠️ Por favor responde todas las preguntas antes de verificar.');
+      return;
+    }
+    nombres.forEach(n => {
+      const sel = document.querySelector('input[name="'+n+'"]:checked');
+      const item = document.getElementById(n+'-item');
+      const fb = document.getElementById(n+'-fb');
+      const esCorrecta = sel.value === quizCorrects[n];
+      if (esCorrecta) {
+        item.classList.add('correct'); correctas++;
+        fb.textContent = quizFeedbacks[n].ok;
+        fb.className = 'q-feedback show ok';
+      } else {
+        item.classList.add('incorrect');
+        fb.textContent = quizFeedbacks[n].fail;
+        fb.className = 'q-feedback show fail';
+      }
+      document.querySelectorAll('input[name="'+n+'"]').forEach(r => r.disabled = true);
+    });
+    const pct = Math.round(correctas / nombres.length * 100);
+    const panel = document.getElementById('quiz-score');
+    document.getElementById('quiz-puntos').textContent = correctas + ' / 10 — ' + pct + '%';
+    document.getElementById('quiz-bar').style.width = pct + '%';
+    let emoji='', msg='';
+    if (pct===100){emoji='🏆';msg='¡Perfecto! Dominas completamente el tema. Estás listo para el examen.';}
+    else if (pct>=80){emoji='🎯';msg='¡Muy bien! Tienes un dominio sólido. Revisa las preguntas incorrectas.';}
+    else if (pct>=60){emoji='📘';msg='Aprobado. Refuerza los conceptos donde cometiste errores y vuelve a intentar.';}
+    else if (pct>=40){emoji='⚠️';msg='Necesitas reforzar el estudio. Revisa los temas 3 y 4 del widget detenidamente.';}
+    else{emoji='📖';msg='Aún hay mucho por aprender. Lee con calma todos los temas del widget y vuelve a intentarlo.';}
+    document.getElementById('quiz-emoji').textContent = emoji;
+    document.getElementById('quiz-msg').textContent = msg;
+    panel.classList.add('show');
+    document.getElementById('quiz-reset-btn').style.display = 'block';
+  }
+
+  function resetQuiz() {
+    ['qi1','qi2','qi3','qi4','qi5','qi6','qi7','qi8','qi9','qi10'].forEach(n => {
+      document.querySelectorAll('input[name="'+n+'"]').forEach(r => { r.disabled = false; r.checked = false; });
+      const item = document.getElementById(n+'-item');
+      item.classList.remove('correct','incorrect');
+      const fb = document.getElementById(n+'-fb');
+      fb.className = 'q-feedback';
+      fb.textContent = '';
+    });
+    document.getElementById('quiz-score').classList.remove('show');
+    document.getElementById('quiz-bar').style.width = '0%';
+    document.getElementById('quiz-reset-btn').style.display = 'none';
+  }
+</script>
+</body>
+</html>

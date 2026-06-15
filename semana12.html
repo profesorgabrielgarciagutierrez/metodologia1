@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 12 – Hipótesis y Definición Operacional de Variables | Metodología de la Investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ================================================
+   RESET Y BASE
+   ================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #1a1a1a;
+  background: #f4f6f9;
+}
+
+/* ================================================
+   ENCABEZADO
+   ================================================ */
+header {
+  background: #003366;
+  color: #fff;
+  padding: 22px 30px 18px;
+  position: relative;
+}
+header .inst-line {
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  opacity: 0.80;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+header h1 {
+  font-family: 'Lora', serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+header .sub-title {
+  font-size: 13px;
+  margin-top: 6px;
+  opacity: 0.85;
+  font-style: italic;
+}
+.brand-tag {
+  position: absolute;
+  top: 18px; right: 24px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #87CEEB;
+  text-align: right;
+  line-height: 1.5;
+}
+
+/* ================================================
+   NAVEGACIÓN DE PESTAÑAS
+   ================================================ */
+.tab-nav-wrapper {
+  background: #87CEEB;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 0 10px;
+  border-bottom: 3px solid #003366;
+}
+.tab-nav-wrapper::-webkit-scrollbar { height: 4px; }
+.tab-nav-wrapper::-webkit-scrollbar-thumb { background: #003366; border-radius: 2px; }
+.tab-nav { display: inline-flex; }
+.tab-btn {
+  display: inline-block;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1a1a1a;
+  border: none;
+  background: transparent;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+  border-bottom: 3px solid transparent;
+}
+.tab-btn:hover { background: rgba(0,51,102,0.12); }
+.tab-btn.active {
+  background: #fff;
+  color: #003366;
+  font-weight: 700;
+  border-bottom: 3px solid #003366;
+}
+
+/* ================================================
+   CONTENIDO
+   ================================================ */
+.tab-content { display: none; padding: 30px 28px 50px; max-width: 920px; margin: 0 auto; }
+.tab-content.active { display: block; }
+
+h2 {
+  font-family: 'Lora', serif;
+  font-size: 1.35rem;
+  color: #003366;
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #87CEEB;
+}
+h3 {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  color: #003366;
+  margin: 22px 0 10px;
+}
+h4 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: #003366;
+  margin: 16px 0 6px;
+}
+p { margin-bottom: 13px; }
+ul, ol { margin: 10px 0 14px 22px; }
+li { margin-bottom: 6px; }
+
+/* Caja de concepto */
+.caja-concepto {
+  border-left: 5px solid #003366;
+  background: #f0f5ff;
+  padding: 14px 18px;
+  margin: 18px 0;
+  border-radius: 0 6px 6px 0;
+}
+.caja-concepto strong { color: #003366; }
+
+/* Caja de ejemplo */
+.caja-ejemplo {
+  background: #e3f0fa;
+  border: 1px solid #90c4e8;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 16px 0;
+}
+.caja-ejemplo .ej-titulo {
+  font-weight: 700;
+  color: #005aa0;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+/* Caja de conclusión */
+.caja-conclusion {
+  background: #003366;
+  color: #fff;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 22px 0;
+}
+.caja-conclusion p { margin-bottom: 0; }
+
+/* Caja de alerta / nota */
+.caja-nota {
+  border: 1px dashed #e6a817;
+  background: #fffbec;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin: 14px 0;
+  font-size: 14px;
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  font-size: 14.5px;
+}
+thead tr { background: #003366; color: #fff; }
+thead th { padding: 10px 14px; text-align: left; font-weight: 600; }
+tbody tr:nth-child(even) { background: #edf3fb; }
+tbody td { padding: 9px 14px; border-bottom: 1px solid #cdd8e8; vertical-align: top; }
+
+/* ================================================
+   PERSONAJE SOFÍA
+   ================================================ */
+.sofia-box {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: #fff8e1;
+  border: 1px solid #f5c842;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 20px 0;
+}
+.sofia-avatar {
+  width: 46px; height: 46px;
+  background: #003366;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.sofia-text { font-size: 14.5px; }
+.sofia-text strong { color: #003366; }
+
+/* ================================================
+   EJERCICIO INTERACTIVO
+   ================================================ */
+.ejercicio-item {
+  background: #fff;
+  border: 1px solid #cdd8e8;
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.ejercicio-item .enunciado {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #003366;
+}
+.opcion-label {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition: background 0.15s;
+  border: 1px solid transparent;
+}
+.opcion-label:hover { background: #e8f0fb; }
+.opcion-label input { margin-right: 8px; accent-color: #003366; }
+
+.feedback-ej {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  display: none;
+}
+.feedback-ej.correcto { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.feedback-ej.incorrecto { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+/* ================================================
+   CUESTIONARIO
+   ================================================ */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.badge-teorica { background: #003366; color: #fff; }
+.badge-analisis { background: #e6a817; color: #fff; }
+
+/* ================================================
+   RESULTADOS COMPARTIDOS
+   ================================================ */
+.resultado-box {
+  background: #fff;
+  border: 2px solid #003366;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  display: none;
+}
+.resultado-box h3 { margin-top: 0; }
+.barra-contenedor {
+  background: #e0e0e0;
+  border-radius: 10px;
+  height: 18px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+.barra-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #003366, #0066cc);
+  transition: width 1.2s ease;
+}
+
+/* ================================================
+   BOTONES
+   ================================================ */
+.btn-verificar, .btn-reset, .btn-actividad {
+  display: inline-block;
+  padding: 11px 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+  border: none;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+.btn-verificar { background: #003366; color: #fff; }
+.btn-verificar:hover { background: #004a99; }
+.btn-reset { background: #87CEEB; color: #003366; margin-left: 10px; }
+.btn-reset:hover { background: #5ab8e8; }
+
+/* ================================================
+   ACTIVIDAD IA
+   ================================================ */
+.ia-pasos { counter-reset: ia-counter; }
+.ia-paso {
+  counter-increment: ia-counter;
+  background: #fff;
+  border: 1px solid #cdd8e8;
+  border-radius: 8px;
+  padding: 14px 18px 14px 58px;
+  margin-bottom: 12px;
+  position: relative;
+}
+.ia-paso::before {
+  content: counter(ia-counter);
+  position: absolute;
+  left: 14px; top: 14px;
+  width: 30px; height: 30px;
+  background: #003366;
+  color: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 15px;
+}
+.prompt-box {
+  background: #1a1a2e;
+  color: #e0e0e0;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 13.5px;
+  margin: 10px 0;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+/* ================================================
+   REFLEXIÓN
+   ================================================ */
+.reflx-item {
+  background: #fff;
+  border-radius: 8px;
+  border-left: 5px solid #87CEEB;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+}
+.reflx-num {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #87CEEB;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+/* ================================================
+   BIBLIOGRAFÍA
+   ================================================ */
+.bib-card {
+  background: #fff;
+  border: 1px solid #cdd8e8;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+}
+.bib-card .bib-autor { font-weight: 700; color: #003366; }
+.bib-card .bib-titulo { font-style: italic; }
+.bib-nota {
+  background: #f0f5ff;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #444;
+  margin-top: 18px;
+}
+
+/* ================================================
+   ESQUEMA VISUAL DE TIPOS
+   ================================================ */
+.tipo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.tipo-card {
+  background: #fff;
+  border: 1px solid #cdd8e8;
+  border-radius: 8px;
+  padding: 14px;
+  border-top: 4px solid #003366;
+}
+.tipo-card h4 { margin-top: 0; color: #003366; font-size: 0.95rem; }
+.tipo-card p { font-size: 14px; margin: 0; }
+
+/* Flecha */
+.flecha { text-align: center; font-size: 26px; color: #003366; margin: 6px 0; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  header h1 { font-size: 1.18rem; }
+  .tab-content { padding: 18px 12px 40px; }
+  .brand-tag { display: none; }
+  .tipo-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     ENCABEZADO
+     ============================================================ -->
+<header>
+  <div class="inst-line">Universidad de Guayaquil · Facultad de Ciencias Administrativas · Carrera en Contabilidad y Auditoría</div>
+  <h1>Semana 12 — Hipótesis de Investigación: Definición, Características y Tipos. Definición Conceptual y Operacional de las Variables</h1>
+  <div class="sub-title">Materia: Metodología de la Investigación · Unidad 3: Planteamiento del Problema, Variables e Hipótesis · Modalidad Virtual</div>
+  <div class="brand-tag">PERSONA IDEAL<br>Humanizamos la cultura<br>desde conversaciones<br>que transforman</div>
+</header>
+
+<!-- ============================================================
+     MENÚ DE PESTAÑAS
+     ============================================================ -->
+<div class="tab-nav-wrapper">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('repaso')">📋 Repaso</button>
+    <button class="tab-btn" onclick="showTab('t1')">📌 Tema 1: Hipótesis</button>
+    <button class="tab-btn" onclick="showTab('t2')">🔖 Tema 2: Tipos de Hipótesis</button>
+    <button class="tab-btn" onclick="showTab('t3')">🧩 Tema 3: Def. Conceptual</button>
+    <button class="tab-btn" onclick="showTab('t4')">⚙️ Tema 4: Def. Operacional</button>
+    <button class="tab-btn" onclick="showTab('ejercicio')">✏️ Ejercicio Interactivo</button>
+    <button class="tab-btn" onclick="showTab('cuestionario')">📝 Cuestionario</button>
+    <button class="tab-btn" onclick="showTab('ia')">🤖 Actividad con IA</button>
+    <button class="tab-btn" onclick="showTab('reflexion')">💭 Preguntas Reflexivas</button>
+    <button class="tab-btn" onclick="showTab('biblio')">📚 Bibliografía</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: REPASO
+     ============================================================ -->
+<div id="repaso" class="tab-content active">
+  <h2>📋 Repaso — Unidad 3: Lo que hemos construido juntos</h2>
+
+  <div class="sofia-box">
+    <div class="sofia-avatar">👩‍🎓</div>
+    <div class="sofia-text"><strong>Sofía reflexiona:</strong> "Llevamos tres semanas dentro de la Unidad 3. He aprendido que un problema bien planteado ya tiene la mitad de la investigación resuelta. Ahora necesito dar el siguiente paso: formular hipótesis y precisar exactamente qué mido y cómo. Esta semana es clave."</div>
+  </div>
+
+  <h3>Semana 9 — Introducción al Planteamiento del Problema, Variables e Hipótesis</h3>
+  <p>Iniciamos la Unidad 3 reconociendo que el <strong>planteamiento del problema</strong> es el núcleo de toda investigación. Un problema científico no es simplemente una queja o una dificultad práctica: es una <em>brecha entre lo que se conoce y lo que aún no se ha explicado o comprobado</em>. Aprendimos que un buen problema de investigación debe ser:</p>
+  <ul>
+    <li><strong>Delimitado:</strong> circunscrito a un contexto, tiempo y población específicos.</li>
+    <li><strong>Factible:</strong> abordable con los recursos disponibles.</li>
+    <li><strong>Relevante:</strong> con valor científico, social o profesional.</li>
+    <li><strong>Original:</strong> que aporte algo nuevo al campo de conocimiento.</li>
+  </ul>
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">💡 Ejemplo ecuatoriano (Semana 9)</div>
+    <p>El problema de la evasión tributaria en el Ecuador no es simplemente "que la gente no paga impuestos". Un problema bien planteado diría: <em>"¿Qué factores económicos y conductuales explican la brecha de recaudación del IVA en el sector comercial de Guayaquil durante el período 2020–2023?"</em> Esa formulación delimita la variable (brecha de recaudación), el contexto (sector comercial, Guayaquil) y el tiempo.</p>
+  </div>
+
+  <h3>Semana 10 — Criterios y Elementos del Planteamiento del Problema</h3>
+  <p>Profundizamos en los <strong>cinco elementos constitutivos</strong> del planteamiento del problema según Hernández Sampieri y otros autores:</p>
+  <table>
+    <thead><tr><th>Elemento</th><th>¿Qué responde?</th><th>Ejemplo aplicado</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Preguntas de investigación</strong></td><td>¿Qué quiero conocer?</td><td>"¿Cuál es la relación entre el nivel de apalancamiento financiero y la rentabilidad de las PYMES de Quito?"</td></tr>
+      <tr><td><strong>Objetivos</strong></td><td>¿Para qué investigo?</td><td>"Determinar la relación entre apalancamiento y rentabilidad en PYMES de Quito, 2022."</td></tr>
+      <tr><td><strong>Justificación</strong></td><td>¿Por qué vale la pena?</td><td>Criterios: conveniencia, relevancia social, implicaciones prácticas, valor teórico, utilidad metodológica.</td></tr>
+      <tr><td><strong>Viabilidad</strong></td><td>¿Puedo hacerlo?</td><td>Acceso a estados financieros en la Superintendencia de Compañías.</td></tr>
+      <tr><td><strong>Deficiencias en el conocimiento</strong></td><td>¿Qué no sabe la ciencia?</td><td>Escasos estudios sobre PYMES ecuatorianas post-pandemia.</td></tr>
+    </tbody>
+  </table>
+  <p>También estudiamos los criterios para evaluar si un problema está bien formulado: que sea concreto, observable, medible y que genere preguntas respondibles.</p>
+
+  <h3>Semana 11 — Variables de Investigación</h3>
+  <p>La semana 11 fue fundamental para entender qué son las <strong>variables</strong> y cómo clasificarlas. Una variable es cualquier <em>característica, propiedad o atributo</em> de personas, objetos, fenómenos o situaciones que puede tomar diferentes valores y, por tanto, varía.</p>
+  <div class="caja-concepto">
+    <strong>Resumen de tipos de variables estudiadas:</strong>
+    <ul>
+      <li><strong>Por su función en la investigación:</strong> independiente (causa o antecedente), dependiente (efecto o consecuente), interviniente o extraña (modifica sin ser el foco).</li>
+      <li><strong>Por su escala de medición (Stevens, 1946):</strong> nominales, ordinales, de intervalo, de razón.</li>
+      <li><strong>Por su naturaleza:</strong> cuantitativas (continuas/discretas) y cualitativas (dicotómicas/politómicas).</li>
+      <li><strong>Por su papel en el modelo:</strong> mediadoras, moderadoras, de control.</li>
+    </ul>
+  </div>
+  <p>Vimos también cómo las variables se articulan entre sí formando <em>relaciones</em>: correlacionales (co-varían), causales (una produce a otra) o condicionales (una modera a la otra).</p>
+
+  <div class="caja-conclusion">
+    <p><strong>🎯 Síntesis del camino recorrido:</strong> Hemos construido el esqueleto de una investigación: sabemos <em>qué investigar</em> (el problema), <em>con qué variables</em> (los conceptos medibles). Esta semana 12 añadimos el elemento que le da dirección y predicción al estudio: las <strong>hipótesis</strong>. Y a la vez aprenderemos a convertir conceptos abstractos en instrumentos concretos de medición mediante las definiciones conceptual y operacional.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: TEMA 1 — QUÉ ES UNA HIPÓTESIS
+     ============================================================ -->
+<div id="t1" class="tab-content">
+  <h2>📌 Tema 1 — La Hipótesis de Investigación: Definición y Características</h2>
+
+  <div class="sofia-box">
+    <div class="sofia-avatar">👩‍🎓</div>
+    <div class="sofia-text"><strong>Sofía pregunta:</strong> "Mi profesora dice que sin hipótesis no hay investigación cuantitativa. Pero yo pensé que la hipótesis era simplemente adivinar algo. ¿Hay diferencia entre 'adivinar' y formular una hipótesis?"</div>
+  </div>
+
+  <h3>1.1 ¿Qué es una hipótesis? Una definición precisa</h3>
+  <p>La palabra <strong>hipótesis</strong> proviene del griego <em>hypó</em> (debajo) y <em>thésis</em> (proposición): literalmente, una "sub-proposición" o afirmación provisional que se coloca como base para razonar. Sin embargo, en investigación científica, la hipótesis no es una suposición arbitraria: es una <em>respuesta anticipada, fundamentada en teoría y evidencia previa, a la pregunta de investigación</em>.</p>
+
+  <div class="caja-concepto">
+    <strong>Definición académica (Hernández Sampieri et al.):</strong><br>
+    "Las hipótesis son las guías de una investigación. Indican lo que tratamos de probar y se definen como <em>explicaciones tentativas del fenómeno investigado</em>, formuladas a manera de proposiciones. Las hipótesis no necesariamente son verdaderas; pueden o no serlo, y pueden o no comprobarse con datos."
+  </div>
+
+  <p>Esto significa que una hipótesis es:</p>
+  <ul>
+    <li><strong>Tentativa:</strong> provisional, pendiente de verificación empírica.</li>
+    <li><strong>Fundamentada:</strong> basada en teorías, estudios previos o razonamiento lógico.</li>
+    <li><strong>Verificable:</strong> susceptible de ser puesta a prueba con datos reales.</li>
+    <li><strong>Relacional:</strong> generalmente establece una relación entre dos o más variables.</li>
+  </ul>
+
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">🔍 Diferencia clave: adivinar vs. hipotetizar</div>
+    <p><strong>Adivinanza:</strong> "Creo que las empresas grandes pagan más impuestos."<br>
+    <strong>Hipótesis:</strong> "Las empresas medianas y grandes del sector comercial de Guayaquil, inscritas en el Registro de Contribuyentes Especiales del SRI, presentan una mayor tasa efectiva de imposición del Impuesto a la Renta en comparación con las microempresas del mismo sector, período 2020–2022."<br><br>
+    La diferencia: la hipótesis delimita <em>quiénes</em> (contribuyentes especiales del SRI), <em>qué variable</em> (tasa efectiva del IR), <em>con qué comparación</em> (microempresas) y <em>en qué período</em> (2020-2022).</p>
+  </div>
+
+  <h3>1.2 Funciones de la hipótesis en la investigación</h3>
+  <p>Las hipótesis no son un simple requisito formal. Cumplen funciones vitales:</p>
+  <table>
+    <thead><tr><th>Función</th><th>Explicación</th><th>Impacto práctico</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Orientadora</strong></td><td>Señala la dirección del estudio</td><td>Evita que el investigador "busque todo" sin foco</td></tr>
+      <tr><td><strong>Predictiva</strong></td><td>Anticipa el resultado probable</td><td>Permite diseñar instrumentos específicos</td></tr>
+      <tr><td><strong>Explicativa</strong></td><td>Propone relaciones causales o correlacionales</td><td>Conecta el problema con la teoría</td></tr>
+      <tr><td><strong>Delimitadora</strong></td><td>Restringe el campo de análisis</td><td>Hace la investigación manejable y precisa</td></tr>
+      <tr><td><strong>Organizadora</strong></td><td>Estructura el diseño metodológico</td><td>De ella se desprenden variables, instrumentos y estadísticos</td></tr>
+    </tbody>
+  </table>
+
+  <h3>1.3 Características que debe reunir una hipótesis científica</h3>
+  <p>No cualquier afirmación puede ser hipótesis. Una hipótesis bien formulada debe cumplir con estas características:</p>
+  <div class="tipo-grid">
+    <div class="tipo-card">
+      <h4>1. Claridad conceptual</h4>
+      <p>Los términos que usa deben tener definiciones precisas, sin ambigüedad ni doble interpretación.</p>
+    </div>
+    <div class="tipo-card">
+      <h4>2. Referente empírico</h4>
+      <p>Debe referirse a algo que existe en la realidad y puede ser observado o medido.</p>
+    </div>
+    <div class="tipo-card">
+      <h4>3. Verificabilidad</h4>
+      <p>Debe poder ponerse a prueba con técnicas e instrumentos de recolección de datos.</p>
+    </div>
+    <div class="tipo-card">
+      <h4>4. Congruencia lógica</h4>
+      <p>La relación que plantea entre variables debe ser lógicamente posible y coherente con el marco teórico.</p>
+    </div>
+    <div class="tipo-card">
+      <h4>5. Especificidad</h4>
+      <p>Debe delimitar la población, el contexto y el período de tiempo de la relación que predice.</p>
+    </div>
+    <div class="tipo-card">
+      <h4>6. Relevancia teórica</h4>
+      <p>Debe estar vinculada a un cuerpo de conocimientos ya existente (marco teórico).</p>
+    </div>
+  </div>
+
+  <h3>1.4 ¿Toda investigación necesita hipótesis?</h3>
+  <div class="caja-nota">
+    <strong>⚠️ Nota importante:</strong> No toda investigación formula hipótesis. En los estudios de <em>alcance exploratorio</em> (que buscan familiarizarse con fenómenos poco estudiados) las hipótesis generalmente no se formulan, pues no existe suficiente evidencia previa para anticipar resultados. En estudios <em>descriptivos</em>, las hipótesis son opcionales. En estudios <em>correlacionales y explicativos (causales)</em>, las hipótesis son esenciales. Esta distinción fue desarrollada por Hernández Sampieri.
+  </div>
+
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">📊 Ejemplo en Contabilidad y Auditoría</div>
+    <p><strong>Estudio exploratorio</strong> (sin hipótesis): "Explorar las prácticas de auditoría interna en las cooperativas de ahorro y crédito supervisadas por la SEPS en la provincia de Guayas."<br><br>
+    <strong>Estudio correlacional</strong> (con hipótesis): "Existe una correlación positiva y significativa entre el nivel de cumplimiento de las NIIF y el índice de rentabilidad financiera (ROE) en las cooperativas de ahorro y crédito del segmento 1 supervisadas por la SEPS, período 2019–2022."</p>
+  </div>
+
+  <div class="caja-conclusion">
+    <p><strong>💡 Idea clave del Tema 1:</strong> La hipótesis no es una "corazonada inteligente". Es una proposición razonada, fundamentada en teoría y evidencia, que anticipa el resultado de la investigación y guía todas las decisiones metodológicas posteriores: qué medir, cómo medir, con quiénes y con qué instrumento.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: TEMA 2 — TIPOS DE HIPÓTESIS
+     ============================================================ -->
+<div id="t2" class="tab-content">
+  <h2>🔖 Tema 2 — Tipos de Hipótesis</h2>
+
+  <p>La literatura especializada clasifica las hipótesis desde diferentes ángulos. Aquí presentamos las clasificaciones más utilizadas en investigación cuantitativa aplicada a las ciencias económico-administrativas.</p>
+
+  <h3>2.1 Clasificación según su propósito y alcance (Hernández Sampieri)</h3>
+
+  <h4>A) Hipótesis descriptivas</h4>
+  <div class="caja-concepto">
+    <strong>Definición:</strong> Afirman el valor que tomará una variable en un grupo o situación. No establecen relaciones entre variables, solo predicen cómo será la distribución de una sola variable.
+  </div>
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">🇪🇨 Ejemplo Ecuador</div>
+    <p>"Las empresas del sector manufacturero de Cuenca que presentaron declaraciones de IVA al SRI durante 2022 registraron, en promedio, una tasa de cumplimiento tributario igual o superior al 85%."<br><em>Solo describe el valor esperado de una variable: la tasa de cumplimiento tributario.</em></p>
+  </div>
+
+  <h4>B) Hipótesis correlacionales</h4>
+  <div class="caja-concepto">
+    <strong>Definición:</strong> Especifican la relación entre dos o más variables. La relación puede ser positiva (cuando una sube la otra también), negativa (cuando una sube la otra baja) o simplemente que están relacionadas sin indicar la dirección.
+  </div>
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">🇪🇨 Ejemplo Ecuador</div>
+    <p>"Existe una correlación negativa significativa entre el nivel de morosidad de la cartera de créditos y el índice de rentabilidad sobre activos (ROA) en los bancos privados del Ecuador reportados a la Superintendencia de Bancos, período 2018–2022."<br><em>Relaciona dos variables: morosidad y ROA, indicando que cuando una sube la otra baja.</em></p>
+  </div>
+
+  <h4>C) Hipótesis de diferencia entre grupos</h4>
+  <div class="caja-concepto">
+    <strong>Definición:</strong> Postulan que existe una diferencia en una variable entre dos o más grupos. Son comunes en estudios comparativos.
+  </div>
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">🇪🇨 Ejemplo Ecuador</div>
+    <p>"Las empresas grandes obligadas a llevar contabilidad en Ecuador presentan un mayor nivel de cumplimiento en la adopción de NIIF Plenas que las medianas empresas, según los registros de la Superintendencia de Compañías, período 2020–2022."</p>
+  </div>
+
+  <h4>D) Hipótesis causales (bivariadas y multivariadas)</h4>
+  <div class="caja-concepto">
+    <strong>Definición:</strong> Establecen relaciones de causa-efecto entre variables. Una variable independiente produce cambios en la variable dependiente. Cuando participan más de dos variables son multivariadas.
+  </div>
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">🇪🇨 Ejemplo bivariado (sector salud Ecuador)</div>
+    <p>"El nivel de capacitación continua en NIIF recibido por los contadores del IESS incide positivamente en la calidad de los estados financieros consolidados de la institución."<br><em>Variable independiente: capacitación en NIIF. Variable dependiente: calidad de estados financieros.</em></p>
+  </div>
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">🇪🇨 Ejemplo multivariado (sector educativo)</div>
+    <p>"El nivel de gasto público en educación, el índice de digitalización institucional y la formación docente en TIC explican conjuntamente la variación en los resultados de evaluación estudiantil en Ecuador (Ser Bachiller), período 2015–2022."<br><em>Tres variables independientes → una variable dependiente.</em></p>
+  </div>
+
+  <h3>2.2 Clasificación estadística: H₀ y Hₐ</h3>
+  <p>Cuando la investigación cuantitativa usa <strong>pruebas estadísticas de inferencia</strong>, aparecen dos tipos de hipótesis complementarias:</p>
+  <table>
+    <thead><tr><th>Tipo</th><th>Símbolo</th><th>¿Qué afirma?</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Hipótesis nula</strong></td>
+        <td><strong>H₀</strong></td>
+        <td>Afirma que NO existe relación, diferencia o efecto. Es la hipótesis del "statu quo".</td>
+        <td>"No existe correlación entre la morosidad y el ROA en bancos privados del Ecuador."</td>
+      </tr>
+      <tr>
+        <td><strong>Hipótesis alternativa</strong></td>
+        <td><strong>Hₐ o H₁</strong></td>
+        <td>Contradice a H₀: afirma que SÍ existe la relación, diferencia o efecto que el investigador espera encontrar.</td>
+        <td>"Existe una correlación negativa significativa entre la morosidad y el ROA en bancos privados del Ecuador."</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="caja-nota">
+    <strong>📌 ¿Por qué se necesita la H₀?</strong> La lógica estadística no puede demostrar directamente que una hipótesis es verdadera: solo puede rechazar la hipótesis de que NO existe el efecto. Al rechazar H₀, el investigador obtiene evidencia a favor de Hₐ. Este procedimiento se llama <em>contraste de hipótesis</em> y usa valores como el p-valor y niveles de significancia (α = 0.05 o α = 0.01).
+  </div>
+
+  <h3>2.3 Otros tipos según criterios adicionales</h3>
+  <div class="tipo-grid">
+    <div class="tipo-card">
+      <h4>Hipótesis teórica o conceptual</h4>
+      <p>Se formula en términos teóricos sin especificar cómo se medirá. Ej.: "La cultura organizacional influye en el desempeño contable."</p>
+    </div>
+    <div class="tipo-card">
+      <h4>Hipótesis de trabajo</h4>
+      <p>Es la hipótesis operativa que guía el trabajo de campo. Está redactada de forma que pueda verificarse con datos. Es la más común en tesis.</p>
+    </div>
+    <div class="tipo-card">
+      <h4>Hipótesis directa</h4>
+      <p>Indica la dirección de la relación (positiva o negativa). Ej.: "A mayor capacitación, mayor cumplimiento tributario."</p>
+    </div>
+    <div class="tipo-card">
+      <h4>Hipótesis no direccional</h4>
+      <p>Afirma que existe una relación pero no indica su dirección. Ej.: "Existe una relación entre nivel de endeudamiento y rentabilidad."</p>
+    </div>
+  </div>
+
+  <h3>2.4 ¿Cómo se redacta una hipótesis? Estructura formal</h3>
+  <p>Una hipótesis bien redactada tiene esta estructura:</p>
+  <div class="caja-concepto">
+    <strong>[Variable independiente / condición]</strong> + <strong>[verbo relacional]</strong> + <strong>[variable dependiente]</strong> + <strong>[en quiénes / dónde / cuándo]</strong>
+  </div>
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">✍️ Ejercicio de redacción</div>
+    <p><strong>Malo:</strong> "La auditoría es buena para las empresas."<br>
+    <strong>Mejor:</strong> "La implementación de auditorías internas periódicas se asocia positivamente con la reducción de irregularidades contables en empresas del sector público ecuatoriano."<br>
+    <strong>Excelente (completo):</strong> "Las entidades del sector público ecuatoriano que implementaron auditorías internas al menos dos veces por año entre 2019 y 2022 presentan significativamente menos hallazgos de irregularidades contables en los informes de la Contraloría General del Estado, en comparación con las que no lo hicieron."</p>
+  </div>
+
+  <div class="caja-conclusion">
+    <p><strong>💡 Idea clave del Tema 2:</strong> Los tipos de hipótesis no son arbitrarios: cada tipo responde a un nivel de estudio diferente (descriptivo, correlacional, explicativo) y a un diseño metodológico específico. La hipótesis es la "columna vertebral" que conecta el problema con el análisis de datos.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: TEMA 3 — DEFINICIÓN CONCEPTUAL
+     ============================================================ -->
+<div id="t3" class="tab-content">
+  <h2>🧩 Tema 3 — Definición Conceptual de las Variables</h2>
+
+  <div class="sofia-box">
+    <div class="sofia-avatar">👩‍🎓</div>
+    <div class="sofia-text"><strong>Sofía pregunta:</strong> "En mi hipótesis uso el término 'rentabilidad financiera'. ¿Acaso no todos saben qué significa? ¿Por qué debo definirlo?"</div>
+  </div>
+
+  <p>La respuesta es que <em>no todos lo entienden igual</em>. "Rentabilidad" puede significar margen neto de ventas, retorno sobre el patrimonio (ROE), retorno sobre activos (ROA), o rentabilidad económica (EBITDA). Sin una definición conceptual, dos investigadores diferentes medirían cosas distintas creyendo medir lo mismo. Aquí reside la importancia de este paso.</p>
+
+  <h3>3.1 ¿Qué es la definición conceptual?</h3>
+  <div class="caja-concepto">
+    <strong>Definición:</strong> La <em>definición conceptual</em> (también llamada <em>definición nominal</em> o <em>constitutiva</em>) es el significado teórico que se asigna a una variable dentro de la investigación, usando las palabras de la disciplina y fundamentado en la literatura científica. Responde a la pregunta: <em>¿qué entendemos exactamente por este concepto?</em>
+  </div>
+
+  <p>Según Hernández Sampieri, la definición conceptual:</p>
+  <ul>
+    <li>Aclara el significado del término para todos los lectores.</li>
+    <li>Homogeniza el lenguaje dentro de la investigación.</li>
+    <li>Delimita el alcance del concepto que se estudiará.</li>
+    <li>Se sustenta en fuentes teóricas (libros, artículos académicos, normativa).</li>
+  </ul>
+
+  <h3>3.2 Contexto económico-empresarial: Ejemplos de definición conceptual</h3>
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">💼 Contexto empresarial — Evasión tributaria</div>
+    <p><strong>Variable:</strong> Evasión tributaria<br>
+    <strong>Definición conceptual:</strong> Conducta ilícita mediante la cual una persona natural o jurídica deja de cumplir, parcial o totalmente, con su obligación de pagar tributos establecidos por ley, con el fin de reducir su carga fiscal de manera fraudulenta (Código Tributario del Ecuador, Registro Oficial 305, 2004; Hernández, 2017).</p>
+  </div>
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">📊 Contexto económico — Liquidez empresarial</div>
+    <p><strong>Variable:</strong> Liquidez<br>
+    <strong>Definición conceptual:</strong> Capacidad de una empresa para convertir sus activos corrientes en efectivo con el fin de cumplir con sus obligaciones de corto plazo sin comprometer su operatividad normal (Gitman y Zutter, 2016).</p>
+  </div>
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">🏥 Contexto social-salud — Cumplimiento de normativa</div>
+    <p><strong>Variable:</strong> Cumplimiento de la normativa contable en instituciones de salud pública<br>
+    <strong>Definición conceptual:</strong> Grado en que las entidades del sistema de salud pública ecuatoriano (Ministerio de Salud Pública, IESS, hospitales públicos) aplican los principios, políticas y procedimientos establecidos en las Normas de Contabilidad Gubernamental emitidas por el Ministerio de Economía y Finanzas del Ecuador (MEF, 2020).</p>
+  </div>
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">🎓 Contexto educativo — Desempeño académico</div>
+    <p><strong>Variable:</strong> Desempeño académico<br>
+    <strong>Definición conceptual:</strong> Nivel de logro de los aprendizajes esperados por parte del estudiante universitario, medido a través de las calificaciones obtenidas en los procesos de evaluación formal establecidos por la institución educativa, y que refleja la adquisición de competencias cognitivas, procedimentales y actitudinales (Garbanzo, 2007).</p>
+  </div>
+
+  <h3>3.3 Características de una buena definición conceptual</h3>
+  <table>
+    <thead><tr><th>Característica</th><th>¿Por qué importa?</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Sustentada en fuentes</strong></td><td>Le da validez académica. No puede ser "lo que yo creo".</td></tr>
+      <tr><td><strong>Precisa y sin ambigüedad</strong></td><td>Elimina interpretaciones diferentes del mismo término.</td></tr>
+      <tr><td><strong>Acotada al estudio</strong></td><td>No define el concepto en todas sus dimensiones posibles, solo en las relevantes para la investigación.</td></tr>
+      <tr><td><strong>Redactada en tercera persona / impersonal</strong></td><td>Cumple con los criterios del lenguaje científico.</td></tr>
+      <tr><td><strong>Diferencia del concepto coloquial</strong></td><td>El término "endeudamiento" coloquial ≠ "endeudamiento financiero" técnico.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.4 Definición conceptual vs. Marco conceptual</h3>
+  <div class="caja-nota">
+    <strong>⚠️ No confundir:</strong> La <em>definición conceptual de una variable</em> es una definición breve y específica para esa variable dentro de la investigación. El <em>marco conceptual</em> es el conjunto de todas las definiciones de los términos clave usados en el estudio. La definición conceptual de cada variable forma parte del marco conceptual.
+  </div>
+
+  <div class="caja-conclusion">
+    <p><strong>💡 Idea clave del Tema 3:</strong> La definición conceptual responde a la pregunta "¿qué es esto que voy a estudiar?" en el plano del <em>pensamiento y la teoría</em>. Es la puerta de entrada hacia la medición. Sin ella, la definición operacional —el paso siguiente— carecería de base sólida. La definición conceptual ancla la variable al conocimiento científico existente.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: TEMA 4 — DEFINICIÓN OPERACIONAL
+     ============================================================ -->
+<div id="t4" class="tab-content">
+  <h2>⚙️ Tema 4 — Definición Operacional de las Variables</h2>
+
+  <p>Si la definición conceptual habita en el mundo de las ideas, la <strong>definición operacional</strong> vive en el mundo de la acción y la medición. Es el puente entre el concepto abstracto y el dato concreto que recoge el investigador.</p>
+
+  <h3>4.1 ¿Qué es la definición operacional?</h3>
+  <div class="caja-concepto">
+    <strong>Definición:</strong> La <em>definición operacional</em> (también llamada <em>definición operativa</em>) especifica qué actividades u operaciones deben realizarse para medir o manipular una variable. Indica el instrumento de medición, la escala utilizada, los indicadores concretos y el procedimiento exacto de recolección de datos. Responde a: <em>¿cómo voy a medir esto en la realidad?</em>
+  </div>
+
+  <h3>4.2 Componentes de una definición operacional completa</h3>
+  <table>
+    <thead><tr><th>Componente</th><th>Explicación</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Indicadores</strong></td><td>Aspectos específicos y medibles que representan a la variable. Una variable abstracta puede tener varios indicadores.</td></tr>
+      <tr><td><strong>Escala de medición</strong></td><td>Nominal, ordinal, de intervalo o de razón (Stevens, 1946). Determina el tipo de análisis estadístico.</td></tr>
+      <tr><td><strong>Instrumento</strong></td><td>Cuestionario, ficha de observación, checklist de auditoría, análisis documental, prueba estandarizada, etc.</td></tr>
+      <tr><td><strong>Fuente de datos</strong></td><td>¿De dónde proviene la información? (Encuesta, estados financieros, bases del SRI, SEPS, IESS, BanEcuador, etc.)</td></tr>
+      <tr><td><strong>Categorías o rangos</strong></td><td>Valores posibles que tomará la variable una vez medida (ej.: alto/medio/bajo; porcentaje de 0 a 100%; etc.)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.3 Del concepto al indicador: el proceso de operacionalización</h3>
+  <p>La <strong>operacionalización</strong> es el proceso sistemático de convertir una variable abstracta en indicadores concretos y medibles. Tiene tres niveles:</p>
+  <div class="caja-concepto">
+    <strong>Nivel 1 — Variable:</strong> el concepto abstracto (ej.: "Calidad de la información financiera")<br>
+    <strong>Nivel 2 — Dimensiones:</strong> los aspectos constitutivos del concepto (ej.: "Relevancia", "Fiabilidad", "Comparabilidad")<br>
+    <strong>Nivel 3 — Indicadores:</strong> las medidas específicas de cada dimensión (ej.: "Número de ajustes realizados tras revisión del auditor", "Porcentaje de estados financieros presentados dentro del plazo")
+  </div>
+  <div class="flecha">↓</div>
+
+  <h3>4.4 Ejemplos completos de operacionalización en múltiples contextos</h3>
+
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">💼 Contexto Empresarial — Evasión Tributaria (SRI Ecuador)</div>
+    <table>
+      <thead><tr><th>Variable</th><th>Dimensión</th><th>Indicador</th><th>Instrumento</th><th>Escala</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="3"><strong>Evasión Tributaria</strong></td><td>Omisión de ingresos</td><td>% de ingresos no declarados vs. ingresos reales</td><td>Cruce de información SRI–declaraciones</td><td>Razón (%)</td></tr>
+        <tr><td>Uso indebido de deducciones</td><td>N° de deducciones rechazadas por el SRI</td><td>Bases de datos SRI</td><td>Razón (conteo)</td></tr>
+        <tr><td>Subregistro de operaciones</td><td>Diferencia entre facturación reportada y facturación electrónica</td><td>Sistema de facturación electrónica SRI</td><td>Razón ($)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">🏥 Contexto Social-Salud — Calidad de Gestión Contable en Hospitales Públicos</div>
+    <table>
+      <thead><tr><th>Variable</th><th>Dimensión</th><th>Indicador</th><th>Instrumento</th><th>Escala</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="3"><strong>Calidad de Gestión Contable</strong></td><td>Oportunidad</td><td>% de cierres contables presentados en el plazo establecido</td><td>Revisión de registros del MEF</td><td>Razón (%)</td></tr>
+        <tr><td>Precisión</td><td>N° de errores detectados en informes financieros por la Contraloría</td><td>Informes de la Contraloría General del Estado</td><td>Razón (conteo)</td></tr>
+        <tr><td>Cumplimiento normativo</td><td>Nivel de adecuación a las Normas de Contabilidad Gubernamental</td><td>Checklist de auditoría</td><td>Ordinal (Alto/Medio/Bajo)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-ejemplo">
+    <div class="ej-titulo">🎓 Contexto Educativo — Desempeño Académico en Contabilidad</div>
+    <table>
+      <thead><tr><th>Variable</th><th>Dimensión</th><th>Indicador</th><th>Instrumento</th><th>Escala</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="3"><strong>Desempeño Académico</strong></td><td>Logro cognitivo</td><td>Promedio de calificaciones en materias de contabilidad (escala 0–10)</td><td>Registro académico institucional</td><td>Intervalo</td></tr>
+        <tr><td>Habilidad práctica</td><td>Calificación en ejercicios de aplicación NIIF</td><td>Rúbrica de evaluación</td><td>Intervalo</td></tr>
+        <tr><td>Asistencia</td><td>% de asistencia a clases sincrónicas</td><td>Registro del sistema LMS (Moodle)</td><td>Razón (%)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>4.5 Definición conceptual vs. Definición operacional: comparación directa</h3>
+  <table>
+    <thead><tr><th>Aspecto</th><th>Definición Conceptual</th><th>Definición Operacional</th></tr></thead>
+    <tbody>
+      <tr><td><strong>¿Qué responde?</strong></td><td>¿Qué es este concepto?</td><td>¿Cómo mido este concepto?</td></tr>
+      <tr><td><strong>Plano</strong></td><td>Teórico / abstracto</td><td>Empírico / concreto</td></tr>
+      <tr><td><strong>Fuente</strong></td><td>Literatura académica</td><td>Diseño del investigador</td></tr>
+      <tr><td><strong>Resultado</strong></td><td>Una definición escrita</td><td>Un instrumento de medición</td></tr>
+      <tr><td><strong>Ejemplo</strong></td><td>"La rentabilidad es la capacidad de la empresa para generar utilidades en relación a sus recursos invertidos."</td><td>"La rentabilidad se medirá mediante el indicador ROE (Utilidad neta / Patrimonio), expresado en porcentaje, obtenido de los estados financieros reportados a la Superintendencia de Compañías."</td></tr>
+    </tbody>
+  </table>
+
+  <div class="caja-conclusion">
+    <p><strong>💡 Idea clave del Tema 4:</strong> La operacionalización es el momento en que la investigación "aterriza". Sin ella, la hipótesis permanece como una afirmación de fe. Con ella, el investigador convierte sus conceptos en datos reales, medibles y analizables. Toda variable que aparece en una hipótesis debe tener su definición conceptual <em>y</em> su definición operacional: ambas son inseparables.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: EJERCICIO INTERACTIVO
+     ============================================================ -->
+<div id="ejercicio" class="tab-content">
+  <h2>✏️ Ejercicio Interactivo — Identificar y clasificar hipótesis y definiciones</h2>
+  <p>Lee cada ítem con atención y selecciona la opción correcta. Cuando hayas respondido <strong>todos los ítems</strong>, presiona "Verificar respuestas".</p>
+
+  <!-- Ítem E1 -->
+  <div class="ejercicio-item" id="ej-e1">
+    <div class="enunciado">Ítem 1. Lee la siguiente afirmación: <em>"Las empresas que implementan sistemas de control interno basados en el Marco COSO reducen su nivel de hallazgos en auditorías de la Contraloría General del Estado ecuatoriana."</em> ¿Qué tipo de hipótesis es?</div>
+    <label class="opcion-label"><input type="radio" name="ei1" value="a"> a) Hipótesis descriptiva</label>
+    <label class="opcion-label"><input type="radio" name="ei1" value="b"> b) Hipótesis causal (bivariada)</label>
+    <label class="opcion-label"><input type="radio" name="ei1" value="c"> c) Hipótesis correlacional</label>
+    <label class="opcion-label"><input type="radio" name="ei1" value="d"> d) Hipótesis nula (H₀)</label>
+    <div class="feedback-ej" id="fb-e1"></div>
+  </div>
+
+  <!-- Ítem E2 -->
+  <div class="ejercicio-item" id="ej-e2">
+    <div class="enunciado">Ítem 2. "La tasa de desempleo juvenil en Ecuador durante 2023 fue superior al 12%." Esta es una hipótesis…</div>
+    <label class="opcion-label"><input type="radio" name="ei2" value="a"> a) Causal</label>
+    <label class="opcion-label"><input type="radio" name="ei2" value="b"> b) Correlacional</label>
+    <label class="opcion-label"><input type="radio" name="ei2" value="c"> c) Descriptiva</label>
+    <label class="opcion-label"><input type="radio" name="ei2" value="d"> d) De diferencia entre grupos</label>
+    <div class="feedback-ej" id="fb-e2"></div>
+  </div>
+
+  <!-- Ítem E3 -->
+  <div class="ejercicio-item" id="ej-e3">
+    <div class="enunciado">Ítem 3. Un investigador escribe: <em>"Rentabilidad: capacidad de la empresa para obtener beneficios en relación a su inversión (Gitman y Zutter, 2016)."</em> ¿A qué tipo de definición corresponde?</div>
+    <label class="opcion-label"><input type="radio" name="ei3" value="a"> a) Definición operacional</label>
+    <label class="opcion-label"><input type="radio" name="ei3" value="b"> b) Definición conceptual</label>
+    <label class="opcion-label"><input type="radio" name="ei3" value="c"> c) Definición de escala de medición</label>
+    <label class="opcion-label"><input type="radio" name="ei3" value="d"> d) Indicador estadístico</label>
+    <div class="feedback-ej" id="fb-e3"></div>
+  </div>
+
+  <!-- Ítem E4 -->
+  <div class="ejercicio-item" id="ej-e4">
+    <div class="enunciado">Ítem 4. Otro investigador escribe: <em>"La rentabilidad se medirá mediante el ROE (Utilidad Neta / Patrimonio × 100), expresado en porcentaje, obtenido de los estados financieros auditados reportados a la Superintendencia de Compañías."</em> ¿Qué tipo de definición es?</div>
+    <label class="opcion-label"><input type="radio" name="ei4" value="a"> a) Definición conceptual</label>
+    <label class="opcion-label"><input type="radio" name="ei4" value="b"> b) Definición de problema</label>
+    <label class="opcion-label"><input type="radio" name="ei4" value="c"> c) Definición operacional</label>
+    <label class="opcion-label"><input type="radio" name="ei4" value="d"> d) Hipótesis descriptiva</label>
+    <div class="feedback-ej" id="fb-e4"></div>
+  </div>
+
+  <!-- Ítem E5 -->
+  <div class="ejercicio-item" id="ej-e5">
+    <div class="enunciado">Ítem 5. La hipótesis H₀ (nula) sirve para…</div>
+    <label class="opcion-label"><input type="radio" name="ei5" value="a"> a) Confirmar directamente lo que el investigador cree</label>
+    <label class="opcion-label"><input type="radio" name="ei5" value="b"> b"> b) Plantear que no existe relación o efecto, como punto de partida para ser rechazada con datos</label>
+    <label class="opcion-label"><input type="radio" name="ei5" value="c"> c) Describir la población sin establecer relaciones entre variables</label>
+    <label class="opcion-label"><input type="radio" name="ei5" value="d"> d) Reemplazar a la hipótesis de trabajo cuando esta no puede formularse</label>
+    <div class="feedback-ej" id="fb-e5"></div>
+  </div>
+
+  <!-- Ítem E6 -->
+  <div class="ejercicio-item" id="ej-e6">
+    <div class="enunciado">Ítem 6. ¿Cuál de las siguientes características NO corresponde a una hipótesis científica bien formulada?</div>
+    <label class="opcion-label"><input type="radio" name="ei6" value="a"> a) Verificable mediante datos empíricos</label>
+    <label class="opcion-label"><input type="radio" name="ei6" value="b"> b) Sustentada en teoría o evidencia previa</label>
+    <label class="opcion-label"><input type="radio" name="ei6" value="c"> c) Basada únicamente en la experiencia personal del investigador, sin sustento teórico</label>
+    <label class="opcion-label"><input type="radio" name="ei6" value="d"> d) Congruente con el marco teórico</label>
+    <div class="feedback-ej" id="fb-e6"></div>
+  </div>
+
+  <!-- Ítem E7 -->
+  <div class="ejercicio-item" id="ej-e7">
+    <div class="enunciado">Ítem 7. Asocia: "Nivel de cumplimiento NIIF medido con un checklist de 20 criterios, calificado como Alto (16-20 puntos), Medio (9-15 puntos) o Bajo (0-8 puntos)." Esto corresponde a…</div>
+    <label class="opcion-label"><input type="radio" name="ei7" value="a"> a) Definición conceptual de la variable</label>
+    <label class="opcion-label"><input type="radio" name="ei7" value="b"> b) Definición operacional con escala ordinal</label>
+    <label class="opcion-label"><input type="radio" name="ei7" value="c"> c) Hipótesis de diferencia entre grupos</label>
+    <label class="opcion-label"><input type="radio" name="ei7" value="d"> d) Marco teórico de la investigación</label>
+    <div class="feedback-ej" id="fb-e7"></div>
+  </div>
+
+  <!-- Ítem E8 -->
+  <div class="ejercicio-item" id="ej-e8">
+    <div class="enunciado">Ítem 8. ¿En qué tipo de estudio generalmente NO se formulan hipótesis?</div>
+    <label class="opcion-label"><input type="radio" name="ei8" value="a"> a) Correlacional</label>
+    <label class="opcion-label"><input type="radio" name="ei8" value="b"> b) Explicativo (causal)</label>
+    <label class="opcion-label"><input type="radio" name="ei8" value="c"> c) Exploratorio</label>
+    <label class="opcion-label"><input type="radio" name="ei8" value="d"> d) Cuasiexperimental</label>
+    <div class="feedback-ej" id="fb-e8"></div>
+  </div>
+
+  <button class="btn-verificar" onclick="verificarEjercicio()">✅ Verificar respuestas</button>
+  <button class="btn-reset" onclick="resetEjercicio()">🔄 Reiniciar</button>
+
+  <div class="resultado-box" id="resultado-ej">
+    <h3>📊 Resultado del Ejercicio</h3>
+    <p id="puntaje-ej-texto"></p>
+    <div class="barra-contenedor"><div class="barra-fill" id="barra-ej" style="width:0%"></div></div>
+    <p id="emoji-ej" style="font-size:28px;margin:10px 0;"></p>
+    <p id="msg-ej"></p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: CUESTIONARIO
+     ============================================================ -->
+<div id="cuestionario" class="tab-content">
+  <h2>📝 Cuestionario — 10 preguntas de opción múltiple</h2>
+  <p>Responde las <strong>10 preguntas</strong> y luego presiona "Verificar respuestas" para ver tu calificación final con retroalimentación detallada.</p>
+
+  <!-- Q1 -->
+  <div class="ejercicio-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="enunciado">1. Según Hernández Sampieri, ¿cómo se definen las hipótesis en la investigación cuantitativa?</div>
+    <label class="opcion-label"><input type="radio" name="qi1" value="a"> a) Certezas que el investigador tiene antes de comenzar el estudio</label>
+    <label class="opcion-label"><input type="radio" name="qi1" value="b"> b) Explicaciones tentativas del fenómeno investigado, formuladas como proposiciones</label>
+    <label class="opcion-label"><input type="radio" name="qi1" value="c"> c) Conclusiones preliminares que se extraen de la muestra</label>
+    <label class="opcion-label"><input type="radio" name="qi1" value="d"> d) Preguntas abiertas que el investigador responde en el marco teórico</label>
+    <div class="feedback-ej" id="fb-q1"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="ejercicio-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="enunciado">2. ¿Cuál de las siguientes funciones cumple la hipótesis en la investigación?</div>
+    <label class="opcion-label"><input type="radio" name="qi2" value="a"> a) Reemplazar al marco teórico cuando no existe literatura suficiente</label>
+    <label class="opcion-label"><input type="radio" name="qi2" value="b"> b) Guiar la investigación, predecir resultados y organizar el diseño metodológico</label>
+    <label class="opcion-label"><input type="radio" name="qi2" value="c"> c) Describir los resultados obtenidos después del análisis estadístico</label>
+    <label class="opcion-label"><input type="radio" name="qi2" value="d"> d) Determinar el tamaño de la muestra antes del planteamiento del problema</label>
+    <div class="feedback-ej" id="fb-q2"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="ejercicio-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="enunciado">3. La hipótesis nula (H₀) se formula para…</div>
+    <label class="opcion-label"><input type="radio" name="qi3" value="a"> a) Confirmar la relación que el investigador espera encontrar</label>
+    <label class="opcion-label"><input type="radio" name="qi3" value="b"> b) Sustituir a la hipótesis alternativa cuando los datos no son concluyentes</label>
+    <label class="opcion-label"><input type="radio" name="qi3" value="c"> c) Plantear que no existe relación o efecto, siendo el punto de partida del contraste estadístico</label>
+    <label class="opcion-label"><input type="radio" name="qi3" value="d"> d) Describir el comportamiento de la variable dependiente en un grupo específico</label>
+    <div class="feedback-ej" id="fb-q3"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="ejercicio-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="enunciado">4. La definición operacional de una variable responde a la pregunta…</div>
+    <label class="opcion-label"><input type="radio" name="qi4" value="a"> a) ¿Qué significa este concepto según la teoría?</label>
+    <label class="opcion-label"><input type="radio" name="qi4" value="b"> b) ¿Cómo voy a medir esta variable en la realidad, con qué instrumento y escala?</label>
+    <label class="opcion-label"><input type="radio" name="qi4" value="c"> c) ¿Por qué esta variable es importante para la ciencia?</label>
+    <label class="opcion-label"><input type="radio" name="qi4" value="d"> d) ¿Qué tipo de hipótesis se puede formular con esta variable?</label>
+    <div class="feedback-ej" id="fb-q4"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="ejercicio-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="enunciado">5. ¿Cuál de las siguientes opciones describe correctamente una hipótesis de diferencia entre grupos?</div>
+    <label class="opcion-label"><input type="radio" name="qi5" value="a"> a) "El nivel de endeudamiento de las empresas ecuatorianas aumentó un 15% entre 2020 y 2022."</label>
+    <label class="opcion-label"><input type="radio" name="qi5" value="b"> b) "Existe una correlación negativa entre morosidad y ROA en bancos privados."</label>
+    <label class="opcion-label"><input type="radio" name="qi5" value="c"> c"> c) "Las empresas grandes presentan mayor cumplimiento de NIIF que las medianas en Ecuador."</label>
+    <label class="opcion-label"><input type="radio" name="qi5" value="d"> d) "La capacitación en NIIF genera mayor calidad de informes financieros."</label>
+    <div class="feedback-ej" id="fb-q5"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="ejercicio-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="enunciado">6. La operacionalización de una variable implica…</div>
+    <label class="opcion-label"><input type="radio" name="qi6" value="a"> a) Formular la hipótesis nula a partir del marco teórico</label>
+    <label class="opcion-label"><input type="radio" name="qi6" value="b"> b) Convertir el concepto abstracto en indicadores concretos y medibles con un instrumento específico</label>
+    <label class="opcion-label"><input type="radio" name="qi6" value="c"> c) Seleccionar el tipo de muestreo más adecuado para la investigación</label>
+    <label class="opcion-label"><input type="radio" name="qi6" value="d"> d) Redactar el planteamiento del problema en forma de pregunta</label>
+    <div class="feedback-ej" id="fb-q6"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="ejercicio-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="enunciado">7. ¿En qué tipo de investigación las hipótesis son esenciales y no opcionales?</div>
+    <label class="opcion-label"><input type="radio" name="qi7" value="a"> a) Exploratoria y descriptiva básica</label>
+    <label class="opcion-label"><input type="radio" name="qi7" value="b"> b) Correlacional y explicativa (causal)</label>
+    <label class="opcion-label"><input type="radio" name="qi7" value="c"> c) Solo en investigaciones cualitativas</label>
+    <label class="opcion-label"><input type="radio" name="qi7" value="d"> d) Únicamente en estudios de caso único</label>
+    <div class="feedback-ej" id="fb-q7"></div>
+  </div>
+
+  <!-- Q8 — ANÁLISIS -->
+  <div class="ejercicio-item">
+    <span class="badge badge-analisis">Análisis de Caso</span>
+    <div class="enunciado">8. Una investigadora plantea: <em>"La supervisión de la SEPS reduce la irregularidad financiera en las cooperativas de ahorro y crédito."</em> Al revisar su hipótesis, su tutora le dice que está incompleta. ¿Cuál es el principal problema?</div>
+    <label class="opcion-label"><input type="radio" name="qi8" value="a"> a) No incluye hipótesis nula (H₀)</label>
+    <label class="opcion-label"><input type="radio" name="qi8" value="b"> b) No especifica la población, el período de tiempo ni cómo se medirán las variables</label>
+    <label class="opcion-label"><input type="radio" name="qi8" value="c"> c) Es una hipótesis descriptiva cuando debería ser correlacional</label>
+    <label class="opcion-label"><input type="radio" name="qi8" value="d"> d) Usa un término cualitativo en lugar de cuantitativo</label>
+    <div class="feedback-ej" id="fb-q8"></div>
+  </div>
+
+  <!-- Q9 — ANÁLISIS -->
+  <div class="ejercicio-item">
+    <span class="badge badge-analisis">Análisis de Caso</span>
+    <div class="enunciado">9. Un estudiante define la variable "evasión tributaria" así: <em>"Es cuando las empresas no pagan bien sus impuestos."</em> ¿Qué problema tiene esta definición?</div>
+    <label class="opcion-label"><input type="radio" name="qi9" value="a"> a) Es demasiado técnica para los lectores no especializados</label>
+    <label class="opcion-label"><input type="radio" name="qi9" value="b"> b"> b) Es imprecisa, ambigua y carece de sustento en fuentes académicas o legales</label>
+    <label class="opcion-label"><input type="radio" name="qi9" value="c"> c) Confunde la definición conceptual con la operacional</label>
+    <label class="opcion-label"><input type="radio" name="qi9" value="d"> d) Usa lenguaje coloquial pero es suficientemente clara para una investigación exploratoria</label>
+    <div class="feedback-ej" id="fb-q9"></div>
+  </div>
+
+  <!-- Q10 — ANÁLISIS -->
+  <div class="ejercicio-item">
+    <span class="badge badge-analisis">Análisis de Caso</span>
+    <div class="enunciado">10. Una investigación sobre auditoría forense en el sector público tiene esta hipótesis: <em>"Las entidades públicas que aplican técnicas de auditoría forense detectan significativamente más actos de corrupción que las que no las aplican, según los reportes de la Contraloría General del Estado, período 2018–2022."</em> ¿Cuál de los siguientes elementos la hace correctamente formulada?</div>
+    <label class="opcion-label"><input type="radio" name="qi10" value="a"> a) Solo el uso del término "significativamente"</label>
+    <label class="opcion-label"><input type="radio" name="qi10" value="b"> b) Delimitación de población (entidades públicas), fuente (Contraloría), período (2018-2022) y dirección (más detección)</label>
+    <label class="opcion-label"><input type="radio" name="qi10" value="c"> c) Es una hipótesis descriptiva porque describe el comportamiento de una sola variable</label>
+    <label class="opcion-label"><input type="radio" name="qi10" value="d"> d) No necesita marco teórico porque la variable está claramente definida</label>
+    <div class="feedback-ej" id="fb-q10"></div>
+  </div>
+
+  <button class="btn-verificar" onclick="verificarCuestionario()">✅ Verificar respuestas</button>
+  <button class="btn-reset" onclick="resetCuestionario()">🔄 Reiniciar</button>
+
+  <div class="resultado-box" id="resultado-quiz">
+    <h3>📊 Resultado del Cuestionario</h3>
+    <p id="puntaje-quiz-texto"></p>
+    <div class="barra-contenedor"><div class="barra-fill" id="barra-quiz" style="width:0%"></div></div>
+    <p id="emoji-quiz" style="font-size:32px;margin:10px 0;"></p>
+    <p id="msg-quiz"></p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: ACTIVIDAD CON IA
+     ============================================================ -->
+<div id="ia" class="tab-content">
+  <h2>🤖 Actividad con Inteligencia Artificial</h2>
+
+  <div class="caja-concepto">
+    <strong>Objetivo de la actividad:</strong> Usar la IA como interlocutora crítica para diseñar una hipótesis completa y su operacionalización, aplicada a un problema real del contexto ecuatoriano en contabilidad o auditoría. El objetivo NO es copiar la respuesta: es dialogar con la IA para desarrollar tu pensamiento investigativo.
+  </div>
+
+  <div class="ia-pasos">
+    <div class="ia-paso">
+      <strong>Elige una herramienta de IA</strong><br>
+      Se recomienda <strong>Claude</strong> en <a href="https://claude.ai" target="_blank" style="color:#003366;">claude.ai</a> como herramienta principal. También puedes usar ChatGPT (chatgpt.com) o Gemini (gemini.google.com). Crea una cuenta gratuita si no tienes una.
+    </div>
+    <div class="ia-paso">
+      <strong>Usa este prompt exacto</strong><br>
+      Copia y pega el siguiente texto en la IA, sustituyendo los espacios indicados con tu información:
+      <div class="prompt-box">Soy estudiante de Contabilidad y Auditoría de la Universidad de Guayaquil. 
+Estoy aprendiendo a formular hipótesis de investigación y a operacionalizar variables.
+
+Mi tema de investigación es: [ESCRIBE TU TEMA, ej: "El impacto del control interno en la detección de fraude en empresas del sector bananero del Ecuador"]
+
+Necesito que me ayudes a:
+1. Formular una hipótesis causal completa y bien redactada para este tema, identificando claramente la variable independiente y la variable dependiente.
+2. Formular también la hipótesis nula (H₀) correspondiente.
+3. Proponer la definición conceptual de cada variable (con referencia a una fuente académica real).
+4. Proponer la definición operacional de cada variable: qué indicadores usaría, con qué escala de medición y de qué fuente obtendría los datos en el contexto ecuatoriano.
+
+Por favor explica por qué elegiste esos indicadores y no otros. 
+Al final, hazme una pregunta crítica que me ayude a mejorar o refinar mi hipótesis.</div>
+    </div>
+    <div class="ia-paso">
+      <strong>Analiza críticamente la respuesta</strong><br>
+      Después de que la IA responda, <strong>NO copies su respuesta directamente</strong>. En cambio:
+      <ul>
+        <li>¿Están bien diferenciadas la variable independiente y la dependiente?</li>
+        <li>¿La definición conceptual cita una fuente real y verificable?</li>
+        <li>¿La definición operacional menciona el instrumento, la escala y la fuente de datos en Ecuador?</li>
+        <li>¿La hipótesis cumple con las 6 características estudiadas en el Tema 1?</li>
+      </ul>
+      <p>Dialoga con la IA: corrige, pide mejoras, propone alternativas. El pensamiento crítico ocurre en ese diálogo.</p>
+    </div>
+    <div class="ia-paso">
+      <strong>Redacta tu versión final</strong><br>
+      Con base en el diálogo, escribe <em>con tus propias palabras</em>:
+      <ul>
+        <li>La hipótesis de trabajo (mejorada)</li>
+        <li>La H₀ correspondiente</li>
+        <li>Las definiciones conceptual y operacional de cada variable</li>
+        <li>Una reflexión de 5 líneas: ¿En qué cambió tu hipótesis gracias al diálogo con la IA? ¿Qué aprendiste sobre la diferencia entre definir y medir?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="caja-nota">
+    <strong>🎓 Criterio de evaluación — ¿Qué demuestra pensamiento crítico vs. qué es copia?</strong><br><br>
+    <strong>Copia simple:</strong> El estudiante pega literalmente lo que generó la IA sin reflexión, sin contexto propio, sin mencionar por qué eligió ese tema o qué aspectos cambió.<br><br>
+    <strong>Pensamiento crítico:</strong> El estudiante muestra el proceso de diálogo, señala en qué no estaba de acuerdo con la IA, argumenta por qué eligió ciertos indicadores, relaciona las definiciones con la realidad ecuatoriana (SRI, SEPS, Contraloría, Superintendencia de Compañías) y produce una versión final claramente personal y contextualizada.
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: PREGUNTAS REFLEXIVAS
+     ============================================================ -->
+<div id="reflexion" class="tab-content">
+  <h2>💭 Preguntas Reflexivas</h2>
+  <p>No hay respuestas correctas ni incorrectas. El objetivo es que conectes lo aprendido con tu vida real, tu futuro profesional y tu autoconocimiento. Puedes escribir tus respuestas en tu cuaderno o compartirlas en el foro de Moodle.</p>
+
+  <div class="reflx-item">
+    <div class="reflx-num">Pregunta 1 — Conexión con la vida cotidiana</div>
+    <p>En tu vida diaria, ¿cuántas veces "formulas hipótesis" sin darte cuenta? Cuando dices "si estudio más, sacaré mejor nota", estás planteando una hipótesis causal. ¿Puedes identificar tres hipótesis implícitas que guíen decisiones cotidianas tuyas (económicas, personales, de salud)? ¿Cómo las "verificas" en tu vida?</p>
+  </div>
+
+  <div class="reflx-item">
+    <div class="reflx-num">Pregunta 2 — Autoconocimiento e inteligencia emocional</div>
+    <p>La operacionalización exige convertir conceptos abstractos en medidas concretas. Si tuvieras que "operacionalizar" tu propio bienestar emocional como si fuera una variable de investigación, ¿qué indicadores usarías? ¿Cómo sabrías —de manera medible— que estás bien emocionalmente? ¿Qué dimensiones incluirías?</p>
+  </div>
+
+  <div class="reflx-item">
+    <div class="reflx-num">Pregunta 3 — Ética y responsabilidad profesional</div>
+    <p>Un auditor de la Contraloría General del Estado tiene la hipótesis de que una entidad pública "comete irregularidades". Esa hipótesis guiará su proceso de auditoría. ¿Cómo influye en su trabajo que una hipótesis sea "provisional y sujeta a verificación"? ¿Qué riesgo existe si el auditor trata su hipótesis inicial como una certeza?</p>
+  </div>
+
+  <div class="reflx-item">
+    <div class="reflx-num">Pregunta 4 — Programación neurolingüística y creencias</div>
+    <p>En PNL (Programación Neurolingüística), las creencias son "hipótesis sobre la realidad que tratamos como verdades". Por ejemplo: "Soy malo para las matemáticas" es una hipótesis que muchos tratan como un hecho. ¿Puedes identificar alguna creencia limitante tuya que, si la "verificaras" con evidencia real, podría resultar falsa? ¿Cómo cambiaría tu vida "rechazar la H₀" de esa creencia?</p>
+  </div>
+
+  <div class="reflx-item">
+    <div class="reflx-num">Pregunta 5 — Futuro profesional en Ecuador</div>
+    <p>Como futuro contador o auditor en Ecuador, ¿en qué situaciones de tu carrera necesitarás formular "hipótesis profesionales"? Piensa en auditorías tributarias (SRI), revisión de estados financieros (Superintendencia de Compañías), exámenes especiales (Contraloría) o auditorías actuariales (IESS). ¿Cómo cambia tu perspectiva saber que el pensamiento investigativo forma parte de tu ejercicio profesional?</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PESTAÑA: BIBLIOGRAFÍA
+     ============================================================ -->
+<div id="biblio" class="tab-content">
+  <h2>📚 Bibliografía</h2>
+
+  <div class="bib-card">
+    <div class="bib-autor">Hernández Sampieri, R., Fernández Collado, C., & Baptista Lucio, P.</div>
+    <div>(2014). <span class="bib-titulo">Metodología de la investigación</span> (6.ª ed.). McGraw-Hill / Interamericana Editores.</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-autor">Ñaupas Paitán, H., Valdivia Dueñas, M. R., Palacios Vilela, J. J., & Romero Delgado, H. E.</div>
+    <div>(2018). <span class="bib-titulo">Metodología de la investigación cuantitativa-cualitativa y redacción de la tesis</span> (5.ª ed.). Ediciones de la U.</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-autor">Gallardo Echenique, E. E.</div>
+    <div>(2017). <span class="bib-titulo">Metodología de la investigación: Manual autoformativo interactivo</span>. Universidad Continental. Repositorio disponible en: http://repositorio.continental.edu.pe/</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-autor">Kerlinger, F. N., & Lee, H. B.</div>
+    <div>(2002). <span class="bib-titulo">Investigación del comportamiento: Métodos de investigación en ciencias sociales</span> (4.ª ed.). McGraw-Hill.</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-autor">Stevens, S. S.</div>
+    <div>(1946). On the theory of scales of measurement. <span class="bib-titulo">Science</span>, 103(2684), 677–680. https://doi.org/10.1126/science.103.2684.677</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-autor">Gitman, L. J., & Zutter, C. J.</div>
+    <div>(2016). <span class="bib-titulo">Principios de administración financiera</span> (14.ª ed.). Pearson Educación.</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-autor">Ecuador, Asamblea Nacional.</div>
+    <div>(2004). <span class="bib-titulo">Código Tributario</span> (Codificación 2005-09, Registro Oficial Suplemento 38, publicado 14 de junio de 2005; última reforma 2024). Lexis Ecuador. https://www.sri.gob.ec</div>
+  </div>
+
+  <div class="bib-nota">
+    ⚠️ <strong>Nota académica:</strong> Se recomienda verificar cada referencia en Google Scholar (<a href="https://scholar.google.com" target="_blank">scholar.google.com</a>) o en el repositorio institucional antes de citarla en trabajos académicos. Las leyes y normativas deben consultarse en su versión actualizada en <a href="https://www.lexis.com.ec" target="_blank">lexis.com.ec</a> o el sitio oficial de la entidad emisora.
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+/* --- Navegación de pestañas --- */
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ===================================================
+   EJERCICIO INTERACTIVO
+   =================================================== */
+const ejCorrectas = {
+  ei1: 'b',
+  ei2: 'c',
+  ei3: 'b',
+  ei4: 'c',
+  ei5: 'b',
+  ei6: 'c',
+  ei7: 'b',
+  ei8: 'c'
+};
+
+const ejFeedbacks = {
+  ei1: {
+    correct: 'Correcto. La hipótesis establece que una variable (control COSO) produce un efecto en otra (hallazgos de auditoría). Eso es una relación causal bivariada.',
+    wrong: 'Incorrecto. La hipótesis indica que el sistema COSO (causa/VI) produce reducción de hallazgos (efecto/VD). Es una hipótesis causal bivariada.'
+  },
+  ei2: {
+    correct: 'Correcto. Solo describe el valor esperado de una variable (tasa de desempleo) en un período. No establece relaciones entre variables.',
+    wrong: 'Incorrecto. Esta hipótesis solo predice el valor de una sola variable (tasa de desempleo). No hay relación entre variables. Es descriptiva.'
+  },
+  ei3: {
+    correct: 'Correcto. Es una definición conceptual: explica el significado del término con apoyo en una fuente académica (Gitman y Zutter). No dice cómo medirlo.',
+    wrong: 'Incorrecto. Esta definición responde "¿qué es rentabilidad?" desde la teoría, con cita académica. Eso es una definición conceptual.'
+  },
+  ei4: {
+    correct: 'Correcto. Especifica el indicador (ROE), la fórmula, la unidad (%), la fuente (Superintendencia de Compañías) y el tipo de instrumento (estados financieros). Eso es operacionalización.',
+    wrong: 'Incorrecto. Esta definición explica CÓMO medir la rentabilidad: indicador (ROE), fórmula, fuente de datos. Eso es la definición operacional.'
+  },
+  ei5: {
+    correct: 'Correcto. La H₀ plantea la ausencia de efecto o relación, y es el punto que el investigador busca rechazar mediante los datos para dar evidencia a favor de su hipótesis alternativa.',
+    wrong: 'Incorrecto. La H₀ plantea que NO existe el efecto o la relación. El investigador la formula para poder rechazarla con datos estadísticos y así apoyar su hipótesis de trabajo.'
+  },
+  ei6: {
+    correct: 'Correcto. Una hipótesis científica DEBE sustentarse en teoría o evidencia previa, no solo en experiencia personal. Eso la haría una mera conjetura sin rigor académico.',
+    wrong: 'Incorrecto. La opción c describe una característica que NO debe tener una hipótesis: no puede basarse únicamente en experiencia personal sin sustento teórico. Esa es la respuesta correcta.'
+  },
+  ei7: {
+    correct: 'Correcto. El checklist con 20 criterios es el instrumento; las categorías Alto/Medio/Bajo son la escala ordinal. Eso describe cómo se medirá la variable: definición operacional.',
+    wrong: 'Incorrecto. La descripción indica: instrumento (checklist), categorías de medición (Alto/Medio/Bajo = escala ordinal). Todo eso es la definición operacional con escala ordinal.'
+  },
+  ei8: {
+    correct: 'Correcto. Los estudios exploratorios buscan familiarizarse con fenómenos poco conocidos. No hay suficiente evidencia previa para anticipar resultados, por lo que no se formulan hipótesis.',
+    wrong: 'Incorrecto. En estudios exploratorios generalmente NO se formulan hipótesis porque no hay suficiente conocimiento previo para anticipar resultados con fundamentación teórica.'
+  }
+};
+
+function verificarEjercicio() {
+  let correctas = 0;
+  let respondidas = 0;
+
+  Object.keys(ejCorrectas).forEach(nombre => {
+    const sel = document.querySelector(`input[name="${nombre}"]:checked`);
+    const fbEl = document.getElementById('fb-' + nombre.replace('ei', 'e'));
+
+    if (!sel) return;
+    respondidas++;
+
+    const esCorrecta = sel.value === ejCorrectas[nombre];
+    if (esCorrecta) correctas++;
+
+    fbEl.className = 'feedback-ej ' + (esCorrecta ? 'correcto' : 'incorrecto');
+    fbEl.innerHTML = esCorrecta
+      ? '✅ ' + ejFeedbacks[nombre].correct
+      : '❌ ' + ejFeedbacks[nombre].wrong;
+    fbEl.style.display = 'block';
+  });
+
+  if (respondidas < 8) {
+    alert('Por favor responde todas las preguntas antes de verificar.');
+    return;
+  }
+
+  const pct = Math.round((correctas / 8) * 100);
+  const resBox = document.getElementById('resultado-ej');
+  resBox.style.display = 'block';
+  document.getElementById('puntaje-ej-texto').textContent = `Obtuviste ${correctas} de 8 ítems correctos (${pct}%).`;
+  setTimeout(() => {
+    document.getElementById('barra-ej').style.width = pct + '%';
+  }, 100);
+
+  let emoji, msg;
+  if (pct === 100) { emoji = '🏆'; msg = '¡Excelente! Dominas completamente el tema de hipótesis y operacionalización.'; }
+  else if (pct >= 80) { emoji = '🎯'; msg = '¡Muy bien! Tienes una comprensión sólida. Repasa los ítems incorrectos para consolidar.'; }
+  else if (pct >= 60) { emoji = '📘'; msg = 'Buen progreso. Revisa los temas 2 y 4 para reforzar tipos de hipótesis y definición operacional.'; }
+  else if (pct >= 40) { emoji = '⚠️'; msg = 'Necesitas reforzar el estudio. Vuelve a los temas 1-4 antes de seguir.'; }
+  else { emoji = '📖'; msg = 'Te recomendamos releer con calma los cuatro temas y tomar notas de los conceptos clave.'; }
+
+  document.getElementById('emoji-ej').textContent = emoji;
+  document.getElementById('msg-ej').textContent = msg;
+  resBox.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetEjercicio() {
+  document.querySelectorAll('input[name^="ei"]').forEach(r => r.checked = false);
+  document.querySelectorAll('[id^="fb-e"]').forEach(f => { f.style.display = 'none'; f.className = 'feedback-ej'; });
+  const resBox = document.getElementById('resultado-ej');
+  resBox.style.display = 'none';
+  document.getElementById('barra-ej').style.width = '0%';
+}
+
+/* ===================================================
+   CUESTIONARIO
+   =================================================== */
+const quizCorrectas = {
+  qi1: 'b',
+  qi2: 'b',
+  qi3: 'c',
+  qi4: 'b',
+  qi5: 'c',
+  qi6: 'b',
+  qi7: 'b',
+  qi8: 'b',
+  qi9: 'b',
+  qi10: 'b'
+};
+
+const quizFeedbacks = {
+  qi1: {
+    correct: 'Correcto. Hernández Sampieri define las hipótesis como explicaciones tentativas del fenómeno investigado, formuladas como proposiciones. Son tentativas, no certezas.',
+    wrong: 'Incorrecto. Según Hernández Sampieri, las hipótesis son explicaciones tentativas (no certezas) formuladas como proposiciones que deben verificarse con datos.'
+  },
+  qi2: {
+    correct: 'Correcto. Las hipótesis orientan, predicen y organizan toda la investigación, desde el diseño hasta el análisis estadístico.',
+    wrong: 'Incorrecto. Las hipótesis guían la investigación, predicen resultados y organizan el diseño metodológico. No reemplazan el marco teórico ni describen resultados finales.'
+  },
+  qi3: {
+    correct: 'Correcto. La H₀ afirma que no existe la relación o efecto que el investigador busca. Es el punto de partida estadístico que se intenta rechazar con los datos.',
+    wrong: 'Incorrecto. La hipótesis nula (H₀) plantea que NO existe relación o efecto. Es el punto de partida del contraste estadístico. Al rechazarla con datos, se apoya la hipótesis alternativa.'
+  },
+  qi4: {
+    correct: 'Correcto. La definición operacional responde a "¿cómo mido esta variable?", especificando instrumento, escala e indicadores concretos.',
+    wrong: 'Incorrecto. La definición operacional responde "¿cómo mido esta variable en la realidad?", con instrumento específico, escala de medición y fuente de datos. La pregunta "¿qué significa?" corresponde a la definición conceptual.'
+  },
+  qi5: {
+    correct: 'Correcto. Esta hipótesis compara el cumplimiento de NIIF entre dos grupos (empresas grandes vs. medianas), lo cual es una hipótesis de diferencia entre grupos.',
+    wrong: 'Incorrecto. Una hipótesis de diferencia entre grupos postula que dos grupos distintos difieren en una variable. "Las empresas grandes presentan mayor cumplimiento de NIIF que las medianas" es el ejemplo correcto.'
+  },
+  qi6: {
+    correct: 'Correcto. Operacionalizar es transformar el concepto abstracto en indicadores concretos y medibles mediante un instrumento específico con una escala determinada.',
+    wrong: 'Incorrecto. La operacionalización convierte el concepto abstracto en indicadores concretos con instrumento y escala. No se refiere al muestreo ni al planteamiento del problema.'
+  },
+  qi7: {
+    correct: 'Correcto. En estudios correlacionales y explicativos (causales) las hipótesis son indispensables porque permiten anticipar y verificar las relaciones o efectos entre variables.',
+    wrong: 'Incorrecto. Las hipótesis son esenciales en estudios correlacionales y explicativos (causales). En los exploratorios generalmente no se formulan porque no hay evidencia previa suficiente.'
+  },
+  qi8: {
+    correct: 'Correcto. Una hipótesis bien formulada debe especificar la población (¿quiénes?), el período (¿cuándo?) y cómo se medirán las variables (¿con qué instrumentos e indicadores?).',
+    wrong: 'Incorrecto. El principal problema es la falta de especificidad: no dice en qué cooperativas, durante qué período, ni cómo se medirán "supervisión" e "irregularidad financiera". Una buena hipótesis debe incluir estos elementos.'
+  },
+  qi9: {
+    correct: 'Correcto. La definición conceptual debe ser precisa, sin ambigüedad y sustentada en fuentes académicas o legales. "No pagar bien los impuestos" es vaga y no tiene respaldo científico.',
+    wrong: 'Incorrecto. El principal problema es la imprecisión y la falta de sustento académico. "No pagar bien" no delimita qué tipo de incumplimiento, en qué grado, ni está respaldada por el Código Tributario o literatura especializada.'
+  },
+  qi10: {
+    correct: 'Correcto. La hipótesis es de alta calidad porque delimita la población (entidades públicas), indica la fuente (Contraloría), especifica el período (2018-2022) y señala la dirección del efecto (mayor detección con auditoría forense).',
+    wrong: 'Incorrecto. Lo que hace correcta a esta hipótesis es la combinación de elementos: población delimitada, fuente institucional real (Contraloría), período especificado y dirección del efecto indicada claramente.'
+  }
+};
+
+function verificarCuestionario() {
+  let correctas = 0;
+  let respondidas = 0;
+
+  Object.keys(quizCorrectas).forEach(nombre => {
+    const sel = document.querySelector(`input[name="${nombre}"]:checked`);
+    const num = nombre.replace('qi', '');
+    const fbEl = document.getElementById('fb-q' + num);
+
+    if (!sel) return;
+    respondidas++;
+
+    const esCorrecta = sel.value === quizCorrectas[nombre];
+    if (esCorrecta) correctas++;
+
+    fbEl.className = 'feedback-ej ' + (esCorrecta ? 'correcto' : 'incorrecto');
+    fbEl.innerHTML = esCorrecta
+      ? '✅ ' + quizFeedbacks[nombre].correct
+      : '❌ ' + quizFeedbacks[nombre].wrong;
+    fbEl.style.display = 'block';
+  });
+
+  if (respondidas < 10) {
+    alert('Por favor responde las 10 preguntas antes de verificar.');
+    return;
+  }
+
+  const pct = Math.round((correctas / 10) * 100);
+  const resBox = document.getElementById('resultado-quiz');
+  resBox.style.display = 'block';
+  document.getElementById('puntaje-quiz-texto').textContent = `Obtuviste ${correctas}/10 preguntas correctas (${pct}%).`;
+  setTimeout(() => {
+    document.getElementById('barra-quiz').style.width = pct + '%';
+  }, 100);
+
+  let emoji, msg;
+  if (pct === 100) { emoji = '🏆'; msg = '¡Perfecto! Demuestras dominio completo de hipótesis y operacionalización de variables.'; }
+  else if (pct >= 80) { emoji = '🎯'; msg = '¡Muy buen resultado! Revisa las preguntas incorrectas y habrás consolidado todo el tema.'; }
+  else if (pct >= 60) { emoji = '📘'; msg = 'Resultado satisfactorio. Te recomendamos repasar los tipos de hipótesis y la diferencia entre definición conceptual y operacional.'; }
+  else if (pct >= 40) { emoji = '⚠️'; msg = 'Necesitas reforzar los temas. Vuelve a leer especialmente los Temas 2 y 4 de este widget.'; }
+  else { emoji = '📖'; msg = 'No te desanimes. Comienza por el Repaso y avanza pestaña por pestaña. La comprensión llega con la lectura activa.'; }
+
+  document.getElementById('emoji-quiz').textContent = emoji;
+  document.getElementById('msg-quiz').textContent = msg;
+  resBox.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetCuestionario() {
+  document.querySelectorAll('input[name^="qi"]').forEach(r => r.checked = false);
+  document.querySelectorAll('[id^="fb-q"]').forEach(f => { f.style.display = 'none'; f.className = 'feedback-ej'; });
+  const resBox = document.getElementById('resultado-quiz');
+  resBox.style.display = 'none';
+  document.getElementById('barra-quiz').style.width = '0%';
+}
+</script>
+</body>
+</html>

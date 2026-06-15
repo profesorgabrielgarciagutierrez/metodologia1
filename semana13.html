@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 13 | Bases de Datos Científicas y Referenciación | Metodología de la Investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #1a1a2e;
+    background: #f4f7fb;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: #003366;
+    color: #fff;
+    padding: 18px 24px 14px;
+    text-align: center;
+  }
+  header .inst {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 6px;
+  }
+  header h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  header .sub {
+    font-size: 13px;
+    opacity: 0.75;
+  }
+  .badge-semana {
+    display: inline-block;
+    background: #87CEEB;
+    color: #003366;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== TAB NAV ===== */
+  .tab-nav-wrap {
+    background: #87CEEB;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 3px solid #003366;
+  }
+  .tab-nav-wrap::-webkit-scrollbar { height: 4px; }
+  .tab-nav-wrap::-webkit-scrollbar-track { background: #87CEEB; }
+  .tab-nav-wrap::-webkit-scrollbar-thumb { background: #003366; border-radius: 4px; }
+  .tab-nav { display: inline-flex; padding: 0 6px; gap: 2px; }
+  .tab-btn {
+    display: inline-block;
+    padding: 11px 16px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #003366;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .tab-btn:hover { background: rgba(255,255,255,0.5); }
+  .tab-btn.active {
+    background: #fff;
+    color: #003366;
+    font-weight: 700;
+    border-bottom: 3px solid #003366;
+  }
+
+  /* ===== CONTENT AREA ===== */
+  .tab-content { display: none; padding: 28px 20px 40px; max-width: 900px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* ===== TYPOGRAPHY ===== */
+  h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    color: #003366;
+    margin: 28px 0 12px;
+    border-bottom: 2px solid #87CEEB;
+    padding-bottom: 6px;
+  }
+  h2:first-child { margin-top: 0; }
+  h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.15rem;
+    color: #003366;
+    margin: 22px 0 8px;
+  }
+  p { margin-bottom: 14px; }
+  ul, ol { margin: 10px 0 16px 24px; }
+  li { margin-bottom: 6px; }
+  strong { color: #003366; }
+
+  /* ===== CAJAS ===== */
+  .caja-concepto {
+    border-left: 5px solid #003366;
+    background: #f0f5ff;
+    padding: 16px 18px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .caja-concepto .titulo-caja {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    color: #003366;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .caja-ejemplo {
+    background: #e8f4fd;
+    border: 1px solid #87CEEB;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin: 18px 0;
+  }
+  .caja-ejemplo .titulo-caja {
+    font-weight: 700;
+    color: #005a8e;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .caja-clave {
+    background: #003366;
+    color: #fff;
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin: 24px 0;
+    font-size: 0.97rem;
+  }
+  .caja-clave strong { color: #87CEEB; }
+
+  .alerta {
+    background: #fff3cd;
+    border-left: 5px solid #ffc107;
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 18px 0;
+  }
+  .alerta strong { color: #856404; }
+
+  /* ===== TABLA ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 14px;
+  }
+  th {
+    background: #003366;
+    color: #fff;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #d0dce8;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f0f5ff; }
+
+  /* ===== REPASO CARD ===== */
+  .repaso-card {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #c8ddf0;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,51,102,0.06);
+  }
+  .repaso-card h3 { margin-top: 0; font-size: 1rem; }
+  .repaso-semana {
+    display: inline-block;
+    background: #003366;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== EJERCICIO & CUESTIONARIO ===== */
+  .pregunta-wrap {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #d0dce8;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,51,102,0.05);
+  }
+  .pregunta-text {
+    font-weight: 600;
+    color: #003366;
+    margin-bottom: 12px;
+    font-size: 0.97rem;
+    line-height: 1.5;
+  }
+  .badge-tipo {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .badge-teorica { background: #dbeafe; color: #1e40af; }
+  .badge-caso { background: #fef3c7; color: #92400e; }
+  .badge-ejercicio { background: #d1fae5; color: #065f46; }
+
+  .opcion-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1.5px solid #d0dce8;
+    background: #fafcff;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .opcion-label:hover { background: #edf4ff; border-color: #87CEEB; }
+  .opcion-label input { margin-top: 3px; flex-shrink: 0; }
+  .opcion-label.correcto { background: #d1fae5 !important; border-color: #059669 !important; }
+  .opcion-label.incorrecto { background: #fee2e2 !important; border-color: #dc2626 !important; }
+
+  .feedback-item {
+    display: none;
+    font-size: 13px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+  .feedback-item.correcto { background: #d1fae5; color: #065f46; border-left: 4px solid #059669; }
+  .feedback-item.incorrecto { background: #fee2e2; color: #7f1d1d; border-left: 4px solid #dc2626; }
+
+  /* ===== BOTONES ===== */
+  .btn-verificar {
+    background: #003366;
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .btn-verificar:hover { background: #004080; }
+  .btn-reset {
+    background: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-family: 'Source Sans 3', sans-serif;
+    transition: background 0.2s;
+    display: none;
+  }
+  .btn-reset:hover { background: #5a6268; }
+
+  /* ===== RESULTADO ===== */
+  .resultado-box {
+    display: none;
+    background: #fff;
+    border: 2px solid #003366;
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .resultado-emoji { font-size: 3rem; margin-bottom: 8px; }
+  .resultado-puntaje { font-family: 'Lora', serif; font-size: 1.8rem; color: #003366; font-weight: 700; }
+  .resultado-msg { font-size: 1rem; color: #444; margin-top: 8px; }
+  .barra-wrap { background: #e2e8f0; border-radius: 10px; height: 14px; margin: 14px 0; overflow: hidden; }
+  .barra-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #003366, #0077b6);
+    width: 0%;
+    transition: width 1s ease;
+  }
+
+  /* ===== IA ACTIVITY ===== */
+  .prompt-box {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 10px;
+    padding: 20px 22px;
+    font-family: monospace;
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin: 16px 0;
+    position: relative;
+    white-space: pre-wrap;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: #87CEEB;
+    color: #003366;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .paso-ia {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .paso-num {
+    background: #003366;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+
+  /* ===== REFLEXIÓN ===== */
+  .reflexion-card {
+    background: #fff;
+    border-radius: 10px;
+    border-left: 5px solid #87CEEB;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,51,102,0.07);
+  }
+  .reflexion-card .num { font-size: 1.4rem; font-weight: 700; color: #87CEEB; margin-right: 8px; }
+
+  /* ===== BIBLIOGRAFÍA ===== */
+  .bib-card {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #c8ddf0;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,51,102,0.05);
+  }
+  .bib-autor { font-weight: 700; color: #003366; font-size: 0.95rem; }
+  .bib-anio { color: #555; }
+  .bib-titulo { font-style: italic; }
+  .bib-fuente { font-size: 13px; color: #666; margin-top: 4px; }
+  .bib-nota {
+    background: #fff8e1;
+    border-left: 4px solid #ffc107;
+    padding: 12px 16px;
+    margin-top: 20px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: #555;
+  }
+
+  /* ===== DB CHIPS ===== */
+  .db-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+  }
+  .db-card {
+    background: #fff;
+    border: 1.5px solid #c8ddf0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .db-card .db-icon { font-size: 1.8rem; margin-bottom: 6px; }
+  .db-card .db-name { font-weight: 700; color: #003366; font-size: 0.95rem; margin-bottom: 4px; }
+  .db-card .db-desc { font-size: 12px; color: #555; line-height: 1.4; }
+
+  /* ===== APA FORMAT DEMO ===== */
+  .apa-demo {
+    background: #f8fbff;
+    border: 1px dashed #0077b6;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14.5px;
+    line-height: 1.8;
+  }
+  .apa-label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #0077b6;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  /* Sofía character */
+  .sofia-box {
+    background: linear-gradient(135deg, #e8f4fd, #f0f5ff);
+    border: 2px solid #87CEEB;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .sofia-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #003366;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .sofia-text { font-size: 0.95rem; }
+  .sofia-text strong { color: #003366; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .tab-btn { padding: 10px 12px; font-size: 12px; }
+    h2 { font-size: 1.25rem; }
+    .db-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="inst">Universidad de Guayaquil | Facultad de Ciencias Administrativas | Carrera en Contabilidad y Auditoría</div>
+  <h1>Semana 13: Bases de Datos Científicas, Repositorios y Estilos de Referenciación</h1>
+  <div class="sub">Metodología de la Investigación · Unidad IV: Búsqueda y Uso de Referencias Bibliográficas</div>
+  <span class="badge-semana">SEMANA 13 DE 16</span>
+</header>
+
+<!-- TAB NAV -->
+<div class="tab-nav-wrap">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('repaso')">📚 Repaso</button>
+    <button class="tab-btn" onclick="showTab('t1')">🔍 Tema 1: Bases de Datos</button>
+    <button class="tab-btn" onclick="showTab('t2')">🗂️ Tema 2: Repositorios</button>
+    <button class="tab-btn" onclick="showTab('t3')">📝 Tema 3: Estilos de Citas</button>
+    <button class="tab-btn" onclick="showTab('t4')">📖 Tema 4: APA 7.ª ed.</button>
+    <button class="tab-btn" onclick="showTab('ejercicio')">⚙️ Ejercicio</button>
+    <button class="tab-btn" onclick="showTab('cuestionario')">✅ Cuestionario</button>
+    <button class="tab-btn" onclick="showTab('ia')">🤖 Act. con IA</button>
+    <button class="tab-btn" onclick="showTab('reflexion')">💭 Reflexión</button>
+    <button class="tab-btn" onclick="showTab('biblio')">📋 Bibliografía</button>
+  </div>
+</div>
+
+<!-- ===== REPASO ===== -->
+<div id="tab-repaso" class="tab-content active">
+  <h2>📚 Repaso de Unidades Anteriores</h2>
+  <p>Este repaso te recuerda lo trabajado en las tres primeras unidades y los temas de la Unidad III, para que puedas conectar ese conocimiento con lo nuevo que aprenderás esta semana sobre búsqueda y uso de referencias bibliográficas.</p>
+
+  <div class="repaso-card">
+    <span class="repaso-semana">UNIDAD I · Semanas 1–4</span>
+    <h3>Introducción a la Investigación Científica</h3>
+    <p>Aprendiste que el conocimiento puede ser <strong>empírico</strong> (obtenido por experiencia cotidiana, sin método sistemático) o <strong>científico</strong> (obtenido mediante el método científico: observación, hipótesis, experimentación, conclusión). Distinguiste las ciencias <strong>formales</strong> (matemáticas, lógica) de las <strong>empíricas</strong> (naturales y sociales, como la Contabilidad). También conociste los fundamentos epistemológicos, es decir, cómo la ciencia justifica el conocimiento que produce. Esta base te sirve ahora para entender por qué en investigación debemos respaldar toda afirmación con fuentes verificables.</p>
+  </div>
+
+  <div class="repaso-card">
+    <span class="repaso-semana">UNIDAD II · Semanas 5–7</span>
+    <h3>Enfoques y Diseños de Investigación</h3>
+    <p>Diferenciaste el enfoque <strong>cuantitativo</strong> (mide variables, busca generalizar) del <strong>cualitativo</strong> (interpreta significados, busca comprender), y los <strong>métodos mixtos</strong> que combinan ambos. También estudiaste los diseños <strong>experimentales</strong> (con manipulación de variables) y los <strong>no experimentales</strong> (observación sin intervención), y cómo las variables dependientes e independientes operan dentro de un diseño. Esta semana, cuando busques artículos científicos en bases de datos, verás que estos diseños son precisamente los que describen los estudios que encontrarás.</p>
+  </div>
+
+  <div class="repaso-card">
+    <span class="repaso-semana">UNIDAD III · Semanas 9–12</span>
+    <h3>Planteamiento del Problema, Variables e Hipótesis</h3>
+    <p>Construiste los tres pilares de cualquier investigación: el <strong>planteamiento del problema</strong> (qué, por qué y para qué investigar, con preguntas de investigación claras); las <strong>variables</strong> (elementos medibles u observables clasificadas por su nivel de medición —nominal, ordinal, de intervalo, de razón— y por su rol —independiente, dependiente, interviniente); y las <strong>hipótesis</strong> (afirmaciones tentativas que relacionan variables y que guían la recolección de datos). Ahora que tienes un problema e hipótesis definidos, necesitas respaldarte en literatura científica rigurosa: para eso sirven las bases de datos, los repositorios y los estilos de referenciación que estudiarás esta semana.</p>
+  </div>
+
+  <div class="caja-clave">
+    <strong>Conexión clave:</strong> Sin un problema bien planteado (Unidad III) no sabes qué buscar; sin un marco conceptual claro (Unidades I y II) no sabes cómo evaluar lo que encuentras; y sin bases de datos confiables y un estilo de citas correcto (Unidad IV), tu investigación no tiene sustento científico reconocible por la comunidad académica.
+  </div>
+
+  <div class="sofia-box">
+    <div class="sofia-avatar">👩‍🎓</div>
+    <div class="sofia-text">
+      <strong>Sofía dice:</strong> "En las semanas anteriores aprendí a plantear mi problema de investigación sobre la evasión tributaria en microempresas ecuatorianas. Ahora necesito encontrar artículos, libros y tesis que fundamenten mi marco teórico. Esta semana aprenderé exactamente dónde buscar esa información y cómo citarla correctamente. ¡Es como aprender a ir a la biblioteca… pero en versión siglo XXI!"
+    </div>
+  </div>
+</div>
+
+<!-- ===== TEMA 1: BASES DE DATOS ===== -->
+<div id="tab-t1" class="tab-content">
+  <h2>🔍 Tema 1: Bases de Datos Científicas</h2>
+
+  <div class="caja-concepto">
+    <div class="titulo-caja">¿Qué es una base de datos científica?</div>
+    <p>Una <strong>base de datos científica</strong> es un sistema digital organizado que reúne, clasifica y da acceso a publicaciones académicas y científicas: artículos de revistas indexadas, libros, actas de congresos, tesis doctorales, informes técnicos y otros documentos verificados por expertos. A diferencia de una búsqueda simple en Google, las bases de datos científicas garantizan que los documentos han pasado por un proceso de <strong>revisión por pares</strong> (peer review), es decir, fueron evaluados por especialistas antes de publicarse.</p>
+  </div>
+
+  <h3>¿Por qué no basta con buscar en Google?</h3>
+  <p>Google indexa millones de páginas web: blogs, opiniones personales, noticias sin verificar y textos sin respaldo académico. En investigación científica, toda afirmación debe estar fundamentada en <strong>evidencia verificable y reproducible</strong>. Las bases de datos científicas filtran el ruido informativo y te conectan directamente con el conocimiento validado por la comunidad académica global.</p>
+
+  <div class="caja-ejemplo">
+    <div class="titulo-caja">📌 Ejemplo ecuatoriano</div>
+    <p>Sofía quiere saber si la implementación del sistema de facturación electrónica del <strong>Servicio de Rentas Internas (SRI)</strong> redujo la evasión tributaria en las PYME. Si busca en Google encontrará noticias del Comercio o del SRI, pero si busca en <strong>Scopus</strong> o <strong>Google Scholar</strong> encontrará artículos científicos que midieron el impacto real con datos estadísticos, metodologías comparadas y conclusiones verificadas.</p>
+  </div>
+
+  <h3>Principales bases de datos científicas de acceso libre y restringido</h3>
+
+  <div class="db-grid">
+    <div class="db-card">
+      <div class="db-icon">🔬</div>
+      <div class="db-name">Scopus</div>
+      <div class="db-desc">La mayor base de datos revisada por pares. Cubre ciencias, ciencias sociales, artes y humanidades. Requiere suscripción institucional.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">📊</div>
+      <div class="db-name">Web of Science (WoS)</div>
+      <div class="db-desc">Índice multidisciplinario con factor de impacto. Referencia para medir la calidad de las revistas. Suscripción institucional.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">🌐</div>
+      <div class="db-name">Google Scholar</div>
+      <div class="db-desc">Motor de búsqueda académico gratuito. Indexa artículos, tesis, libros y preprints. Primera opción para estudiantes sin acceso institucional.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">📚</div>
+      <div class="db-name">EBSCO</div>
+      <div class="db-desc">Suite de bases temáticas: Business Source, Academic Search. Accesible desde universidades suscritas.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">🧬</div>
+      <div class="db-name">PubMed / MEDLINE</div>
+      <div class="db-desc">Especializada en ciencias de la salud. Gratuita. Manejada por la Biblioteca Nacional de Medicina de EE.UU.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">📰</div>
+      <div class="db-name">Dialnet</div>
+      <div class="db-desc">Portal hispano de revistas y artículos en español. Muy útil para investigaciones en contexto latinoamericano. Gratuito.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">📖</div>
+      <div class="db-name">Redalyc</div>
+      <div class="db-desc">Red de revistas científicas de América Latina y El Caribe. Acceso abierto. Excelente para contexto ecuatoriano y regional.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">🌍</div>
+      <div class="db-name">SciELO</div>
+      <div class="db-desc">Scientific Electronic Library Online. Revistas latinoamericanas y españolas. Gratuito. Incluye revistas ecuatorianas indexadas.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">💡</div>
+      <div class="db-name">SSRN</div>
+      <div class="db-desc">Social Science Research Network. Preprints y papers en economía, derecho, negocios y ciencias sociales. Acceso libre.</div>
+    </div>
+  </div>
+
+  <div class="alerta">
+    <strong>⚠️ Acceso desde Ecuador:</strong> La <strong>Universidad de Guayaquil</strong> tiene convenios institucionales que permiten el acceso a algunas bases de datos como EBSCO. Consulta con la Biblioteca Central de la UG para obtener tus credenciales de acceso. Para investigaciones en Contabilidad y Auditoría, <strong>Redalyc, SciELO, Dialnet y Google Scholar</strong> son tus mejores aliados gratuitos.
+  </div>
+
+  <h3>¿Cómo funciona la revisión por pares (peer review)?</h3>
+
+  <div class="caja-concepto">
+    <div class="titulo-caja">Proceso de revisión por pares</div>
+    <p>Cuando un investigador termina un estudio, lo envía a una revista científica. El editor lo envía de forma anónima a dos o tres expertos independientes en el tema (los <em>pares</em>). Estos evaluadores revisan la solidez metodológica, la precisión de los datos, la relevancia de las conclusiones y la ética del estudio. Solo si los evaluadores aprueban el artículo (con o sin correcciones), este es publicado. Este proceso puede tardar de 3 meses a 2 años y es lo que distingue la <strong>ciencia rigurosa</strong> del simple periodismo o la opinión.</p>
+  </div>
+
+  <h3>Criterios para evaluar una fuente científica</h3>
+  <table>
+    <tr>
+      <th>Criterio</th>
+      <th>Pregunta clave</th>
+      <th>Por qué importa</th>
+    </tr>
+    <tr>
+      <td><strong>Autoridad</strong></td>
+      <td>¿Quién lo escribió? ¿Tiene credenciales en el tema?</td>
+      <td>Un médico hablando de medicina vale más que un bloguero</td>
+    </tr>
+    <tr>
+      <td><strong>Actualidad</strong></td>
+      <td>¿Cuándo fue publicado? ¿Los datos siguen vigentes?</td>
+      <td>En ciencias sociales, textos de más de 10 años pueden estar desactualizados</td>
+    </tr>
+    <tr>
+      <td><strong>Precisión</strong></td>
+      <td>¿Cita sus propias fuentes? ¿Los datos son verificables?</td>
+      <td>La ciencia es acumulativa y siempre se apoya en estudios previos</td>
+    </tr>
+    <tr>
+      <td><strong>Propósito</strong></td>
+      <td>¿Es para informar o para vender/persuadir?</td>
+      <td>Un estudio pagado por una empresa puede tener sesgo</td>
+    </tr>
+    <tr>
+      <td><strong>Cobertura</strong></td>
+      <td>¿El tema es relevante para mi investigación?</td>
+      <td>No toda fuente buena es pertinente para tu problema específico</td>
+    </tr>
+  </table>
+
+  <div class="caja-clave">
+    <strong>💡 Idea clave:</strong> Usar bases de datos científicas no es un lujo académico, es una obligación ética del investigador. Cuando el Contralor General del Estado, la Superintendencia de Compañías o el Banco Central del Ecuador toman decisiones de política pública basadas en investigaciones, esas investigaciones deben estar respaldadas por fuentes verificadas y reproducibles. Tu carrera de Contabilidad y Auditoría te pide ese mismo rigor.
+  </div>
+</div>
+
+<!-- ===== TEMA 2: REPOSITORIOS ===== -->
+<div id="tab-t2" class="tab-content">
+  <h2>🗂️ Tema 2: Repositorios Institucionales y de Acceso Abierto</h2>
+
+  <div class="caja-concepto">
+    <div class="titulo-caja">¿Qué es un repositorio?</div>
+    <p>Un <strong>repositorio</strong> es un archivo digital institucional o temático que reúne, preserva y da acceso libre a la producción académica generada por una institución (universidad, organismo público, centro de investigación) o por una comunidad científica temática. A diferencia de las bases de datos comerciales, los repositorios generalmente son de <strong>acceso abierto</strong> (open access), lo que significa que cualquier persona con conexión a internet puede leer, descargar y compartir los documentos sin costo.</p>
+  </div>
+
+  <h3>Diferencia entre base de datos y repositorio</h3>
+  <table>
+    <tr>
+      <th>Característica</th>
+      <th>Base de Datos Científica</th>
+      <th>Repositorio</th>
+    </tr>
+    <tr>
+      <td>Origen</td>
+      <td>Diversas fuentes globales</td>
+      <td>Una institución o comunidad específica</td>
+    </tr>
+    <tr>
+      <td>Acceso</td>
+      <td>Frecuentemente de pago</td>
+      <td>Generalmente gratuito (acceso abierto)</td>
+    </tr>
+    <tr>
+      <td>Revisión</td>
+      <td>Siempre revisión por pares</td>
+      <td>Variable: tesis, informes, preprints</td>
+    </tr>
+    <tr>
+      <td>Tipo de contenido</td>
+      <td>Artículos de revistas indexadas</td>
+      <td>Tesis, libros, datos, informes técnicos</td>
+    </tr>
+    <tr>
+      <td>Ejemplo</td>
+      <td>Scopus, Web of Science</td>
+      <td>SENESCYT, Repositorio UG, FLACSO</td>
+    </tr>
+  </table>
+
+  <h3>Repositorios relevantes para Ecuador y América Latina</h3>
+
+  <div class="db-grid">
+    <div class="db-card">
+      <div class="db-icon">🇪🇨</div>
+      <div class="db-name">SENESCYT / RRAAE</div>
+      <div class="db-desc">Red de Repositorios de Acceso Abierto del Ecuador. Consolida tesis de universidades ecuatorianas. <em>repositorio.educacionsuperior.gob.ec</em></div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">🎓</div>
+      <div class="db-name">Repositorio UG</div>
+      <div class="db-desc">Universidad de Guayaquil. Tesis de pregrado y posgrado de todas las facultades. <em>repositorio.ug.edu.ec</em></div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">🏛️</div>
+      <div class="db-name">FLACSO Ecuador</div>
+      <div class="db-desc">Tesis de maestría y doctorado en ciencias sociales, economía y política. Referente para investigación cualitativa latinoamericana.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">🌐</div>
+      <div class="db-name">CEPAL</div>
+      <div class="db-desc">Comisión Económica para América Latina. Informes, datos estadísticos y documentos de política económica. Esencial para contexto ecuatoriano.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">📊</div>
+      <div class="db-name">Banco Mundial Open Data</div>
+      <div class="db-desc">Datos e informes de investigación sobre economía, finanzas, pobreza y desarrollo en Ecuador y América Latina.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">🔓</div>
+      <div class="db-name">DOAJ</div>
+      <div class="db-desc">Directory of Open Access Journals. Directorio global de revistas de acceso abierto con control de calidad. Gratuito.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">📄</div>
+      <div class="db-name">CORE</div>
+      <div class="db-desc">Agrega millones de artículos de acceso abierto de repositorios universitarios de todo el mundo.</div>
+    </div>
+    <div class="db-card">
+      <div class="db-icon">🔬</div>
+      <div class="db-name">Zenodo</div>
+      <div class="db-desc">Repositorio de datos de investigación del CERN. Permite depositar y citar conjuntos de datos, código y documentos.</div>
+    </div>
+  </div>
+
+  <div class="caja-ejemplo">
+    <div class="titulo-caja">📌 Caso práctico ecuatoriano</div>
+    <p>Sofía necesita antecedentes de investigación sobre <em>auditoría forense en cooperativas de ahorro y crédito del Ecuador</em>. Estrategia recomendada:</p>
+    <ol>
+      <li><strong>Paso 1:</strong> Busca en el <strong>Repositorio de la UG</strong> (repositorio.ug.edu.ec) con las palabras "auditoría forense cooperativa Ecuador" → encontrará tesis de la Facultad de Ciencias Administrativas.</li>
+      <li><strong>Paso 2:</strong> Confirma en el <strong>RRAAE de SENESCYT</strong> si hay más tesis de otras universidades sobre el mismo tema.</li>
+      <li><strong>Paso 3:</strong> Busca en <strong>Google Scholar</strong> artículos de la <strong>SEPS</strong> (Superintendencia de Economía Popular y Solidaria) y revistas como <em>Contaduría y Administración</em> (Redalyc).</li>
+      <li><strong>Paso 4:</strong> Cita todo correctamente en APA 7.ª edición.</li>
+    </ol>
+  </div>
+
+  <h3>¿Cómo citar una tesis de repositorio?</h3>
+  <div class="apa-label">Formato APA 7.ª edición para tesis de repositorio institucional:</div>
+  <div class="apa-demo">Apellido, A. A. (Año). <em>Título de la tesis en cursiva</em> [Tesis de licenciatura/maestría/doctorado, Nombre de la Institución]. Nombre del Repositorio. https://url-del-repositorio
+
+Ejemplo:
+Guzmán Paredes, M. F. (2022). <em>Impacto de la facturación electrónica en el cumplimiento tributario de las PYME de Guayaquil, 2018–2021</em> [Tesis de licenciatura, Universidad de Guayaquil]. Repositorio Digital UG. https://repositorio.ug.edu.ec/handle/redug/xxxxx</div>
+
+  <h3>Movimiento de Acceso Abierto (Open Access)</h3>
+  <p>Desde la <strong>Declaración de Budapest (2002)</strong> y la <strong>Declaración de Berlín (2003)</strong>, existe un movimiento global que promueve que la investigación financiada con fondos públicos sea accesible libremente a todos. En Ecuador, la <strong>Ley Orgánica de Educación Superior (LOES)</strong> exige que las universidades públicas publiquen en repositorios de acceso abierto. Esto significa que las tesis de la Universidad de Guayaquil que buscas son de acceso libre por ley.</p>
+
+  <div class="caja-clave">
+    <strong>💡 Idea clave:</strong> Los repositorios son la memoria científica de las instituciones. Cuando depositas tu tesis en el repositorio de la UG, no solo estás cumpliendo un requisito: estás contribuyendo al conocimiento científico del Ecuador. Cada investigación en Contabilidad y Auditoría que completes puede convertirse en la fuente bibliográfica que citará otro estudiante en 5 años.
+  </div>
+</div>
+
+<!-- ===== TEMA 3: ESTILOS DE CITAS ===== -->
+<div id="tab-t3" class="tab-content">
+  <h2>📝 Tema 3: Estilos de Citación y Referenciación Científica</h2>
+
+  <div class="caja-concepto">
+    <div class="titulo-caja">¿Qué es un estilo de citación?</div>
+    <p>Un <strong>estilo de citación</strong> es un conjunto de normas estandarizadas que indican cómo mencionar dentro del texto las ideas de otros autores (cita en el texto) y cómo presentar la información completa de cada fuente al final del documento (referencia bibliográfica). Estas normas regulan el orden, el formato, la puntuación y los elementos que deben incluirse para que cualquier lector pueda localizar exactamente la fuente utilizada.</p>
+  </div>
+
+  <h3>¿Por qué existen múltiples estilos?</h3>
+  <p>Cada comunidad científica adoptó el estilo que mejor se adapta a sus necesidades. En las ciencias naturales lo más importante es la fecha (para saber si el dato es reciente); en humanidades, la página exacta de donde se tomó la cita literal importa mucho; en derecho, la forma de citar leyes y sentencias tiene su propia lógica. Por eso existen varios sistemas internacionales reconocidos.</p>
+
+  <h3>Principales estilos de citación internacionales</h3>
+
+  <table>
+    <tr>
+      <th>Estilo</th>
+      <th>Campo principal</th>
+      <th>Tipo de cita en texto</th>
+      <th>Formato de lista final</th>
+    </tr>
+    <tr>
+      <td><strong>APA</strong> (American Psychological Association)</td>
+      <td>Ciencias sociales, psicología, educación, administración, contabilidad</td>
+      <td>(Apellido, año, p. X)</td>
+      <td>Referencias al final</td>
+    </tr>
+    <tr>
+      <td><strong>MLA</strong> (Modern Language Association)</td>
+      <td>Humanidades, literatura, artes</td>
+      <td>(Apellido página)</td>
+      <td>Works Cited al final</td>
+    </tr>
+    <tr>
+      <td><strong>Chicago/Turabian</strong></td>
+      <td>Historia, ciencias sociales, artes</td>
+      <td>Notas al pie (Chicago A) o Autor-año (Chicago B)</td>
+      <td>Bibliografía al final</td>
+    </tr>
+    <tr>
+      <td><strong>Vancouver</strong></td>
+      <td>Ciencias biomédicas, salud, medicina</td>
+      <td>Número entre corchetes [1]</td>
+      <td>Lista numerada al final</td>
+    </tr>
+    <tr>
+      <td><strong>IEEE</strong></td>
+      <td>Ingeniería, tecnología, informática</td>
+      <td>Número entre corchetes [1]</td>
+      <td>Lista numerada al final</td>
+    </tr>
+    <tr>
+      <td><strong>ICONTEC / ISO 690</strong></td>
+      <td>Norma latinoamericana usada en Colombia y algunos países andinos</td>
+      <td>Número entre paréntesis (1)</td>
+      <td>Bibliografía numerada</td>
+    </tr>
+  </table>
+
+  <div class="alerta">
+    <strong>⚠️ ¿Cuál debo usar en Contabilidad y Auditoría?</strong> En la Universidad de Guayaquil y en la carrera de Contabilidad y Auditoría, el estilo oficial es <strong>APA 7.ª edición</strong>, que es el estándar para ciencias sociales y ciencias empresariales en toda América Latina. Aprenderás sus reglas detalladas en el Tema 4 de esta semana.
+  </div>
+
+  <h3>¿Qué pasa si no cito correctamente?</h3>
+
+  <div class="caja-concepto">
+    <div class="titulo-caja">El plagio y sus consecuencias</div>
+    <p>El <strong>plagio</strong> es presentar las ideas o palabras de otra persona como si fueran propias, ya sea de forma intencional o accidental. En la investigación académica es considerado una falta grave de ética científica. En Ecuador, el Reglamento de Régimen Académico de la <strong>Senescyt</strong> y los reglamentos internos de la Universidad de Guayaquil establecen sanciones que van desde la anulación del trabajo hasta la suspensión académica. <em>Citar correctamente no es una formalidad: es un acto de honestidad intelectual.</em></p>
+  </div>
+
+  <h3>Tipos de citas: textuales vs. paráfrasis</h3>
+
+  <div class="db-grid" style="grid-template-columns: 1fr 1fr;">
+    <div class="db-card" style="text-align:left;">
+      <div class="db-name">📋 Cita Textual</div>
+      <p style="font-size:13px; margin-top:8px; color:#444;">Se reproducen las palabras exactas del autor entre comillas. Menores de 40 palabras van dentro del párrafo. Mayores de 40 palabras van en bloque aparte, con sangría, sin comillas.</p>
+      <div class="apa-demo" style="font-size:12.5px; margin-top:8px;">"La hipótesis es una premisa que se plantea en forma de pregunta, bajo el cual se quiere comprobar o predecir alguna afirmación" (Campos, 2015, p. 9).</div>
+    </div>
+    <div class="db-card" style="text-align:left;">
+      <div class="db-name">🔄 Paráfrasis</div>
+      <p style="font-size:13px; margin-top:8px; color:#444;">Se expresa la idea del autor con tus propias palabras. No lleva comillas, pero sí lleva la cita con autor y año. Es la forma más recomendada porque demuestra comprensión real del texto.</p>
+      <div class="apa-demo" style="font-size:12.5px; margin-top:8px;">Según Campos (2015), la hipótesis funciona como un supuesto razonado que orienta la comprobación de relaciones entre variables en un fenómeno de interés.</div>
+    </div>
+  </div>
+
+  <div class="caja-clave">
+    <strong>💡 Idea clave:</strong> Citar no es debilidad intelectual. Al contrario, demuestra que conoces la literatura de tu campo, que eres honesto y que tu investigación se construye sobre bases sólidas. En Contabilidad y Auditoría, donde la integridad es el valor central de la profesión, la honestidad académica es una extensión natural de la ética profesional.
+  </div>
+</div>
+
+<!-- ===== TEMA 4: APA 7 ===== -->
+<div id="tab-t4" class="tab-content">
+  <h2>📖 Tema 4: Estilo APA 7.ª Edición — Guía Práctica</h2>
+
+  <p>La <strong>American Psychological Association (APA)</strong> publicó la séptima edición de su Manual de Estilo en 2019. Es la versión vigente y oficialmente adoptada por la mayoría de universidades latinoamericanas para ciencias sociales, empresariales y educación. A continuación aprenderás las reglas más importantes con ejemplos aplicados al contexto ecuatoriano.</p>
+
+  <h3>Estructura de la cita en texto (autor-año)</h3>
+  <div class="caja-concepto">
+    <div class="titulo-caja">Regla general de cita en texto APA 7</div>
+    <p>Toda fuente que uses en tu texto debe citarse indicando <strong>(Apellido, año)</strong> para paráfrasis, o <strong>(Apellido, año, p. XX)</strong> para citas textuales. Si el autor aparece como parte de la oración, solo el año va entre paréntesis.</p>
+  </div>
+
+  <table>
+    <tr>
+      <th>Tipo</th>
+      <th>Ejemplo en texto</th>
+    </tr>
+    <tr>
+      <td>Un autor</td>
+      <td>Según Hernández (2014), la investigación cuantitativa… / …(Hernández, 2014).</td>
+    </tr>
+    <tr>
+      <td>Dos autores</td>
+      <td>(Hernández &amp; Fernández, 2014) — en APA 7 el "&amp;" solo dentro del paréntesis; fuera se usa "y"</td>
+    </tr>
+    <tr>
+      <td>Tres o más autores</td>
+      <td>Desde la primera cita: (Hernández et al., 2014)</td>
+    </tr>
+    <tr>
+      <td>Sin autor</td>
+      <td>(Título abreviado en cursiva, año) o ("Título del artículo", año)</td>
+    </tr>
+    <tr>
+      <td>Organización/institución</td>
+      <td>Primera vez: (Servicio de Rentas Internas [SRI], 2023). Siguientes: (SRI, 2023)</td>
+    </tr>
+    <tr>
+      <td>Cita textual corta</td>
+      <td>"El plagio es una falta de ética académica" (López, 2021, p. 45).</td>
+    </tr>
+  </table>
+
+  <h3>Formatos de referencia bibliográfica APA 7</h3>
+  <p>La lista de referencias va al final del documento, ordenada <strong>alfabéticamente</strong> por el apellido del primer autor, con <strong>sangría francesa</strong> (la primera línea al margen y las siguientes con sangría).</p>
+
+  <h3>1. Libro</h3>
+  <div class="apa-label">Fórmula:</div>
+  <div class="apa-demo">Apellido, A. A., &amp; Apellido, B. B. (Año). <em>Título del libro en cursiva</em> (X.ª ed.). Editorial.
+
+Ejemplo:
+Hernández Sampieri, R., Fernández Collado, C., &amp; Baptista Lucio, P. (2014). <em>Metodología de la investigación</em> (6.ª ed.). McGraw-Hill.</div>
+
+  <h3>2. Artículo de revista científica (con DOI)</h3>
+  <div class="apa-label">Fórmula:</div>
+  <div class="apa-demo">Apellido, A. A. (Año). Título del artículo sin cursiva. <em>Nombre de la Revista en Cursiva</em>, <em>volumen</em>(número), páginas. https://doi.org/xxxxx
+
+Ejemplo:
+Torres Cueva, G., &amp; Mejía Andrade, S. (2020). Evasión tributaria y sistema de control del SRI en las PYME ecuatorianas. <em>Revista Ecuatoriana de Administración y Economía</em>, <em>7</em>(2), 34–49. https://doi.org/10.xxxx/reae.2020.07.02</div>
+
+  <h3>3. Tesis de repositorio institucional</h3>
+  <div class="apa-demo">Guzmán Paredes, M. F. (2022). <em>Auditoría forense como herramienta para detectar fraudes en cooperativas de la SEPS</em> [Tesis de licenciatura, Universidad de Guayaquil]. Repositorio Digital UG. https://repositorio.ug.edu.ec/handle/redug/12345</div>
+
+  <h3>4. Documento de organización gubernamental / sitio web</h3>
+  <div class="apa-demo">Servicio de Rentas Internas. (2023). <em>Estadísticas de recaudación tributaria Ecuador 2023</em>. SRI. https://www.sri.gob.ec/estadisticas-generales-de-recaudacion
+
+Contraloría General del Estado. (2022). <em>Manual de auditoría financiera gubernamental</em> (3.ª ed.). CGE. https://www.contraloria.gob.ec</div>
+
+  <h3>5. Capítulo de libro editado</h3>
+  <div class="apa-demo">Salgado Lévano, A. C. (2007). Investigación cualitativa: diseños, evaluación del rigor metodológico y retos. En R. Hernández Sampieri (Ed.), <em>Avances en metodología de la investigación cualitativa</em> (pp. 71–92). McGraw-Hill.</div>
+
+  <h3>Cambios importantes de APA 6.ª a APA 7.ª edición</h3>
+  <table>
+    <tr>
+      <th>Elemento</th>
+      <th>APA 6.ª ed. (antigua)</th>
+      <th>APA 7.ª ed. (vigente)</th>
+    </tr>
+    <tr>
+      <td>Tres o más autores (cita en texto)</td>
+      <td>Primera cita: (García, López, &amp; Martínez, 2018); siguientes: (García et al., 2018)</td>
+      <td>Siempre desde la primera: (García et al., 2018)</td>
+    </tr>
+    <tr>
+      <td>Lugar de publicación</td>
+      <td>Ciudad, País: Editorial</td>
+      <td>Solo Editorial (se elimina lugar)</td>
+    </tr>
+    <tr>
+      <td>DOI en artículos</td>
+      <td>Se escribía como: doi: 10.xxxx</td>
+      <td>Se escribe como URL: https://doi.org/10.xxxx</td>
+    </tr>
+    <tr>
+      <td>URL recuperado de…</td>
+      <td>Incluía "Recuperado de" + fecha de acceso</td>
+      <td>Se omite "Recuperado de" y la fecha de acceso (salvo contenido que cambia)</td>
+    </tr>
+    <tr>
+      <td>Número de edición del libro</td>
+      <td>(6th ed.)</td>
+      <td>(6.ª ed.) — se acepta adaptación al español</td>
+    </tr>
+  </table>
+
+  <div class="sofia-box">
+    <div class="sofia-avatar">👩‍🎓</div>
+    <div class="sofia-text">
+      <strong>Sofía reflexiona:</strong> "Antes pensaba que las citas eran solo para cumplir con el formato. Pero ahora entiendo que cada vez que cito a un autor estoy reconociendo el trabajo de otra persona y le doy al lector la posibilidad de verificar lo que digo. Es como un auditor que sustenta cada observación con evidencia documental. ¡El espíritu de la auditoría también está en la escritura académica!"
+    </div>
+  </div>
+
+  <div class="caja-clave">
+    <strong>💡 Idea clave:</strong> En APA 7.ª edición las reglas son consistentes: siempre identificas al autor, el año, el título (en cursiva si es libro/revista) y dónde encontrarlo. Si dominas esta estructura, podrás citar cualquier tipo de fuente con pequeñas variaciones. La consistencia en la citación es señal de rigor profesional.
+  </div>
+</div>
+
+<!-- ===== EJERCICIO INTERACTIVO ===== -->
+<div id="tab-ejercicio" class="tab-content">
+  <h2>⚙️ Ejercicio Interactivo: Identifica la Opción Correcta</h2>
+  <p>A continuación encontrarás 8 situaciones relacionadas con bases de datos, repositorios y referenciación. <strong>Selecciona la respuesta que corresponda correctamente</strong> y luego haz clic en "Verificar respuestas". El contenido de este widget contiene toda la información necesaria para responder.</p>
+
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-ejercicio">IDENTIFICAR</span>
+    <div class="pregunta-text">1. Sofía quiere encontrar artículos científicos sobre auditoría forense en Ecuador publicados en revistas latinoamericanas con acceso abierto. ¿Cuál es la base de datos o plataforma más adecuada?</div>
+    <label class="opcion-label"><input type="radio" name="ei1" value="a"> <span>A) Wikipedia, porque tiene información resumida y actualizada</span></label>
+    <label class="opcion-label"><input type="radio" name="ei1" value="b"> <span>B) Redalyc o SciELO, porque son plataformas latinoamericanas de revistas científicas con acceso abierto</span></label>
+    <label class="opcion-label"><input type="radio" name="ei1" value="c"> <span>C) Facebook Académico, porque muchos profesores comparten artículos allí</span></label>
+    <label class="opcion-label"><input type="radio" name="ei1" value="d"> <span>D) Scopus, porque es la única base de datos válida para ciencias sociales</span></label>
+    <div class="feedback-item" id="fb-ei1"></div>
+  </div>
+
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-ejercicio">CLASIFICAR</span>
+    <div class="pregunta-text">2. ¿Cuál de las siguientes características define a una fuente con revisión por pares (peer review)?</div>
+    <label class="opcion-label"><input type="radio" name="ei2" value="a"> <span>A) Que el documento tenga muchas páginas y referencias al pie</span></label>
+    <label class="opcion-label"><input type="radio" name="ei2" value="b"> <span>B) Que fue evaluado por dos o más expertos independientes antes de ser publicado</span></label>
+    <label class="opcion-label"><input type="radio" name="ei2" value="c"> <span>C) Que fue aprobado por el director de tesis del estudiante</span></label>
+    <label class="opcion-label"><input type="radio" name="ei2" value="d"> <span>D) Que el autor tiene muchos seguidores en redes sociales académicas</span></label>
+    <div class="feedback-item" id="fb-ei2"></div>
+  </div>
+
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-ejercicio">ELEGIR CORRECTO</span>
+    <div class="pregunta-text">3. Según APA 7.ª edición, ¿cómo debe citarse en el texto a Hernández Sampieri, Fernández Collado y Baptista Lucio (2014) a partir de la primera mención?</div>
+    <label class="opcion-label"><input type="radio" name="ei3" value="a"> <span>A) (Hernández, Fernández y Baptista, 2014)</span></label>
+    <label class="opcion-label"><input type="radio" name="ei3" value="b"> <span>B) (Hernández Sampieri et al., 2014)</span></label>
+    <label class="opcion-label"><input type="radio" name="ei3" value="c"> <span>C) (Hernández, Fernández &amp; Baptista, 2014, todos los autores)</span></label>
+    <label class="opcion-label"><input type="radio" name="ei3" value="d"> <span>D) (H.S., F.C., &amp; B.L., 2014)</span></label>
+    <div class="feedback-item" id="fb-ei3"></div>
+  </div>
+
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-ejercicio">IDENTIFICAR ERROR</span>
+    <div class="pregunta-text">4. Analiza la siguiente referencia y señala el error en formato APA 7.ª ed.:<br><em>Pérez García, L. (2021). Evasión tributaria en Ecuador. Quito, Ecuador: Editorial Universitaria.</em></div>
+    <label class="opcion-label"><input type="radio" name="ei4" value="a"> <span>A) El año debe ir al final, no después del autor</span></label>
+    <label class="opcion-label"><input type="radio" name="ei4" value="b"> <span>B) En APA 7 ya no se incluye el lugar de publicación (ciudad, país)</span></label>
+    <label class="opcion-label"><input type="radio" name="ei4" value="c"> <span>C) El título del libro no debe ir en cursiva</span></label>
+    <label class="opcion-label"><input type="radio" name="ei4" value="d"> <span>D) No hay ningún error; la referencia está correcta</span></label>
+    <div class="feedback-item" id="fb-ei4"></div>
+  </div>
+
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-ejercicio">CLASIFICAR</span>
+    <div class="pregunta-text">5. ¿Cuál es la diferencia principal entre una base de datos científica como Scopus y un repositorio como el de la Universidad de Guayaquil?</div>
+    <label class="opcion-label"><input type="radio" name="ei5" value="a"> <span>A) Scopus es gratuito y el repositorio de la UG es de pago</span></label>
+    <label class="opcion-label"><input type="radio" name="ei5" value="b"> <span>B) Scopus reúne artículos de revistas de todo el mundo con revisión por pares; el repositorio de la UG preserva la producción académica de esa institución (tesis, informes) con acceso libre</span></label>
+    <label class="opcion-label"><input type="radio" name="ei5" value="c"> <span>C) No existe ninguna diferencia real entre ambos tipos de recursos</span></label>
+    <label class="opcion-label"><input type="radio" name="ei5" value="d"> <span>D) El repositorio de la UG indexa revistas internacionales y Scopus solo tesis</span></label>
+    <div class="feedback-item" id="fb-ei5"></div>
+  </div>
+
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-ejercicio">ELEGIR CORRECTO</span>
+    <div class="pregunta-text">6. ¿Qué estilo de citación corresponde usar en un trabajo académico de la carrera de Contabilidad y Auditoría de la Universidad de Guayaquil?</div>
+    <label class="opcion-label"><input type="radio" name="ei6" value="a"> <span>A) Vancouver, porque es el estándar para América Latina</span></label>
+    <label class="opcion-label"><input type="radio" name="ei6" value="b"> <span>B) IEEE, porque toda la investigación contable usa estándares de ingeniería</span></label>
+    <label class="opcion-label"><input type="radio" name="ei6" value="c"> <span>C) APA 7.ª edición, porque es el estándar para ciencias sociales y empresariales</span></label>
+    <label class="opcion-label"><input type="radio" name="ei6" value="d"> <span>D) Chicago, porque es más completo que APA para contabilidad</span></label>
+    <div class="feedback-item" id="fb-ei6"></div>
+  </div>
+
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-ejercicio">VERDADERO / FALSO</span>
+    <div class="pregunta-text">7. En APA 7.ª edición, cuando cito en el texto un documento del Servicio de Rentas Internas (SRI) por primera vez, debo escribir: (Servicio de Rentas Internas [SRI], 2023). En citas posteriores basta con escribir (SRI, 2023). ¿Esta afirmación es…?</div>
+    <label class="opcion-label"><input type="radio" name="ei7" value="a"> <span>A) Correcta tal como está planteada</span></label>
+    <label class="opcion-label"><input type="radio" name="ei7" value="b"> <span>B) Incorrecta; siempre se debe escribir el nombre completo de la institución</span></label>
+    <label class="opcion-label"><input type="radio" name="ei7" value="c"> <span>C) Incorrecta; nunca se usan siglas en APA 7</span></label>
+    <label class="opcion-label"><input type="radio" name="ei7" value="d"> <span>D) Correcta pero solo para organizaciones extranjeras</span></label>
+    <div class="feedback-item" id="fb-ei7"></div>
+  </div>
+
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-ejercicio">IDENTIFICAR</span>
+    <div class="pregunta-text">8. ¿Cuál de los siguientes es el repositorio nacional ecuatoriano que consolida las tesis de todas las universidades del país, administrado por la SENESCYT?</div>
+    <label class="opcion-label"><input type="radio" name="ei8" value="a"> <span>A) DOAJ (Directory of Open Access Journals)</span></label>
+    <label class="opcion-label"><input type="radio" name="ei8" value="b"> <span>B) RRAAE (Red de Repositorios de Acceso Abierto del Ecuador)</span></label>
+    <label class="opcion-label"><input type="radio" name="ei8" value="c"> <span>C) Zenodo, que es el repositorio oficial de Ecuador</span></label>
+    <label class="opcion-label"><input type="radio" name="ei8" value="d"> <span>D) SciELO Ecuador, que almacena todas las tesis nacionales</span></label>
+    <div class="feedback-item" id="fb-ei8"></div>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <button class="btn-verificar" id="btn-ejer" onclick="verificarEjercicio()">✔ Verificar respuestas</button>
+    <button class="btn-reset" id="btn-ejer-reset" onclick="resetEjercicio()">↺ Reiniciar</button>
+  </div>
+
+  <div class="resultado-box" id="resultado-ejer">
+    <div class="resultado-emoji" id="emoji-ejer"></div>
+    <div class="resultado-puntaje" id="puntaje-ejer"></div>
+    <div class="barra-wrap"><div class="barra-fill" id="barra-ejer"></div></div>
+    <div class="resultado-msg" id="msg-ejer"></div>
+  </div>
+</div>
+
+<!-- ===== CUESTIONARIO ===== -->
+<div id="tab-cuestionario" class="tab-content">
+  <h2>✅ Cuestionario — 10 Preguntas</h2>
+  <p>Responde <strong>todas las preguntas</strong> antes de verificar. Selecciona la opción que consideres correcta en cada caso y luego haz clic en "Verificar respuestas".</p>
+
+  <!-- P1 -->
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-teorica">Teórica</span>
+    <div class="pregunta-text">1. ¿Cuál es la principal función de una base de datos científica como Scopus o Web of Science?</div>
+    <label class="opcion-label"><input type="radio" name="qi1" value="a"> <span>A) Almacenar páginas web de cualquier tipo y facilitar su búsqueda por palabras clave</span></label>
+    <label class="opcion-label"><input type="radio" name="qi1" value="b"> <span>B) Reunir, clasificar y dar acceso a publicaciones académicas que han pasado por revisión por pares</span></label>
+    <label class="opcion-label"><input type="radio" name="qi1" value="c"> <span>C) Publicar directamente los trabajos de estudiantes universitarios sin filtro de calidad</span></label>
+    <label class="opcion-label"><input type="radio" name="qi1" value="d"> <span>D) Servir de red social académica donde los investigadores comparten opiniones</span></label>
+    <div class="feedback-item" id="fb-qi1"></div>
+  </div>
+
+  <!-- P2 -->
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-teorica">Teórica</span>
+    <div class="pregunta-text">2. El proceso de revisión por pares (peer review) garantiza que un artículo científico:</div>
+    <label class="opcion-label"><input type="radio" name="qi2" value="a"> <span>A) Fue escrito por un profesor de una universidad reconocida</span></label>
+    <label class="opcion-label"><input type="radio" name="qi2" value="b"> <span>B) Fue evaluado por expertos independientes que valoraron su rigor metodológico y cientificidad antes de publicarse</span></label>
+    <label class="opcion-label"><input type="radio" name="qi2" value="c"> <span>C) Tiene más de 50 páginas y múltiples figuras estadísticas</span></label>
+    <label class="opcion-label"><input type="radio" name="qi2" value="d"> <span>D) Fue aprobado por el Ministerio de Educación del país de origen</span></label>
+    <div class="feedback-item" id="fb-qi2"></div>
+  </div>
+
+  <!-- P3 -->
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-teorica">Teórica</span>
+    <div class="pregunta-text">3. ¿Qué diferencia esencial existe entre un repositorio y una base de datos científica?</div>
+    <label class="opcion-label"><input type="radio" name="qi3" value="a"> <span>A) El repositorio solo guarda libros; la base de datos solo guarda artículos</span></label>
+    <label class="opcion-label"><input type="radio" name="qi3" value="b"> <span>B) El repositorio preserva la producción de una institución o comunidad específica (frecuentemente en acceso abierto), mientras que la base de datos reúne publicaciones de múltiples fuentes globales</span></label>
+    <label class="opcion-label"><input type="radio" name="qi3" value="c"> <span>C) Las bases de datos son siempre gratuitas y los repositorios son siempre de pago</span></label>
+    <label class="opcion-label"><input type="radio" name="qi3" value="d"> <span>D) No existe diferencia real; son términos intercambiables</span></label>
+    <div class="feedback-item" id="fb-qi3"></div>
+  </div>
+
+  <!-- P4 -->
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-teorica">Teórica</span>
+    <div class="pregunta-text">4. En APA 7.ª edición, ¿qué cambio importante se introdujo respecto al lugar de publicación de los libros?</div>
+    <label class="opcion-label"><input type="radio" name="qi4" value="a"> <span>A) Se debe escribir el país pero no la ciudad</span></label>
+    <label class="opcion-label"><input type="radio" name="qi4" value="b"> <span>B) Se eliminó por completo la indicación del lugar de publicación (ciudad y país)</span></label>
+    <label class="opcion-label"><input type="radio" name="qi4" value="c"> <span>C) Ahora se coloca el lugar al inicio de la referencia antes del autor</span></label>
+    <label class="opcion-label"><input type="radio" name="qi4" value="d"> <span>D) Se reemplazó la ciudad por el código postal de la editorial</span></label>
+    <div class="feedback-item" id="fb-qi4"></div>
+  </div>
+
+  <!-- P5 -->
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-teorica">Teórica</span>
+    <div class="pregunta-text">5. ¿Cuál de las siguientes plataformas es un motor de búsqueda académico gratuito que indexa artículos, tesis, libros y preprints?</div>
+    <label class="opcion-label"><input type="radio" name="qi5" value="a"> <span>A) Scopus</span></label>
+    <label class="opcion-label"><input type="radio" name="qi5" value="b"> <span>B) Web of Science</span></label>
+    <label class="opcion-label"><input type="radio" name="qi5" value="c"> <span>C) Google Scholar</span></label>
+    <label class="opcion-label"><input type="radio" name="qi5" value="d"> <span>D) EBSCO Business Source</span></label>
+    <div class="feedback-item" id="fb-qi5"></div>
+  </div>
+
+  <!-- P6 -->
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-teorica">Teórica</span>
+    <div class="pregunta-text">6. El estilo Vancouver y el estilo IEEE tienen en común que ambos utilizan:</div>
+    <label class="opcion-label"><input type="radio" name="qi6" value="a"> <span>A) Citas de autor-año entre paréntesis, igual que APA</span></label>
+    <label class="opcion-label"><input type="radio" name="qi6" value="b"> <span>B) Números entre corchetes en el texto que remiten a una lista numerada de referencias</span></label>
+    <label class="opcion-label"><input type="radio" name="qi6" value="c"> <span>C) Notas al pie de página para identificar las fuentes</span></label>
+    <label class="opcion-label"><input type="radio" name="qi6" value="d"> <span>D) Cursivas en los apellidos de los autores</span></label>
+    <div class="feedback-item" id="fb-qi6"></div>
+  </div>
+
+  <!-- P7 -->
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-teorica">Teórica</span>
+    <div class="pregunta-text">7. Según APA 7.ª edición, cuando se usa una paráfrasis (idea del autor con tus propias palabras), ¿qué se debe incluir en la cita en el texto?</div>
+    <label class="opcion-label"><input type="radio" name="qi7" value="a"> <span>A) Solo el apellido del autor, sin año ni número de página</span></label>
+    <label class="opcion-label"><input type="radio" name="qi7" value="b"> <span>B) El apellido del autor y el año entre paréntesis, sin necesidad del número de página</span></label>
+    <label class="opcion-label"><input type="radio" name="qi7" value="c"> <span>C) El apellido, año y número de página son obligatorios en toda paráfrasis</span></label>
+    <label class="opcion-label"><input type="radio" name="qi7" value="d"> <span>D) No se cita en paráfrasis porque las ideas son reformuladas por el investigador</span></label>
+    <div class="feedback-item" id="fb-qi7"></div>
+  </div>
+
+  <!-- P8 Caso -->
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-caso">Análisis de caso</span>
+    <div class="pregunta-text">8. Carlos elabora su tesis sobre control interno en municipios ecuatorianos. Encuentra una noticia en el sitio web del diario El Universo sobre un caso de corrupción en el municipio de Daule y la cita como su principal fuente teórica. ¿Qué problema metodológico presenta esta decisión?</div>
+    <label class="opcion-label"><input type="radio" name="qi8" value="a"> <span>A) Ninguno; las noticias de medios reconocidos son fuentes científicas válidas</span></label>
+    <label class="opcion-label"><input type="radio" name="qi8" value="b"> <span>B) Las noticias periodísticas no han pasado por revisión por pares ni garantizan rigor metodológico; pueden servir como contexto pero no como fuente teórica principal</span></label>
+    <label class="opcion-label"><input type="radio" name="qi8" value="c"> <span>C) El problema es solo de formato; si cita la noticia en APA 7 el problema se resuelve</span></label>
+    <label class="opcion-label"><input type="radio" name="qi8" value="d"> <span>D) Solo es un problema si El Universo no tiene versión digital</span></label>
+    <div class="feedback-item" id="fb-qi8"></div>
+  </div>
+
+  <!-- P9 Caso -->
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-caso">Análisis de caso</span>
+    <div class="pregunta-text">9. Ana elabora un informe académico y copia tres párrafos de un artículo de Redalyc sin citar al autor, porque piensa que como el artículo es de acceso abierto puede usarlo libremente. ¿Cuál es la valoración correcta de su conducta?</div>
+    <label class="opcion-label"><input type="radio" name="qi9" value="a"> <span>A) Su conducta es correcta; el acceso abierto implica que no hay restricciones de uso</span></label>
+    <label class="opcion-label"><input type="radio" name="qi9" value="b"> <span>B) Su conducta constituye plagio, ya que acceso abierto significa acceso libre para leer, no derecho a apropiarse del texto sin atribución</span></label>
+    <label class="opcion-label"><input type="radio" name="qi9" value="c"> <span>C) Solo sería plagio si copiara más de cinco párrafos, no tres</span></label>
+    <label class="opcion-label"><input type="radio" name="qi9" value="d"> <span>D) Es aceptable porque Redalyc no requiere citas de atribución</span></label>
+    <div class="feedback-item" id="fb-qi9"></div>
+  </div>
+
+  <!-- P10 Caso -->
+  <div class="pregunta-wrap">
+    <span class="badge-tipo badge-caso">Análisis de caso</span>
+    <div class="pregunta-text">10. Miguel necesita citar en su tesis un informe del Banco Central del Ecuador (BCE) publicado en 2023, descargado del sitio oficial. Según APA 7, ¿cuál es el formato correcto?</div>
+    <label class="opcion-label"><input type="radio" name="qi10" value="a"> <span>A) BCE (2023). Informe. Ecuador.</span></label>
+    <label class="opcion-label"><input type="radio" name="qi10" value="b"> <span>B) Banco Central del Ecuador. (2023). <em>Título del informe en cursiva</em>. BCE. https://www.bce.fin.ec/ruta-del-informe</span></label>
+    <label class="opcion-label"><input type="radio" name="qi10" value="c"> <span>C) Banco Central del Ecuador (2023), Título del informe. Quito, Ecuador: BCE.</span></label>
+    <label class="opcion-label"><input type="radio" name="qi10" value="d"> <span>D) (BCE, 2023, p. 1). El informe se cita igual que un libro con número de página obligatorio</span></label>
+    <div class="feedback-item" id="fb-qi10"></div>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <button class="btn-verificar" id="btn-quiz" onclick="verificarCuestionario()">✔ Verificar respuestas</button>
+    <button class="btn-reset" id="btn-quiz-reset" onclick="resetCuestionario()">↺ Reiniciar</button>
+  </div>
+
+  <div class="resultado-box" id="resultado-quiz">
+    <div class="resultado-emoji" id="emoji-quiz"></div>
+    <div class="resultado-puntaje" id="puntaje-quiz"></div>
+    <div class="barra-wrap"><div class="barra-fill" id="barra-quiz"></div></div>
+    <div class="resultado-msg" id="msg-quiz"></div>
+  </div>
+</div>
+
+<!-- ===== ACTIVIDAD CON IA ===== -->
+<div id="tab-ia" class="tab-content">
+  <h2>🤖 Actividad con Inteligencia Artificial</h2>
+
+  <div class="caja-concepto">
+    <div class="titulo-caja">Propósito de esta actividad</div>
+    <p>Esta actividad NO consiste en copiar lo que la IA responde. El objetivo es usar la IA como interlocutor inteligente para <strong>desarrollar tu capacidad de evaluar fuentes, construir referencias correctas y detectar errores de citación</strong>. Tú debes analizar, corregir y justificar.</p>
+  </div>
+
+  <h3>🎯 Actividad: El Auditor de Referencias</h3>
+  <p>Imagina que eres el <strong>auditor de calidad bibliográfica</strong> de una revista científica ecuatoriana. Tu misión es evaluar si las referencias de un artículo están correctamente formateadas en APA 7.ª edición y si provienen de fuentes confiables. Usarás la IA como asistente para este proceso.</p>
+
+  <div class="paso-ia">
+    <div class="paso-num">1</div>
+    <div>
+      <strong>Herramienta recomendada:</strong> Ingresa a <a href="https://claude.ai" target="_blank" style="color:#003366;"><strong>Claude.ai</strong></a> (gratuito, sin registro requerido para uso básico). También puedes usar ChatGPT (chat.openai.com) o Gemini (gemini.google.com).
+    </div>
+  </div>
+
+  <div class="paso-ia">
+    <div class="paso-num">2</div>
+    <div>
+      <strong>Copia y pega este prompt exacto en la IA:</strong>
+    </div>
+  </div>
+
+  <div class="prompt-box" id="prompt-ia">Actúa como experto en normas APA 7.ª edición y evaluación de fuentes científicas. Voy a darte 4 referencias bibliográficas. Para cada una necesito que: (1) identifiques si está correctamente formateada en APA 7 o señales los errores específicos, (2) indiques si el tipo de fuente (base de datos, repositorio, sitio web, libro) es adecuado para sustentar un marco teórico de una tesis universitaria en Contabilidad, y (3) sugieras cómo corregir el formato si hay errores. Las referencias son:
+
+REFERENCIA 1: Hernández, R. (2014). Metodología de la investigación. México: McGraw-Hill.
+
+REFERENCIA 2: SRI. (2023). Estadísticas de recaudación. Recuperado el 15 de marzo de 2024 de https://www.sri.gob.ec/estadisticas
+
+REFERENCIA 3: Torres, M., & Pérez, J. (2021). Auditoría forense en cooperativas. Revista Contabilidad y Auditoría, 5(2), pp. 12-28. doi:10.xxxx/rca.2021.05.02
+
+REFERENCIA 4: Wikipedia. (s.f.). Control interno. https://es.wikipedia.org/wiki/Control_interno
+
+Analiza cada una de forma estructurada y explica el razonamiento de cada corrección.
+    <button class="copy-btn" onclick="copiarPrompt()">📋 Copiar</button>
+  </div>
+
+  <div class="paso-ia">
+    <div class="paso-num">3</div>
+    <div>
+      <strong>Qué hacer con la respuesta de la IA:</strong>
+      <ul style="margin-top: 8px;">
+        <li>Lee cada corrección que sugiere la IA para las 4 referencias.</li>
+        <li>Compara las correcciones sugeridas con lo que aprendiste en el Tema 4 de este widget.</li>
+        <li><strong>Escribe en tu cuaderno</strong> si estás de acuerdo o en desacuerdo con cada corrección y por qué.</li>
+        <li>Identifica si la IA detectó todos los errores o pasó alguno por alto.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="paso-ia">
+    <div class="paso-num">4</div>
+    <div>
+      <strong>Segundo prompt de profundización:</strong> Una vez que tengas la primera respuesta, escribe a la IA:
+      <div class="prompt-box" style="margin-top: 10px; font-size: 13px; position: relative; padding: 16px 60px 16px 16px;">"Basándote en tus correcciones, ¿qué fuente de las 4 NO debería usarse como referencia teórica principal en una tesis universitaria, y por qué? Explica la diferencia entre usar Wikipedia como referencia académica y usarla como punto de partida para encontrar fuentes confiables."<button class="copy-btn" onclick="copiarPrompt2()" style="top:8px;">📋 Copiar</button></div>
+    </div>
+  </div>
+
+  <h3>📋 Criterios de evaluación</h3>
+  <table>
+    <tr>
+      <th>Nivel</th>
+      <th>Indicador de pensamiento crítico</th>
+    </tr>
+    <tr>
+      <td><strong>Copia simple ❌</strong></td>
+      <td>El estudiante copia la respuesta de la IA textualmente sin comparar ni reflexionar</td>
+    </tr>
+    <tr>
+      <td><strong>Uso básico ⚠️</strong></td>
+      <td>El estudiante resume la respuesta de la IA con sus propias palabras</td>
+    </tr>
+    <tr>
+      <td><strong>Pensamiento crítico ✅</strong></td>
+      <td>El estudiante identifica si la IA se equivocó en algo, corrige errores de la IA con fundamento en APA 7, y conecta lo aprendido con la importancia ética del plagio en la carrera de Contabilidad</td>
+    </tr>
+    <tr>
+      <td><strong>Excelencia 🏆</strong></td>
+      <td>El estudiante aplica lo aprendido a sus propias referencias bibliográficas de la tesis o trabajo académico actual</td>
+    </tr>
+  </table>
+
+  <div class="caja-clave">
+    <strong>💡 Recuerda:</strong> La IA puede cometer errores en normas APA, especialmente en detalles de puntuación. Tu tarea es verificar lo que dice usando lo que aprendiste en este widget. Así como un auditor no acepta los estados financieros sin verificarlos, <strong>tú no debes aceptar las respuestas de la IA sin verificarlas con los criterios académicos que ya conoces.</strong>
+  </div>
+</div>
+
+<!-- ===== REFLEXIÓN ===== -->
+<div id="tab-reflexion" class="tab-content">
+  <h2>💭 Preguntas para la Reflexión Personal</h2>
+  <p>No hay respuestas correctas ni incorrectas. El objetivo es conectar lo aprendido con tu experiencia, tus valores y tu vida cotidiana. Tómate tu tiempo y responde con honestidad.</p>
+
+  <div class="reflexion-card">
+    <p><span class="num">1.</span><strong>Sobre la honestidad intelectual:</strong> Piensa en alguna ocasión de tu vida —en el colegio, en el trabajo o en la universidad— en la que usaste la idea de otra persona y no la reconociste, aunque sea de forma pequeña. ¿Cómo te sentiste después? ¿Qué valor personal estaba en juego? La <em>inteligencia emocional</em> nos enseña que reconocer nuestros errores sin auto-castigarnos es señal de madurez. ¿Cómo conectas eso con la práctica de citar correctamente?</p>
+  </div>
+
+  <div class="reflexion-card">
+    <p><span class="num">2.</span><strong>Sobre la confianza en las fuentes:</strong> Vivimos en la era de la desinformación: noticias falsas, videos manipulados, "estudios" comprados por empresas. ¿Cómo aplicas en tu vida diaria el hábito de verificar la fuente antes de creer algo? ¿Qué tan fácil o difícil te resulta dudar de información que parece convincente? ¿En qué te ayuda el pensamiento científico para navegar ese mundo?</p>
+  </div>
+
+  <div class="reflexion-card">
+    <p><span class="num">3.</span><strong>Sobre el conocimiento acumulado:</strong> Cada artículo científico se construye sobre decenas de investigaciones previas. Hernández Sampieri citó a otros autores, y esos autores citaron a otros. El conocimiento es una cadena de reconocimiento mutuo. ¿Cómo se parece eso a las relaciones humanas? ¿Has tenido personas en tu vida que "tomaron tu idea" sin reconocerte? ¿Cómo impactó eso en tu <em>autoestima</em> y en la relación?</p>
+  </div>
+
+  <div class="reflexion-card">
+    <p><span class="num">4.</span><strong>Sobre el acceso al conocimiento:</strong> Muchas bases de datos científicas son de pago y los países con menos recursos económicos tienen acceso limitado. En Ecuador, muchos investigadores dependen de Redalyc, SciELO y Google Scholar. ¿Te parece justo que el conocimiento que financia la sociedad esté detrás de un muro de pago? ¿Qué papel deberían jugar el Estado ecuatoriano y la SENESCYT para garantizar acceso equitativo al conocimiento?</p>
+  </div>
+
+  <div class="reflexion-card">
+    <p><span class="num">5.</span><strong>Sobre tu identidad profesional:</strong> En la carrera de Contabilidad y Auditoría, la integridad es el valor central: un contador que falsifica datos destruye empresas; un auditor que firma sin verificar se convierte en cómplice. ¿Ves alguna relación entre ese rigor profesional y el rigor académico de citar correctamente? Desde la <em>programación neurolingüística</em> (PNL), el comportamiento de hoy forma el hábito de mañana. ¿Qué hábito estás formando cuando decides citar bien desde ya?</p>
+  </div>
+
+  <div class="caja-clave">
+    <strong>Mensaje de cierre:</strong> Aprender a buscar, evaluar y citar fuentes no es un ejercicio burocrático. Es el entrenamiento de una mente que distingue la verdad del ruido, que honra el trabajo ajeno y que construye sobre bases sólidas. Ese tipo de mente es exactamente la que Ecuador necesita en sus contadores, auditores y gestores públicos.
+  </div>
+</div>
+
+<!-- ===== BIBLIOGRAFÍA ===== -->
+<div id="tab-biblio" class="tab-content">
+  <h2>📋 Bibliografía</h2>
+  <p>Referencias utilizadas y recomendadas para profundizar en los temas de esta semana, en formato APA 7.ª edición.</p>
+
+  <div class="bib-card">
+    <div class="bib-autor">American Psychological Association. <span class="bib-anio">(2020).</span></div>
+    <div class="bib-titulo">Publication manual of the American Psychological Association</div>
+    <div class="bib-fuente">(7.ª ed.). APA.</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-autor">Hernández Sampieri, R., Fernández Collado, C., &amp; Baptista Lucio, P. <span class="bib-anio">(2014).</span></div>
+    <div class="bib-titulo">Metodología de la investigación</div>
+    <div class="bib-fuente">(6.ª ed.). McGraw-Hill.</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-autor">Díaz Martínez, C., &amp; Núñez González, C. <span class="bib-anio">(2019).</span></div>
+    <div class="bib-titulo">Fuentes de información científica en ciencias sociales: bases de datos, repositorios y acceso abierto</div>
+    <div class="bib-fuente"><em>Revista Española de Documentación Científica</em>, <em>42</em>(3), e241. https://doi.org/10.3989/redc.2019.3.1606</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-autor">Suber, P. <span class="bib-anio">(2012).</span></div>
+    <div class="bib-titulo">Open access</div>
+    <div class="bib-fuente">MIT Press. https://doi.org/10.7551/mitpress/9286.001.0001</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-autor">Senescyt. <span class="bib-anio">(2023).</span></div>
+    <div class="bib-titulo">Red de Repositorios de Acceso Abierto del Ecuador (RRAAE)</div>
+    <div class="bib-fuente">Secretaría de Educación Superior, Ciencia, Tecnología e Innovación. https://www.educacionsuperior.gob.ec/rraae/</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-autor">Campos, G. <span class="bib-anio">(2015).</span></div>
+    <div class="bib-titulo">Tesis</div>
+    <div class="bib-fuente">Plaza y Valdés.</div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-autor">Guédon, J.-C. <span class="bib-anio">(2004).</span></div>
+    <div class="bib-titulo">The "green" and "gold" roads to open access: The case for mixing and matching</div>
+    <div class="bib-fuente"><em>Serials Review</em>, <em>30</em>(4), 315–328. https://doi.org/10.1016/j.serrev.2004.09.005</div>
+  </div>
+
+  <div class="bib-nota">
+    ⚠️ <strong>Nota al estudiante:</strong> Se recomienda verificar cada referencia en <strong>Google Scholar</strong> (scholar.google.com) o en el repositorio institucional antes de citarla en trabajos académicos. Las referencias de organismos como la APA y la SENESCYT se verifican directamente en sus sitios oficiales.
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// --- TAB NAVIGATION ---
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// --- EJERCICIO ---
+const ejercicioCorrects = {
+  ei1: 'b',
+  ei2: 'b',
+  ei3: 'b',
+  ei4: 'b',
+  ei5: 'b',
+  ei6: 'c',
+  ei7: 'a',
+  ei8: 'b'
+};
+
+const ejercicioFeedbacks = {
+  ei1: {
+    b: '✅ Correcto. Redalyc y SciELO son plataformas latinoamericanas de acceso abierto, ideales para encontrar artículos en contexto regional sobre temas como auditoría en Ecuador.',
+    otros: '❌ Incorrecto. Wikipedia y Facebook no son fuentes científicas. Scopus es válido pero de pago y no es la única opción. La mejor alternativa gratuita y pertinente es Redalyc o SciELO.'
+  },
+  ei2: {
+    b: '✅ Correcto. La revisión por pares (peer review) es el proceso de evaluación por expertos independientes antes de la publicación. Es el sello de calidad de la ciencia.',
+    otros: '❌ Incorrecto. La revisión por pares no depende de la extensión, popularidad del autor ni aprobación gubernamental, sino de la evaluación de pares científicos.'
+  },
+  ei3: {
+    b: '✅ Correcto. APA 7.ª edición establece que con tres o más autores se usa "et al." desde la primera cita en el texto. El formato es: (Apellido et al., año).',
+    otros: '❌ Incorrecto. En APA 6.ª se escribían todos los autores la primera vez, pero APA 7.ª eliminó esa regla: desde la primera cita, tres o más autores se reducen a (Primer Apellido et al., año).'
+  },
+  ei4: {
+    b: '✅ Correcto. En APA 7.ª edición se eliminó la indicación del lugar de publicación. La referencia correcta sería: Pérez García, L. (2021). <em>Evasión tributaria en Ecuador</em>. Editorial Universitaria.',
+    otros: '❌ Incorrecto. El error en esta referencia es la inclusión del lugar (Quito, Ecuador), que APA 7 ya no requiere. El año va después del autor y el título en cursiva están correctos.'
+  },
+  ei5: {
+    b: '✅ Correcto. Scopus es una base de datos global con publicaciones de múltiples fuentes y revisión por pares. El repositorio de la UG preserva la producción académica de esa universidad, frecuentemente en acceso abierto.',
+    otros: '❌ Incorrecto. Scopus es de suscripción (no gratuito) y el repositorio de la UG es de acceso libre. Tampoco son intercambiables ni invierten sus funciones.'
+  },
+  ei6: {
+    c: '✅ Correcto. APA 7.ª edición es el estándar oficial para ciencias sociales y empresariales, incluyendo Contabilidad y Auditoría, en la Universidad de Guayaquil y en América Latina.',
+    otros: '❌ Incorrecto. Vancouver es para ciencias biomédicas; IEEE para ingeniería y tecnología; Chicago para humanidades e historia. APA es el estilo apropiado para Contabilidad.'
+  },
+  ei7: {
+    a: '✅ Correcto. APA 7 establece que al citar por primera vez a una institución u organización, se escribe el nombre completo seguido de la sigla entre corchetes: (Servicio de Rentas Internas [SRI], 2023). En citas posteriores: (SRI, 2023).',
+    otros: '❌ Incorrecto. APA 7 sí permite el uso de siglas para instituciones, siempre que se definan la primera vez entre corchetes. Esta regla se aplica tanto a instituciones nacionales como internacionales.'
+  },
+  ei8: {
+    b: '✅ Correcto. La RRAAE (Red de Repositorios de Acceso Abierto del Ecuador) es administrada por la SENESCYT y consolida las tesis de todas las universidades ecuatorianas acreditadas.',
+    otros: '❌ Incorrecto. DOAJ es un directorio de revistas, no de tesis ecuatorianas. Zenodo es un repositorio europeo de datos de investigación. SciELO Ecuador publica artículos de revistas, no tesis nacionales.'
+  }
+};
+
+function verificarEjercicio() {
+  const nombres = Object.keys(ejercicioCorrects);
+  let sinResponder = [];
+  nombres.forEach(n => {
+    if (!document.querySelector(`input[name="${n}"]:checked`)) sinResponder.push(n);
+  });
+  if (sinResponder.length > 0) {
+    alert('Por favor responde todas las preguntas antes de verificar. Faltan: ' + sinResponder.length + ' respuesta(s).');
+    return;
+  }
+  let correctas = 0;
+  nombres.forEach(n => {
+    const seleccionado = document.querySelector(`input[name="${n}"]:checked`).value;
+    const correcto = ejercicioCorrects[n];
+    const fb = document.getElementById('fb-' + n);
+    const labels = document.querySelectorAll(`input[name="${n}"]`);
+    labels.forEach(inp => {
+      inp.parentElement.classList.remove('correcto', 'incorrecto');
+      if (inp.value === correcto) inp.parentElement.classList.add('correcto');
+      else if (inp.value === seleccionado && seleccionado !== correcto) inp.parentElement.classList.add('incorrecto');
+      inp.disabled = true;
+    });
+    if (seleccionado === correcto) {
+      correctas++;
+      fb.className = 'feedback-item correcto';
+      fb.textContent = ejercicioFeedbacks[n][correcto];
+    } else {
+      fb.className = 'feedback-item incorrecto';
+      fb.textContent = ejercicioFeedbacks[n]['otros'] || ejercicioFeedbacks[n][correcto].replace('✅ Correcto', '❌ Incorrecto');
+    }
+    fb.style.display = 'block';
+  });
+  const pct = Math.round((correctas / nombres.length) * 100);
+  const res = document.getElementById('resultado-ejer');
+  res.style.display = 'block';
+  document.getElementById('puntaje-ejer').textContent = correctas + ' / ' + nombres.length + ' correctas — ' + pct + '%';
+  setTimeout(() => { document.getElementById('barra-ejer').style.width = pct + '%'; }, 100);
+  let emoji, msg;
+  if (pct === 100) { emoji = '🏆'; msg = '¡Perfecto! Dominas bases de datos y referenciación APA 7.'; }
+  else if (pct >= 80) { emoji = '🎯'; msg = '¡Excelente! Muy buen manejo del tema.'; }
+  else if (pct >= 60) { emoji = '📘'; msg = 'Buen avance. Repasa los temas donde cometiste errores.'; }
+  else if (pct >= 40) { emoji = '⚠️'; msg = 'Sigue practicando. Revisa los Temas 3 y 4 del widget.'; }
+  else { emoji = '📖'; msg = 'Vuelve a leer el contenido del widget antes de intentarlo nuevamente.'; }
+  document.getElementById('emoji-ejer').textContent = emoji;
+  document.getElementById('msg-ejer').textContent = msg;
+  document.getElementById('btn-ejer').style.display = 'none';
+  document.getElementById('btn-ejer-reset').style.display = 'inline-block';
+}
+
+function resetEjercicio() {
+  Object.keys(ejercicioCorrects).forEach(n => {
+    document.querySelectorAll(`input[name="${n}"]`).forEach(inp => {
+      inp.checked = false;
+      inp.disabled = false;
+      inp.parentElement.classList.remove('correcto', 'incorrecto');
+    });
+    const fb = document.getElementById('fb-' + n);
+    fb.style.display = 'none';
+    fb.className = 'feedback-item';
+  });
+  document.getElementById('resultado-ejer').style.display = 'none';
+  document.getElementById('barra-ejer').style.width = '0%';
+  document.getElementById('btn-ejer').style.display = 'inline-block';
+  document.getElementById('btn-ejer-reset').style.display = 'none';
+}
+
+// --- CUESTIONARIO ---
+const quizCorrects = {
+  qi1: 'b', qi2: 'b', qi3: 'b', qi4: 'b', qi5: 'c',
+  qi6: 'b', qi7: 'b', qi8: 'b', qi9: 'b', qi10: 'b'
+};
+
+const quizFeedbacks = {
+  qi1: { b: '✅ Correcto. Las bases de datos científicas garantizan que sus publicaciones han pasado por evaluación de pares, a diferencia de simples buscadores web.', otros: '❌ Incorrecto. Las bases de datos científicas no almacenan todo tipo de páginas web ni son redes sociales; su función es dar acceso a publicaciones académicas con revisión por pares.' },
+  qi2: { b: '✅ Correcto. El peer review es la evaluación por expertos independientes antes de publicar, lo que garantiza el rigor científico del artículo.', otros: '❌ Incorrecto. La institución del autor, la extensión del artículo o la aprobación gubernamental no son criterios de peer review.' },
+  qi3: { b: '✅ Correcto. El repositorio institucional custodia la producción académica de una entidad específica en acceso abierto; la base de datos reúne publicaciones de múltiples fuentes globales.', otros: '❌ Incorrecto. No son sinónimos ni se organizan exactamente por tipo de documento de esa manera.' },
+  qi4: { b: '✅ Correcto. En APA 7.ª edición se eliminó la indicación del lugar de publicación (ciudad y país). Solo se indica la editorial.', otros: '❌ Incorrecto. En APA 7 no se escribe ciudad ni país; se eliminó por completo ese elemento.' },
+  qi5: { c: '✅ Correcto. Google Scholar es el motor de búsqueda académico gratuito más accesible, que indexa artículos, tesis y libros de múltiples fuentes.', otros: '❌ Incorrecto. Scopus, Web of Science y EBSCO Business Source son plataformas de suscripción, no gratuitas para el público general.' },
+  qi6: { b: '✅ Correcto. Tanto Vancouver (biomedicina) como IEEE (ingeniería) utilizan numeración entre corchetes en el texto y lista numerada de referencias.', otros: '❌ Incorrecto. APA usa autor-año, no numeración. La cursiva no es un sistema de cita.' },
+  qi7: { b: '✅ Correcto. En APA 7, la paráfrasis solo requiere (Apellido, año). El número de página es recomendable pero no obligatorio en paráfrasis.', otros: '❌ Incorrecto. Toda idea que no sea propia debe citarse con autor y año, aunque sea parafraseada.' },
+  qi8: { b: '✅ Correcto. Las noticias periodísticas no tienen revisión por pares. Pueden contextualizar, pero no fundamentar el marco teórico de una tesis.', otros: '❌ Incorrecto. La calidad metodológica de la fuente no se resuelve con un formato correcto de cita, sino con el rigor inherente del documento.' },
+  qi9: { b: '✅ Correcto. Acceso abierto significa que puedes leer y descargar libremente, pero siempre debes atribuir la autoría. Copiar sin citar es plagio independientemente del tipo de acceso.', otros: '❌ Incorrecto. El plagio no depende del número de párrafos copiados ni del tipo de licencia de acceso.' },
+  qi10: { b: '✅ Correcto. En APA 7, las referencias de organismos gubernamentales incluyen: Institución. (Año). <em>Título en cursiva</em>. Editorial o institución. URL', otros: '❌ Incorrecto. Las siglas solas no son válidas como entrada de referencia; el lugar de publicación no se incluye en APA 7; y el número de página no es obligatorio al citar informes en texto.' }
+};
+
+function verificarCuestionario() {
+  const nombres = Object.keys(quizCorrects);
+  let sinResponder = [];
+  nombres.forEach(n => {
+    if (!document.querySelector(`input[name="${n}"]:checked`)) sinResponder.push(n);
+  });
+  if (sinResponder.length > 0) {
+    alert('Por favor responde todas las preguntas antes de verificar. Faltan: ' + sinResponder.length + ' respuesta(s).');
+    return;
+  }
+  let correctas = 0;
+  nombres.forEach(n => {
+    const seleccionado = document.querySelector(`input[name="${n}"]:checked`).value;
+    const correcto = quizCorrects[n];
+    const fb = document.getElementById('fb-' + n);
+    document.querySelectorAll(`input[name="${n}"]`).forEach(inp => {
+      inp.parentElement.classList.remove('correcto', 'incorrecto');
+      if (inp.value === correcto) inp.parentElement.classList.add('correcto');
+      else if (inp.value === seleccionado && seleccionado !== correcto) inp.parentElement.classList.add('incorrecto');
+      inp.disabled = true;
+    });
+    if (seleccionado === correcto) {
+      correctas++;
+      fb.className = 'feedback-item correcto';
+      fb.textContent = quizFeedbacks[n][correcto];
+    } else {
+      fb.className = 'feedback-item incorrecto';
+      fb.textContent = quizFeedbacks[n]['otros'];
+    }
+    fb.style.display = 'block';
+  });
+  const pct = Math.round((correctas / 10) * 100);
+  const res = document.getElementById('resultado-quiz');
+  res.style.display = 'block';
+  document.getElementById('puntaje-quiz').textContent = correctas + '/10 — ' + pct + '%';
+  setTimeout(() => { document.getElementById('barra-quiz').style.width = pct + '%'; }, 100);
+  let emoji, msg;
+  if (pct === 100) { emoji = '🏆'; msg = '¡Perfecto! 10/10. ¡Excelencia académica!'; }
+  else if (pct >= 80) { emoji = '🎯'; msg = 'Muy bien. Sólido manejo de bases de datos y APA 7.'; }
+  else if (pct >= 60) { emoji = '📘'; msg = 'Buen progreso. Repasa los temas donde fallaste.'; }
+  else if (pct >= 40) { emoji = '⚠️'; msg = 'Necesitas reforzar. Lee de nuevo los Temas 3 y 4.'; }
+  else { emoji = '📖'; msg = 'Repasa todo el widget antes de volver a intentarlo.'; }
+  document.getElementById('emoji-quiz').textContent = emoji;
+  document.getElementById('msg-quiz').textContent = msg;
+  document.getElementById('btn-quiz').style.display = 'none';
+  document.getElementById('btn-quiz-reset').style.display = 'inline-block';
+}
+
+function resetCuestionario() {
+  Object.keys(quizCorrects).forEach(n => {
+    document.querySelectorAll(`input[name="${n}"]`).forEach(inp => {
+      inp.checked = false;
+      inp.disabled = false;
+      inp.parentElement.classList.remove('correcto', 'incorrecto');
+    });
+    const fb = document.getElementById('fb-' + n);
+    fb.style.display = 'none';
+    fb.className = 'feedback-item';
+  });
+  document.getElementById('resultado-quiz').style.display = 'none';
+  document.getElementById('barra-quiz').style.width = '0%';
+  document.getElementById('btn-quiz').style.display = 'inline-block';
+  document.getElementById('btn-quiz-reset').style.display = 'none';
+}
+
+// --- COPY PROMPT ---
+function copiarPrompt() {
+  const text = document.getElementById('prompt-ia').innerText.replace('📋 Copiar', '').trim();
+  navigator.clipboard.writeText(text).then(() => alert('¡Prompt copiado! Pégalo en Claude.ai, ChatGPT o Gemini.'));
+}
+function copiarPrompt2() {
+  const text = '"Basándote en tus correcciones, ¿qué fuente de las 4 NO debería usarse como referencia teórica principal en una tesis universitaria, y por qué? Explica la diferencia entre usar Wikipedia como referencia académica y usarla como punto de partida para encontrar fuentes confiables."';
+  navigator.clipboard.writeText(text).then(() => alert('¡Segundo prompt copiado!'));
+}
+</script>
+</body>
+</html>
