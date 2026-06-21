@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 15B — Marco Teórico: Redacción y Citación | Metodología de la Investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source Sans 3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;font-size:16px;color:#1a1a1a;background:#f4f6f9;min-height:100vh;}
+header{background:#003366;color:#fff;padding:18px 24px 14px;}
+header .inst{font-size:12px;letter-spacing:1.2px;text-transform:uppercase;opacity:.82;margin-bottom:4px;}
+header h1{font-family:'Lora',serif;font-size:1.55rem;font-weight:700;line-height:1.3;}
+header .sub{font-size:13px;margin-top:5px;opacity:.88;}
+.semana-badge{display:inline-block;background:#87CEEB;color:#003366;font-weight:700;font-size:12px;padding:3px 10px;border-radius:12px;margin-top:7px;}
+.tab-nav-wrap{background:#87CEEB;overflow-x:auto;white-space:nowrap;padding:0 12px;border-bottom:3px solid #003366;}
+.tab-nav-wrap::-webkit-scrollbar{height:4px;}
+.tab-nav-wrap::-webkit-scrollbar-thumb{background:#003366;border-radius:2px;}
+.tab-btn{display:inline-block;padding:11px 16px;font-family:'Source Sans 3',sans-serif;font-size:13.5px;font-weight:600;color:#1a1a1a;border:none;background:transparent;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .2s;}
+.tab-btn:hover{background:rgba(0,51,102,.1);}
+.tab-btn.active{background:#fff;color:#003366;font-weight:700;border-bottom:3px solid #003366;}
+.tab-content{display:none;padding:28px 24px;max-width:920px;margin:0 auto;}
+.tab-content.active{display:block;}
+h2{font-family:'Lora',serif;font-size:1.45rem;color:#003366;margin-bottom:14px;border-left:5px solid #87CEEB;padding-left:12px;}
+h3{font-family:'Lora',serif;font-size:1.15rem;color:#003366;margin:20px 0 10px;}
+h4{font-family:'Source Sans 3',sans-serif;font-size:1rem;color:#003366;font-weight:700;margin:14px 0 8px;}
+p{margin-bottom:12px;line-height:1.72;}
+.box-concepto{border-left:5px solid #003366;background:#f0f4fa;padding:14px 18px;margin:16px 0;border-radius:0 8px 8px 0;}
+.box-concepto strong{color:#003366;display:block;margin-bottom:5px;font-family:'Lora',serif;}
+.box-ejemplo{background:#e8f4fd;border:1px solid #87CEEB;padding:14px 18px;margin:16px 0;border-radius:8px;}
+.box-ejemplo .ej-titulo{font-weight:700;color:#003366;margin-bottom:6px;}
+.box-clave{background:#fff8e1;border-left:5px solid #f9a825;padding:13px 18px;margin:16px 0;border-radius:0 8px 8px 0;}
+.box-clave strong{color:#e65100;}
+.box-warning{background:#fff3e0;border-left:5px solid #ff9800;padding:13px 18px;margin:16px 0;border-radius:0 8px 8px 0;}
+.box-sofia{background:#f3e5f5;border:1px solid #ce93d8;border-radius:10px;padding:16px 20px;margin:18px 0;}
+.box-sofia .sofia-label{font-weight:700;color:#6a1b9a;margin-bottom:8px;font-size:14px;}
+.box-correcto{background:#e8f5e9;border-left:5px solid #2e7d32;padding:13px 18px;margin:10px 0;border-radius:0 8px 8px 0;}
+.box-incorrecto{background:#ffebee;border-left:5px solid #c62828;padding:13px 18px;margin:10px 0;border-radius:0 8px 8px 0;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px;}
+th{background:#003366;color:#fff;padding:10px 12px;text-align:left;font-family:'Lora',serif;}
+td{padding:9px 12px;border-bottom:1px solid #dce4f0;vertical-align:top;}
+tr:nth-child(even) td{background:#f5f8ff;}
+.cita-demo{background:#1a1a2e;color:#e8e8e8;font-family:monospace;font-size:13.5px;padding:16px 20px;border-radius:8px;margin:12px 0;line-height:1.8;}
+.cita-demo .tag{color:#87CEEB;font-weight:700;}
+.cita-demo .texto{color:#fff;}
+.cita-demo .autor{color:#f9a825;}
+.cita-demo .year{color:#80cbc4;}
+.steps-grid{display:grid;gap:14px;margin:16px 0;}
+.step-card{background:#fff;border:1px solid #c5d8f0;border-radius:10px;padding:16px;display:flex;gap:14px;align-items:flex-start;}
+.step-num{background:#003366;color:#fff;font-family:'Lora',serif;font-weight:700;font-size:1.1rem;min-width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-body h4{margin:0 0 5px;color:#003366;}
+.step-body p{margin:0;font-size:14.5px;}
+.dos-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;}
+@media(max-width:600px){.dos-cols{grid-template-columns:1fr;}}
+.col-card{background:#fff;border:1px solid #d0dcea;border-radius:10px;padding:16px;}
+.col-card h4{color:#003366;border-bottom:2px solid #87CEEB;padding-bottom:6px;margin-bottom:10px;}
+/* EJERCICIO */
+#tab-ejercicio .instruccion{background:#e8f4fd;border:1px solid #87CEEB;border-radius:8px;padding:14px 18px;margin-bottom:20px;}
+.ejercicio-item{background:#fff;border:1px solid #d0dcea;border-radius:10px;padding:16px 20px;margin-bottom:14px;}
+.ejercicio-item .ei-enunciado{font-weight:600;color:#003366;margin-bottom:12px;font-size:15px;}
+.opcion-label{display:flex;align-items:flex-start;gap:10px;margin:6px 0;cursor:pointer;padding:7px 10px;border-radius:6px;transition:background .15s;}
+.opcion-label:hover{background:#f0f4fa;}
+.opcion-label input{margin-top:3px;flex-shrink:0;}
+.ei-feedback{margin-top:10px;padding:10px 14px;border-radius:6px;display:none;font-size:14.5px;}
+.ei-feedback.correcto{background:#e8f5e9;border-left:4px solid #2e7d32;color:#1b5e20;}
+.ei-feedback.incorrecto{background:#ffebee;border-left:4px solid #c62828;color:#7f0000;}
+.quiz-item{background:#fff;border:1px solid #d0dcea;border-radius:10px;padding:16px 20px;margin-bottom:16px;}
+.badge{display:inline-block;padding:2px 9px;border-radius:10px;font-size:11.5px;font-weight:700;margin-bottom:8px;}
+.badge-teorica{background:#dce8ff;color:#003366;}
+.badge-analisis{background:#fff3e0;color:#e65100;}
+.quiz-item .q-enunciado{font-weight:600;color:#1a1a1a;margin-bottom:11px;line-height:1.55;}
+.q-feedback{margin-top:10px;padding:10px 14px;border-radius:6px;display:none;font-size:14px;}
+.q-feedback.correcto{background:#e8f5e9;border-left:4px solid #2e7d32;color:#1b5e20;}
+.q-feedback.incorrecto{background:#ffebee;border-left:4px solid #c62828;color:#7f0000;}
+.btn-verificar{background:#003366;color:#fff;border:none;padding:12px 28px;font-size:15px;font-family:'Source Sans 3',sans-serif;font-weight:700;border-radius:8px;cursor:pointer;margin-top:6px;transition:background .2s;}
+.btn-verificar:hover{background:#004a99;}
+.btn-reset{background:#fff;color:#003366;border:2px solid #003366;padding:10px 24px;font-size:14px;font-family:'Source Sans 3',sans-serif;font-weight:700;border-radius:8px;cursor:pointer;margin-top:8px;transition:all .2s;}
+.btn-reset:hover{background:#003366;color:#fff;}
+.resultado-final{background:#fff;border:2px solid #003366;border-radius:12px;padding:22px 26px;margin-top:22px;display:none;text-align:center;}
+.resultado-emoji{font-size:3rem;margin-bottom:8px;}
+.resultado-score{font-family:'Lora',serif;font-size:1.8rem;color:#003366;font-weight:700;}
+.resultado-msg{font-size:15px;color:#444;margin:8px 0 14px;}
+.barra-wrap{background:#e0e0e0;border-radius:8px;height:16px;overflow:hidden;margin:10px 0;}
+.barra-fill{height:100%;border-radius:8px;transition:width 1s ease;background:#003366;}
+.ia-prompt-box{background:#1a1a2e;color:#e0e0e0;border-radius:10px;padding:18px 20px;font-family:monospace;font-size:13.5px;line-height:1.7;margin:14px 0;position:relative;}
+.ia-prompt-box .copy-btn{position:absolute;top:10px;right:12px;background:#87CEEB;color:#003366;border:none;border-radius:5px;padding:4px 12px;font-size:12px;cursor:pointer;font-weight:700;}
+.ref-card{background:#fff;border-left:5px solid #003366;border-radius:0 10px 10px 0;padding:14px 18px;margin:12px 0;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.ref-card .ref-num{font-size:12px;color:#87CEEB;font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+.bib-card{background:#fff;border:1px solid #d0dcea;border-radius:10px;padding:14px 18px;margin:12px 0;display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:start;}
+.bib-year{background:#003366;color:#fff;border-radius:6px;padding:6px 4px;text-align:center;font-weight:700;font-size:13px;font-family:'Lora',serif;}
+.bib-autor{font-weight:700;color:#003366;font-size:14px;}
+.bib-titulo{font-style:italic;color:#333;font-size:14px;margin:2px 0;}
+.bib-fuente{color:#666;font-size:13px;}
+.bib-nota{background:#f9f9f9;border:1px dashed #aaa;border-radius:8px;padding:12px 16px;margin-top:18px;font-size:13px;color:#555;}
+.checklist{list-style:none;padding:0;margin:10px 0;}
+.checklist li{padding:6px 0;display:flex;gap:8px;align-items:flex-start;font-size:15px;line-height:1.6;}
+.checklist li::before{content:"☐";color:#003366;font-size:1.2rem;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inst">Universidad de Guayaquil · Facultad de Ciencias Administrativas · Contabilidad y Auditoría</div>
+  <h1>Construcción del Marco Teórico: Redacción, Citas y Evaluación</h1>
+  <div class="sub">Unidad 4: Búsqueda y Uso de Referencias Bibliográficas · Metodología de la Investigación</div>
+  <span class="semana-badge">📚 Semana 15 — Parte B de 2</span>
+</header>
+
+<div class="tab-nav-wrap">
+  <button class="tab-btn active" onclick="showTab('repaso')">🔄 Enlace 15A</button>
+  <button class="tab-btn" onclick="showTab('tema1')">✍️ Tema 5</button>
+  <button class="tab-btn" onclick="showTab('tema2')">📌 Tema 6</button>
+  <button class="tab-btn" onclick="showTab('tema3')">🔗 Tema 7</button>
+  <button class="tab-btn" onclick="showTab('tema4')">✅ Tema 8</button>
+  <button class="tab-btn" onclick="showTab('ejercicio')">✏️ Ejercicio</button>
+  <button class="tab-btn" onclick="showTab('cuestionario')">📝 Cuestionario</button>
+  <button class="tab-btn" onclick="showTab('ia')">🤖 Act. IA</button>
+  <button class="tab-btn" onclick="showTab('reflexion')">💭 Reflexión</button>
+  <button class="tab-btn" onclick="showTab('biblio')">📚 Bibliografía</button>
+</div>
+
+<!-- ===================== ENLACE A 15A ===================== -->
+<div id="tab-repaso" class="tab-content active">
+  <h2>🔄 Esta es la Parte B — Continúa desde la Parte A</h2>
+  <div class="box-concepto">
+    <strong>¿Qué viste en la Semana 15A?</strong>
+    <ul style="margin-top:8px;padding-left:20px;line-height:2;">
+      <li><strong>Tema 1:</strong> Qué es el Marco Teórico, para qué sirve, diferencia entre Marco Teórico y Marco Conceptual, Estado del Arte.</li>
+      <li><strong>Tema 2:</strong> Funciones y características del Marco Teórico. Estructura general: Antecedentes → Bases Teóricas → Marco Conceptual → Marco Legal.</li>
+      <li><strong>Tema 3:</strong> Proceso paso a paso de construcción: definir territorio conceptual, búsqueda sistemática, organización con la matriz de revisión, redacción como argumento.</li>
+      <li><strong>Tema 4:</strong> El Marco Teórico en contextos ecuatorianos: tributario (SRI/RISE), empresarial (Superintendencia de Compañías), social (BanEcuador/SEPS). Errores frecuentes.</li>
+    </ul>
+  </div>
+
+  <h3>¿Qué verás en esta Parte B?</h3>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>Cómo redactar el Marco Teórico correctamente</h4>
+        <p>La diferencia entre resumir y argumentar. Cómo integrar citas textuales y paráfrasis. Voz propia del investigador.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h4>Integración de citas APA 7.ª edición en el Marco Teórico</h4>
+        <p>Citas en texto, paráfrasis con cita, citas de más de 40 palabras, citas secundarias. Ejemplos aplicados.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <h4>La coherencia interna del Marco Teórico</h4>
+        <p>Cómo el marco dialoga con el problema, las variables y las hipótesis. El hilo conductor del texto.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <h4>Cómo evaluar un Marco Teórico: lista de verificación</h4>
+        <p>Los criterios que usa un evaluador académico para juzgar la calidad del marco. Autoevaluación antes de entregar.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-clave">
+    <strong>💡 Recomendación:</strong> Si aún no has revisado la Semana 15A, hazlo primero. Esta parte B complementa y profundiza los conceptos allí introducidos.
+  </div>
+</div>
+
+<!-- ===================== TEMA 5: REDACCIÓN ===================== -->
+<div id="tab-tema1" class="tab-content">
+  <h2>✍️ Tema 5: Cómo Redactar el Marco Teórico con Voz Académica</h2>
+
+  <h3>5.1 La diferencia entre RESUMIR y ARGUMENTAR</h3>
+  <p>El error más común en los Marcos Teóricos de tesis de grado es convertirlo en una sucesión de resúmenes: "El autor A dice que...", "El autor B dice que...", "El autor C dice que...". Esto no es un Marco Teórico: es un directorio de lecturas. Un Marco Teórico bien escrito <em>argumenta</em>.</p>
+
+  <div class="dos-cols">
+    <div class="col-card">
+      <h4>❌ Redacción que RESUME (incorrecta)</h4>
+      <p style="font-style:italic;font-size:14px;color:#555;">"Hernández Sampieri (2014) dice que el Marco Teórico tiene varias funciones. También Creswell (2014) habla sobre el marco teórico. Bernal (2019) también menciona el tema. Todos coinciden en que es importante."</p>
+      <p style="font-size:13.5px;color:#c62828;margin-top:8px;">Problema: No hay argumento, no hay análisis, no hay voz del investigador. Solo lista de lo que dicen otros.</p>
+    </div>
+    <div class="col-card">
+      <h4>✅ Redacción que ARGUMENTA (correcta)</h4>
+      <p style="font-style:italic;font-size:14px;color:#555;">"Si bien existe consenso en la literatura sobre la función orientadora del marco teórico (Hernández Sampieri et al., 2014; Creswell, 2014), Bernal (2019) añade una dimensión crítica al señalar que el marco no solo orienta: también delimita y excluye perspectivas que podrían ser igualmente válidas. Esta tensión entre orientación y delimitación es particularmente relevante para el presente estudio, en el que..."</p>
+      <p style="font-size:13.5px;color:#2e7d32;margin-top:8px;">Fortaleza: El investigador compara, identifica matices, y conecta la discusión con su propio estudio.</p>
+    </div>
+  </div>
+
+  <h3>5.2 Conectores académicos que articulan el argumento</h3>
+  <p>Un Marco Teórico que argumenta necesita conectores que muestren la relación entre ideas. Estos son los más útiles:</p>
+  <table>
+    <tr>
+      <th>Función</th>
+      <th>Conectores recomendados</th>
+    </tr>
+    <tr>
+      <td><strong>Presentar una posición</strong></td>
+      <td>Según / De acuerdo con / En palabras de / Para [autor]...</td>
+    </tr>
+    <tr>
+      <td><strong>Contrastar posiciones</strong></td>
+      <td>Sin embargo / No obstante / En contraste / Por otro lado / A diferencia de...</td>
+    </tr>
+    <tr>
+      <td><strong>Mostrar acuerdo entre autores</strong></td>
+      <td>En consonancia con / De manera similar / Coincidentemente / En línea con...</td>
+    </tr>
+    <tr>
+      <td><strong>Ampliar una idea</strong></td>
+      <td>Asimismo / Adicionalmente / Cabe destacar que / En este sentido...</td>
+    </tr>
+    <tr>
+      <td><strong>Conectar con el propio estudio</strong></td>
+      <td>Esta perspectiva resulta pertinente para el presente estudio dado que... / Lo anterior fundamenta la hipótesis de que...</td>
+    </tr>
+    <tr>
+      <td><strong>Señalar un vacío o limitación</strong></td>
+      <td>Sin embargo, ninguno de los estudios revisados aborda... / Esta literatura carece de...</td>
+    </tr>
+    <tr>
+      <td><strong>Concluir un apartado</strong></td>
+      <td>En síntesis / En conclusión / De lo anterior se desprende que...</td>
+    </tr>
+  </table>
+
+  <h3>5.3 La voz propia del investigador: ¿puedo opinar?</h3>
+  <div class="box-concepto">
+    <strong>¿Puede el investigador expresar su propio punto de vista en el Marco Teórico?</strong>
+    Sí, pero de manera matizada. No se trata de decir "yo creo que..." o "en mi opinión...". Se trata de mostrar que el investigador analiza, selecciona, prioriza y conecta la literatura con su problema específico. La voz propia aparece en:
+    <ul style="padding-left:20px;margin-top:8px;line-height:2;">
+      <li>La selección de qué teorías incluir (y cuáles excluir justificadamente)</li>
+      <li>El análisis de coincidencias y contradicciones entre autores</li>
+      <li>La conexión entre la teoría y el problema específico del estudio</li>
+      <li>La identificación del vacío de conocimiento que justifica la investigación</li>
+    </ul>
+  </div>
+
+  <div class="box-sofia">
+    <div class="sofia-label">✍️ Sofía aprende a poner su voz académica...</div>
+    <p>En lugar de escribir: <em>"Yo creo que el control interno es importante en las cooperativas ecuatorianas."</em></p>
+    <p>Sofía escribe: <em>"Si bien la literatura internacional coincide en que el control interno es un predictor significativo del fraude financiero (Cressey, 1953; Albrecht et al., 2012; COSO, 2013), resulta llamativa la escasez de estudios focalizados en cooperativas del segmento 1 supervisadas por la SEPS en el Ecuador. Este vacío en la literatura constituye la principal justificación del presente estudio."</em></p>
+    <p style="margin-bottom:0;color:#6a1b9a;font-style:italic;">La segunda versión dice exactamente lo mismo, pero con autoridad académica.</p>
+  </div>
+
+  <h3>5.4 ¿De lo general a lo específico o al revés?</h3>
+  <p>La estructura más recomendada sigue un orden <strong>deductivo</strong>: de lo más amplio y general hacia lo más específico y local.</p>
+  <div class="box-ejemplo">
+    <div class="ej-titulo">🇪🇨 Ejemplo para una tesis sobre fraude en cooperativas de la SEPS:</div>
+    <ol style="padding-left:22px;line-height:2.2;">
+      <li><strong>Nivel 1 — Global:</strong> Teorías generales sobre fraude (Triángulo de Cressey, Marco COSO) a nivel internacional</li>
+      <li><strong>Nivel 2 — Regional:</strong> Estudios sobre fraude en cooperativas de crédito en América Latina (Colombia, Perú, México)</li>
+      <li><strong>Nivel 3 — Nacional:</strong> Investigaciones sobre el sistema cooperativo ecuatoriano y la SEPS</li>
+      <li><strong>Nivel 4 — Local/Específico:</strong> El contexto particular de las cooperativas de la provincia del Guayas durante el período estudiado</li>
+    </ol>
+  </div>
+
+  <div class="box-clave">
+    <strong>💡 Idea Clave:</strong>
+    Redactar el Marco Teórico es un acto de pensamiento, no de copia. Cada párrafo debe responder a la pregunta: "¿Para qué incluyo esto en mi investigación?" Si no tienes respuesta clara, probablemente esa sección no pertenece al marco.
+  </div>
+</div>
+
+<!-- ===================== TEMA 6: CITAS APA ===================== -->
+<div id="tab-tema2" class="tab-content">
+  <h2>📌 Tema 6: Integración de Citas APA 7.ª Edición en el Marco Teórico</h2>
+
+  <p>Ya aprendiste en la Semana 14 cómo se formatean las citas APA. En esta pestaña verás cómo se <em>integran</em> correctamente dentro de un Marco Teórico, con ejemplos de prosa académica real.</p>
+
+  <h3>6.1 Tipos de cita y cuándo usar cada uno</h3>
+  <table>
+    <tr>
+      <th>Tipo de cita</th>
+      <th>Cuándo usarlo</th>
+      <th>Formato APA 7</th>
+    </tr>
+    <tr>
+      <td><strong>Paráfrasis con cita</strong></td>
+      <td>La mayoría de las veces. Cuando entiendes la idea y la reescribes con tus propias palabras.</td>
+      <td>(Apellido, año) al final de la oración</td>
+    </tr>
+    <tr>
+      <td><strong>Cita textual corta</strong></td>
+      <td>Cuando las palabras exactas del autor son imprescindibles (definiciones, afirmaciones clave)</td>
+      <td>"Texto literal" (Apellido, año, p. #)</td>
+    </tr>
+    <tr>
+      <td><strong>Cita textual larga (+40 palabras)</strong></td>
+      <td>Con mucha moderación. Para reproducciones literales extensas de documentos legales o definiciones técnicas</td>
+      <td>Párrafo aparte con sangría de 1.27 cm, sin comillas, (Apellido, año, p. #) al final</td>
+    </tr>
+    <tr>
+      <td><strong>Cita secundaria</strong></td>
+      <td>Cuando citas a un autor que fue citado por otro, y no puedes acceder al original</td>
+      <td>(Autor original, año, como se citó en Autor secundario, año)</td>
+    </tr>
+    <tr>
+      <td><strong>Cita de múltiples autores</strong></td>
+      <td>Cuando varios estudios apoyan la misma afirmación</td>
+      <td>(Apellido1 et al., año; Apellido2, año)</td>
+    </tr>
+  </table>
+
+  <h3>6.2 Ejemplos de integración en prosa académica</h3>
+
+  <h4>Ejemplo A — Paráfrasis (el más común y el más recomendado)</h4>
+  <div class="cita-demo">
+<span class="tag">// INCORRECTO (sin cita):</span>
+<span class="texto">El control interno tiene cinco componentes que son: ambiente de control, evaluación 
+de riesgos, actividades de control, información y comunicación, y monitoreo.</span>
+
+<span class="tag">// CORRECTO (paráfrasis con cita):</span>
+<span class="texto">El marco COSO (</span><span class="autor">Committee of Sponsoring Organizations</span><span class="texto">) establece 
+que el control interno se articula en cinco componentes interdependientes: ambiente 
+de control, evaluación de riesgos, actividades de control, información y 
+comunicación, y seguimiento o monitoreo</span> <span class="year">(COSO, 2013)</span><span class="texto">.</span>
+  </div>
+
+  <h4>Ejemplo B — Cita textual corta (menos de 40 palabras)</h4>
+  <div class="cita-demo">
+<span class="tag">// Cuando las palabras exactas del autor son la definición oficial:</span>
+<span class="texto">Para </span><span class="autor">Hernández Sampieri et al.</span> <span class="year">(2014)</span><span class="texto">, el marco teórico es 
+</span><span class="tag">"</span><span class="texto">el compendio de una serie de elementos conceptuales que sirven de base 
+a la indagación por realizar</span><span class="tag">"</span><span class="texto"> (p. 60), lo que implica que su construcción 
+no puede separarse del planteamiento del problema que la origina.</span>
+  </div>
+
+  <h4>Ejemplo C — Cita de múltiples autores que coinciden</h4>
+  <div class="cita-demo">
+<span class="tag">// Cuando varias fuentes apoyan la misma afirmación:</span>
+<span class="texto">Existe consenso en la literatura respecto a que el fraude corporativo 
+se incrementa significativamente en contextos de control interno deficiente</span>
+<span class="year"> (Cressey, 1953; Albrecht et al., 2012; COSO, 2013; García y Rodríguez, 2022)</span><span class="texto">.</span>
+  </div>
+
+  <h4>Ejemplo D — Cita secundaria (con precaución)</h4>
+  <div class="cita-demo">
+<span class="tag">// Solo cuando no tienes acceso al texto original:</span>
+<span class="texto">La teoría de la utilidad esperada aplicada al cumplimiento fiscal fue 
+formulada originalmente por </span><span class="autor">Allingham y Sandmo</span> <span class="year">(1972, como se citó en 
+Slemrod, 2007)</span><span class="texto">, quienes modelaron la decisión de evasión como un 
+cálculo racional entre el beneficio de evadir y la probabilidad de detección.</span>
+
+<span class="tag">// IMPORTANTE: En la lista de referencias al final, citas SOLO al autor que sí leíste:</span>
+<span class="autor">Slemrod, J. (2007).</span><span class="texto"> Cheating ourselves: The economics of tax evasion. 
+</span><span class="autor">Journal of Economic Perspectives</span><span class="texto">, 21(1), 25–48.</span>
+  </div>
+
+  <h3>6.3 Los errores más comunes de citación en el Marco Teórico</h3>
+  <table>
+    <tr>
+      <th>#</th>
+      <th>Error</th>
+      <th>Corrección</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Citar el libro de texto del curso como única fuente</td>
+      <td>El libro del curso es un punto de partida, no la fuente suficiente. Busca artículos científicos adicionales.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Omitir el número de página en citas textuales</td>
+      <td>Toda cita textual en APA 7 requiere p. o pp. para indicar la página exacta</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Citar "et al." desde la primera mención para 3+ autores</td>
+      <td>APA 7 permite "et al." desde la primera mención cuando son 3 o más autores (cambio vs APA 6)</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Incluir referencias en el texto que no aparecen en la lista final</td>
+      <td>Cada cita en el texto debe tener su referencia completa al final, y viceversa</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Citar una fuente citada como si la hubieras leído directamente</td>
+      <td>Usa la fórmula "como se citó en" y sé honesto sobre tu fuente real</td>
+    </tr>
+  </table>
+
+  <div class="box-clave">
+    <strong>💡 Idea Clave:</strong>
+    La cita no es un adorno: es evidencia. Cada vez que citas, dices implícitamente: "Esta afirmación no es solo mi opinión — está respaldada por una investigación que puedes verificar." Esa verificabilidad es el corazón de la ciencia.
+  </div>
+</div>
+
+<!-- ===================== TEMA 7: COHERENCIA ===================== -->
+<div id="tab-tema3" class="tab-content">
+  <h2>🔗 Tema 7: La Coherencia Interna — Marco Teórico, Variables e Hipótesis</h2>
+
+  <h3>7.1 El triángulo de coherencia de la investigación</h3>
+  <p>Una de las fallas más graves en las tesis es cuando el Marco Teórico, las variables y las hipótesis "hablan de cosas distintas". Esto hace que la investigación pierda su columna vertebral. Existe un principio fundamental:</p>
+
+  <div class="box-concepto">
+    <strong>Principio de Coherencia Total:</strong>
+    Cada variable que aparece en las hipótesis debe estar definida en el Marco Conceptual. Cada teoría citada en las Bases Teóricas debe conectarse con al menos una variable o con la justificación del estudio. Y el problema de investigación debe ser el hilo que une todo.
+  </div>
+
+  <div class="box-ejemplo">
+    <div class="ej-titulo">🔍 Ejemplo de verificación de coherencia</div>
+    <table>
+      <tr>
+        <th>Elemento</th>
+        <th>Contenido de Sofía</th>
+        <th>¿Coherente?</th>
+      </tr>
+      <tr>
+        <td><strong>Problema</strong></td>
+        <td>¿El control interno influye en la prevención del fraude en cooperativas SEPS Guayas?</td>
+        <td>✅ Es el eje central</td>
+      </tr>
+      <tr>
+        <td><strong>Variable independiente</strong></td>
+        <td>Control interno</td>
+        <td>✅ Definida en Marco Conceptual con COSO</td>
+      </tr>
+      <tr>
+        <td><strong>Variable dependiente</strong></td>
+        <td>Prevención del fraude</td>
+        <td>✅ Definida con Cressey y Albrecht</td>
+      </tr>
+      <tr>
+        <td><strong>Hipótesis</strong></td>
+        <td>A mayor nivel de control interno, menor incidencia de fraude en cooperativas SEPS Guayas 2021–2023</td>
+        <td>✅ Usa exactamente las variables definidas</td>
+      </tr>
+      <tr>
+        <td><strong>Bases Teóricas</strong></td>
+        <td>Triángulo del Fraude (Cressey), COSO, Teoría de la Agencia (Jensen y Meckling)</td>
+        <td>✅ Cada teoría explica las variables o la relación entre ellas</td>
+      </tr>
+    </table>
+  </div>
+
+  <h3>7.2 Cómo verificar la coherencia en tu propio Marco Teórico</h3>
+  <p>Antes de entregar tu tesis, realiza este ejercicio mental:</p>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>El test del "¿Para qué está esto aquí?"</h4>
+        <p>Lee cada párrafo del Marco Teórico y pregúntate: "¿Esta información se relaciona con mi problema, mis variables o mis hipótesis?" Si la respuesta es no, considera eliminarla o reubicarla.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>El test del glosario cruzado</h4>
+        <p>Haz una lista de todos los términos técnicos que aparecen en tus hipótesis. Luego busca cada uno en tu Marco Conceptual. Si alguno no está definido, el marco está incompleto.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>El test del lector externo</h4>
+        <p>Pide a alguien que no conozca tu investigación que lea solo el Marco Teórico. Luego pregúntale: "¿Qué crees que investiga esta tesis?" Si puede responder correctamente, tu marco es coherente.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>El test del vacío de conocimiento</h4>
+        <p>Al final del Marco Teórico, ¿queda claro por qué tu estudio es necesario? ¿Se identifica lo que la literatura no ha respondido todavía? Si sí, el marco cumple su función justificadora.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>7.3 El Marco Teórico en la investigación cualitativa vs. cuantitativa</h3>
+  <p>El Marco Teórico existe en ambos enfoques, pero cumple un rol ligeramente diferente:</p>
+  <table>
+    <tr>
+      <th>Aspecto</th>
+      <th>Investigación Cuantitativa</th>
+      <th>Investigación Cualitativa</th>
+    </tr>
+    <tr>
+      <td><strong>Momento de construcción</strong></td>
+      <td>Antes de recoger datos: guía qué medir y cómo</td>
+      <td>Puede construirse antes, durante o después de recoger datos</td>
+    </tr>
+    <tr>
+      <td><strong>Función primaria</strong></td>
+      <td>Fundamentar hipótesis y definir operacionalmente las variables</td>
+      <td>Proporcionar sensibilidad teórica: ayudar a interpretar los hallazgos</td>
+    </tr>
+    <tr>
+      <td><strong>Rigidez</strong></td>
+      <td>Más rígido: el marco se define antes y no cambia durante la investigación</td>
+      <td>Más flexible: puede evolucionar conforme emergen los datos</td>
+    </tr>
+    <tr>
+      <td><strong>Extensión relativa</strong></td>
+      <td>Generalmente más extenso y estructurado</td>
+      <td>Puede ser más abierto, con menor énfasis en teorías cerradas</td>
+    </tr>
+  </table>
+
+  <div class="box-clave">
+    <strong>💡 Idea Clave:</strong>
+    La coherencia no es un lujo estético: es la garantía de que tu investigación tiene unidad de propósito. Una investigación coherente dice lo mismo con distintas palabras en cada sección: el problema, el marco, las hipótesis y los resultados son partes del mismo relato.
+  </div>
+</div>
+
+<!-- ===================== TEMA 8: EVALUACIÓN ===================== -->
+<div id="tab-tema4" class="tab-content">
+  <h2>✅ Tema 8: Cómo Evaluar un Marco Teórico — Lista de Verificación Profesional</h2>
+
+  <p>Los evaluadores académicos (directores de tesis, tribunales de defensa, revisores de revistas) utilizan criterios específicos para juzgar la calidad de un Marco Teórico. Conocerlos te permite autoevaluar tu propio trabajo antes de entregarlo.</p>
+
+  <h3>8.1 Lista de verificación completa del Marco Teórico</h3>
+
+  <div class="box-ejemplo">
+    <div class="ej-titulo">📋 Criterios que revisa un evaluador académico</div>
+    <p><em>Usa esta lista antes de entregar cualquier trabajo que incluya Marco Teórico:</em></p>
+  </div>
+
+  <h4>A) Criterios de contenido</h4>
+  <ul class="checklist">
+    <li>El Marco Teórico incluye antecedentes investigativos (estudios previos sobre el tema)</li>
+    <li>Las teorías y modelos elegidos son pertinentes al problema de investigación</li>
+    <li>Se define con precisión cada variable del estudio en el Marco Conceptual</li>
+    <li>Cuando aplica, hay un Marco Legal con las normas relevantes</li>
+    <li>Se identifica un vacío de conocimiento que justifica la investigación</li>
+    <li>Los hallazgos de estudios anteriores son comparados y analizados, no solo listados</li>
+    <li>El marco incluye tanto fuentes internacionales como latinoamericanas/ecuatorianas</li>
+  </ul>
+
+  <h4>B) Criterios de fuentes</h4>
+  <ul class="checklist">
+    <li>Las fuentes provienen de revistas indexadas, libros académicos o documentos institucionales oficiales</li>
+    <li>Las fuentes son verificables (con doi, URL institucional, o ISBN)</li>
+    <li>Se priorizan publicaciones de los últimos 10 años (salvo clásicos del tema)</li>
+    <li>No se usa Wikipedia, blogs sin autoría, o páginas sin respaldo académico como fuente teórica</li>
+    <li>La lista de referencias al final coincide exactamente con las citas en el texto</li>
+  </ul>
+
+  <h4>C) Criterios de formato APA 7</h4>
+  <ul class="checklist">
+    <li>Las citas textuales de menos de 40 palabras van entre comillas con autor, año y página</li>
+    <li>Las citas de 40+ palabras van en párrafo aparte con sangría, sin comillas</li>
+    <li>Las paráfrasis incluyen autor y año (sin número de página obligatorio, pero recomendado)</li>
+    <li>Los autores con 3 o más nombres se citan como "et al." desde la primera mención</li>
+    <li>Las referencias finales siguen el orden alfabético por apellido del primer autor</li>
+  </ul>
+
+  <h4>D) Criterios de redacción y coherencia</h4>
+  <ul class="checklist">
+    <li>El texto fluye de lo general (teorías globales) a lo específico (contexto local del estudio)</li>
+    <li>Hay conectores que articulan las ideas y muestran relaciones entre autores</li>
+    <li>El Marco Teórico y las hipótesis usan los mismos términos (coherencia terminológica)</li>
+    <li>El texto está escrito en tercera persona o primera persona del plural (según las normas de la institución)</li>
+    <li>No hay oraciones incompletas, párrafos de una sola oración, ni repeticiones innecesarias</li>
+    <li>El investigador tiene voz propia: analiza, compara y conecta con su investigación</li>
+  </ul>
+
+  <h3>8.2 Rúbrica simplificada de evaluación</h3>
+  <table>
+    <tr>
+      <th>Criterio</th>
+      <th>Excelente (10)</th>
+      <th>Satisfactorio (7)</th>
+      <th>Básico (5)</th>
+      <th>Insuficiente (&lt;5)</th>
+    </tr>
+    <tr>
+      <td><strong>Pertinencia</strong></td>
+      <td>Todas las fuentes conectan directamente con el problema</td>
+      <td>La mayoría de las fuentes son pertinentes</td>
+      <td>Algunas fuentes son pertinentes</td>
+      <td>Las fuentes no guardan relación con el problema</td>
+    </tr>
+    <tr>
+      <td><strong>Actualidad</strong></td>
+      <td>Fuentes de los últimos 5 años + clásicos justificados</td>
+      <td>Fuentes de los últimos 10 años</td>
+      <td>Algunas fuentes son mayores a 10 años</td>
+      <td>Predominan fuentes de más de 15 años sin justificación</td>
+    </tr>
+    <tr>
+      <td><strong>Análisis crítico</strong></td>
+      <td>Compara, contrasta y conecta autores con el estudio propio</td>
+      <td>Analiza pero no siempre conecta con el estudio</td>
+      <td>Resume sin análisis explícito</td>
+      <td>Lista de citas sin articulación</td>
+    </tr>
+    <tr>
+      <td><strong>Formato APA</strong></td>
+      <td>Sin errores de citación ni de referencias</td>
+      <td>Errores menores de formato</td>
+      <td>Errores frecuentes pero comprensibles</td>
+      <td>Citas sin formato, referencias ausentes o inventadas</td>
+    </tr>
+    <tr>
+      <td><strong>Coherencia</strong></td>
+      <td>Marco, variables e hipótesis son perfectamente coherentes</td>
+      <td>Coherencia casi total con pequeñas inconsistencias</td>
+      <td>Algunas variables del marco no aparecen en las hipótesis</td>
+      <td>Marco y hipótesis hablan de temas distintos</td>
+    </tr>
+  </table>
+
+  <div class="box-ejemplo">
+    <div class="ej-titulo">🇪🇨 El Marco Teórico en la práctica profesional ecuatoriana</div>
+    <p>Aunque el término "Marco Teórico" suena académico y alejado de la práctica, sus principios están presentes en documentos profesionales cotidianos:</p>
+    <ul style="padding-left:20px;line-height:2.2;">
+      <li>Un <strong>dictamen de auditoría</strong> referencia las NIA aplicadas y la normativa vigente: eso es el "marco teórico" de la auditoría.</li>
+      <li>Un <strong>informe de control interno</strong> para la Contraloría General del Estado cita el Marco COSO y la normativa ecuatoriana específica.</li>
+      <li>Una <strong>carta de gerencia</strong> de riesgos define los conceptos que usa y los sustenta en estándares internacionales (COSO ERM, ISO 31000).</li>
+      <li>Un <strong>estudio de factibilidad</strong> para BanEcuador incluye antecedentes del sector, definición de términos clave y marco legal aplicable.</li>
+    </ul>
+    <p style="margin-bottom:0;color:#003366;font-style:italic;">La habilidad de construir un Marco Teórico es, en esencia, la habilidad de contextualizar con rigor cualquier análisis profesional.</p>
+  </div>
+
+  <div class="box-clave">
+    <strong>💡 Idea Clave Final:</strong>
+    Un Marco Teórico de calidad no se evalúa por la cantidad de páginas ni por el número de citas. Se evalúa por la calidad del argumento que construye: ¿logra mostrar qué se sabe, qué no se sabe, y por qué este estudio es la respuesta necesaria a ese vacío?
+  </div>
+</div>
+
+<!-- ===================== EJERCICIO ===================== -->
+<div id="tab-ejercicio" class="tab-content">
+  <h2>✏️ Ejercicio Interactivo: Corrige y Mejora el Marco Teórico</h2>
+  <div class="instruccion">
+    <strong>📋 Instrucciones:</strong> Lee cada situación, fragmento o pregunta. Selecciona la opción correcta para cada ítem. Responde <strong>todo</strong> antes de presionar "Verificar respuestas".
+  </div>
+
+  <!-- EI 1 -->
+  <div class="ejercicio-item">
+    <div class="ei-enunciado">1. Un estudiante escribe: "Hernández Sampieri (2014) dice que el marco teórico es importante. Creswell (2014) también dice que el marco teórico es importante. Bernal (2019) igualmente opina que el marco teórico es importante." ¿Cuál es la principal deficiencia de esta redacción?</div>
+    <label class="opcion-label"><input type="radio" name="ei1" value="a"> A) Las citas están mal formateadas en APA</label>
+    <label class="opcion-label"><input type="radio" name="ei1" value="b"> B) El texto solo resume lo que dicen los autores sin analizar, comparar ni conectar con la investigación propia</label>
+    <label class="opcion-label"><input type="radio" name="ei1" value="c"> C) El estudiante no puede citar tres autores en la misma sección</label>
+    <label class="opcion-label"><input type="radio" name="ei1" value="d"> D) Los autores citados son demasiado recientes</label>
+    <div class="ei-feedback" id="ei1-fb"></div>
+  </div>
+
+  <!-- EI 2 -->
+  <div class="ejercicio-item">
+    <div class="ei-enunciado">2. Una tesista cita: "El triángulo del fraude establece que el fraude ocurre cuando hay presión, oportunidad y racionalización." Sin incluir el nombre del autor ni el año. ¿Qué tipo de problema académico genera esto?</div>
+    <label class="opcion-label"><input type="radio" name="ei2" value="a"> A) Redacción deficiente pero aceptable en tesis de pregrado</label>
+    <label class="opcion-label"><input type="radio" name="ei2" value="b"> B) Plagio académico por omisión de crédito al autor original (Cressey, 1953)</label>
+    <label class="opcion-label"><input type="radio" name="ei2" value="c"> C) Uso incorrecto de comillas</label>
+    <label class="opcion-label"><input type="radio" name="ei2" value="d"> D) Ningún problema: las ideas de dominio público no requieren cita</label>
+    <div class="ei-feedback" id="ei2-fb"></div>
+  </div>
+
+  <!-- EI 3 -->
+  <div class="ejercicio-item">
+    <div class="ei-enunciado">3. Carlos tiene su hipótesis: "A mayor implementación del sistema RIDE (Registro Integrado para la Detección de Evasores) del SRI, menor tasa de evasión del IVA en comerciantes de Guayaquil 2023." Sin embargo, en su Marco Teórico nunca define qué es el RIDE ni cómo funciona. ¿Cuál principio está violando?</div>
+    <label class="opcion-label"><input type="radio" name="ei3" value="a"> A) El principio de actualidad de las fuentes</label>
+    <label class="opcion-label"><input type="radio" name="ei3" value="b"> B) El principio de coherencia: todo término de las hipótesis debe estar definido en el Marco Conceptual</label>
+    <label class="opcion-label"><input type="radio" name="ei3" value="c"> C) El principio de extensión adecuada</label>
+    <label class="opcion-label"><input type="radio" name="ei3" value="d"> D) No viola ningún principio: las hipótesis pueden usar términos no definidos en el marco</label>
+    <div class="ei-feedback" id="ei3-fb"></div>
+  </div>
+
+  <!-- EI 4 -->
+  <div class="ejercicio-item">
+    <div class="ei-enunciado">4. Una investigadora cita: "Jensen y Meckling (1776) postularon que los conflictos de interés entre propietarios y directivos son la fuente principal de los costos de agencia." ¿Cuál es el problema evidente en esta cita?</div>
+    <label class="opcion-label"><input type="radio" name="ei4" value="a"> A) El número de autores es incorrecto</label>
+    <label class="opcion-label"><input type="radio" name="ei4" value="b"> B) El año es incorrecto (debe ser 1976, no 1776); un error de ese tipo destruye la credibilidad de la fuente</label>
+    <label class="opcion-label"><input type="radio" name="ei4" value="c"> C) La teoría de la agencia no puede citarse en una tesis de Contabilidad</label>
+    <label class="opcion-label"><input type="radio" name="ei4" value="d"> D) No hay ningún problema: es un error tipográfico menor sin consecuencias</label>
+    <div class="ei-feedback" id="ei4-fb"></div>
+  </div>
+
+  <!-- EI 5 -->
+  <div class="ejercicio-item">
+    <div class="ei-enunciado">5. En una tesis sobre "Auditoría Forense en Municipios de la Costa Ecuatoriana", el Marco Teórico incluye un extenso capítulo sobre la historia de las monedas en la antigüedad griega. Desde el punto de vista de la redacción del Marco Teórico, esto es un ejemplo de:</div>
+    <label class="opcion-label"><input type="radio" name="ei5" value="a"> A) Estado del arte bien construido</label>
+    <label class="opcion-label"><input type="radio" name="ei5" value="b"> B) Contenido sin pertinencia que debe eliminarse o reemplazarse por fuentes directamente relacionadas con auditoría forense municipal en Ecuador</label>
+    <label class="opcion-label"><input type="radio" name="ei5" value="c"> C) Marco Conceptual de alta calidad</label>
+    <label class="opcion-label"><input type="radio" name="ei5" value="d"> D) Marco Legal bien estructurado</label>
+    <div class="ei-feedback" id="ei5-fb"></div>
+  </div>
+
+  <!-- EI 6 -->
+  <div class="ejercicio-item">
+    <div class="ei-enunciado">6. Un Marco Teórico termina con el siguiente párrafo: "Como se ha mostrado en la revisión de literatura, si bien el control interno ha sido ampliamente estudiado en el sector bancario, los estudios en cooperativas de ahorro y crédito ecuatorianas de segmento 1 son escasos, y ninguno ha analizado específicamente el periodo 2021–2023 bajo la nueva regulación SEPS. Este vacío justifica la presente investigación." ¿Qué función está cumpliendo este párrafo conclusivo?</div>
+    <label class="opcion-label"><input type="radio" name="ei6" value="a"> A) Define los términos del Marco Conceptual</label>
+    <label class="opcion-label"><input type="radio" name="ei6" value="b"> B) Identifica el vacío de conocimiento y fundamenta la necesidad del estudio</label>
+    <label class="opcion-label"><input type="radio" name="ei6" value="c"> C) Resume los resultados de la investigación</label>
+    <label class="opcion-label"><input type="radio" name="ei6" value="d"> D) Presenta la metodología que se usará</label>
+    <div class="ei-feedback" id="ei6-fb"></div>
+  </div>
+
+  <!-- EI 7 -->
+  <div class="ejercicio-item">
+    <div class="ei-enunciado">7. ¿Cuál de las siguientes es la forma correcta de citar una cita textual de 25 palabras en formato APA 7.ª edición?</div>
+    <label class="opcion-label"><input type="radio" name="ei7" value="a"> A) Texto de la cita en párrafo aparte con sangría y sin comillas (Autor, año, p. X)</label>
+    <label class="opcion-label"><input type="radio" name="ei7" value="b"> B) "Texto de la cita entre comillas" (Autor, año, p. X)</label>
+    <label class="opcion-label"><input type="radio" name="ei7" value="c"> C) Texto de la cita en cursiva sin comillas (Autor, año)</label>
+    <label class="opcion-label"><input type="radio" name="ei7" value="d"> D) [Texto de la cita entre corchetes] sin autor ni año</label>
+    <div class="ei-feedback" id="ei7-fb"></div>
+  </div>
+
+  <!-- EI 8 -->
+  <div class="ejercicio-item">
+    <div class="ei-enunciado">8. ¿Cuál de los siguientes conectores es más adecuado para introducir una posición que contrasta con la de un autor citado anteriormente?</div>
+    <label class="opcion-label"><input type="radio" name="ei8" value="a"> A) "Asimismo, García (2022) sostiene que..."</label>
+    <label class="opcion-label"><input type="radio" name="ei8" value="b"> B) "En consonancia con lo anterior, García (2022) afirma que..."</label>
+    <label class="opcion-label"><input type="radio" name="ei8" value="c"> C) "Sin embargo, García (2022) contradice esta posición al señalar que..."</label>
+    <label class="opcion-label"><input type="radio" name="ei8" value="d"> D) "En síntesis, García (2022) concluye que..."</label>
+    <div class="ei-feedback" id="ei8-fb"></div>
+  </div>
+
+  <button class="btn-verificar" onclick="verificarEjercicio()">✅ Verificar Respuestas</button>
+  <button class="btn-reset" onclick="resetEjercicio()" style="margin-left:10px;">🔄 Reiniciar</button>
+  <div class="resultado-final" id="resultado-ejercicio">
+    <div class="resultado-emoji" id="ej-emoji"></div>
+    <div class="resultado-score" id="ej-score"></div>
+    <div class="resultado-msg" id="ej-msg"></div>
+    <div class="barra-wrap"><div class="barra-fill" id="ej-barra" style="width:0%"></div></div>
+  </div>
+</div>
+
+<!-- ===================== CUESTIONARIO ===================== -->
+<div id="tab-cuestionario" class="tab-content">
+  <h2>📝 Cuestionario — Parte B: Redacción, Citas y Evaluación del Marco Teórico</h2>
+  <p style="margin-bottom:18px;">Responde las 10 preguntas y luego presiona <strong>"Verificar respuestas"</strong>.</p>
+
+  <!-- Q1 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="q-enunciado">1. ¿Cuál es la diferencia fundamental entre RESUMIR y ARGUMENTAR en el Marco Teórico?</div>
+    <label class="opcion-label"><input type="radio" name="qi1" value="a"> A) Resumir usa más páginas; argumentar usa menos</label>
+    <label class="opcion-label"><input type="radio" name="qi1" value="b"> B) Resumir describe lo que otros dicen; argumentar analiza, compara autores y conecta la literatura con el propio estudio</label>
+    <label class="opcion-label"><input type="radio" name="qi1" value="c"> C) Resumir es incorrecto; argumentar es el único método válido</label>
+    <label class="opcion-label"><input type="radio" name="qi1" value="d"> D) Ambos son equivalentes en un Marco Teórico universitario</label>
+    <div class="q-feedback" id="qi1-fb"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="q-enunciado">2. En APA 7.ª edición, una cita textual de más de 40 palabras debe presentarse:</div>
+    <label class="opcion-label"><input type="radio" name="qi2" value="a"> A) Entre comillas, en cursiva, al final del párrafo</label>
+    <label class="opcion-label"><input type="radio" name="qi2" value="b"> B) En un párrafo aparte con sangría de 1.27 cm, sin comillas, con la cita (Autor, año, p. X) al final</label>
+    <label class="opcion-label"><input type="radio" name="qi2" value="c"> C) En nota al pie de página, entre corchetes</label>
+    <label class="opcion-label"><input type="radio" name="qi2" value="d"> D) Exactamente igual que una cita corta, solo que más larga</label>
+    <div class="q-feedback" id="qi2-fb"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="q-enunciado">3. ¿Qué es una cita secundaria y cuándo se usa?</div>
+    <label class="opcion-label"><input type="radio" name="qi3" value="a"> A) Una cita que aparece por segunda vez en el texto y puede abreviarse</label>
+    <label class="opcion-label"><input type="radio" name="qi3" value="b"> B) La cita de un autor que fue citado por otro, cuando no se puede acceder al texto original; se indica con "como se citó en"</label>
+    <label class="opcion-label"><input type="radio" name="qi3" value="c"> C) Una cita de un autor secundario (no el primero en la lista de coautores)</label>
+    <label class="opcion-label"><input type="radio" name="qi3" value="d"> D) Una cita que proviene de fuentes secundarias como noticias y blogs</label>
+    <div class="q-feedback" id="qi3-fb"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="q-enunciado">4. ¿Por qué el Marco Teórico de una investigación cuantitativa se construye antes de recoger datos, mientras que en la cualitativa puede construirse durante o después?</div>
+    <label class="opcion-label"><input type="radio" name="qi4" value="a"> A) Porque en la investigación cuantitativa no existen hipótesis previas</label>
+    <label class="opcion-label"><input type="radio" name="qi4" value="b"> B) Porque en la cuantitativa el marco guía qué variables medir y cómo, mientras que en la cualitativa puede emerger de los propios datos conforme se construye conocimiento</label>
+    <label class="opcion-label"><input type="radio" name="qi4" value="c"> C) Porque la investigación cualitativa no requiere Marco Teórico</label>
+    <label class="opcion-label"><input type="radio" name="qi4" value="d"> D) Por razones de extensión: los marcos cualitativos son siempre más cortos</label>
+    <div class="q-feedback" id="qi4-fb"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="q-enunciado">5. ¿Qué conector es apropiado para indicar que dos autores coinciden en una afirmación?</div>
+    <label class="opcion-label"><input type="radio" name="qi5" value="a"> A) "Sin embargo..."</label>
+    <label class="opcion-label"><input type="radio" name="qi5" value="b"> B) "En contraste con lo anterior..."</label>
+    <label class="opcion-label"><input type="radio" name="qi5" value="c"> C) "En consonancia con esta posición..."</label>
+    <label class="opcion-label"><input type="radio" name="qi5" value="d"> D) "A diferencia de..."</label>
+    <div class="q-feedback" id="qi5-fb"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="q-enunciado">6. ¿Cuál de los siguientes criterios de la rúbrica de evaluación del Marco Teórico evalúa si las fuentes se relacionan directamente con el problema de investigación?</div>
+    <label class="opcion-label"><input type="radio" name="qi6" value="a"> A) Actualidad</label>
+    <label class="opcion-label"><input type="radio" name="qi6" value="b"> B) Análisis crítico</label>
+    <label class="opcion-label"><input type="radio" name="qi6" value="c"> C) Pertinencia</label>
+    <label class="opcion-label"><input type="radio" name="qi6" value="d"> D) Coherencia</label>
+    <div class="q-feedback" id="qi6-fb"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="quiz-item">
+    <span class="badge badge-teorica">Teórica</span>
+    <div class="q-enunciado">7. ¿Por qué NO se recomienda usar Wikipedia como fuente académica en el Marco Teórico?</div>
+    <label class="opcion-label"><input type="radio" name="qi7" value="a"> A) Porque está en español y la ciencia solo se publica en inglés</label>
+    <label class="opcion-label"><input type="radio" name="qi7" value="b"> B) Porque Wikipedia puede ser editada por cualquier persona y no tiene proceso de revisión académica por pares, lo que le resta confiabilidad como fuente científica</label>
+    <label class="opcion-label"><input type="radio" name="qi7" value="c"> C) Porque Wikipedia no tiene autores identificables</label>
+    <label class="opcion-label"><input type="radio" name="qi7" value="d"> D) Porque Wikipedia es una base de datos de pago</label>
+    <div class="q-feedback" id="qi7-fb"></div>
+  </div>
+
+  <!-- Q8 — Análisis -->
+  <div class="quiz-item">
+    <span class="badge badge-analisis">Análisis</span>
+    <div class="q-enunciado">8. Tomás tiene un Marco Teórico de 45 páginas sobre control interno. Su directora le dice que "pasó el test del lector externo con éxito". ¿Qué significa eso?</div>
+    <label class="opcion-label"><input type="radio" name="qi8" value="a"> A) Que Tomás copió bien la información de los libros</label>
+    <label class="opcion-label"><input type="radio" name="qi8" value="b"> B) Que alguien que leyó solo el Marco Teórico pudo identificar correctamente cuál es el problema de investigación y qué estudia Tomás</label>
+    <label class="opcion-label"><input type="radio" name="qi8" value="c"> C) Que el Marco Teórico tiene exactamente 45 páginas, que es la extensión correcta</label>
+    <label class="opcion-label"><input type="radio" name="qi8" value="d"> D) Que Tomás pasó su defensa oral con éxito</label>
+    <div class="q-feedback" id="qi8-fb"></div>
+  </div>
+
+  <!-- Q9 — Análisis -->
+  <div class="quiz-item">
+    <span class="badge badge-analisis">Análisis</span>
+    <div class="q-enunciado">9. Una auditora de la Contraloría General del Estado elabora un informe de control interno que cita el Marco COSO, la Ley de la Contraloría, y estándares del IIA. ¿En qué sentido este documento profesional se parece a un Marco Teórico académico?</div>
+    <label class="opcion-label"><input type="radio" name="qi9" value="a"> A) En nada: los documentos profesionales y los académicos no tienen ninguna relación</label>
+    <label class="opcion-label"><input type="radio" name="qi9" value="b"> B) En que ambos contextualizan con rigor el análisis: definen el marco teórico-normativo (COSO, IIA), el marco legal (Ley de Contraloría) y los conceptos clave usados para evaluar la realidad específica</label>
+    <label class="opcion-label"><input type="radio" name="qi9" value="c"> C) Solo en el formato de citas APA que se usa en ambos</label>
+    <label class="opcion-label"><input type="radio" name="qi9" value="d"> D) Únicamente en que ambos usan el lenguaje técnico de la contabilidad</label>
+    <div class="q-feedback" id="qi9-fb"></div>
+  </div>
+
+  <!-- Q10 — Análisis -->
+  <div class="quiz-item">
+    <span class="badge badge-analisis">Análisis</span>
+    <div class="q-enunciado">10. Una estudiante aplica el "test del glosario cruzado" en su tesis. Encuentra que en sus hipótesis usa los términos: "riesgo operativo", "control preventivo", "fraude contable" y "gobierno corporativo". En su Marco Conceptual solo tiene definidos: "fraude contable" y "gobierno corporativo". ¿Qué conclusión y acción debe tomar?</div>
+    <label class="opcion-label"><input type="radio" name="qi10" value="a"> A) El Marco Teórico está completo porque tiene más de la mitad de los términos definidos</label>
+    <label class="opcion-label"><input type="radio" name="qi10" value="b"> B) Hay incoherencia: "riesgo operativo" y "control preventivo" deben añadirse al Marco Conceptual con sus definiciones académicas antes de entregar la tesis</label>
+    <label class="opcion-label"><input type="radio" name="qi10" value="c"> C) Debe eliminar "riesgo operativo" y "control preventivo" de las hipótesis para que coincidan con el marco</label>
+    <label class="opcion-label"><input type="radio" name="qi10" value="d"> D) No es necesario definir todos los términos de las hipótesis en el Marco Conceptual</label>
+    <div class="q-feedback" id="qi10-fb"></div>
+  </div>
+
+  <button class="btn-verificar" onclick="verificarCuestionario()">✅ Verificar Respuestas</button>
+  <button class="btn-reset" onclick="resetCuestionario()" style="margin-left:10px;">🔄 Reiniciar</button>
+  <div class="resultado-final" id="resultado-cuestionario">
+    <div class="resultado-emoji" id="q-emoji"></div>
+    <div class="resultado-score" id="q-score"></div>
+    <div class="resultado-msg" id="q-msg"></div>
+    <div class="barra-wrap"><div class="barra-fill" id="q-barra" style="width:0%"></div></div>
+  </div>
+</div>
+
+<!-- ===================== IA ===================== -->
+<div id="tab-ia" class="tab-content">
+  <h2>🤖 Actividad con Inteligencia Artificial — Parte B</h2>
+
+  <div class="box-concepto">
+    <strong>📌 Objetivo</strong>
+    Usar la IA para diseñar la estructura de un Marco Teórico propio. Esta vez, TÚ eres el arquitecto: la IA es un colaborador que te ayuda a planificar, pero las decisiones conceptuales son tuyas.
+  </div>
+
+  <h3>🛠️ Herramienta recomendada</h3>
+  <p>Usa <strong>Claude en claude.ai</strong> — es especialmente útil para estructurar argumentos académicos de forma ordenada. También puedes usar ChatGPT o Gemini.</p>
+
+  <h3>📋 Tu punto de partida</h3>
+  <p>Elige uno de estos temas (o propón el tuyo si tienes un proyecto de investigación en curso):</p>
+  <ul style="padding-left:22px;line-height:2.3;">
+    <li>El impacto de la implementación del sistema FactuREI del SRI en la reducción de la evasión tributaria en empresas medianas de Guayaquil, 2022–2024.</li>
+    <li>La relación entre el control interno y la eficiencia operativa en cooperativas de ahorro y crédito supervisadas por la SEPS en la provincia del Guayas.</li>
+    <li>Factores que inciden en el incumplimiento de obligaciones tributarias de los microempresarios acogidos al RISE en el cantón Durán.</li>
+  </ul>
+
+  <h3>📝 Prompt que debes usar (cópialo y adapta tu tema):</h3>
+  <div class="ia-prompt-box">
+    <button class="copy-btn" onclick="copiarPrompt()">📋 Copiar</button>
+Actúa como un metodólogo académico especializado en ciencias sociales y contables. 
+Voy a pedirte que me ayudes a diseñar la estructura de mi Marco Teórico.
+
+Mi tema de investigación es:
+[ESCRIBE AQUÍ TU TEMA ELEGIDO]
+
+Mi problema de investigación es:
+[ESCRIBE AQUÍ TU PREGUNTA DE INVESTIGACIÓN]
+
+Mis variables son:
+- Variable independiente: [ESCRÍBELA]
+- Variable dependiente: [ESCRÍBELA]
+
+Por favor:
+1. Propón una estructura de Marco Teórico con al menos 4 secciones principales 
+   (Estado del Arte, Bases Teóricas, Marco Conceptual y Marco Legal si aplica), 
+   indicando qué contenido específico debería ir en cada sección.
+2. Sugiere al menos 4 teorías o modelos reales que podrían fundamentar mi estudio, 
+   con nombre del autor y año.
+3. Indica 5 términos que definitivamente debo definir en mi Marco Conceptual.
+4. Señala 2 posibles vacíos de conocimiento que justificarían mi investigación.
+5. Advierte sobre 2 errores que debo evitar al redactar este Marco Teórico.
+  </div>
+
+  <h3>📌 ¿Qué debes hacer con la respuesta?</h3>
+  <ol style="padding-left:22px;line-height:2.2;">
+    <li>Verifica en Google Scholar si las teorías y autores que propone la IA son reales. Busca al menos 2 de las fuentes sugeridas.</li>
+    <li>Evalúa si la estructura propuesta cubre todos los componentes aprendidos en las Semanas 15A y 15B.</li>
+    <li>Ajusta la estructura según tu criterio: ¿qué añadirías que la IA no incluyó? ¿Qué eliminarías?</li>
+    <li>Redacta al menos un párrafo real de tu Marco Teórico siguiendo la estructura propuesta. Usa al menos una fuente que hayas verificado tú mismo.</li>
+    <li>Reflexiona por escrito: ¿En qué aspectos la IA fue útil? ¿En qué aspectos tuviste que corregirla o complementarla?</li>
+  </ol>
+
+  <h3>🎯 Criterio de evaluación</h3>
+  <table>
+    <tr>
+      <th>Pensamiento Crítico ✅</th>
+      <th>Uso Superficial ❌</th>
+    </tr>
+    <tr>
+      <td>Verifico si las fuentes que propone la IA existen realmente en Google Scholar</td>
+      <td>Acepto todas las referencias sin verificar ninguna</td>
+    </tr>
+    <tr>
+      <td>Adapto la estructura según las características específicas de MI investigación</td>
+      <td>Uso la estructura de la IA sin modificaciones aunque no se ajuste a mi tema</td>
+    </tr>
+    <tr>
+      <td>Escribo al menos un párrafo propio usando las orientaciones de la IA como guía</td>
+      <td>Copio la respuesta de la IA como si fuera mi Marco Teórico</td>
+    </tr>
+    <tr>
+      <td>Identifico qué no cubrió la IA y lo añado por mi cuenta</td>
+      <td>Asumo que la respuesta de la IA es completa y suficiente</td>
+    </tr>
+  </table>
+
+  <div class="box-clave">
+    <strong>🧠 Reflexión final sobre IA y Marco Teórico:</strong>
+    La IA puede sugerirte dónde buscar, qué teorías existen, cómo estructurar. Pero el Marco Teórico que uses en tu tesis debe reflejar lo que TÚ leíste, TÚ entendiste y TÚ decidiste incluir. Una tesis construida con IA sin comprensión propia colapsa en la defensa oral — cuando no hay pantalla que te ayude.
+  </div>
+</div>
+
+<!-- ===================== REFLEXIÓN ===================== -->
+<div id="tab-reflexion" class="tab-content">
+  <h2>💭 Preguntas Reflexivas — Parte B</h2>
+  <p style="margin-bottom:18px;">Preguntas para conectar lo aprendido con tu vida, tu identidad y tu futuro profesional.</p>
+
+  <div class="ref-card">
+    <div class="ref-num">Pregunta 1 — Voz propia y autoestima</div>
+    <p>En el Marco Teórico, el investigador necesita tener voz propia: elegir, analizar, argumentar, aunque siempre respaldado por la literatura. En tu vida personal y profesional, ¿tienes dificultad para expresar tu propia opinión cuando estás rodeado de personas con más autoridad o experiencia? ¿Cómo se relaciona eso con el desafío de escribir con "voz académica propia" en un Marco Teórico?</p>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">Pregunta 2 — Coherencia personal</div>
+    <p>Aprendiste que en la investigación, el problema, el marco teórico, las variables y las hipótesis deben ser coherentes entre sí. ¿Hay coherencia entre lo que dices que valoras, lo que realmente haces y cómo tomas decisiones? ¿Cuándo la falta de coherencia interna te ha causado problemas en tu vida personal o académica?</p>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">Pregunta 3 — PNL: Las creencias como "marco teórico" personal</div>
+    <p>En Programación Neurolingüística se dice que cada persona tiene un "sistema de creencias" que filtra cómo percibe la realidad — muy similar a cómo un Marco Teórico filtra cómo el investigador interpreta los datos. ¿Cuáles son las tres creencias más profundas que tienes sobre ti mismo como estudiante universitario? ¿Son esas creencias verdaderas o son "marcos teóricos" que podrían actualizarse con nueva evidencia?</p>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">Pregunta 4 — Inteligencia Emocional y rigor</div>
+    <p>El rigor académico exige verificar las fuentes, detectar errores y corregirlos. Pero muchos estudiantes sienten que cuando se corrige su trabajo se está criticando a ellos como personas. ¿Puedes separar la crítica a tu trabajo de la crítica a tu valor como persona? ¿Qué estrategia emocional te ayuda a recibir retroalimentación académica sin derrumbarte?</p>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">Pregunta 5 — La IA y el futuro de la investigación</div>
+    <p>La Inteligencia Artificial puede generar en segundos un texto que parece un Marco Teórico. ¿Cuál crees que es el valor de seguir aprendiendo a construir uno tú mismo? ¿Qué habilidades humanas — que ninguna IA puede reemplazar — se desarrollan al construir un Marco Teórico desde cero?</p>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-num">Pregunta 6 — Semana 16: El examen como horizonte</div>
+    <p>La próxima semana es el Examen del Segundo Parcial. Mirando todo lo que aprendiste desde la Semana 9 hasta hoy (hipótesis, variables, búsqueda de fuentes, citas, Marco Teórico), ¿cuál es el concepto que sientes más sólido? ¿Cuál el que todavía te genera más dudas? ¿Qué harás concretamente esta semana para reforzarlo?</p>
+  </div>
+
+  <div class="box-clave">
+    <strong>🌟 Mensaje de cierre de la Semana 15:</strong>
+    Has llegado casi al final del ciclo. Conoces el método científico, los enfoques de investigación, el planteamiento del problema, las variables, las hipótesis, las bases de datos, las citas APA y ahora el Marco Teórico. Todo ese conocimiento no es para aprobar un examen: es una forma de pensar con rigor, honestidad y profundidad. Esa forma de pensar vale en la contabilidad, en la auditoría, y en cualquier decisión importante que tomes en tu vida.
+  </div>
+</div>
+
+<!-- ===================== BIBLIOGRAFÍA ===================== -->
+<div id="tab-biblio" class="tab-content">
+  <h2>📚 Bibliografía</h2>
+
+  <div class="bib-card">
+    <div class="bib-year">2014</div>
+    <div>
+      <div class="bib-autor">Hernández Sampieri, R., Fernández Collado, C. y Baptista Lucio, P.</div>
+      <div class="bib-titulo">Metodología de la Investigación (6.ª ed.)</div>
+      <div class="bib-fuente">McGraw-Hill Education.</div>
+    </div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-year">2020</div>
+    <div>
+      <div class="bib-autor">American Psychological Association</div>
+      <div class="bib-titulo">Publication Manual of the American Psychological Association (7th ed.)</div>
+      <div class="bib-fuente">American Psychological Association. https://doi.org/10.1037/0000165-000</div>
+    </div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-year">2013</div>
+    <div>
+      <div class="bib-autor">Committee of Sponsoring Organizations of the Treadway Commission (COSO)</div>
+      <div class="bib-titulo">Internal Control — Integrated Framework</div>
+      <div class="bib-fuente">AICPA.</div>
+    </div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-year">2019</div>
+    <div>
+      <div class="bib-autor">Bernal Torres, C. A.</div>
+      <div class="bib-titulo">Metodología de la Investigación: Administración, Economía, Humanidades y Ciencias Sociales (4.ª ed.)</div>
+      <div class="bib-fuente">Pearson Educación.</div>
+    </div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-year">2014</div>
+    <div>
+      <div class="bib-autor">Creswell, J. W.</div>
+      <div class="bib-titulo">Research Design: Qualitative, Quantitative, and Mixed Methods Approaches (4th ed.)</div>
+      <div class="bib-fuente">SAGE Publications.</div>
+    </div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-year">2015</div>
+    <div>
+      <div class="bib-autor">Booth, W. C., Colomb, G. G. y Williams, J. M.</div>
+      <div class="bib-titulo">The Craft of Research (4th ed.)</div>
+      <div class="bib-fuente">University of Chicago Press.</div>
+    </div>
+  </div>
+
+  <div class="bib-card">
+    <div class="bib-year">2018</div>
+    <div>
+      <div class="bib-autor">Ñaupas Paitán, H., Valdivia Dueñas, M. R., Palacios Vilela, J. J. y Romero Delgado, H. E.</div>
+      <div class="bib-titulo">Metodología de la Investigación Cuantitativa-Cualitativa y Redacción de la Tesis (5.ª ed.)</div>
+      <div class="bib-fuente">Ediciones de la U.</div>
+    </div>
+  </div>
+
+  <div class="bib-nota">
+    ⚠️ <strong>Nota académica importante:</strong> Se recomienda verificar cada referencia en <strong>Google Scholar</strong> (scholar.google.com) o en el repositorio institucional antes de citar en trabajos académicos. El año y la edición son datos fundamentales para la validez de la cita en formato APA 7.ª edición.
+  </div>
+</div>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+const ejercicioCorrects = {
+  ei1: 'b', ei2: 'b', ei3: 'b', ei4: 'b', ei5: 'b', ei6: 'b', ei7: 'b', ei8: 'c'
+};
+
+const ejercicioFeedbacks = {
+  ei1: {
+    correcto: '✅ Correcto. Repetir "dice que es importante" tres veces no analiza: solo acumula. Un Marco Teórico que argumenta compara lo que dicen los autores, identifica matices o contradicciones, y conecta esas ideas con el problema de la investigación.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. El problema no es el formato de las citas ni la cantidad de autores: es que el texto solo resume sin analizar, comparar ni conectar la literatura con el estudio propio. Eso no es argumentar.'
+  },
+  ei2: {
+    correcto: '✅ Correcto. No incluir la fuente de una idea tomada de un autor es plagio académico por omisión. El Triángulo del Fraude fue propuesto por Cressey (1953) y debe citarse así. Las ideas ajenas, aunque no sean textuales, siempre requieren cita de autor y año.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. Toda idea tomada de un autor, sea textual o parafraseada, requiere cita. Omitirla es plagio académico. No existen "ideas de dominio público" en el sentido académico: siempre hay un autor que las formuló primero.'
+  },
+  ei3: {
+    correcto: '✅ Correcto. El principio de coherencia exige que todo término técnico usado en las hipótesis esté definido en el Marco Conceptual. El RIDE es la variable independiente de Carlos y debe estar explicado rigurosamente en su marco teórico.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. La coherencia entre hipótesis y Marco Teórico es un requisito fundamental: cada variable o concepto técnico que aparece en las hipótesis debe estar definido en el Marco Conceptual. Sin eso, el lector (y el evaluador) no sabe qué significa exactamente lo que se va a medir.'
+  },
+  ei4: {
+    correcto: '✅ Correcto. El año 1776 es incorrecto: Jensen y Meckling publicaron su artículo fundacional sobre la teoría de la agencia en 1976. Un error en el año hace que la cita no pueda verificarse, destruye la credibilidad de la fuente y puede considerarse una referencia inventada.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. Escribir 1776 en lugar de 1976 es un error grave, no menor: impide verificar la fuente, altera la cronología del pensamiento académico y puede hacerle perder puntos significativos en la evaluación. Los datos bibliográficos deben ser exactos.'
+  },
+  ei5: {
+    correcto: '✅ Correcto. Un capítulo sobre monedas griegas no tiene pertinencia para una tesis sobre Auditoría Forense en municipios ecuatorianos actuales. Debe reemplazarse por estudios sobre auditoría forense en el sector público latinoamericano, normativa de la Contraloría, y casos de fraude municipal en Ecuador.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. El contenido sobre monedas griegas antiguas no forma parte de ningún componente pertinente de un Marco Teórico sobre Auditoría Forense Municipal contemporánea en Ecuador. Esto es contenido sin pertinencia que debe eliminarse.'
+  },
+  ei6: {
+    correcto: '✅ Correcto. Este párrafo cumple la función de identificar el vacío de conocimiento y fundamentar la necesidad del estudio. Es uno de los momentos más importantes del Marco Teórico: donde el investigador muestra que su investigación responde a una ausencia real en la literatura científica.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. El párrafo no define términos, no resume resultados propios ni presenta metodología. Señala explícitamente lo que la literatura no ha estudiado (cooperativas de segmento 1 en el período 2021–2023 con la nueva regulación SEPS) y declara que ese vacío justifica la investigación.'
+  },
+  ei7: {
+    correcto: '✅ Correcto. En APA 7.ª edición, las citas textuales de menos de 40 palabras se integran en el párrafo entre comillas dobles, seguidas de la cita con autor, año y número de página: (Autor, año, p. X).',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. Las citas textuales cortas (menos de 40 palabras) van entre comillas dentro del párrafo, con (Autor, año, p. X). Las de 40 o más palabras van en párrafo aparte con sangría y sin comillas. La cursiva y los corchetes no son el formato APA para citas textuales.'
+  },
+  ei8: {
+    correcto: '✅ Correcto. "Sin embargo" es el conector de contraste por excelencia. Introduce una posición que se opone o matiza la afirmada anteriormente. "Asimismo" y "En consonancia" añaden o acuerdan; "En síntesis" concluye.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es C. Para introducir una posición que contrasta o contradice la anterior, el conector apropiado es de contraste: "Sin embargo", "No obstante", "A diferencia de". Las opciones A y B añaden o acuerdan; la D concluye.'
+  }
+};
+
+function verificarEjercicio() {
+  let correctas = 0;
+  const total = Object.keys(ejercicioCorrects).length;
+  let sinResponder = [];
+  for (let key in ejercicioCorrects) {
+    if (!document.querySelector(`input[name="${key}"]:checked`)) sinResponder.push(key);
+  }
+  if (sinResponder.length > 0) { alert(`⚠️ Faltan ${sinResponder.length} pregunta(s) por responder.`); return; }
+  for (let key in ejercicioCorrects) {
+    const sel = document.querySelector(`input[name="${key}"]:checked`);
+    const fb = document.getElementById(key + '-fb');
+    fb.style.display = 'block';
+    if (sel.value === ejercicioCorrects[key]) {
+      correctas++;
+      fb.className = 'ei-feedback correcto';
+      fb.innerHTML = ejercicioFeedbacks[key].correcto;
+    } else {
+      fb.className = 'ei-feedback incorrecto';
+      fb.innerHTML = ejercicioFeedbacks[key].incorrecto;
+    }
+    document.querySelectorAll(`input[name="${key}"]`).forEach(r => r.disabled = true);
+  }
+  const pct = Math.round((correctas / total) * 100);
+  const emojis = pct===100?'🏆':pct>=80?'🎯':pct>=60?'📘':pct>=40?'⚠️':'📖';
+  const msgs = pct===100?'¡Perfecto! Dominas la redacción y evaluación del Marco Teórico.':pct>=80?'¡Muy bien! Sólido desempeño.':pct>=60?'Bien. Revisa los ítems incorrectos.':pct>=40?'Vuelve a leer los Temas 5 al 8.':'Repasa el widget completo con calma.';
+  const res = document.getElementById('resultado-ejercicio');
+  res.style.display = 'block';
+  document.getElementById('ej-emoji').textContent = emojis;
+  document.getElementById('ej-score').textContent = `${correctas} / ${total} correctas — ${pct}%`;
+  document.getElementById('ej-msg').textContent = msgs;
+  setTimeout(() => { document.getElementById('ej-barra').style.width = pct + '%'; }, 100);
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function resetEjercicio() {
+  document.querySelectorAll('[name^="ei"]').forEach(r => { r.checked = false; r.disabled = false; });
+  document.querySelectorAll('.ei-feedback').forEach(f => { f.style.display = 'none'; });
+  document.getElementById('resultado-ejercicio').style.display = 'none';
+  document.getElementById('ej-barra').style.width = '0%';
+}
+
+const quizCorrects = {
+  qi1:'b', qi2:'b', qi3:'b', qi4:'b', qi5:'c', qi6:'c', qi7:'b', qi8:'b', qi9:'b', qi10:'b'
+};
+
+const quizFeedbacks = {
+  qi1: {
+    correcto: '✅ Correcto. Resumir significa describir lo que cada autor dijo por separado. Argumentar significa comparar posiciones, identificar acuerdos y contradicciones, y conectar esa discusión con el problema propio de investigación.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. La diferencia no es de extensión ni de corrección: es de profundidad intelectual. Resumir lista lo que otros dicen; argumentar construye conocimiento a partir de eso.'
+  },
+  qi2: {
+    correcto: '✅ Correcto. Las citas textuales de 40 o más palabras en APA 7 se presentan en bloque: párrafo aparte, sangría de 1.27 cm, sin comillas, con la referencia (Autor, año, p. X) al final del bloque.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. Las citas largas (+40 palabras) van en bloque aparte con sangría, sin comillas. Las cortas (-40 palabras) van entre comillas en el párrafo. Son formatos distintos en APA 7.'
+  },
+  qi3: {
+    correcto: '✅ Correcto. Una cita secundaria es cuando citas a un autor que viste citado en otro texto, porque no accediste al original. En APA 7 se escribe: (Autor original, año, como se citó en Autor que leíste, año). En la referencia final, solo aparece el texto que sí leíste.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. Una cita secundaria no tiene que ver con cuántas veces aparece ni con el orden de los autores: es cuando no puedes acceder al texto original y lo citas a través de quien sí lo cita.'
+  },
+  qi4: {
+    correcto: '✅ Correcto. En la investigación cuantitativa, el Marco Teórico establece antes de recoger datos qué variables medir y cómo probar las hipótesis. En la cualitativa, el marco puede ser más abierto y evolucionar conforme los datos emergen, porque el objetivo es interpretar significados, no medir variables predefinidas.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. La diferencia no es de extensión ni de existencia: ambas requieren Marco Teórico. La diferencia es de función y momento: el cuantitativo guía a priori qué medir; el cualitativo puede emerger junto con los datos.'
+  },
+  qi5: {
+    correcto: '✅ Correcto. "En consonancia con" indica que dos ideas o autores concuerdan. Es el conector de acuerdo y alineación por excelencia. "Sin embargo" y "En contraste" introducen divergencia; "A diferencia de" marca distinción.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es C. Para indicar que dos autores coinciden, se usa un conector de acuerdo: "En consonancia con", "De manera similar", "En línea con". "Sin embargo" y "En contraste" son conectores de contraste o divergencia.'
+  },
+  qi6: {
+    correcto: '✅ Correcto. La pertinencia evalúa si las fuentes y teorías seleccionadas están directamente relacionadas con el problema específico de investigación. Sin pertinencia, el Marco Teórico puede ser extenso y bien escrito pero completamente irrelevante para la investigación.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es C (pertinencia). La actualidad evalúa si las fuentes son recientes; el análisis crítico evalúa si hay comparación y síntesis; la coherencia evalúa si el marco y las hipótesis son consistentes. La pertinencia evalúa la relación directa con el problema.'
+  },
+  qi7: {
+    correcto: '✅ Correcto. Wikipedia puede ser editada por cualquier persona en cualquier momento y no tiene proceso formal de revisión académica por pares. Esto no significa que sus artículos sean necesariamente incorrectos, pero sí que no cumplen el estándar de verificabilidad que exige la ciencia.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. Wikipedia no está solo en español (tiene versiones en cientos de idiomas), sí tiene autores identificables (aunque anónimos), y es gratuita. El problema real es que cualquiera puede editarla y no tiene revisión científica formal por pares.'
+  },
+  qi8: {
+    correcto: '✅ Correcto. El "test del lector externo" evalúa si el Marco Teórico es suficientemente coherente y claro como para que alguien ajeno a la investigación pueda inferir correctamente cuál es el problema que se estudia. Pasarlo con éxito indica que el marco es coherente y autoexplicativo.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. El "test del lector externo" no evalúa la extensión ni el proceso de copia: evalúa la coherencia y claridad del marco. Si un lector externo entiende qué investiga Tomás solo leyendo el Marco Teórico, el marco cumple su función comunicativa.'
+  },
+  qi9: {
+    correcto: '✅ Correcto. El informe de la Contraloría tiene la misma estructura lógica que un Marco Teórico: define el marco teórico-normativo (COSO, IIA), el marco legal (Ley de Contraloría), y los conceptos clave. El Marco Teórico académico y el respaldo teórico de un informe profesional son, en esencia, el mismo ejercicio intelectual.',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. La conexión no es solo de lenguaje técnico ni de formato de citas: es de función. Ambos documentos contextualizan con rigor un análisis: qué teorías y normas lo fundamentan, qué significa cada concepto clave, y qué es lo que se va a evaluar.'
+  },
+  qi10: {
+    correcto: '✅ Correcto. El test del glosario cruzado reveló que "riesgo operativo" y "control preventivo" están en las hipótesis pero no en el Marco Conceptual. La solución correcta es completar el marco añadiendo esas definiciones, no eliminar los términos de las hipótesis (que probablemente son conceptos necesarios para el estudio).',
+    incorrecto: '❌ Incorrecto. La respuesta correcta es B. La coherencia exige que TODOS los términos técnicos de las hipótesis estén definidos en el Marco Conceptual. Tener más de la mitad no es suficiente. La solución es añadir las definiciones faltantes, no eliminar términos de las hipótesis.'
+  }
+};
+
+function verificarCuestionario() {
+  let correctas = 0;
+  const total = Object.keys(quizCorrects).length;
+  let sinResponder = [];
+  for (let key in quizCorrects) {
+    if (!document.querySelector(`input[name="${key}"]:checked`)) sinResponder.push(key);
+  }
+  if (sinResponder.length > 0) { alert(`⚠️ Faltan ${sinResponder.length} pregunta(s) por responder.`); return; }
+  for (let key in quizCorrects) {
+    const sel = document.querySelector(`input[name="${key}"]:checked`);
+    const fb = document.getElementById(key + '-fb');
+    fb.style.display = 'block';
+    if (sel.value === quizCorrects[key]) {
+      correctas++;
+      fb.className = 'q-feedback correcto';
+      fb.innerHTML = quizFeedbacks[key].correcto;
+    } else {
+      fb.className = 'q-feedback incorrecto';
+      fb.innerHTML = quizFeedbacks[key].incorrecto;
+    }
+    document.querySelectorAll(`input[name="${key}"]`).forEach(r => r.disabled = true);
+  }
+  const pct = Math.round((correctas / total) * 100);
+  const emojis = pct===100?'🏆':pct>=80?'🎯':pct>=60?'📘':pct>=40?'⚠️':'📖';
+  const msgs = pct===100?'¡Perfecto! 10/10. ¡Estás listo/a para el examen!':pct>=80?`¡Excelente! ${correctas}/10. Muy buen desempeño.`:pct>=60?`Bien. ${correctas}/10. Refuerza lo que marcaste mal.`:pct>=40?`En proceso. ${correctas}/10. Revisa ambas partes del widget.`:`${correctas}/10. Necesitas repasar desde la Semana 15A.`;
+  const res = document.getElementById('resultado-cuestionario');
+  res.style.display = 'block';
+  document.getElementById('q-emoji').textContent = emojis;
+  document.getElementById('q-score').textContent = `${correctas} / ${total} — ${pct}%`;
+  document.getElementById('q-msg').textContent = msgs;
+  setTimeout(() => { document.getElementById('q-barra').style.width = pct + '%'; }, 100);
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function resetCuestionario() {
+  document.querySelectorAll('[name^="qi"]').forEach(r => { r.checked = false; r.disabled = false; });
+  document.querySelectorAll('.q-feedback').forEach(f => { f.style.display = 'none'; });
+  document.getElementById('resultado-cuestionario').style.display = 'none';
+  document.getElementById('q-barra').style.width = '0%';
+}
+
+function copiarPrompt() {
+  const text = document.querySelector('.ia-prompt-box').innerText.replace('📋 Copiar\n', '');
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = '✅ Copiado';
+    setTimeout(() => btn.textContent = '📋 Copiar', 2000);
+  });
+}
+</script>
+</body>
+</html>
