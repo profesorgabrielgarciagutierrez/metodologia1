@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Práctica de Citación Académica | Metodología de la Investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.7;color:#1a1a2e;background:#f4f7fb;}
+
+/* HEADER */
+header{background:#003366;color:#fff;padding:18px 24px 14px;text-align:center;}
+header .inst{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;opacity:.85;margin-bottom:6px;}
+header h1{font-family:'Lora',serif;font-size:clamp(1.2rem,3vw,1.75rem);font-weight:700;line-height:1.3;margin-bottom:4px;}
+header .sub{font-size:13px;opacity:.75;}
+
+/* TAB NAV */
+.tab-nav-wrap{background:#87CEEB;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;border-bottom:3px solid #003366;}
+.tab-nav-wrap::-webkit-scrollbar{height:4px;}
+.tab-nav-wrap::-webkit-scrollbar-thumb{background:#003366;border-radius:4px;}
+.tab-nav{display:inline-flex;padding:0 6px;gap:2px;}
+.tab-btn{display:inline-block;padding:11px 16px;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;color:#003366;background:transparent;border:none;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-3px;transition:background .2s;}
+.tab-btn:hover{background:rgba(255,255,255,.5);}
+.tab-btn.active{background:#fff;font-weight:700;border-bottom:3px solid #003366;}
+
+/* CONTENT */
+.tab-content{display:none;padding:28px 20px 50px;max-width:940px;margin:0 auto;}
+.tab-content.active{display:block;}
+
+/* TYPOGRAPHY */
+h2{font-family:'Lora',serif;font-size:1.45rem;color:#003366;margin:0 0 6px;border-bottom:2px solid #87CEEB;padding-bottom:6px;}
+h3{font-family:'Lora',serif;font-size:1.1rem;color:#003366;margin:20px 0 8px;}
+p{margin-bottom:12px;}
+ul,ol{margin:8px 0 14px 22px;}
+li{margin-bottom:5px;}
+strong{color:#003366;}
+
+/* BOXES */
+.caja-azul{border-left:5px solid #003366;background:#f0f5ff;padding:14px 18px;margin:18px 0;border-radius:0 8px 8px 0;}
+.caja-azul .tit{font-family:'Lora',serif;font-weight:700;color:#003366;font-size:.9rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.caja-ejemplo{background:#e8f4fd;border:1px solid #87CEEB;border-radius:8px;padding:14px 18px;margin:14px 0;}
+.caja-clave{background:#003366;color:#fff;padding:14px 18px;border-radius:8px;margin:20px 0;font-size:.95rem;}
+.caja-clave strong{color:#87CEEB;}
+
+/* PROGRESS BAR STEPS */
+.progress-steps{display:flex;align-items:center;gap:4px;margin:16px 0 24px;flex-wrap:wrap;}
+.step-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid #d0dce8;color:#aaa;background:#fff;transition:all .3s;flex-shrink:0;}
+.step-dot.done{background:#059669;border-color:#059669;color:#fff;}
+.step-dot.current{background:#003366;border-color:#003366;color:#fff;box-shadow:0 0 0 3px rgba(0,51,102,.2);}
+.step-dot.wrong{background:#dc2626;border-color:#dc2626;color:#fff;}
+.step-line{flex:1;height:3px;background:#d0dce8;min-width:8px;max-width:24px;}
+.step-line.done{background:#059669;}
+
+/* SCORE BADGE */
+.score-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:2px solid #003366;border-radius:30px;padding:6px 16px;font-weight:700;color:#003366;font-size:14px;float:right;margin-top:-4px;}
+
+/* EXERCISE CARD */
+.ej-card{background:#fff;border-radius:12px;border:1px solid #d0dce8;padding:22px 24px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,51,102,.06);}
+.ej-num{font-size:11px;font-weight:700;color:#0077b6;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.ej-instruccion{font-size:14px;color:#555;margin-bottom:12px;font-style:italic;}
+.ej-enunciado{font-size:1rem;color:#1a1a2e;margin-bottom:18px;line-height:1.6;}
+.ej-enunciado em{background:#fffbdd;padding:1px 3px;border-radius:3px;font-style:normal;}
+
+/* DRAG & DROP */
+.tokens-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;min-height:44px;padding:8px;background:#f8fbff;border:2px dashed #c8ddf0;border-radius:8px;}
+.token{padding:6px 13px;background:#003366;color:#fff;border-radius:20px;cursor:grab;font-size:13.5px;user-select:none;transition:opacity .2s;white-space:nowrap;}
+.token:active{cursor:grabbing;opacity:.7;}
+.token.used{opacity:.3;cursor:default;pointer-events:none;}
+
+.drop-zone{border-bottom:2px dashed #0077b6;display:inline-block;min-width:120px;margin:0 4px;padding:2px 8px;vertical-align:middle;text-align:center;font-size:14px;background:#f0f8ff;border-radius:4px 4px 0 0;cursor:pointer;transition:background .2s;position:relative;}
+.drop-zone.filled{background:#dbeafe;border-color:#003366;color:#003366;font-weight:600;}
+.drop-zone.correcto{background:#d1fae5;border-color:#059669;color:#065f46;}
+.drop-zone.incorrecto{background:#fee2e2;border-color:#dc2626;color:#7f1d1d;}
+.drop-zone:hover:not(.locked){background:#dbeafe;}
+
+/* OPCION MULTIPLE */
+.opciones{display:flex;flex-direction:column;gap:8px;}
+.opcion-label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;cursor:pointer;border:1.5px solid #d0dce8;background:#fafcff;transition:background .15s,border-color .15s;font-size:.95rem;}
+.opcion-label:hover{background:#edf4ff;border-color:#87CEEB;}
+.opcion-label input{margin-top:3px;flex-shrink:0;accent-color:#003366;}
+.opcion-label.correcto{background:#d1fae5!important;border-color:#059669!important;}
+.opcion-label.incorrecto{background:#fee2e2!important;border-color:#dc2626!important;}
+.opcion-label.disabled{pointer-events:none;}
+
+/* INPUT TEXT */
+.input-ref{width:100%;padding:10px 14px;border:1.5px solid #d0dce8;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.5;background:#fafcff;transition:border-color .2s;resize:vertical;min-height:60px;}
+.input-ref:focus{outline:none;border-color:#0077b6;}
+.input-ref.correcto{border-color:#059669;background:#d1fae5;}
+.input-ref.incorrecto{border-color:#dc2626;background:#fee2e2;}
+.input-ref.disabled{pointer-events:none;opacity:.7;}
+
+/* REFERENCIA MODELO */
+.ref-modelo{background:#0f172a;color:#94a3b8;border-radius:8px;padding:14px 18px;margin:10px 0;font-family:'Courier New',monospace;font-size:13px;line-height:1.7;white-space:pre-wrap;}
+.ref-modelo .hi{color:#7dd3fc;}
+.ref-modelo .hi2{color:#86efac;}
+
+/* FEEDBACK */
+.feedback-box{display:none;padding:12px 16px;border-radius:8px;margin-top:12px;font-size:14px;line-height:1.5;}
+.feedback-box.ok{background:#d1fae5;border-left:4px solid #059669;color:#065f46;}
+.feedback-box.err{background:#fee2e2;border-left:4px solid #dc2626;color:#7f1d1d;}
+.respuesta-correcta{margin-top:8px;padding:10px 14px;background:#fff;border-radius:6px;font-family:'Courier New',monospace;font-size:12.5px;line-height:1.6;border:1px solid #d0dce8;}
+
+/* BTNS */
+.btn-wrap{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.btn{padding:11px 24px;border:none;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s;}
+.btn-primary{background:#003366;color:#fff;}
+.btn-primary:hover{background:#004080;}
+.btn-secondary{background:#6c757d;color:#fff;}
+.btn-secondary:hover{background:#5a6268;}
+.btn-success{background:#059669;color:#fff;}
+.btn-warning{background:#d97706;color:#fff;}
+
+/* RESULTADO FINAL */
+.resultado-final{display:none;background:#fff;border:2px solid #003366;border-radius:14px;padding:28px;text-align:center;margin-top:28px;}
+.res-emoji{font-size:3.5rem;margin-bottom:8px;}
+.res-titulo{font-family:'Lora',serif;font-size:1.5rem;color:#003366;font-weight:700;margin-bottom:6px;}
+.res-puntaje{font-size:1.15rem;color:#444;margin-bottom:12px;}
+.barra-wrap{background:#e2e8f0;border-radius:10px;height:16px;margin:12px 0;overflow:hidden;}
+.barra-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,#003366,#0077b6);width:0%;transition:width 1.2s ease;}
+.res-msg{font-size:1rem;color:#555;margin:10px 0 16px;}
+
+/* TABLA */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;}
+th{background:#003366;color:#fff;padding:10px 12px;text-align:left;font-weight:600;}
+td{padding:9px 12px;border-bottom:1px solid #d0dce8;vertical-align:top;}
+tr:nth-child(even) td{background:#f0f5ff;}
+
+/* INTRO */
+.estilo-card{background:#fff;border:1.5px solid #c8ddf0;border-radius:10px;padding:16px 20px;margin-bottom:12px;}
+.estilo-card h3{margin-top:0;font-size:1rem;}
+.estilo-badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.badge-apa{background:#dbeafe;color:#1e40af;}
+.badge-mla{background:#fef3c7;color:#92400e;}
+.badge-chicago{background:#f3e8ff;color:#6b21a8;}
+.badge-vancouver{background:#dcfce7;color:#166534;}
+.badge-ieee{background:#ffe4e6;color:#9f1239;}
+
+/* Navegacion ejercicios */
+.ej-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;border-top:1px solid #e2e8f0;padding-top:16px;}
+
+/* Tooltip */
+.tooltip{display:inline-block;position:relative;cursor:help;}
+.tooltip .tip{display:none;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:6px 12px;border-radius:6px;font-size:12px;white-space:nowrap;z-index:99;}
+.tooltip:hover .tip{display:block;}
+
+/* hint */
+.hint{font-size:12px;color:#666;font-style:italic;margin-top:4px;}
+
+@media(max-width:600px){
+  .tab-btn{padding:9px 11px;font-size:12px;}
+  .score-badge{float:none;display:flex;width:fit-content;margin-top:8px;}
+  .step-dot{width:26px;height:26px;font-size:11px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inst">Universidad de Guayaquil · Facultad de Ciencias Administrativas · Contabilidad y Auditoría</div>
+  <h1>🎯 Práctica de Estilos de Citación Académica</h1>
+  <div class="sub">Repite hasta lograr el 100% · Metodología de la Investigación · Semana 13–14</div>
+</header>
+
+<div class="tab-nav-wrap">
+  <div class="tab-nav">
+    <button class="tab-btn active"  onclick="showTab('intro',this)">📖 Guía Rápida</button>
+    <button class="tab-btn" onclick="showTab('apa',this)">📘 APA 7</button>
+    <button class="tab-btn" onclick="showTab('mla',this)">📙 MLA 9</button>
+    <button class="tab-btn" onclick="showTab('chicago',this)">📕 Chicago 17</button>
+    <button class="tab-btn" onclick="showTab('vancouver',this)">🔬 Vancouver</button>
+    <button class="tab-btn" onclick="showTab('ieee',this)">⚡ IEEE</button>
+  </div>
+</div>
+
+<!-- ==================== GUÍA RÁPIDA ==================== -->
+<div id="tab-intro" class="tab-content active">
+  <h2>📖 Guía Rápida de Estilos de Citación</h2>
+  <p>Este laboratorio de práctica te permitirá dominar los cinco principales estilos de citación académica a través de ejercicios guiados. <strong>La repetición crea el hábito</strong>: si cometes un error, puedes reiniciar y volver a intentarlo hasta alcanzar el 7/7.</p>
+
+  <div class="caja-azul">
+    <div class="tit">¿Cómo funciona?</div>
+    <ul>
+      <li>Cada estilo tiene <strong>7 ejercicios progresivos</strong>: desde identificar errores hasta construir referencias completas.</li>
+      <li>Verifica cada ejercicio con el botón correspondiente.</li>
+      <li>Si te equivocas, el sistema te muestra la respuesta correcta y puedes <strong>reiniciar</strong> para intentarlo de nuevo.</li>
+      <li>Tu puntaje se acumula: <strong>¡apunta al 7/7!</strong></li>
+    </ul>
+  </div>
+
+  <h3>Resumen comparativo de los 5 estilos</h3>
+  <table>
+    <tr><th>Estilo</th><th>Campo</th><th>Cita en texto</th><th>Lista final</th></tr>
+    <tr><td><strong>APA 7</strong></td><td>Ciencias sociales, Administración, Contabilidad</td><td>(Apellido, año, p. X)</td><td>Referencias (alfabético)</td></tr>
+    <tr><td><strong>MLA 9</strong></td><td>Humanidades, Literatura, Artes</td><td>(Apellido número-pág.)</td><td>Works Cited (alfabético)</td></tr>
+    <tr><td><strong>Chicago 17</strong></td><td>Historia, Ciencias Sociales</td><td>Nota al pie ¹ / (Apellido año)</td><td>Bibliografía / Notas</td></tr>
+    <tr><td><strong>Vancouver</strong></td><td>Medicina, Ciencias de la Salud</td><td>Número superíndice ¹ o [1]</td><td>Lista numerada (orden aparición)</td></tr>
+    <tr><td><strong>IEEE</strong></td><td>Ingeniería, Tecnología, Informática</td><td>[1], [2] en corchetes</td><td>Lista numerada (orden aparición)</td></tr>
+  </table>
+
+  <div class="caja-clave">
+    <strong>💡 Para Contabilidad y Auditoría en la UG</strong> → el estilo oficial es <strong>APA 7.ª edición</strong>. Los demás estilos son conocimiento profesional general que te permite leer investigaciones de otras disciplinas.
+  </div>
+
+  <h3>Formato de referencia de libro — comparativa rápida</h3>
+
+  <div class="estilo-card">
+    <span class="estilo-badge badge-apa">APA 7</span>
+    <div class="ref-modelo">Apellido, A. A. (Año). <span class="hi">Título en cursiva</span>. Editorial.</div>
+  </div>
+  <div class="estilo-card">
+    <span class="estilo-badge badge-mla">MLA 9</span>
+    <div class="ref-modelo">Apellido, Nombre. <span class="hi">Título en cursiva</span>. Editorial, Año.</div>
+  </div>
+  <div class="estilo-card">
+    <span class="estilo-badge badge-chicago">Chicago 17</span>
+    <div class="ref-modelo">Apellido, Nombre. <span class="hi">Título en cursiva</span>. Ciudad: Editorial, Año.</div>
+  </div>
+  <div class="estilo-card">
+    <span class="estilo-badge badge-vancouver">Vancouver</span>
+    <div class="ref-modelo">N.° Apellido AB. <span class="hi">Título</span>. Ed. Ciudad: Editorial; Año.</div>
+  </div>
+  <div class="estilo-card">
+    <span class="estilo-badge badge-ieee">IEEE</span>
+    <div class="ref-modelo">[N] A. A. Apellido, <span class="hi">Título en cursiva</span>. Ciudad: Editorial, Año.</div>
+  </div>
+
+  <p style="margin-top:20px; text-align:center; font-size:1.05rem; color:#003366; font-weight:600;">⬆ Selecciona una pestaña arriba para comenzar a practicar.</p>
+</div>
+
+<!-- ==================== APA 7 ==================== -->
+<div id="tab-apa" class="tab-content">
+  <h2>📘 Práctica APA 7.ª Edición
+    <span class="score-badge" id="score-apa-badge">⭐ 0 / 7</span>
+  </h2>
+  <p>APA 7 usa el sistema <strong>autor-año</strong> en el texto y lista de <strong>Referencias</strong> al final, ordenada alfabéticamente.</p>
+
+  <!-- Pasos -->
+  <div class="progress-steps" id="steps-apa"></div>
+
+  <!-- CONTENEDOR de ejercicios APA -->
+  <div id="ej-apa-container"></div>
+
+  <div class="resultado-final" id="resultado-apa">
+    <div class="res-emoji" id="emoji-apa"></div>
+    <div class="res-titulo" id="titulo-apa"></div>
+    <div class="res-puntaje" id="puntaje-apa"></div>
+    <div class="barra-wrap"><div class="barra-fill" id="barra-apa"></div></div>
+    <div class="res-msg" id="msg-apa"></div>
+    <button class="btn btn-warning" onclick="reiniciarEstilo('apa')">↺ Reiniciar para mejorar</button>
+  </div>
+</div>
+
+<!-- ==================== MLA ==================== -->
+<div id="tab-mla" class="tab-content">
+  <h2>📙 Práctica MLA 9.ª Edición
+    <span class="score-badge" id="score-mla-badge">⭐ 0 / 7</span>
+  </h2>
+  <p>MLA 9 usa el sistema <strong>autor-página</strong> en el texto y lista de <strong>Works Cited</strong> al final, sin año en la cita en texto.</p>
+
+  <div class="progress-steps" id="steps-mla"></div>
+  <div id="ej-mla-container"></div>
+  <div class="resultado-final" id="resultado-mla">
+    <div class="res-emoji" id="emoji-mla"></div>
+    <div class="res-titulo" id="titulo-mla"></div>
+    <div class="res-puntaje" id="puntaje-mla"></div>
+    <div class="barra-wrap"><div class="barra-fill" id="barra-mla"></div></div>
+    <div class="res-msg" id="msg-mla"></div>
+    <button class="btn btn-warning" onclick="reiniciarEstilo('mla')">↺ Reiniciar para mejorar</button>
+  </div>
+</div>
+
+<!-- ==================== CHICAGO ==================== -->
+<div id="tab-chicago" class="tab-content">
+  <h2>📕 Práctica Chicago 17.ª Edición
+    <span class="score-badge" id="score-chicago-badge">⭐ 0 / 7</span>
+  </h2>
+  <p>Chicago 17 tiene dos sistemas: <strong>Notas-Bibliografía</strong> (humanidades) y <strong>Autor-Fecha</strong> (ciencias). Practicaremos Notas-Bibliografía, el más común.</p>
+
+  <div class="progress-steps" id="steps-chicago"></div>
+  <div id="ej-chicago-container"></div>
+  <div class="resultado-final" id="resultado-chicago">
+    <div class="res-emoji" id="emoji-chicago"></div>
+    <div class="res-titulo" id="titulo-chicago"></div>
+    <div class="res-puntaje" id="puntaje-chicago"></div>
+    <div class="barra-wrap"><div class="barra-fill" id="barra-chicago"></div></div>
+    <div class="res-msg" id="msg-chicago"></div>
+    <button class="btn btn-warning" onclick="reiniciarEstilo('chicago')">↺ Reiniciar para mejorar</button>
+  </div>
+</div>
+
+<!-- ==================== VANCOUVER ==================== -->
+<div id="tab-vancouver" class="tab-content">
+  <h2>🔬 Práctica Estilo Vancouver
+    <span class="score-badge" id="score-vancouver-badge">⭐ 0 / 7</span>
+  </h2>
+  <p>Vancouver usa <strong>números superíndices</strong> en el texto (o entre corchetes) y lista de referencias numerada por <strong>orden de aparición</strong>, no alfabética.</p>
+
+  <div class="progress-steps" id="steps-vancouver"></div>
+  <div id="ej-vancouver-container"></div>
+  <div class="resultado-final" id="resultado-vancouver">
+    <div class="res-emoji" id="emoji-vancouver"></div>
+    <div class="res-titulo" id="titulo-vancouver"></div>
+    <div class="res-puntaje" id="puntaje-vancouver"></div>
+    <div class="barra-wrap"><div class="barra-fill" id="barra-vancouver"></div></div>
+    <div class="res-msg" id="msg-vancouver"></div>
+    <button class="btn btn-warning" onclick="reiniciarEstilo('vancouver')">↺ Reiniciar para mejorar</button>
+  </div>
+</div>
+
+<!-- ==================== IEEE ==================== -->
+<div id="tab-ieee" class="tab-content">
+  <h2>⚡ Práctica Estilo IEEE
+    <span class="score-badge" id="score-ieee-badge">⭐ 0 / 7</span>
+  </h2>
+  <p>IEEE usa <strong>números entre corchetes [1]</strong> en el texto y lista de referencias numerada por <strong>orden de aparición</strong>. Iniciales van antes del apellido en la lista.</p>
+
+  <div class="progress-steps" id="steps-ieee"></div>
+  <div id="ej-ieee-container"></div>
+  <div class="resultado-final" id="resultado-ieee">
+    <div class="res-emoji" id="emoji-ieee"></div>
+    <div class="res-titulo" id="titulo-ieee"></div>
+    <div class="res-puntaje" id="puntaje-ieee"></div>
+    <div class="barra-wrap"><div class="barra-fill" id="barra-ieee"></div></div>
+    <div class="res-msg" id="msg-ieee"></div>
+    <button class="btn btn-warning" onclick="reiniciarEstilo('ieee')">↺ Reiniciar para mejorar</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  DATOS DE EJERCICIOS
+// ============================================================
+
+const EJERCICIOS = {
+
+// ==================== APA ====================
+apa: [
+  {
+    tipo: 'opcion',
+    num: 1,
+    titulo: 'Ejercicio 1 — Identifica el formato correcto (libro)',
+    instruccion: 'Selecciona la referencia de libro correctamente formateada en APA 7.ª edición.',
+    opciones: [
+      { id:'a', texto:'Hernández Sampieri, R. (2014). Metodología de la investigación (6.ª ed.). McGraw-Hill.', correcto:true },
+      { id:'b', texto:'Hernández Sampieri, R. (2014). Metodología de la investigación (6.ª ed.). México D.F.: McGraw-Hill.', correcto:false },
+      { id:'c', texto:'Hernández, R. (2014). "Metodología de la investigación". McGraw-Hill.', correcto:false },
+      { id:'d', texto:'Hernández Sampieri, R. Metodología de la investigación (2014). McGraw-Hill, 6th ed.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. APA 7 elimina el lugar de publicación, usa cursiva para el título y coloca el año entre paréntesis después del autor.',
+    feedback_err: '❌ Incorrecto. En APA 7: (1) NO se escribe ciudad/país de publicación, (2) el título va en cursiva sin comillas, (3) el año va después del autor. La opción A es la correcta.'
+  },
+  {
+    tipo: 'opcion',
+    num: 2,
+    titulo: 'Ejercicio 2 — Cita en texto (un autor)',
+    instruccion: 'Sofía escribe: "La hipótesis es una proposición que anticipa una posible solución". ¿Cuál es la cita en texto APA 7 correcta si la idea es de Hernández Sampieri, 2014, página 104?',
+    opciones: [
+      { id:'a', texto:'(Hernández Sampieri, 2014)', correcto:false },
+      { id:'b', texto:'(Hernández Sampieri, 2014, p. 104)', correcto:true },
+      { id:'c', texto:'[Hernández Sampieri, 2014, p. 104]', correcto:false },
+      { id:'d', texto:'Hernández Sampieri (2014), p. 104', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Para citas textuales APA 7 exige: (Apellido, año, p. número). Los corchetes son de IEEE/Vancouver, no de APA.',
+    feedback_err: '❌ Incorrecto. Una cita textual en APA 7 requiere: (Apellido, año, p. X). Sin corchetes. El paréntesis va al final de la cita, no después del nombre en el texto.'
+  },
+  {
+    tipo: 'opcion',
+    num: 3,
+    titulo: 'Ejercicio 3 — Tres o más autores',
+    instruccion: 'El libro tiene tres autores: Hernández Sampieri, Fernández Collado y Baptista Lucio. ¿Cómo se cita en texto según APA 7?',
+    opciones: [
+      { id:'a', texto:'(Hernández Sampieri, Fernández Collado y Baptista Lucio, 2014)', correcto:false },
+      { id:'b', texto:'(Hernández Sampieri et al., 2014)', correcto:true },
+      { id:'c', texto:'(Hernández Sampieri & Fernández & Baptista, 2014)', correcto:false },
+      { id:'d', texto:'(Hernández et al, 2014)', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. APA 7 usa "et al." desde la primera cita cuando hay 3 o más autores. La abreviatura "et al." siempre lleva punto después de "al".',
+    feedback_err: '❌ Incorrecto. APA 7 (cambio clave desde APA 6): con 3 o más autores, desde la primera cita se escribe solo el primer apellido seguido de "et al." (con punto). Respuesta correcta: (Hernández Sampieri et al., 2014).'
+  },
+  {
+    tipo: 'opcion',
+    num: 4,
+    titulo: 'Ejercicio 4 — Artículo de revista con DOI',
+    instruccion: 'Selecciona el formato correcto para un artículo de revista científica en APA 7.',
+    opciones: [
+      { id:'a', texto:'Torres, M. (2021). Auditoría forense en Ecuador. Revista Contabilidad, 5(2), 12–28. doi:10.1234/rca.2021', correcto:false },
+      { id:'b', texto:'Torres, M. (2021). Auditoría forense en Ecuador. Revista Contabilidad, 5(2), 12–28. https://doi.org/10.1234/rca.2021', correcto:true },
+      { id:'c', texto:'Torres, M. (2021). "Auditoría forense en Ecuador". Revista Contabilidad. Vol 5, Nro 2. pp. 12-28.', correcto:false },
+      { id:'d', texto:'Torres, M. Auditoría forense en Ecuador. (2021). Revista Contabilidad 5(2):12–28.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. APA 7 escribe el DOI como URL: https://doi.org/10.xxxx. El título del artículo NO va en cursiva (sí el nombre de la revista). Se usa "–" (guion largo) en el rango de páginas.',
+    feedback_err: '❌ Incorrecto. En APA 7: el DOI va como URL completa (https://doi.org/...), no como "doi:". El título del artículo no lleva comillas. La revista sí va en cursiva. Respuesta correcta: opción B.'
+  },
+  {
+    tipo: 'opcion',
+    num: 5,
+    titulo: 'Ejercicio 5 — Organización como autor',
+    instruccion: '¿Cómo se cita en texto (paráfrasis) un informe del Servicio de Rentas Internas (SRI) publicado en 2023, en su primera mención?',
+    opciones: [
+      { id:'a', texto:'(SRI, 2023)', correcto:false },
+      { id:'b', texto:'(Servicio de Rentas Internas [SRI], 2023)', correcto:true },
+      { id:'c', texto:'(Servicio de Rentas Internas, 2023)', correcto:false },
+      { id:'d', texto:'[Servicio de Rentas Internas, 2023]', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Primera mención: nombre completo + sigla en corchetes + año. Citas posteriores: solo (SRI, 2023). Los corchetes dentro del paréntesis son parte de la norma APA 7.',
+    feedback_err: '❌ Incorrecto. APA 7 establece: primera mención → (Nombre Completo [SIGLA], año). En citas posteriores se abrevia a (SIGLA, año). Respuesta correcta: (Servicio de Rentas Internas [SRI], 2023).'
+  },
+  {
+    tipo: 'opcion',
+    num: 6,
+    titulo: 'Ejercicio 6 — Identifica el error',
+    instruccion: 'Encuentra el error en esta referencia APA 7:\n\nRamírez López, C., & Suárez, P. (2020). Control interno en PYME. (2.ª ed.). Quito, Ecuador: Editorial Universitaria.',
+    opciones: [
+      { id:'a', texto:'El símbolo "&" debe reemplazarse por "y"', correcto:false },
+      { id:'b', texto:'En APA 7 no se escribe el lugar de publicación (Quito, Ecuador)', correcto:true },
+      { id:'c', texto:'El título debe ir entre comillas, no en cursiva implícita', correcto:false },
+      { id:'d', texto:'Los dos puntos después del año son incorrectos', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. APA 7 eliminó el lugar de publicación. El "&" entre autores es correcto en APA (se usa "y" solo en texto narrativo fuera del paréntesis). La referencia correcta: Ramírez López, C., & Suárez, P. (2020). Control interno en PYME (2.ª ed.). Editorial Universitaria.',
+    feedback_err: '❌ Incorrecto. El error es incluir "Quito, Ecuador:", que APA 7 eliminó. El "&" entre autores es correcto en APA. El título en cursiva (implícita aquí) es correcto. Respuesta: opción B.'
+  },
+  {
+    tipo: 'opcion',
+    num: 7,
+    titulo: 'Ejercicio 7 — Tesis de repositorio',
+    instruccion: 'Selecciona el formato APA 7 correcto para citar una tesis de licenciatura de la Universidad de Guayaquil.',
+    opciones: [
+      { id:'a', texto:'Gómez, A. (2022). Auditoría forense en cooperativas [Tesis de licenciatura]. Universidad de Guayaquil. https://repositorio.ug.edu.ec/123', correcto:false },
+      { id:'b', texto:'Gómez, A. (2022). Auditoría forense en cooperativas [Tesis de licenciatura, Universidad de Guayaquil]. Repositorio Digital UG. https://repositorio.ug.edu.ec/123', correcto:true },
+      { id:'c', texto:'Gómez, A. (2022). "Auditoría forense en cooperativas". Tesis de licenciatura, Universidad de Guayaquil.', correcto:false },
+      { id:'d', texto:'Gómez, A. Auditoría forense en cooperativas (Tesis, 2022). UG, Ecuador.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Formato APA 7 para tesis: Apellido, A. (Año). Título [Tipo de tesis, Nombre de la institución]. Nombre del repositorio. URL',
+    feedback_err: '❌ Incorrecto. La clave está en los corchetes: deben incluir tanto el tipo de tesis COMO el nombre de la institución separados por coma: [Tesis de licenciatura, Universidad de Guayaquil]. Respuesta: opción B.'
+  }
+],
+
+// ==================== MLA ====================
+mla: [
+  {
+    tipo: 'opcion',
+    num: 1,
+    titulo: 'Ejercicio 1 — Libro básico en MLA 9',
+    instruccion: 'Selecciona la entrada correcta en formato MLA 9 para un libro.',
+    opciones: [
+      { id:'a', texto:'García Márquez, Gabriel. Cien años de soledad. Sudamericana, 1967.', correcto:true },
+      { id:'b', texto:'García Márquez, G. (1967). Cien años de soledad. Sudamericana.', correcto:false },
+      { id:'c', texto:'García Márquez, Gabriel. "Cien años de soledad". Editorial Sudamericana, 1967.', correcto:false },
+      { id:'d', texto:'García Márquez, Gabriel. 1967. Cien años de soledad. Sudamericana.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. MLA 9: Apellido, Nombre. Título en cursiva. Editorial, Año. El nombre completo va después de la coma del apellido. No hay año entre paréntesis (ese es APA).',
+    feedback_err: '❌ Incorrecto. MLA 9 va: Apellido, Nombre Completo. Título en cursiva. Editorial, Año. Sin paréntesis en el año (eso es APA). Sin comillas para libros (las comillas son para artículos). Correcta: opción A.'
+  },
+  {
+    tipo: 'opcion',
+    num: 2,
+    titulo: 'Ejercicio 2 — Cita en texto MLA (paráfrasis)',
+    instruccion: 'Sofía parafrasea una idea de la página 45 de un libro de García Márquez. ¿Cuál es la cita MLA correcta en el texto?',
+    opciones: [
+      { id:'a', texto:'(García Márquez, 1967, p. 45)', correcto:false },
+      { id:'b', texto:'(García Márquez 45)', correcto:true },
+      { id:'c', texto:'(García Márquez, 45)', correcto:false },
+      { id:'d', texto:'García Márquez (45)', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. MLA 9: (Apellido número-de-página) sin coma y sin "p." Solo apellido y número de página. ¡Sin año! El año es elemento de APA, no de MLA.',
+    feedback_err: '❌ Incorrecto. MLA 9 tiene una cita muy simple: (Apellido página) — sin coma entre apellido y página, sin "p.", sin año. El año es exclusivo de APA. Correcta: (García Márquez 45).'
+  },
+  {
+    tipo: 'opcion',
+    num: 3,
+    titulo: 'Ejercicio 3 — Artículo de revista en MLA 9',
+    instruccion: 'Selecciona el formato MLA 9 correcto para un artículo de revista académica.',
+    opciones: [
+      { id:'a', texto:'Torres, María. "Auditoría forense en Ecuador." Revista Contabilidad, vol. 5, no. 2, 2021, pp. 12–28.', correcto:true },
+      { id:'b', texto:'Torres, María. Auditoría forense en Ecuador. Revista Contabilidad, 5(2), 2021, 12–28.', correcto:false },
+      { id:'c', texto:'Torres, M. (2021). Auditoría forense en Ecuador. Revista Contabilidad, vol. 5, no. 2, pp. 12–28.', correcto:false },
+      { id:'d', texto:'Torres, María. "Auditoría forense en Ecuador". Revista Contabilidad. 2021. 5(2):12–28.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. MLA 9 artículo: Apellido, Nombre. "Título del artículo en comillas." Nombre de la Revista en cursiva, vol. X, no. X, Año, pp. X–X.',
+    feedback_err: '❌ Incorrecto. MLA 9 para artículos: el título del artículo va entre comillas; el nombre de la revista en cursiva; se usa "vol." y "no." explícitos; el año va después del número; se usa "pp." para páginas. Correcta: opción A.'
+  },
+  {
+    tipo: 'opcion',
+    num: 4,
+    titulo: 'Ejercicio 4 — Sitio web en MLA 9',
+    instruccion: 'Selecciona la entrada MLA 9 correcta para una página web del SRI de Ecuador, consultada el 10 de marzo de 2024.',
+    opciones: [
+      { id:'a', texto:'SRI. (2023). Estadísticas de recaudación. Recuperado el 10 de marzo de 2024 de https://sri.gob.ec', correcto:false },
+      { id:'b', texto:'Servicio de Rentas Internas. "Estadísticas de Recaudación Tributaria." SRI, 2023, www.sri.gob.ec. Consultado el 10 mar. 2024.', correcto:true },
+      { id:'c', texto:'Servicio de Rentas Internas, "Estadísticas de Recaudación", www.sri.gob.ec, 2023.', correcto:false },
+      { id:'d', texto:'"Estadísticas de Recaudación." SRI. 2023. Accedido 2024.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. MLA 9 para web: Autor. "Título de la página." Nombre del sitio, año, URL. Fecha de consulta.',
+    feedback_err: '❌ Incorrecto. MLA 9 web incluye la fecha de consulta (importante porque el contenido cambia). El formato es: Autor. "Título." Sitio, Año, URL. Consultado el día mes año. Correcta: opción B.'
+  },
+  {
+    tipo: 'opcion',
+    num: 5,
+    titulo: 'Ejercicio 5 — Dos autores en MLA 9',
+    instruccion: '¿Cómo se escribe la entrada de Works Cited para un libro de dos autores: María Torres y Pedro Ramírez, publicado en 2020?',
+    opciones: [
+      { id:'a', texto:'Torres, María, y Pedro Ramírez. Control interno en empresas. AEI, 2020.', correcto:true },
+      { id:'b', texto:'Torres, María & Ramírez, Pedro. Control interno en empresas. AEI, 2020.', correcto:false },
+      { id:'c', texto:'Torres, M., & Ramírez, P. (2020). Control interno en empresas. AEI.', correcto:false },
+      { id:'d', texto:'Torres, María; Ramírez, Pedro. Control interno en empresas. 2020, AEI.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. MLA 9 con dos autores: solo el primer autor va invertido (Apellido, Nombre); el segundo se escribe en orden normal (Nombre Apellido), separados por "y" (no "&").',
+    feedback_err: '❌ Incorrecto. MLA 9: con dos autores, solo el PRIMERO va invertido. El segundo va en orden natural (Nombre Apellido). Se usa "y", no "&". Correcta: Torres, María, y Pedro Ramírez.'
+  },
+  {
+    tipo: 'opcion',
+    num: 6,
+    titulo: 'Ejercicio 6 — Cita textual en MLA 9',
+    instruccion: 'Sofía copia textualmente esta frase del libro de Torres (página 23): "La auditoría forense detecta fraudes financieros". ¿Cuál es la cita MLA correcta?',
+    opciones: [
+      { id:'a', texto:'"La auditoría forense detecta fraudes financieros" (Torres 23).', correcto:true },
+      { id:'b', texto:'"La auditoría forense detecta fraudes financieros" (Torres, 2020, p. 23).', correcto:false },
+      { id:'c', texto:'"La auditoría forense detecta fraudes financieros" [Torres, 23].', correcto:false },
+      { id:'d', texto:'Torres dice: "La auditoría forense detecta fraudes financieros" p. 23.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Cita textual MLA 9: "texto entre comillas" (Apellido página). El punto final va DESPUÉS del paréntesis. Sin año, sin "p.", sin corchetes.',
+    feedback_err: '❌ Incorrecto. MLA 9 cita textual: "texto" (Apellido página). Sin año (eso es APA). Sin "p." antes del número. Sin corchetes (esos son IEEE/Vancouver). El punto va después del cierre del paréntesis. Correcta: opción A.'
+  },
+  {
+    tipo: 'opcion',
+    num: 7,
+    titulo: 'Ejercicio 7 — Identifica el elemento diferenciador',
+    instruccion: '¿Cuál es la diferencia más importante entre una lista de "Works Cited" (MLA) y una lista de "Referencias" (APA)?',
+    opciones: [
+      { id:'a', texto:'Works Cited incluye TODAS las fuentes consultadas aunque no se citen; Referencias solo las citadas', correcto:false },
+      { id:'b', texto:'En MLA el año aparece al final de la entrada; en APA el año va entre paréntesis después del autor', correcto:true },
+      { id:'c', texto:'Works Cited solo incluye libros; Referencias incluye todo tipo de fuentes', correcto:false },
+      { id:'d', texto:'No hay diferencia; ambas listas son ordenadas por número de aparición', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. La diferencia más visible: en MLA el año se coloca al final de la entrada. En APA el año va inmediatamente después del nombre del autor entre paréntesis. Ambas listas van en orden alfabético.',
+    feedback_err: '❌ Incorrecto. La diferencia clave está en la posición del año: MLA lo pone al final de la entrada; APA lo pone al inicio (después del autor). Ambas son solo fuentes citadas (la "Bibliografía" de Chicago puede incluir más). Correcta: opción B.'
+  }
+],
+
+// ==================== CHICAGO ====================
+chicago: [
+  {
+    tipo: 'opcion',
+    num: 1,
+    titulo: 'Ejercicio 1 — Nota al pie (Chicago sistema notas)',
+    instruccion: 'En Chicago sistema Notas-Bibliografía, ¿cómo aparece la primera cita completa de un libro en la nota al pie?',
+    opciones: [
+      { id:'a', texto:'Hernández Sampieri, 2014, p. 104.', correcto:false },
+      { id:'b', texto:'Roberto Hernández Sampieri, Metodología de la investigación, 6.ª ed. (McGraw-Hill, 2014), 104.', correcto:true },
+      { id:'c', texto:'Hernández Sampieri, R. (2014). Metodología de la investigación (6.ª ed.). McGraw-Hill, p. 104.', correcto:false },
+      { id:'d', texto:'"Metodología de la investigación", Hernández Sampieri (2014), p. 104.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Chicago nota al pie completa: Nombre Apellido, Título en cursiva, edición (Editorial, año), página. El nombre va en orden directo (no invertido) en notas al pie.',
+    feedback_err: '❌ Incorrecto. Chicago nota al pie: nombre en orden DIRECTO (Nombre Apellido), título en cursiva, datos editoriales entre paréntesis, página sin "p.". Correcta: Roberto Hernández Sampieri, Metodología de la investigación, 6.ª ed. (McGraw-Hill, 2014), 104.'
+  },
+  {
+    tipo: 'opcion',
+    num: 2,
+    titulo: 'Ejercicio 2 — Ibid. en Chicago',
+    instruccion: 'La nota 1 cita un libro en la página 45. La nota 2 cita el mismo libro pero en la página 52. ¿Cómo se escribe la nota 2 en Chicago?',
+    opciones: [
+      { id:'a', texto:'Ibid., p. 52.', correcto:false },
+      { id:'b', texto:'Ibid., 52.', correcto:true },
+      { id:'c', texto:'Op. cit., 52.', correcto:false },
+      { id:'d', texto:'Hernández Sampieri, 52.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. "Ibid." (del latín ibidem = en el mismo lugar) se usa en Chicago cuando la cita inmediatamente anterior es del mismo libro. Chicago NO usa "p." antes del número de página en notas. Si es la misma página: solo "Ibid."',
+    feedback_err: '❌ Incorrecto. "Ibid." reemplaza a la referencia completa cuando la nota anterior es del mismo libro. En Chicago las páginas se dan solo con el número, sin "p.". "Op. cit." es una abreviatura antigua que Chicago moderno ya no recomienda. Correcta: Ibid., 52.'
+  },
+  {
+    tipo: 'opcion',
+    num: 3,
+    titulo: 'Ejercicio 3 — Entrada en Bibliografía (Chicago)',
+    instruccion: 'Selecciona la entrada correcta para la Bibliografía en Chicago sistema Notas-Bibliografía.',
+    opciones: [
+      { id:'a', texto:'Hernández Sampieri, Roberto. Metodología de la investigación. 6.ª ed. McGraw-Hill, 2014.', correcto:true },
+      { id:'b', texto:'Hernández Sampieri, Roberto. Metodología de la investigación. 6.ª ed. (McGraw-Hill, 2014).', correcto:false },
+      { id:'c', texto:'Hernández Sampieri, R. (2014). Metodología de la investigación. 6.ª ed. McGraw-Hill.', correcto:false },
+      { id:'d', texto:'Hernández Sampieri, Roberto, Metodología de la investigación, McGraw-Hill, 2014.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Chicago Bibliografía: Apellido, Nombre. Título en cursiva. Edición. Editorial, año. En bibliografía el nombre SÍ va invertido (Apellido, Nombre). Los datos editoriales NO van entre paréntesis (eso los diferencia de la nota al pie).',
+    feedback_err: '❌ Incorrecto. Chicago Bibliografía usa nombre INVERTIDO (Apellido, Nombre) con punto separando elementos. Los datos editoriales van SIN paréntesis (los paréntesis son de las notas al pie, no de la bibliografía). Correcta: opción A.'
+  },
+  {
+    tipo: 'opcion',
+    num: 4,
+    titulo: 'Ejercicio 4 — Artículo de revista (Chicago)',
+    instruccion: '¿Cuál es el formato correcto de nota al pie para un artículo de revista en Chicago?',
+    opciones: [
+      { id:'a', texto:'María Torres, "Auditoría forense en Ecuador", Revista Contabilidad 5, no. 2 (2021): 12–28.', correcto:true },
+      { id:'b', texto:'Torres, María. "Auditoría forense en Ecuador". Revista Contabilidad, vol. 5, no. 2, 2021, pp. 12–28.', correcto:false },
+      { id:'c', texto:'Torres, M. (2021). Auditoría forense en Ecuador. Revista Contabilidad, 5(2), 12–28.', correcto:false },
+      { id:'d', texto:'Torres, María: Auditoría forense en Ecuador. RC 5(2021) 2: 12–28.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Chicago nota al pie para artículo: Nombre Apellido, "Título del artículo", Nombre de la Revista volumen, no. número (año): páginas. El título del artículo va entre comillas y el año entre paréntesis antes de los dos puntos y la página.',
+    feedback_err: '❌ Incorrecto. Chicago artículo (nota): Nombre Apellido, "título artículo", Revista volumen, no. X (año): páginas. La B va con nombre invertido. No usa "pp." ni "vol." antes del número. Los dos puntos separan año de página. Correcta: opción A.'
+  },
+  {
+    tipo: 'opcion',
+    num: 5,
+    titulo: 'Ejercicio 5 — Nota abreviada (cita posterior)',
+    instruccion: 'La nota 1 ya citó el libro de Hernández Sampieri completamente. En la nota 8, Sofía vuelve a citar el mismo libro (página 200) pero no es cita inmediata. ¿Cómo escribe la nota 8 en Chicago?',
+    opciones: [
+      { id:'a', texto:'Ibid., 200.', correcto:false },
+      { id:'b', texto:'Hernández Sampieri, Metodología, 200.', correcto:true },
+      { id:'c', texto:'Hernández Sampieri, Roberto. Metodología de la investigación. 200.', correcto:false },
+      { id:'d', texto:'Op. cit., 200.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Para citas NO inmediatas al mismo libro, Chicago usa la forma abreviada: Apellido, Título abreviado en cursiva, página. Se omite "Ibid." (que solo aplica cuando la nota anterior es del mismo libro) y se descarta el "Op. cit." que Chicago moderno ya no recomienda.',
+    feedback_err: '❌ Incorrecto. "Ibid." solo cuando la nota INMEDIATAMENTE anterior es del mismo texto. Para citas posteriores no inmediatas: Apellido, Título abreviado, página. "Op. cit." no se usa en Chicago moderno. Correcta: Hernández Sampieri, Metodología, 200.'
+  },
+  {
+    tipo: 'opcion',
+    num: 6,
+    titulo: 'Ejercicio 6 — Libro con ciudad de publicación',
+    instruccion: '¿En cuál de los siguientes estilos el lugar de publicación (ciudad) es obligatorio para referencias de libros?',
+    opciones: [
+      { id:'a', texto:'APA 7.ª edición', correcto:false },
+      { id:'b', texto:'MLA 9.ª edición', correcto:false },
+      { id:'c', texto:'Chicago 17.ª edición', correcto:true },
+      { id:'d', texto:'Vancouver', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Chicago 17 mantiene el lugar de publicación en las referencias de libros: Ciudad: Editorial, año. APA 7 eliminó el lugar. MLA 9 también lo eliminó. Vancouver lo incluye solo en algunos formatos de libro.',
+    feedback_err: '❌ Incorrecto. Chicago 17 es el que mantiene la ciudad de publicación: Ciudad: Editorial, año. APA 7 y MLA 9 ya eliminaron el lugar de publicación en sus versiones más recientes. Correcta: Chicago 17.'
+  },
+  {
+    tipo: 'opcion',
+    num: 7,
+    titulo: 'Ejercicio 7 — Chicago sistema Autor-Fecha',
+    instruccion: 'Chicago 17 tiene dos sistemas. ¿Cuál es la cita en texto del sistema Autor-Fecha de Chicago (que se usa en ciencias sociales)?',
+    opciones: [
+      { id:'a', texto:'(Hernández Sampieri 2014, 104)', correcto:true },
+      { id:'b', texto:'(Hernández Sampieri, 2014, p. 104)', correcto:false },
+      { id:'c', texto:'Hernández Sampieri (2014): 104', correcto:false },
+      { id:'d', texto:'[Hernández Sampieri, 2014, 104]', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Chicago Autor-Fecha: (Apellido año, página) — sin coma entre apellido y año, y sin "p." antes del número. Parece APA pero sin coma y sin "p.".',
+    feedback_err: '❌ Incorrecto. Chicago Autor-Fecha: (Apellido año, página). La diferencia con APA: NO hay coma entre apellido y año, y NO se escribe "p." antes del número. Correcta: (Hernández Sampieri 2014, 104).'
+  }
+],
+
+// ==================== VANCOUVER ====================
+vancouver: [
+  {
+    tipo: 'opcion',
+    num: 1,
+    titulo: 'Ejercicio 1 — Cita en texto Vancouver',
+    instruccion: 'En el texto se mencionan tres estudios. ¿Cómo se escriben las citas en texto con estilo Vancouver?',
+    opciones: [
+      { id:'a', texto:'(García, 2019; Torres, 2020; López, 2021)', correcto:false },
+      { id:'b', texto:'(1, 2, 3) o ¹˒²˒³ en superíndice', correcto:true },
+      { id:'c', texto:'[García 45; Torres 89; López 12]', correcto:false },
+      { id:'d', texto:'1. García, 2. Torres, 3. López', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Vancouver usa números en el texto: entre paréntesis (1) o como superíndice ¹. Los números se asignan por orden de aparición en el texto, no alfabéticamente. Múltiples citas: (1,2,3) o ¹˒²˒³.',
+    feedback_err: '❌ Incorrecto. Vancouver no usa apellidos en el texto, sino números. El primer estudio citado es [1], el segundo [2], etc. Estos números remiten a la lista de referencias numerada al final. Correcta: opción B.'
+  },
+  {
+    tipo: 'opcion',
+    num: 2,
+    titulo: 'Ejercicio 2 — Referencia de libro en Vancouver',
+    instruccion: 'Selecciona el formato correcto para un libro en estilo Vancouver.',
+    opciones: [
+      { id:'a', texto:'1. García López M. Manual de auditoría. 3.ª ed. Bogotá: McGraw-Hill; 2019.', correcto:true },
+      { id:'b', texto:'1. García López, M. (2019). Manual de auditoría (3.ª ed.). Bogotá: McGraw-Hill.', correcto:false },
+      { id:'c', texto:'García López M. Manual de auditoría. McGraw-Hill, Bogotá, 2019.', correcto:false },
+      { id:'d', texto:'[1] M. García López, Manual de auditoría, 3rd ed. Bogotá: McGraw-Hill, 2019.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Vancouver libro: N.° Apellido AB (iniciales sin punto). Título. Edición. Ciudad: Editorial; Año. El punto y coma antes del año es característico de Vancouver. Las iniciales van sin puntos entre ellas.',
+    feedback_err: '❌ Incorrecto. Vancouver usa iniciales sin puntos (AB no A.B.), punto y coma antes del año, y número al inicio. Sin paréntesis para el año (eso es APA). Sin corchetes (eso es IEEE). Correcta: 1. García López M. Manual de auditoría. 3.ª ed. Bogotá: McGraw-Hill; 2019.'
+  },
+  {
+    tipo: 'opcion',
+    num: 3,
+    titulo: 'Ejercicio 3 — Artículo de revista Vancouver',
+    instruccion: '¿Cuál es el formato correcto de un artículo de revista en Vancouver?',
+    opciones: [
+      { id:'a', texto:'1. Torres M, Ramírez P. Auditoría forense en Ecuador. Rev Contab Audit. 2021;5(2):12–28.', correcto:true },
+      { id:'b', texto:'1. Torres, M., & Ramírez, P. (2021). Auditoría forense en Ecuador. Revista Contabilidad, 5(2), 12–28.', correcto:false },
+      { id:'c', texto:'1. Torres M, Ramírez P. "Auditoría forense en Ecuador." Rev Contab Audit. 2021, vol.5, no.2, p.12–28.', correcto:false },
+      { id:'d', texto:'Torres M. Auditoría forense en Ecuador. Revista Contabilidad y Auditoría. 5:2, 12–28 (2021).', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Vancouver artículo: N.° Apellidos Iniciales. Título. Rev Abreviada. Año;Volumen(Número):páginas. El nombre de la revista frecuentemente se abrevia. No hay comillas en el título del artículo.',
+    feedback_err: '❌ Incorrecto. Vancouver artículo: N.° Apellido Iniciales. Título sin cursiva. Rev Abreviada. Año;vol(num):páginas. Punto y coma después del año. Sin comas entre autores (solo espacios y comas entre apellido e inicial). Correcta: opción A.'
+  },
+  {
+    tipo: 'opcion',
+    num: 4,
+    titulo: 'Ejercicio 4 — Orden de la lista en Vancouver',
+    instruccion: '¿Cómo se ordena la lista de referencias en estilo Vancouver?',
+    opciones: [
+      { id:'a', texto:'Alfabéticamente por apellido del primer autor', correcto:false },
+      { id:'b', texto:'Por orden de aparición en el texto, numeradas correlativamente', correcto:true },
+      { id:'c', texto:'Por año de publicación, del más reciente al más antiguo', correcto:false },
+      { id:'d', texto:'Primero libros, luego artículos, luego sitios web', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Vancouver ordena las referencias por orden de APARICIÓN en el texto. La primera fuente citada en el manuscrito es la referencia [1], la segunda [2], y así sucesivamente. Esto es diferente de APA y MLA que usan orden alfabético.',
+    feedback_err: '❌ Incorrecto. Vancouver NO va en orden alfabético (eso es APA y MLA). Las referencias se numeran según el orden en que aparecen por primera vez en el texto. Correcta: opción B.'
+  },
+  {
+    tipo: 'opcion',
+    num: 5,
+    titulo: 'Ejercicio 5 — Hasta 6 autores en Vancouver',
+    instruccion: 'Un artículo tiene 8 autores. ¿Cómo se listan los autores en Vancouver?',
+    opciones: [
+      { id:'a', texto:'Se listan los 8 autores completos', correcto:false },
+      { id:'b', texto:'Se listan los 6 primeros autores y luego se agrega "et al."', correcto:true },
+      { id:'c', texto:'Solo se lista el primer autor y se agrega "et al."', correcto:false },
+      { id:'d', texto:'Se listan los 3 primeros y se agrega "y colaboradores"', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Vancouver: cuando hay más de 6 autores, se listan los 6 primeros y se agrega "et al." (o "y col." en español). Si son 6 o menos, se listan todos.',
+    feedback_err: '❌ Incorrecto. Vancouver permite hasta 6 autores completos. Si son 7 o más: primeros 6 + et al. Esto difiere de APA 7 (que usa et al. desde el primero cuando hay 3 o más). Correcta: opción B.'
+  },
+  {
+    tipo: 'opcion',
+    num: 6,
+    titulo: 'Ejercicio 6 — Vancouver vs. APA: diferencia clave',
+    instruccion: 'Identifica la diferencia más importante entre Vancouver y APA al citar en el texto.',
+    opciones: [
+      { id:'a', texto:'Vancouver usa apellidos y año; APA usa solo el año', correcto:false },
+      { id:'b', texto:'Vancouver usa números por orden de aparición; APA usa apellido y año', correcto:true },
+      { id:'c', texto:'Vancouver usa corchetes []; APA usa paréntesis () para citar números', correcto:false },
+      { id:'d', texto:'No hay diferencia en las citas de texto entre ambos estilos', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Esta es la diferencia fundamental: Vancouver identifica la fuente con un número (por orden de aparición); APA la identifica con apellido y año. El lector de Vancouver busca el número en la lista; el de APA busca el apellido.',
+    feedback_err: '❌ Incorrecto. La diferencia esencial es: APA usa (Apellido, año) → sistema autor-fecha. Vancouver usa números → sistema numérico por orden de aparición. Los corchetes son opcionales en Vancouver (también puede usar superíndice o paréntesis). Correcta: opción B.'
+  },
+  {
+    tipo: 'opcion',
+    num: 7,
+    titulo: 'Ejercicio 7 — DOI en Vancouver',
+    instruccion: '¿Cómo se indica el DOI al final de una referencia en estilo Vancouver?',
+    opciones: [
+      { id:'a', texto:'doi: 10.1234/ejemplo (con espacio después de los dos puntos)', correcto:false },
+      { id:'b', texto:'https://doi.org/10.1234/ejemplo', correcto:true },
+      { id:'c', texto:'Disponible en: http://doi.org/10.1234/ejemplo', correcto:false },
+      { id:'d', texto:'DOI: [10.1234/ejemplo]', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. Las guías más actuales de Vancouver (ICMJE) recomiendan el DOI como URL completa: https://doi.org/10.xxxx — igual que APA 7. Esto permite hacer clic directamente en documentos digitales.',
+    feedback_err: '❌ Incorrecto. Vancouver moderno (ICMJE actualizado) usa el DOI como URL: https://doi.org/10.xxxx. El formato "doi:" con dos puntos es el antiguo. No va entre corchetes ni con "Disponible en". Correcta: opción B.'
+  }
+],
+
+// ==================== IEEE ====================
+ieee: [
+  {
+    tipo: 'opcion',
+    num: 1,
+    titulo: 'Ejercicio 1 — Cita en texto IEEE',
+    instruccion: '¿Cuál es la forma correcta de citar en el texto con estilo IEEE cuando se referencian los estudios 1, 3 y 5?',
+    opciones: [
+      { id:'a', texto:'(García, 2019), (López, 2021), (Mora, 2022)', correcto:false },
+      { id:'b', texto:'[1], [3], [5]', correcto:true },
+      { id:'c', texto:'¹ ³ ⁵ (superíndice)', correcto:false },
+      { id:'d', texto:'(1) (3) (5)', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. IEEE usa exclusivamente corchetes con número: [1]. Si son varios: [1], [3], [5] o con rango [1]–[5]. No usa superíndice (ese es Vancouver) ni paréntesis (ese es APA/Chicago).',
+    feedback_err: '❌ Incorrecto. IEEE usa CORCHETES con número: [1], [3], [5]. No usa superíndice (Vancouver) ni paréntesis sin corchete (APA). Solo corchetes. Correcta: opción B.'
+  },
+  {
+    tipo: 'opcion',
+    num: 2,
+    titulo: 'Ejercicio 2 — Artículo de revista IEEE',
+    instruccion: 'Selecciona el formato correcto para un artículo de revista IEEE.',
+    opciones: [
+      { id:'a', texto:'[1] M. Torres y P. Ramírez, "Auditoría forense en Ecuador," Rev. Contab. Audit., vol. 5, no. 2, pp. 12–28, 2021.', correcto:true },
+      { id:'b', texto:'[1] Torres, M., & Ramírez, P. (2021). Auditoría forense en Ecuador. Revista Contabilidad, 5(2), 12–28.', correcto:false },
+      { id:'c', texto:'[1] Torres M, Ramírez P. Auditoría forense en Ecuador. Rev Contab Audit. 2021;5(2):12–28.', correcto:false },
+      { id:'d', texto:'[1] Torres María, Ramírez Pedro. "Auditoría forense en Ecuador." Revista Contabilidad. 2021. 5, 2: 12–28.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. IEEE artículo: [N] I. Apellido e I. Apellido, "Título entre comillas," Rev. Abreviada., vol. X, no. X, pp. X–X, Año. Las iniciales van ANTES del apellido (al revés que APA). La revista se abrevia con punto.',
+    feedback_err: '❌ Incorrecto. IEEE: [N] Inicial. Apellido, "título entre comillas," Rev. Abreviada., vol., no., pp., año. Las iniciales van ANTES del apellido — diferencia clave con todos los otros estilos. Conectivo "y" en español o "and" en inglés entre autores. Correcta: opción A.'
+  },
+  {
+    tipo: 'opcion',
+    num: 3,
+    titulo: 'Ejercicio 3 — Libro en IEEE',
+    instruccion: '¿Cuál es el formato correcto de un libro en IEEE?',
+    opciones: [
+      { id:'a', texto:'[1] R. Hernández Sampieri, Metodología de la investigación, 6.ª ed. México D.F.: McGraw-Hill, 2014.', correcto:true },
+      { id:'b', texto:'[1] Hernández Sampieri, R. (2014). Metodología de la investigación (6.ª ed.). McGraw-Hill.', correcto:false },
+      { id:'c', texto:'[1] Hernández Sampieri R. Metodología de la investigación. 6.ª ed. México DF: McGraw-Hill; 2014.', correcto:false },
+      { id:'d', texto:'[1] "Metodología de la investigación", R. Hernández Sampieri, McGraw-Hill, 2014.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. IEEE libro: [N] I. Apellido Completo, Título en cursiva, ed. Ciudad: Editorial, año. Inicial ANTES del apellido, ciudad de publicación incluida (a diferencia de APA 7), el título va en cursiva.',
+    feedback_err: '❌ Incorrecto. IEEE libro: [N] Inicial. Apellido, Título en cursiva, edición. Ciudad: Editorial, año. Las iniciales van ANTES del apellido. No usa paréntesis para el año (APA). Incluye ciudad (a diferencia de APA 7). Correcta: opción A.'
+  },
+  {
+    tipo: 'opcion',
+    num: 4,
+    titulo: 'Ejercicio 4 — Página web en IEEE',
+    instruccion: 'Sofía cita una página web del SRI. ¿Cuál es el formato IEEE correcto?',
+    opciones: [
+      { id:'a', texto:'[1] Servicio de Rentas Internas, "Estadísticas de Recaudación," SRI. Accedido: mar. 10, 2024. [En línea]. Disponible: https://www.sri.gob.ec/estadisticas', correcto:true },
+      { id:'b', texto:'[1] SRI. (2023). Estadísticas de recaudación. https://www.sri.gob.ec/estadisticas', correcto:false },
+      { id:'c', texto:'[1] Servicio de Rentas Internas. "Estadísticas de Recaudación." SRI, 2023, www.sri.gob.ec. Consultado el 10 mar. 2024.', correcto:false },
+      { id:'d', texto:'[1] https://www.sri.gob.ec/estadisticas (Accedido 2024)', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. IEEE web: [N] Autor, "Título de la página," Nombre del sitio. Fecha de acceso: mes día, año. [En línea]. Disponible: URL. La etiqueta "[En línea]" y "Disponible:" son características de IEEE.',
+    feedback_err: '❌ Incorrecto. IEEE web incluye la etiqueta [En línea] y "Disponible:" antes de la URL — características únicas de IEEE. La fecha de acceso usa el formato: mes (abreviado) día, año. No usa solo la URL ni el formato APA. Correcta: opción A.'
+  },
+  {
+    tipo: 'opcion',
+    num: 5,
+    titulo: 'Ejercicio 5 — Diferencia clave IEEE vs. Vancouver',
+    instruccion: '¿Cuál es la diferencia más importante entre el estilo IEEE y Vancouver en la forma de citar en el texto?',
+    opciones: [
+      { id:'a', texto:'No hay diferencia: ambos usan números entre corchetes', correcto:false },
+      { id:'b', texto:'IEEE usa corchetes [1]; Vancouver usa superíndice ¹ o paréntesis (1). IEEE SIEMPRE usa corchetes', correcto:true },
+      { id:'c', texto:'IEEE usa nombres completos; Vancouver usa solo iniciales', correcto:false },
+      { id:'d', texto:'Vancouver usa corchetes; IEEE usa paréntesis con números', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. IEEE usa EXCLUSIVAMENTE corchetes [1] en el texto. Vancouver puede usar superíndice ¹, paréntesis (1) o corchetes [1] — tiene más flexibilidad. En la lista de referencias también difieren: IEEE tiene las iniciales antes del apellido; Vancouver las iniciales después.',
+    feedback_err: '❌ Incorrecto. IEEE siempre usa corchetes [1]. Vancouver tiene más flexibilidad: puede usar superíndice ¹, corchetes [1] o paréntesis (1), dependiendo de la revista. Además, en IEEE las iniciales van antes del apellido; en Vancouver van después. Correcta: opción B.'
+  },
+  {
+    tipo: 'opcion',
+    num: 6,
+    titulo: 'Ejercicio 6 — Conferencia en IEEE',
+    instruccion: 'Selecciona el formato correcto para citar una ponencia presentada en un congreso (conferencia) en IEEE.',
+    opciones: [
+      { id:'a', texto:'[1] P. García, "Inteligencia artificial en auditoría," en Proc. Int. Conf. Accounting Tech., Lima, 2022, pp. 45–52.', correcto:true },
+      { id:'b', texto:'[1] García, P. (2022). Inteligencia artificial en auditoría. En Actas del Congreso Internacional de Tecnología Contable (pp. 45–52).', correcto:false },
+      { id:'c', texto:'[1] García P. "Inteligencia artificial en auditoría." Conferencia Internacional de Tecnología Contable. Lima, 2022. 45–52.', correcto:false },
+      { id:'d', texto:'[1] García, Pedro. Inteligencia artificial en auditoría. Lima: Congreso, 2022. pp. 45–52.', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. IEEE ponencia: [N] Inicial. Apellido, "Título de la ponencia," en Proc. Abreviatura del Congreso, Ciudad, año, pp. X–X. La palabra "en" antes del nombre de las actas y "Proc." son típicas de IEEE.',
+    feedback_err: '❌ Incorrecto. IEEE conferencia: [N] I. Apellido, "título," en Proc. Nombre Congreso, Ciudad, año, pp. La inicial ANTES del apellido, "en" antes de las actas del congreso, y "Proc." como abreviatura de Proceedings. Correcta: opción A.'
+  },
+  {
+    tipo: 'opcion',
+    num: 7,
+    titulo: 'Ejercicio 7 — ¿Cuál es el campo principal de IEEE?',
+    instruccion: '¿Para qué disciplinas fue diseñado originalmente el estilo IEEE y en qué tipo de publicaciones se usa principalmente?',
+    opciones: [
+      { id:'a', texto:'Ciencias sociales y administración de empresas', correcto:false },
+      { id:'b', texto:'Medicina y ciencias de la salud', correcto:false },
+      { id:'c', texto:'Ingeniería eléctrica, electrónica, computación y tecnología', correcto:true },
+      { id:'d', texto:'Historia, literatura y artes', correcto:false }
+    ],
+    feedback_ok: '✅ Correcto. IEEE (Institute of Electrical and Electronics Engineers) es el estilo estándar en ingeniería eléctrica, electrónica, computación, robótica, telecomunicaciones y tecnología en general. En Contabilidad y Auditoría lo usarías si publicas en revistas de tecnología financiera (FinTech) o sistemas de información contable.',
+    feedback_err: '❌ Incorrecto. IEEE fue creado por el Instituto de Ingenieros Eléctricos y Electrónicos para sus publicaciones de ingeniería, computación y tecnología. Para ciencias sociales y administración se usa APA. Para salud: Vancouver. Para humanidades: MLA o Chicago. Correcta: opción C.'
+  }
+]
+
+}; // fin EJERCICIOS
+
+// ============================================================
+//  ESTADO
+// ============================================================
+const estado = {
+  apa:      { actual:0, puntaje:0, respondidos:{} },
+  mla:      { actual:0, puntaje:0, respondidos:{} },
+  chicago:  { actual:0, puntaje:0, respondidos:{} },
+  vancouver:{ actual:0, puntaje:0, respondidos:{} },
+  ieee:     { actual:0, puntaje:0, respondidos:{} }
+};
+
+// ============================================================
+//  RENDER
+// ============================================================
+function renderEstilo(estilo) {
+  const ejArr = EJERCICIOS[estilo];
+  const st = estado[estilo];
+  const container = document.getElementById('ej-' + estilo + '-container');
+  const steps = document.getElementById('steps-' + estilo);
+
+  // Steps
+  let stepsHTML = '';
+  ejArr.forEach((ej, i) => {
+    if (i > 0) stepsHTML += '<div class="step-line' + (i <= st.puntaje ? ' done' : '') + '"></div>';
+    let cls = '';
+    if (st.respondidos[i] === true) cls = 'done';
+    else if (st.respondidos[i] === false) cls = 'wrong';
+    else if (i === st.actual) cls = 'current';
+    stepsHTML += '<div class="step-dot ' + cls + '">' + (i+1) + '</div>';
+  });
+  steps.innerHTML = stepsHTML;
+
+  // Ejercicio actual
+  const ej = ejArr[st.actual];
+  let html = '<div class="ej-card">';
+  html += '<div class="ej-num">Ejercicio ' + ej.num + ' de 7</div>';
+  html += '<h3>' + ej.titulo + '</h3>';
+  html += '<div class="ej-instruccion">' + ej.instruccion + '</div>';
+
+  // Opciones
+  html += '<div class="opciones" id="opciones-' + estilo + '">';
+  ej.opciones.forEach(op => {
+    html += '<label class="opcion-label" id="lbl-' + estilo + '-' + op.id + '">';
+    html += '<input type="radio" name="op-' + estilo + '" value="' + op.id + '"> ';
+    html += '<span>' + op.id.toUpperCase() + ') ' + op.texto + '</span>';
+    html += '</label>';
+  });
+  html += '</div>';
+
+  // Feedback
+  html += '<div class="feedback-box" id="fb-' + estilo + '"></div>';
+
+  // Botones
+  html += '<div class="btn-wrap">';
+  html += '<button class="btn btn-primary" id="btn-verificar-' + estilo + '" onclick="verificarEj(\'' + estilo + '\')">✔ Verificar</button>';
+  html += '</div>';
+  html += '</div>';
+
+  container.innerHTML = html;
+  updateScoreBadge(estilo);
+  document.getElementById('resultado-' + estilo).style.display = 'none';
+}
+
+function verificarEj(estilo) {
+  const ej = EJERCICIOS[estilo][estado[estilo].actual];
+  const sel = document.querySelector('input[name="op-' + estilo + '"]:checked');
+  if (!sel) { alert('Selecciona una opción antes de verificar.'); return; }
+
+  const val = sel.value;
+  const opCorrecta = ej.opciones.find(o => o.correcto);
+  const correcto = val === opCorrecta.id;
+
+  // Deshabilitar opciones
+  ej.opciones.forEach(op => {
+    const lbl = document.getElementById('lbl-' + estilo + '-' + op.id);
+    lbl.classList.add('disabled');
+    if (op.correcto) lbl.classList.add('correcto');
+    else if (op.id === val && !op.correcto) lbl.classList.add('incorrecto');
+  });
+
+  // Feedback
+  const fb = document.getElementById('fb-' + estilo);
+  fb.style.display = 'block';
+  if (correcto) {
+    fb.className = 'feedback-box ok';
+    fb.innerHTML = ej.feedback_ok;
+    estado[estilo].respondidos[estado[estilo].actual] = true;
+    estado[estilo].puntaje++;
+  } else {
+    fb.className = 'feedback-box err';
+    fb.innerHTML = ej.feedback_err + '<div class="respuesta-correcta"><strong>Respuesta correcta → ' + opCorrecta.id.toUpperCase() + '):</strong> ' + opCorrecta.texto + '</div>';
+    estado[estilo].respondidos[estado[estilo].actual] = false;
+  }
+
+  // Cambiar botón
+  const btnV = document.getElementById('btn-verificar-' + estilo);
+  btnV.style.display = 'none';
+
+  const btnWrap = btnV.parentElement;
+
+  if (estado[estilo].actual < EJERCICIOS[estilo].length - 1) {
+    const btnSig = document.createElement('button');
+    btnSig.className = 'btn btn-success';
+    btnSig.textContent = '▶ Siguiente ejercicio';
+    btnSig.onclick = () => siguienteEj(estilo);
+    btnWrap.appendChild(btnSig);
+  } else {
+    const btnFin = document.createElement('button');
+    btnFin.className = 'btn btn-primary';
+    btnFin.textContent = '🏁 Ver resultados finales';
+    btnFin.onclick = () => mostrarResultado(estilo);
+    btnWrap.appendChild(btnFin);
+  }
+
+  updateScoreBadge(estilo);
+  // Update steps
+  const steps = document.getElementById('steps-' + estilo);
+  const dots = steps.querySelectorAll('.step-dot');
+  const i = estado[estilo].actual;
+  dots[i].className = 'step-dot ' + (correcto ? 'done' : 'wrong');
+}
+
+function siguienteEj(estilo) {
+  estado[estilo].actual++;
+  renderEstilo(estilo);
+  window.scrollTo({ top: document.getElementById('tab-' + estilo).offsetTop - 60, behavior:'smooth' });
+}
+
+function mostrarResultado(estilo) {
+  const puntaje = estado[estilo].puntaje;
+  const pct = Math.round((puntaje / 7) * 100);
+  const res = document.getElementById('resultado-' + estilo);
+  res.style.display = 'block';
+
+  let emoji, titulo, msg;
+  if (puntaje === 7)      { emoji='🏆'; titulo='¡Perfecto! 7 de 7'; msg='Dominio completo del estilo. ¡Excelente trabajo!'; }
+  else if (puntaje >= 5)  { emoji='🎯'; titulo='¡Muy bien! '+puntaje+' de 7'; msg='Buen manejo. Revisa los ejercicios fallidos y repite para alcanzar el 7/7.'; }
+  else if (puntaje >= 3)  { emoji='📘'; titulo='En progreso: '+puntaje+' de 7'; msg='Vas por buen camino. Reinicia para reforzar los conceptos.'; }
+  else                    { emoji='📖'; titulo=''+puntaje+' de 7 — Sigue practicando'; msg='Repasa la guía rápida y reinicia el ejercicio.'; }
+
+  document.getElementById('emoji-' + estilo).textContent = emoji;
+  document.getElementById('titulo-' + estilo).textContent = titulo;
+  document.getElementById('puntaje-' + estilo).textContent = puntaje + '/7 correctas — ' + pct + '%';
+  document.getElementById('msg-' + estilo).textContent = msg;
+  setTimeout(() => { document.getElementById('barra-' + estilo).style.width = pct + '%'; }, 150);
+
+  document.getElementById('ej-' + estilo + '-container').style.display = 'none';
+  res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function reiniciarEstilo(estilo) {
+  estado[estilo] = { actual:0, puntaje:0, respondidos:{} };
+  document.getElementById('ej-' + estilo + '-container').style.display = 'block';
+  document.getElementById('resultado-' + estilo).style.display = 'none';
+  document.getElementById('barra-' + estilo).style.width = '0%';
+  renderEstilo(estilo);
+  window.scrollTo({ top: document.getElementById('tab-' + estilo).offsetTop - 60, behavior:'smooth' });
+}
+
+function updateScoreBadge(estilo) {
+  const badge = document.getElementById('score-' + estilo + '-badge');
+  const p = estado[estilo].puntaje;
+  badge.textContent = (p === 7 ? '🏆' : '⭐') + ' ' + p + ' / 7';
+}
+
+// ============================================================
+//  TABS
+// ============================================================
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Render si primera vez
+  if (id !== 'intro' && document.getElementById('ej-' + id + '-container').innerHTML === '') {
+    renderEstilo(id);
+  }
+}
+
+// ============================================================
+//  INIT
+// ============================================================
+// Pre-render intro (ya activo)
+// Los demás se renderizan al hacer clic en la pestaña
+</script>
+</body>
+</html>
